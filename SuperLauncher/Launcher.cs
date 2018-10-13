@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Threading;
 
 namespace SuperLauncher
 {
@@ -18,15 +19,37 @@ namespace SuperLauncher
             InitializeComponent();
         }
 
+        public void FadeIn()
+        {
+            Opacity = 0;
+            Show();
+            while(Opacity <= .96)
+            {
+                Thread.Sleep(1);
+                Opacity += .02;
+            }
+        }
+
+        public void FadeOut()
+        {
+            Opacity = .96;
+            while (Opacity > 0)
+            {
+                Thread.Sleep(1);
+                Opacity -= .02;
+            }
+            Hide();
+        }
+
         private void Launcher_Shown(object sender, EventArgs e)
         {
-            Hide();
+            FadeOut();
         }
 
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
         {
             e.Cancel = true;
-            Hide();
+            FadeOut();
         }
 
         private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
@@ -34,13 +57,20 @@ namespace SuperLauncher
             if(e.Button == MouseButtons.Left)
             {
                 Left = MousePosition.X - (Width / 2);
-                Show();
+                Top = MousePosition.Y - (Height + 20);
+                FadeIn();
+                Activate();
             }
         }
 
         private void exitSuperLauncherToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void Launcher_Deactivate(object sender, EventArgs e)
+        {
+            FadeOut();
         }
     }
 }

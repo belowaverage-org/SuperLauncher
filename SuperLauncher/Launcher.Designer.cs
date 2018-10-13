@@ -31,13 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launcher));
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+            this.TrayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.exitSuperLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DragLogo = new System.Windows.Forms.PictureBox();
             this.listView1 = new System.Windows.Forms.ListView();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.TrayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.exitSuperLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.DragLogo)).BeginInit();
             this.TrayMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.DragLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // TrayIcon
@@ -48,6 +48,22 @@
             this.TrayIcon.Text = "Super Launcher";
             this.TrayIcon.Visible = true;
             this.TrayIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseClick);
+            // 
+            // TrayMenu
+            // 
+            this.TrayMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.TrayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exitSuperLauncherToolStripMenuItem});
+            this.TrayMenu.Name = "TrayMenu";
+            this.TrayMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
+            this.TrayMenu.Size = new System.Drawing.Size(208, 28);
+            // 
+            // exitSuperLauncherToolStripMenuItem
+            // 
+            this.exitSuperLauncherToolStripMenuItem.Name = "exitSuperLauncherToolStripMenuItem";
+            this.exitSuperLauncherToolStripMenuItem.Size = new System.Drawing.Size(207, 24);
+            this.exitSuperLauncherToolStripMenuItem.Text = "Exit Super Launcher";
+            this.exitSuperLauncherToolStripMenuItem.Click += new System.EventHandler(this.exitSuperLauncherToolStripMenuItem_Click);
             // 
             // DragLogo
             // 
@@ -84,46 +100,31 @@
             this.toolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
             this.toolStripMenuItem1.Text = "Exit Super Launcher";
             // 
-            // TrayMenu
-            // 
-            this.TrayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitSuperLauncherToolStripMenuItem});
-            this.TrayMenu.Name = "TrayMenu";
-            this.TrayMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.TrayMenu.Size = new System.Drawing.Size(181, 48);
-            // 
-            // exitSuperLauncherToolStripMenuItem
-            // 
-            this.exitSuperLauncherToolStripMenuItem.Name = "exitSuperLauncherToolStripMenuItem";
-            this.exitSuperLauncherToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exitSuperLauncherToolStripMenuItem.Text = "Exit Super Launcher";
-            this.exitSuperLauncherToolStripMenuItem.Click += new System.EventHandler(this.exitSuperLauncherToolStripMenuItem_Click);
-            // 
             // Launcher
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 21F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(238, 298);
+            this.ControlBox = false;
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.DragLogo);
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Launcher";
-            this.Opacity = 0.95D;
+            this.Opacity = 0D;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Text = "Super Launcher";
             this.TopMost = true;
+            this.Deactivate += new System.EventHandler(this.Launcher_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Launcher_FormClosing);
             this.Shown += new System.EventHandler(this.Launcher_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.DragLogo)).EndInit();
             this.TrayMenu.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.DragLogo)).EndInit();
             this.ResumeLayout(false);
 
         }

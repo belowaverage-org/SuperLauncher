@@ -4,6 +4,7 @@ using System.Threading;
 using System.IO;
 using System.Drawing;
 using System.Diagnostics;
+using System.Collections.Specialized;
 
 namespace SuperLauncher
 {
@@ -15,6 +16,14 @@ namespace SuperLauncher
         {
             InitializeComponent();
             imageList.ImageSize = new Size(32, 32);
+            if(Properties.Settings.Default.fileList == null)
+            {
+                Properties.Settings.Default.fileList = new StringCollection();
+            }
+            foreach(string file in Properties.Settings.Default.fileList)
+            {
+                addIcon(file);
+            }
         }
 
         public void FadeIn()
@@ -46,13 +55,22 @@ namespace SuperLauncher
             {
                 fileLocation = FileLocation;
             }
-            
+        }
+
+        public void addIcon(string filePath)
+        {
+            FileInfo fileInfo = new FileInfo(filePath);
+            imageList.Images.Add(filePath, Icon.ExtractAssociatedIcon(filePath));
+            IconsBox.LargeImageList = imageList;
+            ListViewItem item = IconsBox.Items.Add(fileInfo.Name.Replace(fileInfo.Extension, ""));
+            item.ImageKey = filePath;
+            item.Tag = new IconData(filePath);
         }
 
         private void Launcher_Shown(object sender, EventArgs e)
         {
             FadeIn();
-            //FadeOut();
+            FadeOut();
         }
 
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
@@ -86,33 +104,42 @@ namespace SuperLauncher
             }
         }
 
-        private void IconsBox_DragDrop(object sender, DragEventArgs e)
+        private void IconsBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            string[] files = (string[])e.Data.GetData("FileDrop", true);
-            foreach(string file in files)
-            {
-                FileInfo fileInfo = new FileInfo(file);
-                imageList.Images.Add(file, Icon.ExtractAssociatedIcon(file));
-                IconsBox.LargeImageList = imageList;
+            Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
+        }
 
-                ListViewItem item = IconsBox.Items.Add(fileInfo.Name.Replace(fileInfo.Extension, ""));
-                item.ImageKey = file;
-                
-                
-                Console.WriteLine(file);
-                item.Tag = new IconData(file);
+        private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            foreach(string file in OpenFileDialog.FileNames)
+            {
+                addIcon(file);
+                Properties.Settings.Default.fileList.Add(file);
+                Properties.Settings.Default.Save();
             }
         }
 
-        private void IconsBox_DragEnter(object sender, DragEventArgs e)
+        private void addShortcutStripMenuItem_Click(object sender, EventArgs e)
         {
-            e.Effect = DragDropEffects.Link;
+            OpenFileDialog.ShowDialog();
         }
 
-        private void IconsBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        private void IconsBox_MouseClick(object sender, MouseEventArgs e)
         {
-            Console.WriteLine(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
-            Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
+            if(e.Button == MouseButtons.Right)
+            {
+                RightClickMenu.Show();
+                RightClickMenu.Left = MousePosition.X;
+                RightClickMenu.Top = MousePosition.Y;
+            }
+        }
+
+        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.fileList.Remove(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
+            Properties.Settings.Default.Save();
+            IconsBox.FocusedItem.Remove();
         }
     }
 }
+ 

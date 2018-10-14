@@ -22,5 +22,16 @@ namespace SuperLauncher.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public global::System.Collections.Specialized.StringCollection fileList {
+            get {
+                return ((global::System.Collections.Specialized.StringCollection)(this["fileList"]));
+            }
+            set {
+                this["fileList"] = value;
+            }
+        }
     }
 }

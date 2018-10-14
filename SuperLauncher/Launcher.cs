@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Threading;
 using System.IO;
 using System.Drawing;
+using System.Diagnostics;
 
 namespace SuperLauncher
 {
@@ -13,6 +14,7 @@ namespace SuperLauncher
         public Launcher()
         {
             InitializeComponent();
+            imageList.ImageSize = new Size(32, 32);
         }
 
         public void FadeIn()
@@ -39,7 +41,7 @@ namespace SuperLauncher
 
         public class IconData
         {
-            private string fileLocation;
+            public string fileLocation;
             public IconData(string FileLocation)
             {
                 fileLocation = FileLocation;
@@ -72,6 +74,7 @@ namespace SuperLauncher
 
         private void exitSuperLauncherToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            FadeOut();
             Environment.Exit(0);
         }
 
@@ -88,12 +91,11 @@ namespace SuperLauncher
             string[] files = (string[])e.Data.GetData("FileDrop", true);
             foreach(string file in files)
             {
-                
-
+                FileInfo fileInfo = new FileInfo(file);
                 imageList.Images.Add(file, Icon.ExtractAssociatedIcon(file));
                 IconsBox.LargeImageList = imageList;
 
-                ListViewItem item = IconsBox.Items.Add(file);
+                ListViewItem item = IconsBox.Items.Add(fileInfo.Name.Replace(fileInfo.Extension, ""));
                 item.ImageKey = file;
                 
                 
@@ -105,6 +107,12 @@ namespace SuperLauncher
         private void IconsBox_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Link;
+        }
+
+        private void IconsBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Console.WriteLine(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
+            Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
         }
     }
 }

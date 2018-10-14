@@ -123,9 +123,11 @@
             this.IconsBox.Size = new System.Drawing.Size(238, 229);
             this.IconsBox.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.IconsBox.TabIndex = 1;
+            this.IconsBox.TileSize = new System.Drawing.Size(50, 50);
             this.IconsBox.UseCompatibleStateImageBehavior = false;
             this.IconsBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.IconsBox_DragDrop);
             this.IconsBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.IconsBox_DragEnter);
+            this.IconsBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.IconsBox_MouseDoubleClick);
             // 
             // toolStripMenuItem1
             // 

@@ -11,12 +11,15 @@ namespace SuperLauncher
     public partial class Launcher : Form
     {
         public ImageList imageList = new ImageList();
+        public bool fakeClose = true;
 
         public Launcher()
         {
             InitializeComponent();
             imageList.ImageSize = new Size(32, 32);
-            if(Properties.Settings.Default.fileList == null)
+            Width = Properties.Settings.Default.width;
+            Height = Properties.Settings.Default.height;
+            if (Properties.Settings.Default.fileList == null)
             {
                 Properties.Settings.Default.fileList = new StringCollection();
             }
@@ -28,23 +31,27 @@ namespace SuperLauncher
 
         public void FadeIn()
         {
-            Opacity = 0;
+            //Opacity = .96;
             Show();
+            /*
             while(Opacity <= .96)
             {
                 Thread.Sleep(1);
                 Opacity += .02;
             }
+            */
         }
 
         public void FadeOut()
         {
-            Opacity = .96;
+            //Opacity = .96;
+            /*
             while (Opacity > 0)
             {
                 Thread.Sleep(1);
                 Opacity -= .02;
             }
+            */
             Hide();
         }
 
@@ -75,8 +82,15 @@ namespace SuperLauncher
 
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true;
-            FadeOut();
+            if(fakeClose)
+            {
+                e.Cancel = true;
+                FadeOut();
+            }
+            else
+            {
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
@@ -84,7 +98,7 @@ namespace SuperLauncher
             if(e.Button == MouseButtons.Left)
             {
                 Left = MousePosition.X - (Width / 2);
-                Top = MousePosition.Y - (Height + 20);
+                Top = Screen.PrimaryScreen.WorkingArea.Bottom - Height;
                 FadeIn();
                 Activate();
             }
@@ -92,20 +106,23 @@ namespace SuperLauncher
 
         private void exitSuperLauncherToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FadeOut();
-            Environment.Exit(0);
+            fakeClose = false;
+            Close();
         }
 
         private void Launcher_Deactivate(object sender, EventArgs e)
         {
+            /*
             if(!keepSuperLauncherOpenToolStripMenuItem.Checked)
             {
+            */
                 FadeOut();
-            }
+            //}
         }
 
         private void IconsBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            FadeOut();
             Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
         }
 
@@ -139,6 +156,12 @@ namespace SuperLauncher
             Properties.Settings.Default.fileList.Remove(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
             Properties.Settings.Default.Save();
             IconsBox.FocusedItem.Remove();
+        }
+
+        private void Launcher_Resize(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.width = Width;
+            Properties.Settings.Default.height = Height;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using System.Threading;
 using System.IO;
 using System.Drawing;
 using System.Diagnostics;
@@ -13,45 +12,36 @@ namespace SuperLauncher
         public ImageList imageList = new ImageList();
         public bool fakeClose = true;
 
+        private bool fileDialogOpen = false;
+
         public Launcher()
         {
+            var initialWidth = Properties.Settings.Default.width;
+            var initialHeight = Properties.Settings.Default.height;
             InitializeComponent();
             imageList.ImageSize = new Size(32, 32);
-            Width = Properties.Settings.Default.width;
-            Height = Properties.Settings.Default.height;
+            Width = initialWidth;
+            Height = initialHeight;
             if (Properties.Settings.Default.fileList == null)
             {
                 Properties.Settings.Default.fileList = new StringCollection();
             }
             foreach(string file in Properties.Settings.Default.fileList)
             {
-                addIcon(file);
+                if(File.Exists(file))
+                {
+                    addIcon(file);
+                }
             }
         }
 
         public void FadeIn()
         {
-            //Opacity = .96;
             Show();
-            /*
-            while(Opacity <= .96)
-            {
-                Thread.Sleep(1);
-                Opacity += .02;
-            }
-            */
         }
 
         public void FadeOut()
         {
-            //Opacity = .96;
-            /*
-            while (Opacity > 0)
-            {
-                Thread.Sleep(1);
-                Opacity -= .02;
-            }
-            */
             Hide();
         }
 
@@ -112,12 +102,7 @@ namespace SuperLauncher
 
         private void Launcher_Deactivate(object sender, EventArgs e)
         {
-            /*
-            if(!keepSuperLauncherOpenToolStripMenuItem.Checked)
-            {
-            */
-                FadeOut();
-            //}
+            FadeOut();
         }
 
         private void IconsBox_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -138,7 +123,12 @@ namespace SuperLauncher
 
         private void addShortcutStripMenuItem_Click(object sender, EventArgs e)
         {
-            OpenFileDialog.ShowDialog();
+            if(!fileDialogOpen)
+            {
+                fileDialogOpen = true;
+                OpenFileDialog.ShowDialog();
+                fileDialogOpen = false;
+            }
         }
 
         private void IconsBox_MouseClick(object sender, MouseEventArgs e)

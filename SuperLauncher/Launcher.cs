@@ -19,6 +19,11 @@ namespace SuperLauncher
             var initialWidth = Properties.Settings.Default.width;
             var initialHeight = Properties.Settings.Default.height;
             InitializeComponent();
+            if(UserAccountControl.Uac.IsProcessElevated())
+            {
+                elevateToolStripMenuItem.Visible = false;
+            }
+            elevateToolStripMenuItem.Image = Properties.Resources.shield.ToBitmap();
             imageList.ImageSize = new Size(32, 32);
             Width = initialWidth;
             Height = initialHeight;
@@ -26,9 +31,9 @@ namespace SuperLauncher
             {
                 Properties.Settings.Default.fileList = new StringCollection();
             }
-            foreach(string file in Properties.Settings.Default.fileList)
+            foreach (string file in Properties.Settings.Default.fileList)
             {
-                if(File.Exists(file))
+                if (File.Exists(file))
                 {
                     addIcon(file);
                 }
@@ -72,7 +77,7 @@ namespace SuperLauncher
 
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(fakeClose)
+            if (fakeClose)
             {
                 e.Cancel = true;
                 FadeOut();
@@ -85,7 +90,7 @@ namespace SuperLauncher
 
         private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
                 Left = MousePosition.X - (Width / 2);
                 Top = Screen.PrimaryScreen.WorkingArea.Bottom - Height;
@@ -113,7 +118,7 @@ namespace SuperLauncher
 
         private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            foreach(string file in OpenFileDialog.FileNames)
+            foreach (string file in OpenFileDialog.FileNames)
             {
                 addIcon(file);
                 Properties.Settings.Default.fileList.Add(file);
@@ -123,7 +128,7 @@ namespace SuperLauncher
 
         private void addShortcutStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(!fileDialogOpen)
+            if (!fileDialogOpen)
             {
                 fileDialogOpen = true;
                 OpenFileDialog.ShowDialog();
@@ -133,7 +138,7 @@ namespace SuperLauncher
 
         private void IconsBox_MouseClick(object sender, MouseEventArgs e)
         {
-            if(e.Button == MouseButtons.Right)
+            if (e.Button == MouseButtons.Right)
             {
                 RightClickMenu.Show();
                 RightClickMenu.Left = MousePosition.X;
@@ -152,6 +157,12 @@ namespace SuperLauncher
         {
             Properties.Settings.Default.width = Width;
             Properties.Settings.Default.height = Height;
+        }
+
+        private void ElevateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UserAccountControl.Uac.ElevateAndQuit();
+            Application.ExitThread();
         }
     }
 }

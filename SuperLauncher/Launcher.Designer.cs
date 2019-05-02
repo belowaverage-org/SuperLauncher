@@ -42,6 +42,7 @@
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.RightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.elevateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TrayMenu.SuspendLayout();
             this.RightClickMenu.SuspendLayout();
             this.SuspendLayout();
@@ -62,11 +63,12 @@
             this.toolStripSeparator3,
             this.superLauncherToolStripMenuItem,
             this.toolStripSeparator2,
+            this.elevateToolStripMenuItem,
             this.addShortcutStripMenuItem,
             this.exitSuperLauncherToolStripMenuItem});
             this.TrayMenu.Name = "TrayMenu";
             this.TrayMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.TrayMenu.Size = new System.Drawing.Size(161, 94);
+            this.TrayMenu.Size = new System.Drawing.Size(185, 142);
             // 
             // toolStripSeparator3
             // 
@@ -77,7 +79,7 @@
             // 
             this.superLauncherToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("superLauncherToolStripMenuItem.Image")));
             this.superLauncherToolStripMenuItem.Name = "superLauncherToolStripMenuItem";
-            this.superLauncherToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.superLauncherToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.superLauncherToolStripMenuItem.Text = "Super Launcher";
             // 
             // toolStripSeparator2
@@ -150,6 +152,13 @@
             this.removeToolStripMenuItem.Text = "Remove...";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
+            // elevateToolStripMenuItem
+            // 
+            this.elevateToolStripMenuItem.Name = "elevateToolStripMenuItem";
+            this.elevateToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.elevateToolStripMenuItem.Text = "Elevate...";
+            this.elevateToolStripMenuItem.Click += new System.EventHandler(this.ElevateToolStripMenuItem_Click);
+            // 
             // Launcher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -193,6 +202,7 @@
         private System.Windows.Forms.ToolStripMenuItem addShortcutStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip RightClickMenu;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem elevateToolStripMenuItem;
     }
 }
 

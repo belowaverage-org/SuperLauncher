@@ -35,6 +35,7 @@
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.superLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.elevateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addShortcutStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitSuperLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.IconsBox = new System.Windows.Forms.ListView();
@@ -42,7 +43,7 @@
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.RightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.elevateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.runAsStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TrayMenu.SuspendLayout();
             this.RightClickMenu.SuspendLayout();
             this.SuspendLayout();
@@ -64,16 +65,17 @@
             this.superLauncherToolStripMenuItem,
             this.toolStripSeparator2,
             this.elevateToolStripMenuItem,
+            this.runAsStripMenuItem,
             this.addShortcutStripMenuItem,
             this.exitSuperLauncherToolStripMenuItem});
             this.TrayMenu.Name = "TrayMenu";
             this.TrayMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.TrayMenu.Size = new System.Drawing.Size(185, 142);
+            this.TrayMenu.Size = new System.Drawing.Size(185, 168);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(181, 6);
             // 
             // superLauncherToolStripMenuItem
             // 
@@ -85,19 +87,26 @@
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(157, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(181, 6);
+            // 
+            // elevateToolStripMenuItem
+            // 
+            this.elevateToolStripMenuItem.Name = "elevateToolStripMenuItem";
+            this.elevateToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.elevateToolStripMenuItem.Text = "Elevate...";
+            this.elevateToolStripMenuItem.Click += new System.EventHandler(this.ElevateToolStripMenuItem_Click);
             // 
             // addShortcutStripMenuItem
             // 
             this.addShortcutStripMenuItem.Name = "addShortcutStripMenuItem";
-            this.addShortcutStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.addShortcutStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.addShortcutStripMenuItem.Text = "Add shortcut...";
             this.addShortcutStripMenuItem.Click += new System.EventHandler(this.addShortcutStripMenuItem_Click);
             // 
             // exitSuperLauncherToolStripMenuItem
             // 
             this.exitSuperLauncherToolStripMenuItem.Name = "exitSuperLauncherToolStripMenuItem";
-            this.exitSuperLauncherToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
+            this.exitSuperLauncherToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
             this.exitSuperLauncherToolStripMenuItem.Text = "Exit...";
             this.exitSuperLauncherToolStripMenuItem.Click += new System.EventHandler(this.exitSuperLauncherToolStripMenuItem_Click);
             // 
@@ -152,12 +161,12 @@
             this.removeToolStripMenuItem.Text = "Remove...";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
-            // elevateToolStripMenuItem
+            // runAsStripMenuItem
             // 
-            this.elevateToolStripMenuItem.Name = "elevateToolStripMenuItem";
-            this.elevateToolStripMenuItem.Size = new System.Drawing.Size(184, 26);
-            this.elevateToolStripMenuItem.Text = "Elevate...";
-            this.elevateToolStripMenuItem.Click += new System.EventHandler(this.ElevateToolStripMenuItem_Click);
+            this.runAsStripMenuItem.Name = "runAsStripMenuItem";
+            this.runAsStripMenuItem.Size = new System.Drawing.Size(184, 26);
+            this.runAsStripMenuItem.Text = "Run As...";
+            this.runAsStripMenuItem.Click += new System.EventHandler(this.RunAsStripMenuItem_Click);
             // 
             // Launcher
             // 
@@ -203,6 +212,7 @@
         private System.Windows.Forms.ContextMenuStrip RightClickMenu;
         private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem elevateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem runAsStripMenuItem;
     }
 }
 

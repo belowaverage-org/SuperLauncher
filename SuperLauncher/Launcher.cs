@@ -164,6 +164,15 @@ namespace SuperLauncher
             UserAccountControl.Uac.ElevateAndQuit();
             Application.ExitThread();
         }
+
+        private void RunAsStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CredentialManagement.VistaPrompt prompt = new CredentialManagement.VistaPrompt();
+            //prompt.ErrorCode = 1326;
+            prompt.Title = "Super Launcher - Logon";
+            prompt.Message = "Please enter the username and password you would like Super Launcher to use when launching applications...";
+            prompt.ShowDialog();
+        }
     }
 }
  

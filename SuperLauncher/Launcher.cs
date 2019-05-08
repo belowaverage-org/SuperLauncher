@@ -4,6 +4,7 @@ using System.IO;
 using System.Drawing;
 using System.Diagnostics;
 using System.Collections.Specialized;
+using CredentialManagement;
 
 namespace SuperLauncher
 {
@@ -19,11 +20,15 @@ namespace SuperLauncher
             var initialWidth = Properties.Settings.Default.width;
             var initialHeight = Properties.Settings.Default.height;
             InitializeComponent();
-            if(UserAccountControl.Uac.IsProcessElevated())
+            if (UserAccountControl.Uac.IsProcessElevated())
             {
-                elevateToolStripMenuItem.Visible = false;
+                ShieldIcon.Visible = true;
+                UserLabel.Location = new Point(115, -2);
+                UserLabel.Size = new Size(238, 22);
+                elevateToolStripMenuItem.Text = "Elevated";
+                elevateToolStripMenuItem.Enabled = false;
             }
-            elevateToolStripMenuItem.Image = Properties.Resources.shield.ToBitmap();
+            UserLabel.Text = Environment.UserDomainName + @"\" + Environment.UserName;
             imageList.ImageSize = new Size(32, 32);
             Width = initialWidth;
             Height = initialHeight;
@@ -167,11 +172,44 @@ namespace SuperLauncher
 
         private void RunAsStripMenuItem_Click(object sender, EventArgs e)
         {
-            CredentialManagement.VistaPrompt prompt = new CredentialManagement.VistaPrompt();
-            //prompt.ErrorCode = 1326;
-            prompt.Title = "Super Launcher - Logon";
-            prompt.Message = "Please enter the username and password you would like Super Launcher to use when launching applications...";
-            prompt.ShowDialog();
+            ShowRunAs();
+        }
+
+        private void ShowRunAs(int ErrorCode = 0)
+        {
+            VistaPrompt prompt = new VistaPrompt();
+            prompt.ErrorCode = ErrorCode;
+            prompt.Title = "Run As - Super Launcher";
+            prompt.Message = "Please enter the credentials you would like Super Launcher to run as...";
+            if (prompt.ShowDialog() == CredentialManagement.DialogResult.OK)
+            {
+                string username, domain;
+                CredentialParser.ParseUserName(prompt.Username, out username, out domain);
+                Process process = new Process();
+                ProcessStartInfo startInfo = process.StartInfo;
+                startInfo.FileName = Application.ExecutablePath;
+                startInfo.WorkingDirectory = Application.StartupPath;
+                startInfo.Domain = domain;
+                startInfo.UserName = username;
+                startInfo.Password = prompt.SecurePassword;
+                startInfo.UseShellExecute = false;
+                process.StartInfo = startInfo;
+                try
+                {
+                    process.Start();
+                    Application.ExitThread();
+                }
+                catch (System.ComponentModel.Win32Exception e)
+                {
+                    if(e.NativeErrorCode == 267)
+                    {
+                        TrayIcon.BalloonTipIcon = ToolTipIcon.Warning;
+                        TrayIcon.BalloonTipText = "The credentials supplied does not have access to the currently running \"SuperLauncher\" executable file.";
+                        TrayIcon.ShowBalloonTip(10000);
+                    }
+                    ShowRunAs(e.NativeErrorCode);
+                }
+            }
         }
     }
 }

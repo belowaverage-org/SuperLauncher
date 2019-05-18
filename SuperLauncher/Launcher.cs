@@ -100,9 +100,9 @@ namespace SuperLauncher
             if (e.Button == MouseButtons.Left)
             {
                 Left = MousePosition.X - (Width / 2);
-                if((PScreen.Right - 5) < (Left + Width))
+                if((PScreen.Right) < (Left + Width))
                 {
-                    Left = PScreen.Width - Width - 5;
+                    Left = PScreen.Width - Width;
                 }
                 Top = PScreen.Bottom - Height;
                 FadeIn();

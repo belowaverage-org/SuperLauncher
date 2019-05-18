@@ -161,6 +161,7 @@
             this.IconsBox.TabIndex = 1;
             this.IconsBox.TileSize = new System.Drawing.Size(50, 50);
             this.IconsBox.UseCompatibleStateImageBehavior = false;
+            this.IconsBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IconsBox_KeyPress);
             this.IconsBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.IconsBox_MouseClick);
             this.IconsBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.IconsBox_MouseDoubleClick);
             // 

@@ -47,6 +47,7 @@ namespace SuperLauncher
 
         public void FadeIn()
         {
+            BringToFront();
             Show();
         }
 
@@ -95,10 +96,15 @@ namespace SuperLauncher
 
         private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
         {
+            Rectangle PScreen = Screen.PrimaryScreen.WorkingArea;
             if (e.Button == MouseButtons.Left)
             {
                 Left = MousePosition.X - (Width / 2);
-                Top = Screen.PrimaryScreen.WorkingArea.Bottom - Height;
+                if((PScreen.Right - 5) < (Left + Width))
+                {
+                    Left = PScreen.Width - Width - 5;
+                }
+                Top = PScreen.Bottom - Height;
                 FadeIn();
                 Activate();
             }
@@ -116,6 +122,11 @@ namespace SuperLauncher
         }
 
         private void IconsBox_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            LaunchFocusedItem();
+        }
+
+        private void LaunchFocusedItem()
         {
             FadeOut();
             Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
@@ -209,6 +220,14 @@ namespace SuperLauncher
                     }
                     ShowRunAs(e.NativeErrorCode);
                 }
+            }
+        }
+
+        private void IconsBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if(e.KeyChar == '\r')
+            {
+                LaunchFocusedItem();
             }
         }
     }

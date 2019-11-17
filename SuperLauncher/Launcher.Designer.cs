@@ -50,14 +50,16 @@
             this.UserLabel = new System.Windows.Forms.Label();
             this.SuperIcon = new System.Windows.Forms.PictureBox();
             this.AppLabel = new System.Windows.Forms.Label();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.TitleBarPanel = new System.Windows.Forms.Panel();
+            this.pbBorderShadow = new System.Windows.Forms.PictureBox();
+            this.InnerBorderPanel = new System.Windows.Forms.Panel();
             this.TrayMenu.SuspendLayout();
             this.RightClickMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).BeginInit();
-            this.tableLayoutPanel1.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.TitleBarPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbBorderShadow)).BeginInit();
+            this.InnerBorderPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // TrayIcon
@@ -145,18 +147,20 @@
             // IconsBox
             // 
             this.IconsBox.Activation = System.Windows.Forms.ItemActivation.TwoClick;
+            this.IconsBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.IconsBox.BackColor = System.Drawing.Color.Black;
             this.IconsBox.BackgroundImageTiled = true;
             this.IconsBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.IconsBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.IconsBox.ForeColor = System.Drawing.Color.White;
             this.IconsBox.HideSelection = false;
-            this.IconsBox.Location = new System.Drawing.Point(5, 30);
+            this.IconsBox.Location = new System.Drawing.Point(1, 31);
             this.IconsBox.Margin = new System.Windows.Forms.Padding(0);
             this.IconsBox.MultiSelect = false;
             this.IconsBox.Name = "IconsBox";
             this.IconsBox.ShowGroups = false;
-            this.IconsBox.Size = new System.Drawing.Size(794, 410);
+            this.IconsBox.Size = new System.Drawing.Size(782, 393);
             this.IconsBox.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.IconsBox.TabIndex = 1;
             this.IconsBox.TileSize = new System.Drawing.Size(50, 50);
@@ -196,7 +200,7 @@
             // 
             this.ShieldIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ShieldIcon.Image = ((System.Drawing.Image)(resources.GetObject("ShieldIcon.Image")));
-            this.ShieldIcon.Location = new System.Drawing.Point(774, 9);
+            this.ShieldIcon.Location = new System.Drawing.Point(760, 9);
             this.ShieldIcon.Name = "ShieldIcon";
             this.ShieldIcon.Size = new System.Drawing.Size(16, 16);
             this.ShieldIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -213,7 +217,7 @@
             this.UserLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UserLabel.Location = new System.Drawing.Point(150, 8);
             this.UserLabel.Name = "UserLabel";
-            this.UserLabel.Size = new System.Drawing.Size(616, 17);
+            this.UserLabel.Size = new System.Drawing.Size(602, 17);
             this.UserLabel.TabIndex = 2;
             this.UserLabel.Text = "domain\\user";
             this.UserLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -238,52 +242,65 @@
             this.AppLabel.TabIndex = 0;
             this.AppLabel.Text = "Super Launcher";
             // 
-            // tableLayoutPanel1
+            // TitleBarPanel
             // 
-            this.tableLayoutPanel1.ColumnCount = 3;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.Controls.Add(this.IconsBox, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 3;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(804, 445);
-            this.tableLayoutPanel1.TabIndex = 3;
+            this.TitleBarPanel.BackColor = System.Drawing.Color.White;
+            this.TitleBarPanel.Controls.Add(this.SuperIcon);
+            this.TitleBarPanel.Controls.Add(this.AppLabel);
+            this.TitleBarPanel.Controls.Add(this.UserLabel);
+            this.TitleBarPanel.Controls.Add(this.ShieldIcon);
+            this.TitleBarPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.TitleBarPanel.Location = new System.Drawing.Point(1, 1);
+            this.TitleBarPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.TitleBarPanel.Name = "TitleBarPanel";
+            this.TitleBarPanel.Size = new System.Drawing.Size(782, 30);
+            this.TitleBarPanel.TabIndex = 2;
             // 
-            // panel1
+            // pbBorderShadow
             // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.Controls.Add(this.SuperIcon);
-            this.panel1.Controls.Add(this.AppLabel);
-            this.panel1.Controls.Add(this.UserLabel);
-            this.panel1.Controls.Add(this.ShieldIcon);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(5, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(794, 30);
-            this.panel1.TabIndex = 2;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
+            this.pbBorderShadow.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pbBorderShadow.BackColor = System.Drawing.Color.Red;
+            this.pbBorderShadow.Location = new System.Drawing.Point(0, 0);
+            this.pbBorderShadow.Margin = new System.Windows.Forms.Padding(0);
+            this.pbBorderShadow.Name = "pbBorderShadow";
+            this.pbBorderShadow.Size = new System.Drawing.Size(804, 445);
+            this.pbBorderShadow.TabIndex = 3;
+            this.pbBorderShadow.TabStop = false;
+            this.pbBorderShadow.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pbBorderShadow_MouseDown);
+            this.pbBorderShadow.MouseLeave += new System.EventHandler(this.pbBorderShadow_MouseLeave);
+            this.pbBorderShadow.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pbBorderShadow_MouseMove);
+            this.pbBorderShadow.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pbBorderShadow_MouseUp);
+            // 
+            // InnerBorderPanel
+            // 
+            this.InnerBorderPanel.BackColor = System.Drawing.Color.Gray;
+            this.InnerBorderPanel.Controls.Add(this.TitleBarPanel);
+            this.InnerBorderPanel.Controls.Add(this.IconsBox);
+            this.InnerBorderPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.InnerBorderPanel.Location = new System.Drawing.Point(10, 10);
+            this.InnerBorderPanel.Margin = new System.Windows.Forms.Padding(0);
+            this.InnerBorderPanel.Name = "InnerBorderPanel";
+            this.InnerBorderPanel.Padding = new System.Windows.Forms.Padding(1);
+            this.InnerBorderPanel.Size = new System.Drawing.Size(784, 425);
+            this.InnerBorderPanel.TabIndex = 4;
             // 
             // Launcher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(804, 445);
-            this.Controls.Add(this.tableLayoutPanel1);
+            this.Controls.Add(this.InnerBorderPanel);
+            this.Controls.Add(this.pbBorderShadow);
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MinimumSize = new System.Drawing.Size(148, 200);
             this.Name = "Launcher";
             this.Opacity = 0.96D;
+            this.Padding = new System.Windows.Forms.Padding(10);
             this.ShowInTaskbar = false;
             this.Deactivate += new System.EventHandler(this.Launcher_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Launcher_FormClosing);
@@ -293,8 +310,9 @@
             this.RightClickMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).EndInit();
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
+            this.TitleBarPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbBorderShadow)).EndInit();
+            this.InnerBorderPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -321,8 +339,9 @@
         private System.Windows.Forms.PictureBox SuperIcon;
         private System.Windows.Forms.Label UserLabel;
         private System.Windows.Forms.PictureBox ShieldIcon;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel TitleBarPanel;
+        private System.Windows.Forms.PictureBox pbBorderShadow;
+        private System.Windows.Forms.Panel InnerBorderPanel;
     }
 }
 

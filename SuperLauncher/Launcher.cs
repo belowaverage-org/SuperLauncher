@@ -14,6 +14,10 @@ namespace SuperLauncher
         public bool fakeClose = true;
 
         private bool fileDialogOpen = false;
+        private static Bitmap BorderShadowBitmap = new Bitmap(1, 1);
+        private static Graphics BorderShadowGraphics = null;
+        private static bool BorderMouseDown = false;
+        private static Rectangle BeforeReize = new Rectangle();
 
         public Launcher()
         {
@@ -44,18 +48,21 @@ namespace SuperLauncher
                 }
             }
         }
-
         public void FadeIn()
         {
             BringToFront();
+            BorderShadowBitmap.Dispose();
+            BorderShadowBitmap = new Bitmap(Width, Height);
+            BorderShadowGraphics = Graphics.FromImage(BorderShadowBitmap);
+            BorderShadowGraphics.CopyFromScreen(Left, Top, 0, 0, new Size(Width, Height));
+            pbBorderShadow.Image = BorderShadowBitmap;
+            BorderShadowGraphics.Dispose();
             Show();
         }
-
         public void FadeOut()
         {
             Hide();
         }
-
         public class IconData
         {
             public string fileLocation;
@@ -64,7 +71,6 @@ namespace SuperLauncher
                 fileLocation = FileLocation;
             }
         }
-
         public void addIcon(string filePath)
         {
             FileInfo fileInfo = new FileInfo(filePath);
@@ -74,13 +80,11 @@ namespace SuperLauncher
             item.ImageKey = filePath;
             item.Tag = new IconData(filePath);
         }
-
         private void Launcher_Shown(object sender, EventArgs e)
         {
             FadeIn();
             FadeOut();
         }
-
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (fakeClose)
@@ -93,14 +97,13 @@ namespace SuperLauncher
                 Properties.Settings.Default.Save();
             }
         }
-
         private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
         {
             Rectangle PScreen = Screen.PrimaryScreen.WorkingArea;
             if (e.Button == MouseButtons.Left)
             {
                 Left = MousePosition.X - (Width / 2);
-                if((PScreen.Right) < (Left + Width))
+                if ((PScreen.Right) < (Left + Width))
                 {
                     Left = PScreen.Width - Width;
                 }
@@ -109,29 +112,24 @@ namespace SuperLauncher
                 Activate();
             }
         }
-
         private void exitSuperLauncherToolStripMenuItem_Click(object sender, EventArgs e)
         {
             fakeClose = false;
             Close();
         }
-
         private void Launcher_Deactivate(object sender, EventArgs e)
         {
             FadeOut();
         }
-
         private void IconsBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             LaunchFocusedItem();
         }
-
         private void LaunchFocusedItem()
         {
             FadeOut();
             Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
         }
-
         private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             foreach (string file in OpenFileDialog.FileNames)
@@ -141,7 +139,6 @@ namespace SuperLauncher
                 Properties.Settings.Default.Save();
             }
         }
-
         private void addShortcutStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!fileDialogOpen)
@@ -151,7 +148,6 @@ namespace SuperLauncher
                 fileDialogOpen = false;
             }
         }
-
         private void IconsBox_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -161,31 +157,26 @@ namespace SuperLauncher
                 RightClickMenu.Top = MousePosition.Y;
             }
         }
-
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.fileList.Remove(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
             Properties.Settings.Default.Save();
             IconsBox.FocusedItem.Remove();
         }
-
         private void Launcher_Resize(object sender, EventArgs e)
         {
             Properties.Settings.Default.width = Width;
             Properties.Settings.Default.height = Height;
         }
-
         private void ElevateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UserAccountControl.Uac.ElevateAndQuit();
             Application.ExitThread();
         }
-
         private void RunAsStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowRunAs();
         }
-
         private void ShowRunAs(int ErrorCode = 0)
         {
             VistaPrompt prompt = new VistaPrompt();
@@ -212,7 +203,7 @@ namespace SuperLauncher
                 }
                 catch (System.ComponentModel.Win32Exception e)
                 {
-                    if(e.NativeErrorCode == 267)
+                    if (e.NativeErrorCode == 267)
                     {
                         TrayIcon.BalloonTipIcon = ToolTipIcon.Warning;
                         TrayIcon.BalloonTipText = "The credentials supplied does not have access to the currently running \"SuperLauncher\" executable file.";
@@ -222,21 +213,88 @@ namespace SuperLauncher
                 }
             }
         }
-
         private void IconsBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == '\r')
+            if (e.KeyChar == '\r')
             {
                 LaunchFocusedItem();
             }
         }
-
-        private void panel1_Paint(object sender, PaintEventArgs e)
+        private void pbBorderShadow_MouseMove(object sender, MouseEventArgs e)
         {
-            Graphics g = e.Graphics;
-            g.CopyFromScreen(0, 0, 0, 0, new Size(20, 20), CopyPixelOperation.SourceCopy);
-            //g.FillRectangle(Brushes.Red, 20, 20, 20, 20);
+            bool top, bottom, left, right;
+            top = bottom = left = right = false;
+            if (e.X <= 10) left = true;
+            if (e.Y <= 10) top = true;
+            if (e.X >= Width - 10) right = true;
+            if (e.Y >= Height - 10) bottom = true;
+            if (top && left)
+            {
+                Cursor = Cursors.SizeNWSE;
+            }
+            else if (top && right)
+            {
+                Cursor = Cursors.SizeNESW;
+            }
+            else if (bottom && left)
+            {
+                Cursor = Cursors.SizeNESW;
+            }
+            else if (bottom && right)
+            {
+                Cursor = Cursors.SizeNWSE;
+            }
+            else if (top || bottom)
+            {
+                Cursor = Cursors.SizeNS;
+            }
+            else if (left || right)
+            {
+                Cursor = Cursors.SizeWE;
+            }
+            if (BorderMouseDown)
+            {
+                if (top)
+                {
+                    Top = Cursor.Position.Y;
+                    Height = BeforeReize.Bottom - Cursor.Position.Y;
+                }
+                if (bottom)
+                {
+                    Height = Cursor.Position.Y - BeforeReize.Top;
+                }
+                if (left)
+                {
+                    Left = Cursor.Position.X;
+                    Width = BeforeReize.Right - Cursor.Position.X;
+                }
+                if (right)
+                {
+                    Width = Cursor.Position.X - BeforeReize.Left;
+                }
+            }
+        }
+        private void pbBorderShadow_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+        private void pbBorderShadow_MouseDown(object sender, MouseEventArgs e)
+        {
+            pbBorderShadow.Hide();
+            InnerBorderPanel.Hide();
+            SuspendLayout();
+            BorderMouseDown = true;
+            BeforeReize = Bounds;
+        }
+
+        private void pbBorderShadow_MouseUp(object sender, MouseEventArgs e)
+        {
+            InnerBorderPanel.Show();
+            pbBorderShadow.Show();
+            ResumeLayout();
+            FadeOut();
+            FadeIn();
+            BorderMouseDown = false;
         }
     }
 }
- 

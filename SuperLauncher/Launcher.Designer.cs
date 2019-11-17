@@ -46,16 +46,18 @@
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.RightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.TopPanel = new System.Windows.Forms.Panel();
             this.ShieldIcon = new System.Windows.Forms.PictureBox();
             this.UserLabel = new System.Windows.Forms.Label();
             this.SuperIcon = new System.Windows.Forms.PictureBox();
             this.AppLabel = new System.Windows.Forms.Label();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.TrayMenu.SuspendLayout();
             this.RightClickMenu.SuspendLayout();
-            this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).BeginInit();
+            this.tableLayoutPanel1.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TrayIcon
@@ -143,20 +145,18 @@
             // IconsBox
             // 
             this.IconsBox.Activation = System.Windows.Forms.ItemActivation.TwoClick;
-            this.IconsBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this.IconsBox.BackColor = System.Drawing.Color.Black;
             this.IconsBox.BackgroundImageTiled = true;
             this.IconsBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.IconsBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.IconsBox.ForeColor = System.Drawing.Color.White;
             this.IconsBox.HideSelection = false;
-            this.IconsBox.Location = new System.Drawing.Point(0, 29);
-            this.IconsBox.Margin = new System.Windows.Forms.Padding(10);
+            this.IconsBox.Location = new System.Drawing.Point(5, 30);
+            this.IconsBox.Margin = new System.Windows.Forms.Padding(0);
             this.IconsBox.MultiSelect = false;
             this.IconsBox.Name = "IconsBox";
             this.IconsBox.ShowGroups = false;
-            this.IconsBox.Size = new System.Drawing.Size(376, 191);
+            this.IconsBox.Size = new System.Drawing.Size(794, 410);
             this.IconsBox.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.IconsBox.TabIndex = 1;
             this.IconsBox.TileSize = new System.Drawing.Size(50, 50);
@@ -192,26 +192,13 @@
             this.removeToolStripMenuItem.Text = "Remove...";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
-            // TopPanel
-            // 
-            this.TopPanel.BackColor = System.Drawing.Color.White;
-            this.TopPanel.Controls.Add(this.ShieldIcon);
-            this.TopPanel.Controls.Add(this.UserLabel);
-            this.TopPanel.Controls.Add(this.SuperIcon);
-            this.TopPanel.Controls.Add(this.AppLabel);
-            this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TopPanel.Location = new System.Drawing.Point(0, 0);
-            this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Size = new System.Drawing.Size(376, 20);
-            this.TopPanel.TabIndex = 2;
-            // 
             // ShieldIcon
             // 
             this.ShieldIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ShieldIcon.Image = ((System.Drawing.Image)(resources.GetObject("ShieldIcon.Image")));
-            this.ShieldIcon.Location = new System.Drawing.Point(357, 0);
+            this.ShieldIcon.Location = new System.Drawing.Point(774, 9);
             this.ShieldIcon.Name = "ShieldIcon";
-            this.ShieldIcon.Size = new System.Drawing.Size(13, 13);
+            this.ShieldIcon.Size = new System.Drawing.Size(16, 16);
             this.ShieldIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ShieldIcon.TabIndex = 3;
             this.ShieldIcon.TabStop = false;
@@ -222,60 +209,92 @@
             this.UserLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UserLabel.AutoEllipsis = true;
+            this.UserLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.UserLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UserLabel.Location = new System.Drawing.Point(115, -2);
+            this.UserLabel.Location = new System.Drawing.Point(150, 8);
             this.UserLabel.Name = "UserLabel";
-            this.UserLabel.Size = new System.Drawing.Size(255, 22);
+            this.UserLabel.Size = new System.Drawing.Size(616, 17);
             this.UserLabel.TabIndex = 2;
+            this.UserLabel.Text = "domain\\user";
             this.UserLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // SuperIcon
             // 
             this.SuperIcon.Image = ((System.Drawing.Image)(resources.GetObject("SuperIcon.Image")));
-            this.SuperIcon.Location = new System.Drawing.Point(7, 0);
+            this.SuperIcon.Location = new System.Drawing.Point(7, 8);
             this.SuperIcon.Name = "SuperIcon";
-            this.SuperIcon.Size = new System.Drawing.Size(13, 13);
+            this.SuperIcon.Size = new System.Drawing.Size(16, 16);
             this.SuperIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.SuperIcon.TabIndex = 1;
             this.SuperIcon.TabStop = false;
             // 
             // AppLabel
             // 
+            this.AppLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.AppLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AppLabel.Location = new System.Drawing.Point(25, -2);
+            this.AppLabel.Location = new System.Drawing.Point(31, 8);
             this.AppLabel.Name = "AppLabel";
-            this.AppLabel.Size = new System.Drawing.Size(90, 22);
+            this.AppLabel.Size = new System.Drawing.Size(90, 17);
             this.AppLabel.TabIndex = 0;
             this.AppLabel.Text = "Super Launcher";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.ColumnCount = 3;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tableLayoutPanel1.Controls.Add(this.IconsBox, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 3;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 5F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(804, 445);
+            this.tableLayoutPanel1.TabIndex = 3;
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.Controls.Add(this.SuperIcon);
+            this.panel1.Controls.Add(this.AppLabel);
+            this.panel1.Controls.Add(this.UserLabel);
+            this.panel1.Controls.Add(this.ShieldIcon);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(5, 0);
+            this.panel1.Margin = new System.Windows.Forms.Padding(0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(794, 30);
+            this.panel1.TabIndex = 2;
+            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // Launcher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(376, 220);
-            this.ControlBox = false;
-            this.Controls.Add(this.TopPanel);
-            this.Controls.Add(this.IconsBox);
+            this.ClientSize = new System.Drawing.Size(804, 445);
+            this.Controls.Add(this.tableLayoutPanel1);
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(148, 200);
             this.Name = "Launcher";
             this.Opacity = 0.96D;
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.Deactivate += new System.EventHandler(this.Launcher_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Launcher_FormClosing);
             this.Shown += new System.EventHandler(this.Launcher_Shown);
             this.Resize += new System.EventHandler(this.Launcher_Resize);
             this.TrayMenu.ResumeLayout(false);
             this.RightClickMenu.ResumeLayout(false);
-            this.TopPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).EndInit();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -298,11 +317,12 @@
         private System.Windows.Forms.ToolStripMenuItem runAsStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.Panel TopPanel;
         private System.Windows.Forms.Label AppLabel;
         private System.Windows.Forms.PictureBox SuperIcon;
         private System.Windows.Forms.Label UserLabel;
         private System.Windows.Forms.PictureBox ShieldIcon;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+        private System.Windows.Forms.Panel panel1;
     }
 }
 

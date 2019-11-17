@@ -230,6 +230,13 @@ namespace SuperLauncher
                 LaunchFocusedItem();
             }
         }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            g.CopyFromScreen(0, 0, 0, 0, new Size(20, 20), CopyPixelOperation.SourceCopy);
+            //g.FillRectangle(Brushes.Red, 20, 20, 20, 20);
+        }
     }
 }
  

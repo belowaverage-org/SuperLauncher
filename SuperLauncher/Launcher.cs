@@ -18,6 +18,22 @@ namespace SuperLauncher
         private static Graphics BorderShadowGraphics = null;
         private static bool BorderMouseDown = false;
         private static Rectangle BeforeReize = new Rectangle();
+        private static ResizeDynamic CurrentDynamic = new ResizeDynamic();
+        private static ResizeDynamic LockedDynamic = new ResizeDynamic();
+        private class ResizeDynamic
+        {
+            public bool Top;
+            public bool Bottom;
+            public bool Left;
+            public bool Right;
+            public ResizeDynamic(bool Top = false, bool Bottom = false, bool Left = false, bool Right = false)
+            {
+                this.Top = Top;
+                this.Bottom = Bottom;
+                this.Left = Left;
+                this.Right = Right;
+            }
+        }
 
         public Launcher()
         {
@@ -27,8 +43,7 @@ namespace SuperLauncher
             if (UserAccountControl.Uac.IsProcessElevated())
             {
                 ShieldIcon.Visible = true;
-                UserLabel.Location = new Point(115, -2);
-                UserLabel.Size = new Size(238, 22);
+                UserLabel.Location = new Point(152, 7);
                 elevateToolStripMenuItem.Text = "Elevated";
                 elevateToolStripMenuItem.Enabled = false;
             }
@@ -50,6 +65,8 @@ namespace SuperLauncher
         }
         public void FadeIn()
         {
+            BorderMouseDown = false;
+            ResumeLayout();
             BringToFront();
             BorderShadowBitmap.Dispose();
             BorderShadowBitmap = new Bitmap(Width, Height);
@@ -57,6 +74,8 @@ namespace SuperLauncher
             BorderShadowGraphics.CopyFromScreen(Left, Top, 0, 0, new Size(Width, Height));
             pbBorderShadow.Image = BorderShadowBitmap;
             BorderShadowGraphics.Dispose();
+            InnerBorderPanel.Show();
+            pbBorderShadow.Show();
             Show();
         }
         public void FadeOut()
@@ -222,53 +241,53 @@ namespace SuperLauncher
         }
         private void pbBorderShadow_MouseMove(object sender, MouseEventArgs e)
         {
-            bool top, bottom, left, right;
-            top = bottom = left = right = false;
-            if (e.X <= 10) left = true;
-            if (e.Y <= 10) top = true;
-            if (e.X >= Width - 10) right = true;
-            if (e.Y >= Height - 10) bottom = true;
-            if (top && left)
+            CurrentDynamic = new ResizeDynamic(
+                e.Y <= 10,
+                e.Y >= Height - 10,
+                e.X <= 10,
+                e.X >= Width - 10
+            );
+            if (CurrentDynamic.Top && CurrentDynamic.Left)
             {
                 Cursor = Cursors.SizeNWSE;
             }
-            else if (top && right)
+            else if (CurrentDynamic.Top && CurrentDynamic.Right)
             {
                 Cursor = Cursors.SizeNESW;
             }
-            else if (bottom && left)
+            else if (CurrentDynamic.Bottom && CurrentDynamic.Left)
             {
                 Cursor = Cursors.SizeNESW;
             }
-            else if (bottom && right)
+            else if (CurrentDynamic.Bottom && CurrentDynamic.Right)
             {
                 Cursor = Cursors.SizeNWSE;
             }
-            else if (top || bottom)
+            else if (CurrentDynamic.Top || CurrentDynamic.Bottom)
             {
                 Cursor = Cursors.SizeNS;
             }
-            else if (left || right)
+            else if (CurrentDynamic.Left || CurrentDynamic.Right)
             {
                 Cursor = Cursors.SizeWE;
             }
             if (BorderMouseDown)
             {
-                if (top)
+                if (LockedDynamic.Top)
                 {
                     Top = Cursor.Position.Y;
                     Height = BeforeReize.Bottom - Cursor.Position.Y;
                 }
-                if (bottom)
+                if (LockedDynamic.Bottom)
                 {
                     Height = Cursor.Position.Y - BeforeReize.Top;
                 }
-                if (left)
+                if (LockedDynamic.Left)
                 {
                     Left = Cursor.Position.X;
                     Width = BeforeReize.Right - Cursor.Position.X;
                 }
-                if (right)
+                if (LockedDynamic.Right)
                 {
                     Width = Cursor.Position.X - BeforeReize.Left;
                 }
@@ -280,21 +299,19 @@ namespace SuperLauncher
         }
         private void pbBorderShadow_MouseDown(object sender, MouseEventArgs e)
         {
+            LockedDynamic = CurrentDynamic;
             pbBorderShadow.Hide();
             InnerBorderPanel.Hide();
             SuspendLayout();
             BorderMouseDown = true;
             BeforeReize = Bounds;
         }
-
         private void pbBorderShadow_MouseUp(object sender, MouseEventArgs e)
         {
-            InnerBorderPanel.Show();
-            pbBorderShadow.Show();
-            ResumeLayout();
             FadeOut();
             FadeIn();
             BorderMouseDown = false;
         }
+        
     }
 }

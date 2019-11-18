@@ -53,6 +53,7 @@
             this.TitleBarPanel = new System.Windows.Forms.Panel();
             this.pbBorderShadow = new System.Windows.Forms.PictureBox();
             this.InnerBorderPanel = new System.Windows.Forms.Panel();
+            this.PanelBlack = new System.Windows.Forms.Panel();
             this.TrayMenu.SuspendLayout();
             this.RightClickMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).BeginInit();
@@ -155,12 +156,12 @@
             this.IconsBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.IconsBox.ForeColor = System.Drawing.Color.White;
             this.IconsBox.HideSelection = false;
-            this.IconsBox.Location = new System.Drawing.Point(1, 31);
+            this.IconsBox.Location = new System.Drawing.Point(8, 39);
             this.IconsBox.Margin = new System.Windows.Forms.Padding(0);
             this.IconsBox.MultiSelect = false;
             this.IconsBox.Name = "IconsBox";
             this.IconsBox.ShowGroups = false;
-            this.IconsBox.Size = new System.Drawing.Size(782, 393);
+            this.IconsBox.Size = new System.Drawing.Size(775, 385);
             this.IconsBox.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.IconsBox.TabIndex = 1;
             this.IconsBox.TileSize = new System.Drawing.Size(50, 50);
@@ -200,7 +201,7 @@
             // 
             this.ShieldIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ShieldIcon.Image = ((System.Drawing.Image)(resources.GetObject("ShieldIcon.Image")));
-            this.ShieldIcon.Location = new System.Drawing.Point(760, 9);
+            this.ShieldIcon.Location = new System.Drawing.Point(760, 7);
             this.ShieldIcon.Name = "ShieldIcon";
             this.ShieldIcon.Size = new System.Drawing.Size(16, 16);
             this.ShieldIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -215,7 +216,7 @@
             this.UserLabel.AutoEllipsis = true;
             this.UserLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.UserLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UserLabel.Location = new System.Drawing.Point(150, 8);
+            this.UserLabel.Location = new System.Drawing.Point(174, 7);
             this.UserLabel.Name = "UserLabel";
             this.UserLabel.Size = new System.Drawing.Size(602, 17);
             this.UserLabel.TabIndex = 2;
@@ -225,7 +226,7 @@
             // SuperIcon
             // 
             this.SuperIcon.Image = ((System.Drawing.Image)(resources.GetObject("SuperIcon.Image")));
-            this.SuperIcon.Location = new System.Drawing.Point(7, 8);
+            this.SuperIcon.Location = new System.Drawing.Point(7, 7);
             this.SuperIcon.Name = "SuperIcon";
             this.SuperIcon.Size = new System.Drawing.Size(16, 16);
             this.SuperIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -236,7 +237,7 @@
             // 
             this.AppLabel.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.AppLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AppLabel.Location = new System.Drawing.Point(31, 8);
+            this.AppLabel.Location = new System.Drawing.Point(31, 7);
             this.AppLabel.Name = "AppLabel";
             this.AppLabel.Size = new System.Drawing.Size(90, 17);
             this.AppLabel.TabIndex = 0;
@@ -247,8 +248,8 @@
             this.TitleBarPanel.BackColor = System.Drawing.Color.White;
             this.TitleBarPanel.Controls.Add(this.SuperIcon);
             this.TitleBarPanel.Controls.Add(this.AppLabel);
-            this.TitleBarPanel.Controls.Add(this.UserLabel);
             this.TitleBarPanel.Controls.Add(this.ShieldIcon);
+            this.TitleBarPanel.Controls.Add(this.UserLabel);
             this.TitleBarPanel.Dock = System.Windows.Forms.DockStyle.Top;
             this.TitleBarPanel.Location = new System.Drawing.Point(1, 1);
             this.TitleBarPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -278,6 +279,7 @@
             this.InnerBorderPanel.BackColor = System.Drawing.Color.Gray;
             this.InnerBorderPanel.Controls.Add(this.TitleBarPanel);
             this.InnerBorderPanel.Controls.Add(this.IconsBox);
+            this.InnerBorderPanel.Controls.Add(this.PanelBlack);
             this.InnerBorderPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.InnerBorderPanel.Location = new System.Drawing.Point(10, 10);
             this.InnerBorderPanel.Margin = new System.Windows.Forms.Padding(0);
@@ -285,6 +287,18 @@
             this.InnerBorderPanel.Padding = new System.Windows.Forms.Padding(1);
             this.InnerBorderPanel.Size = new System.Drawing.Size(784, 425);
             this.InnerBorderPanel.TabIndex = 4;
+            // 
+            // PanelBlack
+            // 
+            this.PanelBlack.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.PanelBlack.BackColor = System.Drawing.Color.Black;
+            this.PanelBlack.Location = new System.Drawing.Point(1, 31);
+            this.PanelBlack.Margin = new System.Windows.Forms.Padding(0);
+            this.PanelBlack.Name = "PanelBlack";
+            this.PanelBlack.Size = new System.Drawing.Size(782, 393);
+            this.PanelBlack.TabIndex = 3;
             // 
             // Launcher
             // 
@@ -342,6 +356,7 @@
         private System.Windows.Forms.Panel TitleBarPanel;
         private System.Windows.Forms.PictureBox pbBorderShadow;
         private System.Windows.Forms.Panel InnerBorderPanel;
+        private System.Windows.Forms.Panel PanelBlack;
     }
 }
 

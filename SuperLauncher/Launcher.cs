@@ -5,11 +5,15 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Collections.Specialized;
 using CredentialManagement;
+using System.Runtime.InteropServices;
 
 namespace SuperLauncher
 {
     public partial class Launcher : Form
     {
+        [DllImport("user32.dll")]
+        public static extern int SetMenuItemBitmaps(IntPtr hMenu, IntPtr nPosition, int wFlags, IntPtr hBitmapUnchecked, IntPtr hBitmapChecked);
+
         public ImageList imageList = new ImageList();
         public bool fakeClose = true;
 
@@ -40,12 +44,18 @@ namespace SuperLauncher
             var initialWidth = Properties.Settings.Default.width;
             var initialHeight = Properties.Settings.Default.height;
             InitializeComponent();
+
+            Bitmap test = new Bitmap(20, 20);
+            IntPtr bmptr = test.GetHbitmap();
+            SetMenuItemBitmaps(TrayMenu.Handle, (IntPtr)0, 0x400, bmptr, bmptr);
+
+            TrayIcon.ContextMenu = TrayMenu;
             if (UserAccountControl.Uac.IsProcessElevated())
             {
                 ShieldIcon.Visible = true;
                 UserLabel.Location = new Point(152, 7);
-                elevateToolStripMenuItem.Text = "Elevated";
-                elevateToolStripMenuItem.Enabled = false;
+                //elevateToolStripMenuItem.Text = "Elevated";
+                //elevateToolStripMenuItem.Enabled = false;
             }
             UserLabel.Text = Environment.UserDomainName + @"\" + Environment.UserName;
             imageList.ImageSize = new Size(32, 32);
@@ -312,6 +322,5 @@ namespace SuperLauncher
             FadeIn();
             BorderMouseDown = false;
         }
-        
     }
 }

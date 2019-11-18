@@ -108,16 +108,17 @@
             // 
             // RightClickMenu
             // 
+            this.RightClickMenu.ImageScalingSize = new System.Drawing.Size(32, 32);
             this.RightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.removeToolStripMenuItem});
             this.RightClickMenu.Name = "RightClickMenu";
             this.RightClickMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.RightClickMenu.Size = new System.Drawing.Size(127, 26);
+            this.RightClickMenu.Size = new System.Drawing.Size(192, 42);
             // 
             // removeToolStripMenuItem
             // 
             this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.removeToolStripMenuItem.Size = new System.Drawing.Size(191, 38);
             this.removeToolStripMenuItem.Text = "Remove...";
             this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
@@ -251,11 +252,13 @@
             // 
             this.miElevate.Index = 2;
             this.miElevate.Text = "Elevate...";
+            this.miElevate.Click += new System.EventHandler(this.ElevateToolStripMenuItem_Click);
             // 
             // miRunAs
             // 
             this.miRunAs.Index = 3;
             this.miRunAs.Text = "Run As...";
+            this.miRunAs.Click += new System.EventHandler(this.RunAsStripMenuItem_Click);
             // 
             // miSeperator2
             // 
@@ -266,6 +269,7 @@
             // 
             this.miAddShortcut.Index = 5;
             this.miAddShortcut.Text = "Add Shortcut...";
+            this.miAddShortcut.Click += new System.EventHandler(this.addShortcutStripMenuItem_Click);
             // 
             // miSeperator3
             // 
@@ -276,10 +280,11 @@
             // 
             this.miExit.Index = 7;
             this.miExit.Text = "Exit";
+            this.miExit.Click += new System.EventHandler(this.exitSuperLauncherToolStripMenuItem_Click);
             // 
             // Launcher
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(14F, 36F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.ClientSize = new System.Drawing.Size(804, 445);

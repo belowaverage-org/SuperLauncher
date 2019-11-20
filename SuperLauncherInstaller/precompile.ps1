@@ -1,0 +1,1 @@
+Remove-Item ".\bin\" -Force -Recurse

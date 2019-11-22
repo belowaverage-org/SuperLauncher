@@ -104,12 +104,12 @@ Section "Uninstall"
 
 SetShellVarContext all
 
-Delete "$INSTDIR\${NAME2}.exe"
-Delete "$INSTDIR\uninstall.exe"
+RMDir /r "$INSTDIR"
 Delete "$SMPROGRAMS\Super Suite\${NAME}.lnk"
 Delete "$DESKTOP\${NAME}.lnk"
-RMDir "$SMPROGRAMS\Super Suite" 
+RMDir "$SMPROGRAMS\Super Suite"
 RMDir "$INSTDIR"
+RMDir "$INSTDIR\..\"
 DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\${NAME}"
 
 SectionEnd

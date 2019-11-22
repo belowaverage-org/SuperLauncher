@@ -5,6 +5,7 @@
 !include "MUI2.nsh"
 Name "${NAME}"
 OutFile ".\bin\${NAME2}Installer.exe"
+BrandingText "Dylan Bickerstaff (C) 2019 - Super Suite - ${NAME} - v${VERSION}"
 
 VIAddVersionKey "ProductName" "${NAME}"
 VIAddVersionKey "LegalTrademarks" "Super Suite"
@@ -19,6 +20,7 @@ VIProductVersion "${VERSION}"
 !define MUI_HEADERIMAGE_BITMAP ".\header.bmp"
 !define MUI_WELCOMEFINISHPAGE_BITMAP ".\welcome.bmp"
 !define MUI_UNWELCOMEFINISHPAGE_BITMAP ".\welcome.bmp"
+!define MUI_COMPONENTSPAGE_CHECKBITMAP ".\checks.bmp"
 !define MUI_WELCOMEPAGE_TITLE_3LINES
 !define MUI_WELCOMEPAGE_TEXT "${NAME} setup will guide you through the installation process.$\r$\n$\r$\n$\r$\nPress Next to continue."
 !define MUI_FINISHPAGE_NOAUTOCLOSE

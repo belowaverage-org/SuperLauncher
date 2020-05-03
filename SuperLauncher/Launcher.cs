@@ -5,28 +5,57 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Collections.Specialized;
 using CredentialManagement;
+using System.Runtime.InteropServices;
 
 namespace SuperLauncher
 {
     public partial class Launcher : Form
     {
+        [DllImport("user32.dll")]
+        public static extern int SetMenuItemBitmaps(IntPtr hMenu, IntPtr nPosition, int wFlags, IntPtr hBitmapUnchecked, IntPtr hBitmapChecked);
+
         public ImageList imageList = new ImageList();
         public bool fakeClose = true;
 
         private bool fileDialogOpen = false;
+        private static Bitmap BorderShadowBitmap = new Bitmap(1, 1);
+        private static Graphics BorderShadowGraphics = null;
+        private static bool BorderMouseDown = false;
+        private static Rectangle BeforeReize = new Rectangle();
+        private static ResizeDynamic CurrentDynamic = new ResizeDynamic();
+        private static ResizeDynamic LockedDynamic = new ResizeDynamic();
+        private class ResizeDynamic
+        {
+            public bool Top;
+            public bool Bottom;
+            public bool Left;
+            public bool Right;
+            public ResizeDynamic(bool Top = false, bool Bottom = false, bool Left = false, bool Right = false)
+            {
+                this.Top = Top;
+                this.Bottom = Bottom;
+                this.Left = Left;
+                this.Right = Right;
+            }
+        }
 
         public Launcher()
         {
             var initialWidth = Properties.Settings.Default.width;
             var initialHeight = Properties.Settings.Default.height;
             InitializeComponent();
+
+            Bitmap test = new Bitmap(20, 20);
+            IntPtr bmptr = test.GetHbitmap();
+            SetMenuItemBitmaps(TrayMenu.Handle, (IntPtr)0, 0x400, bmptr, bmptr);
+
+            TrayIcon.ContextMenu = TrayMenu;
             if (UserAccountControl.Uac.IsProcessElevated())
             {
                 ShieldIcon.Visible = true;
-                UserLabel.Location = new Point(115, -2);
-                UserLabel.Size = new Size(238, 22);
-                elevateToolStripMenuItem.Text = "Elevated";
-                elevateToolStripMenuItem.Enabled = false;
+                UserLabel.Location = new Point(152, 7);
+                //elevateToolStripMenuItem.Text = "Elevated";
+                //elevateToolStripMenuItem.Enabled = false;
             }
             UserLabel.Text = Environment.UserDomainName + @"\" + Environment.UserName;
             imageList.ImageSize = new Size(32, 32);
@@ -44,18 +73,25 @@ namespace SuperLauncher
                 }
             }
         }
-
         public void FadeIn()
         {
+            BorderMouseDown = false;
+            ResumeLayout();
             BringToFront();
+            BorderShadowBitmap.Dispose();
+            BorderShadowBitmap = new Bitmap(Width, Height);
+            BorderShadowGraphics = Graphics.FromImage(BorderShadowBitmap);
+            BorderShadowGraphics.CopyFromScreen(Left, Top, 0, 0, new Size(Width, Height));
+            pbBorderShadow.Image = BorderShadowBitmap;
+            BorderShadowGraphics.Dispose();
+            InnerBorderPanel.Show();
+            pbBorderShadow.Show();
             Show();
         }
-
         public void FadeOut()
         {
             Hide();
         }
-
         public class IconData
         {
             public string fileLocation;
@@ -64,7 +100,6 @@ namespace SuperLauncher
                 fileLocation = FileLocation;
             }
         }
-
         public void addIcon(string filePath)
         {
             FileInfo fileInfo = new FileInfo(filePath);
@@ -74,13 +109,11 @@ namespace SuperLauncher
             item.ImageKey = filePath;
             item.Tag = new IconData(filePath);
         }
-
         private void Launcher_Shown(object sender, EventArgs e)
         {
             FadeIn();
             FadeOut();
         }
-
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (fakeClose)
@@ -93,14 +126,13 @@ namespace SuperLauncher
                 Properties.Settings.Default.Save();
             }
         }
-
         private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
         {
             Rectangle PScreen = Screen.PrimaryScreen.WorkingArea;
             if (e.Button == MouseButtons.Left)
             {
                 Left = MousePosition.X - (Width / 2);
-                if((PScreen.Right) < (Left + Width))
+                if ((PScreen.Right) < (Left + Width))
                 {
                     Left = PScreen.Width - Width;
                 }
@@ -109,29 +141,24 @@ namespace SuperLauncher
                 Activate();
             }
         }
-
         private void exitSuperLauncherToolStripMenuItem_Click(object sender, EventArgs e)
         {
             fakeClose = false;
             Close();
         }
-
         private void Launcher_Deactivate(object sender, EventArgs e)
         {
             FadeOut();
         }
-
         private void IconsBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             LaunchFocusedItem();
         }
-
         private void LaunchFocusedItem()
         {
             FadeOut();
             Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
         }
-
         private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             foreach (string file in OpenFileDialog.FileNames)
@@ -141,7 +168,6 @@ namespace SuperLauncher
                 Properties.Settings.Default.Save();
             }
         }
-
         private void addShortcutStripMenuItem_Click(object sender, EventArgs e)
         {
             if (!fileDialogOpen)
@@ -151,7 +177,6 @@ namespace SuperLauncher
                 fileDialogOpen = false;
             }
         }
-
         private void IconsBox_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -161,31 +186,26 @@ namespace SuperLauncher
                 RightClickMenu.Top = MousePosition.Y;
             }
         }
-
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.fileList.Remove(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
             Properties.Settings.Default.Save();
             IconsBox.FocusedItem.Remove();
         }
-
         private void Launcher_Resize(object sender, EventArgs e)
         {
             Properties.Settings.Default.width = Width;
             Properties.Settings.Default.height = Height;
         }
-
         private void ElevateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UserAccountControl.Uac.ElevateAndQuit();
             Application.ExitThread();
         }
-
         private void RunAsStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowRunAs();
         }
-
         private void ShowRunAs(int ErrorCode = 0)
         {
             VistaPrompt prompt = new VistaPrompt();
@@ -212,7 +232,7 @@ namespace SuperLauncher
                 }
                 catch (System.ComponentModel.Win32Exception e)
                 {
-                    if(e.NativeErrorCode == 267)
+                    if (e.NativeErrorCode == 267)
                     {
                         TrayIcon.BalloonTipIcon = ToolTipIcon.Warning;
                         TrayIcon.BalloonTipText = "The credentials supplied does not have access to the currently running \"SuperLauncher\" executable file.";
@@ -222,14 +242,85 @@ namespace SuperLauncher
                 }
             }
         }
-
         private void IconsBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == '\r')
+            if (e.KeyChar == '\r')
             {
                 LaunchFocusedItem();
             }
         }
+        private void pbBorderShadow_MouseMove(object sender, MouseEventArgs e)
+        {
+            CurrentDynamic = new ResizeDynamic(
+                e.Y <= 10,
+                e.Y >= Height - 10,
+                e.X <= 10,
+                e.X >= Width - 10
+            );
+            if (CurrentDynamic.Top && CurrentDynamic.Left)
+            {
+                Cursor = Cursors.SizeNWSE;
+            }
+            else if (CurrentDynamic.Top && CurrentDynamic.Right)
+            {
+                Cursor = Cursors.SizeNESW;
+            }
+            else if (CurrentDynamic.Bottom && CurrentDynamic.Left)
+            {
+                Cursor = Cursors.SizeNESW;
+            }
+            else if (CurrentDynamic.Bottom && CurrentDynamic.Right)
+            {
+                Cursor = Cursors.SizeNWSE;
+            }
+            else if (CurrentDynamic.Top || CurrentDynamic.Bottom)
+            {
+                Cursor = Cursors.SizeNS;
+            }
+            else if (CurrentDynamic.Left || CurrentDynamic.Right)
+            {
+                Cursor = Cursors.SizeWE;
+            }
+            if (BorderMouseDown)
+            {
+                if (LockedDynamic.Top)
+                {
+                    Top = Cursor.Position.Y;
+                    Height = BeforeReize.Bottom - Cursor.Position.Y;
+                }
+                if (LockedDynamic.Bottom)
+                {
+                    Height = Cursor.Position.Y - BeforeReize.Top;
+                }
+                if (LockedDynamic.Left)
+                {
+                    Left = Cursor.Position.X;
+                    Width = BeforeReize.Right - Cursor.Position.X;
+                }
+                if (LockedDynamic.Right)
+                {
+                    Width = Cursor.Position.X - BeforeReize.Left;
+                }
+            }
+        }
+        private void pbBorderShadow_MouseLeave(object sender, EventArgs e)
+        {
+            Cursor = Cursors.Default;
+        }
+        private void pbBorderShadow_MouseDown(object sender, MouseEventArgs e)
+        {
+            LockedDynamic = CurrentDynamic;
+            pbBorderShadow.Hide();
+            InnerBorderPanel.Hide();
+            SuspendLayout();
+            BorderMouseDown = true;
+            BeforeReize = Bounds;
+        }
+        private void pbBorderShadow_MouseUp(object sender, MouseEventArgs e)
+        {
+            FadeOut();
+            FadeIn();
+            BorderMouseDown = false;
+        }
     }
 }
- 

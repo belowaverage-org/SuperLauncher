@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28010.2041
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SuperLauncher", "SuperLauncher\SuperLauncher.csproj", "{43E97F31-3213-46C1-944B-8CAEC957A880}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SuperLauncherInstaller", "SuperLauncherInstaller\SuperLauncherInstaller.vdproj", "{7D3A2E77-C9F1-4790-949A-534F0813890F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{43E97F31-3213-46C1-944B-8CAEC957A880}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43E97F31-3213-46C1-944B-8CAEC957A880}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43E97F31-3213-46C1-944B-8CAEC957A880}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D3A2E77-C9F1-4790-949A-534F0813890F}.Debug|Any CPU.ActiveCfg = Debug
+		{7D3A2E77-C9F1-4790-949A-534F0813890F}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -14,8 +14,7 @@ namespace SuperLauncher
         [STAThread]
         static void Main()
         {
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
+            Application.EnableVisualStyles();
             Application.Run(new Launcher());
         }
     }

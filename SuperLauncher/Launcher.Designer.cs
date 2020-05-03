@@ -31,28 +31,25 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launcher));
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.TrayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.superLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.elevateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.runAsStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.addShortcutStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.exitSuperLauncherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.IconsBox = new System.Windows.Forms.ListView();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.RightClickMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.removeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.ShieldIcon = new System.Windows.Forms.PictureBox();
             this.UserLabel = new System.Windows.Forms.Label();
             this.SuperIcon = new System.Windows.Forms.PictureBox();
             this.AppLabel = new System.Windows.Forms.Label();
-            this.TrayMenu.SuspendLayout();
-            this.RightClickMenu.SuspendLayout();
+            this.RightClickMenu = new System.Windows.Forms.ContextMenu();
+            this.miRemove = new System.Windows.Forms.MenuItem();
+            this.miSuperLauncher = new System.Windows.Forms.MenuItem();
+            this.miSeperator1 = new System.Windows.Forms.MenuItem();
+            this.miElevate = new System.Windows.Forms.MenuItem();
+            this.miRunAs = new System.Windows.Forms.MenuItem();
+            this.miSeperator2 = new System.Windows.Forms.MenuItem();
+            this.miAddShortcut = new System.Windows.Forms.MenuItem();
+            this.miSeperator3 = new System.Windows.Forms.MenuItem();
+            this.miExit = new System.Windows.Forms.MenuItem();
+            this.TrayMenu = new System.Windows.Forms.ContextMenu();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).BeginInit();
@@ -61,84 +58,10 @@
             // TrayIcon
             // 
             this.TrayIcon.BalloonTipTitle = "Super Launcher";
-            this.TrayIcon.ContextMenuStrip = this.TrayMenu;
             this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
             this.TrayIcon.Text = "Super Launcher";
             this.TrayIcon.Visible = true;
             this.TrayIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseClick);
-            // 
-            // TrayMenu
-            // 
-            this.TrayMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.TrayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripSeparator3,
-            this.superLauncherToolStripMenuItem,
-            this.toolStripSeparator2,
-            this.elevateToolStripMenuItem,
-            this.runAsStripMenuItem,
-            this.toolStripSeparator1,
-            this.addShortcutStripMenuItem,
-            this.toolStripSeparator4,
-            this.exitSuperLauncherToolStripMenuItem});
-            this.TrayMenu.Name = "TrayMenu";
-            this.TrayMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.TrayMenu.Size = new System.Drawing.Size(161, 158);
-            // 
-            // toolStripSeparator3
-            // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(157, 6);
-            // 
-            // superLauncherToolStripMenuItem
-            // 
-            this.superLauncherToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("superLauncherToolStripMenuItem.Image")));
-            this.superLauncherToolStripMenuItem.Name = "superLauncherToolStripMenuItem";
-            this.superLauncherToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
-            this.superLauncherToolStripMenuItem.Text = "Super Launcher";
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(157, 6);
-            // 
-            // elevateToolStripMenuItem
-            // 
-            this.elevateToolStripMenuItem.Image = ((System.Drawing.Image)(resources.GetObject("elevateToolStripMenuItem.Image")));
-            this.elevateToolStripMenuItem.Name = "elevateToolStripMenuItem";
-            this.elevateToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
-            this.elevateToolStripMenuItem.Text = "Elevate...";
-            this.elevateToolStripMenuItem.Click += new System.EventHandler(this.ElevateToolStripMenuItem_Click);
-            // 
-            // runAsStripMenuItem
-            // 
-            this.runAsStripMenuItem.Name = "runAsStripMenuItem";
-            this.runAsStripMenuItem.Size = new System.Drawing.Size(160, 26);
-            this.runAsStripMenuItem.Text = "Run As...";
-            this.runAsStripMenuItem.Click += new System.EventHandler(this.RunAsStripMenuItem_Click);
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(157, 6);
-            // 
-            // addShortcutStripMenuItem
-            // 
-            this.addShortcutStripMenuItem.Name = "addShortcutStripMenuItem";
-            this.addShortcutStripMenuItem.Size = new System.Drawing.Size(160, 26);
-            this.addShortcutStripMenuItem.Text = "Add shortcut...";
-            this.addShortcutStripMenuItem.Click += new System.EventHandler(this.addShortcutStripMenuItem_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(157, 6);
-            // 
-            // exitSuperLauncherToolStripMenuItem
-            // 
-            this.exitSuperLauncherToolStripMenuItem.Name = "exitSuperLauncherToolStripMenuItem";
-            this.exitSuperLauncherToolStripMenuItem.Size = new System.Drawing.Size(160, 26);
-            this.exitSuperLauncherToolStripMenuItem.Text = "Exit...";
-            this.exitSuperLauncherToolStripMenuItem.Click += new System.EventHandler(this.exitSuperLauncherToolStripMenuItem_Click);
             // 
             // IconsBox
             // 
@@ -176,21 +99,6 @@
             this.OpenFileDialog.DereferenceLinks = false;
             this.OpenFileDialog.Multiselect = true;
             this.OpenFileDialog.FileOk += new System.ComponentModel.CancelEventHandler(this.OpenFileDialog_FileOk);
-            // 
-            // RightClickMenu
-            // 
-            this.RightClickMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.removeToolStripMenuItem});
-            this.RightClickMenu.Name = "RightClickMenu";
-            this.RightClickMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.System;
-            this.RightClickMenu.Size = new System.Drawing.Size(127, 26);
-            // 
-            // removeToolStripMenuItem
-            // 
-            this.removeToolStripMenuItem.Name = "removeToolStripMenuItem";
-            this.removeToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
-            this.removeToolStripMenuItem.Text = "Remove...";
-            this.removeToolStripMenuItem.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
             // 
             // TopPanel
             // 
@@ -248,6 +156,74 @@
             this.AppLabel.TabIndex = 0;
             this.AppLabel.Text = "Super Launcher";
             // 
+            // RightClickMenu
+            // 
+            this.RightClickMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.miRemove});
+            // 
+            // miRemove
+            // 
+            this.miRemove.Index = 0;
+            this.miRemove.Text = "Remove";
+            this.miRemove.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // miSuperLauncher
+            // 
+            this.miSuperLauncher.Enabled = false;
+            this.miSuperLauncher.Index = 0;
+            this.miSuperLauncher.Text = "Super Launcher";
+            // 
+            // miSeperator1
+            // 
+            this.miSeperator1.Index = 1;
+            this.miSeperator1.Text = "-";
+            // 
+            // miElevate
+            // 
+            this.miElevate.Index = 2;
+            this.miElevate.Text = "Elevate...";
+            this.miElevate.Click += new System.EventHandler(this.miElevate_Click);
+            // 
+            // miRunAs
+            // 
+            this.miRunAs.Index = 3;
+            this.miRunAs.Text = "Run as...";
+            this.miRunAs.Click += new System.EventHandler(this.miRunAs_Click);
+            // 
+            // miSeperator2
+            // 
+            this.miSeperator2.Index = 4;
+            this.miSeperator2.Text = "-";
+            // 
+            // miAddShortcut
+            // 
+            this.miAddShortcut.Index = 5;
+            this.miAddShortcut.Text = "Add shortcut...";
+            this.miAddShortcut.Click += new System.EventHandler(this.miAddShortcut_Click);
+            // 
+            // miSeperator3
+            // 
+            this.miSeperator3.Index = 6;
+            this.miSeperator3.Text = "-";
+            // 
+            // miExit
+            // 
+            this.miExit.Index = 7;
+            this.miExit.Text = "Exit";
+            this.miExit.Click += new System.EventHandler(this.miExit_Click);
+            // 
+            // TrayMenu
+            // 
+            this.TrayMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.miSuperLauncher,
+            this.miSeperator1,
+            this.miElevate,
+            this.miRunAs,
+            this.miSeperator2,
+            this.miAddShortcut,
+            this.miSeperator3,
+            this.miExit});
+            // 
             // Launcher
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
@@ -271,8 +247,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Launcher_FormClosing);
             this.Shown += new System.EventHandler(this.Launcher_Shown);
             this.Resize += new System.EventHandler(this.Launcher_Resize);
-            this.TrayMenu.ResumeLayout(false);
-            this.RightClickMenu.ResumeLayout(false);
             this.TopPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).EndInit();
@@ -285,24 +259,23 @@
         private System.Windows.Forms.NotifyIcon TrayIcon;
         private System.Windows.Forms.ListView IconsBox;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
-        private System.Windows.Forms.ContextMenuStrip TrayMenu;
-        private System.Windows.Forms.ToolStripMenuItem exitSuperLauncherToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem superLauncherToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog OpenFileDialog;
-        private System.Windows.Forms.ToolStripMenuItem addShortcutStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip RightClickMenu;
-        private System.Windows.Forms.ToolStripMenuItem removeToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem elevateToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem runAsStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.Panel TopPanel;
         private System.Windows.Forms.Label AppLabel;
         private System.Windows.Forms.PictureBox SuperIcon;
         private System.Windows.Forms.Label UserLabel;
         private System.Windows.Forms.PictureBox ShieldIcon;
+        private System.Windows.Forms.ContextMenu RightClickMenu;
+        private System.Windows.Forms.MenuItem miRemove;
+        private System.Windows.Forms.MenuItem miSuperLauncher;
+        private System.Windows.Forms.MenuItem miSeperator1;
+        private System.Windows.Forms.MenuItem miElevate;
+        private System.Windows.Forms.MenuItem miRunAs;
+        private System.Windows.Forms.MenuItem miSeperator2;
+        private System.Windows.Forms.MenuItem miAddShortcut;
+        private System.Windows.Forms.MenuItem miSeperator3;
+        private System.Windows.Forms.MenuItem miExit;
+        private System.Windows.Forms.ContextMenu TrayMenu;
     }
 }
 

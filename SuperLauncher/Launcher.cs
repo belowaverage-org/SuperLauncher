@@ -12,9 +12,7 @@ namespace SuperLauncher
     {
         public ImageList imageList = new ImageList();
         public bool fakeClose = true;
-
         private bool fileDialogOpen = false;
-
         public Launcher()
         {
             var initialWidth = Properties.Settings.Default.width;
@@ -25,8 +23,8 @@ namespace SuperLauncher
                 ShieldIcon.Visible = true;
                 UserLabel.Location = new Point(115, -2);
                 UserLabel.Size = new Size(238, 22);
-                elevateToolStripMenuItem.Text = "Elevated";
-                elevateToolStripMenuItem.Enabled = false;
+                miElevate.Text = "Elevated";
+                miElevate.Enabled = false;
             }
             UserLabel.Text = Environment.UserDomainName + @"\" + Environment.UserName;
             imageList.ImageSize = new Size(32, 32);
@@ -44,18 +42,15 @@ namespace SuperLauncher
                 }
             }
         }
-
         public void FadeIn()
         {
             BringToFront();
             Show();
         }
-
         public void FadeOut()
         {
             Hide();
         }
-
         public class IconData
         {
             public string fileLocation;
@@ -64,7 +59,6 @@ namespace SuperLauncher
                 fileLocation = FileLocation;
             }
         }
-
         public void addIcon(string filePath)
         {
             FileInfo fileInfo = new FileInfo(filePath);
@@ -74,13 +68,11 @@ namespace SuperLauncher
             item.ImageKey = filePath;
             item.Tag = new IconData(filePath);
         }
-
         private void Launcher_Shown(object sender, EventArgs e)
         {
             FadeIn();
             FadeOut();
         }
-
         private void Launcher_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (fakeClose)
@@ -93,14 +85,13 @@ namespace SuperLauncher
                 Properties.Settings.Default.Save();
             }
         }
-
         private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
         {
             Rectangle PScreen = Screen.PrimaryScreen.WorkingArea;
             if (e.Button == MouseButtons.Left)
             {
                 Left = MousePosition.X - (Width / 2);
-                if((PScreen.Right) < (Left + Width))
+                if ((PScreen.Right) < (Left + Width))
                 {
                     Left = PScreen.Width - Width;
                 }
@@ -108,30 +99,29 @@ namespace SuperLauncher
                 FadeIn();
                 Activate();
             }
+            if (e.Button == MouseButtons.Right)
+            {
+                Opacity = 0;
+                Location = MousePosition;
+                Show();
+                TrayMenu.Show(this, new Point(0, 0));
+                Hide();
+                Opacity = 1;
+            }
         }
-
-        private void exitSuperLauncherToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            fakeClose = false;
-            Close();
-        }
-
         private void Launcher_Deactivate(object sender, EventArgs e)
         {
             FadeOut();
         }
-
         private void IconsBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             LaunchFocusedItem();
         }
-
         private void LaunchFocusedItem()
         {
             FadeOut();
             Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
         }
-
         private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             foreach (string file in OpenFileDialog.FileNames)
@@ -141,51 +131,24 @@ namespace SuperLauncher
                 Properties.Settings.Default.Save();
             }
         }
-
-        private void addShortcutStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (!fileDialogOpen)
-            {
-                fileDialogOpen = true;
-                OpenFileDialog.ShowDialog();
-                fileDialogOpen = false;
-            }
-        }
-
         private void IconsBox_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
-                RightClickMenu.Show();
-                RightClickMenu.Left = MousePosition.X;
-                RightClickMenu.Top = MousePosition.Y;
+                RightClickMenu.Show(this, e.Location);
             }
         }
-
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Properties.Settings.Default.fileList.Remove(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
             Properties.Settings.Default.Save();
             IconsBox.FocusedItem.Remove();
         }
-
         private void Launcher_Resize(object sender, EventArgs e)
         {
             Properties.Settings.Default.width = Width;
             Properties.Settings.Default.height = Height;
         }
-
-        private void ElevateToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            UserAccountControl.Uac.ElevateAndQuit();
-            Application.ExitThread();
-        }
-
-        private void RunAsStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ShowRunAs();
-        }
-
         private void ShowRunAs(int ErrorCode = 0)
         {
             VistaPrompt prompt = new VistaPrompt();
@@ -212,7 +175,7 @@ namespace SuperLauncher
                 }
                 catch (System.ComponentModel.Win32Exception e)
                 {
-                    if(e.NativeErrorCode == 267)
+                    if (e.NativeErrorCode == 267)
                     {
                         TrayIcon.BalloonTipIcon = ToolTipIcon.Warning;
                         TrayIcon.BalloonTipText = "The credentials supplied does not have access to the currently running \"SuperLauncher\" executable file.";
@@ -222,14 +185,45 @@ namespace SuperLauncher
                 }
             }
         }
-
         private void IconsBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if(e.KeyChar == '\r')
+            if (e.KeyChar == '\r')
             {
                 LaunchFocusedItem();
             }
         }
+        private void miExit_Click(object sender, EventArgs e)
+        {
+            fakeClose = false;
+            Close();
+        }
+        private void miAddShortcut_Click(object sender, EventArgs e)
+        {
+            if (!fileDialogOpen)
+            {
+                fileDialogOpen = true;
+                OpenFileDialog.ShowDialog();
+                fileDialogOpen = false;
+            }
+        }
+        private void miRunAs_Click(object sender, EventArgs e)
+        {
+            ShowRunAs();
+        }
+        private void miElevate_Click(object sender, EventArgs e)
+        {
+            ProcessStartInfo elevatedProcStartInfo = new ProcessStartInfo();
+            elevatedProcStartInfo.FileName = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            elevatedProcStartInfo.Verb = "RunAs";
+            Process elevatedProcess = new Process();
+            elevatedProcess.StartInfo = elevatedProcStartInfo;
+            try
+            {
+                elevatedProcess.Start();
+                fakeClose = false;
+                Close();
+            }
+            catch (Exception) { }
+        }
     }
 }
- 

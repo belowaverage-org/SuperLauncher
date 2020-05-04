@@ -169,9 +169,9 @@
             // 
             // miSuperLauncher
             // 
-            this.miSuperLauncher.Enabled = false;
             this.miSuperLauncher.Index = 0;
             this.miSuperLauncher.Text = "Super Launcher";
+            this.miSuperLauncher.Click += new System.EventHandler(this.miSuperLauncher_Click);
             // 
             // miSeperator1
             // 
@@ -223,6 +223,7 @@
             this.miAddShortcut,
             this.miSeperator3,
             this.miExit});
+            this.TrayMenu.Popup += new System.EventHandler(this.TrayMenu_Popup);
             // 
             // Launcher
             // 
@@ -230,9 +231,9 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(376, 220);
-            this.ControlBox = false;
             this.Controls.Add(this.TopPanel);
             this.Controls.Add(this.IconsBox);
+            this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
@@ -242,7 +243,7 @@
             this.Opacity = 0.96D;
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
+            this.TopMost = true;
             this.Deactivate += new System.EventHandler(this.Launcher_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Launcher_FormClosing);
             this.Shown += new System.EventHandler(this.Launcher_Shown);

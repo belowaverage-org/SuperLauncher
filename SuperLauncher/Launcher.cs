@@ -18,6 +18,9 @@ namespace SuperLauncher
             var initialWidth = Properties.Settings.Default.width;
             var initialHeight = Properties.Settings.Default.height;
             InitializeComponent();
+            miSuperLauncher.SetMenuItemBitmap(Properties.Resources.icon_16);
+            miAddShortcut.SetMenuItemBitmap(Properties.Resources.shortcut);
+            miElevate.SetMenuItemBitmap(Properties.Resources.shield);
             if (UserAccountControl.Uac.IsProcessElevated())
             {
                 ShieldIcon.Visible = true;
@@ -44,8 +47,8 @@ namespace SuperLauncher
         }
         public void FadeIn()
         {
-            BringToFront();
             Show();
+            BringToFront();
         }
         public void FadeOut()
         {
@@ -224,6 +227,14 @@ namespace SuperLauncher
                 Close();
             }
             catch (Exception) { }
+        }
+        private void TrayMenu_Popup(object sender, EventArgs e)
+        {
+            ((Menu)sender).DrawMenuItemBitmaps();
+        }
+        private void miSuperLauncher_Click(object sender, EventArgs e)
+        {
+            new About().ShowDialog();
         }
     }
 }

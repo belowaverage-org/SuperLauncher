@@ -310,18 +310,6 @@
   <metadata name="SuperIcon.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <data name="SuperIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAVtJREFUOE+NkT9LA0EQxUe/VMBG/TAbK7HQTsFC/FPYKIpYiBBIYSG2tmKld5A2
-        BBstjJwoEQuNJDl/s5l4Wd2TPHi8Zea9md07mQS5yJRq4qSSOllBL+BdWpUXb5gESVXWCN8QfIVfhHto
-        y9r/A3ONARnsEuqjAx0Cz81SDkx1NrcJXcIzhj3pEL0+umy2EGNvPsbYgQ3fADpEb2LPqVi5wFh4Ez7D
-        PuambwK7SUZ91Up/QWAJPmgY88A2NvUmaButqW+0TG6dzGDehns0T9AW2rPwkMN3d9C6D41AMfd08oZ+
-        6DY1/w6jGZ4ji4XAcEC4YQOKIKSm//ue8IZ683WZ9qEYdEswQDfzHM6L2v95cxkwP/pQMaQLT7VXGk4W
-        ZM6OHvqVCWX+OU4+OR9aKw4MW3YMQD1lwDvctVIcGK7Yxg1DcJN9rfOLZ60Uh5oYck1gB523skdscAiR
-        b7Zy72k3j63JAAAAAElFTkSuQmCC
-</value>
-  </data>
   <metadata name="AppLabel.Locked" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

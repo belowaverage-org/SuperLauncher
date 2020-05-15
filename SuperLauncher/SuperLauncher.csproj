@@ -40,7 +40,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
+    <ApplicationIcon>..\SuperLauncherAssets\logo.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -112,12 +112,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\banner.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\icon_16.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\shortcut.png" />

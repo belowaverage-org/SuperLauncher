@@ -10,14 +10,14 @@ namespace SuperLauncher
         public About()
         {
             InitializeComponent();
-            Icon = Properties.Resources.icon;
+            Icon = Properties.Resources.logo;
             Text = String.Format("About {0}", AssemblyTitle);
             labelProductName.Text = AssemblyProduct;
             labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             labelCopyright.Text = AssemblyCopyright;
             labelCompanyName.Text = AssemblyCompany;
             textBoxDescription.Text = AssemblyDescription;
-            pbLogo.Image = Properties.Resources.icon.ToBitmapAlpha(64, 64);
+            pbLogo.Image = Properties.Resources.logo.ToBitmapAlpha(64, 64);
         }
 
         #region Assembly Attribute Accessors

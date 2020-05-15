@@ -18,7 +18,7 @@ namespace SuperLauncher
             var initialWidth = Properties.Settings.Default.width;
             var initialHeight = Properties.Settings.Default.height;
             InitializeComponent();
-            miSuperLauncher.SetMenuItemBitmap(Properties.Resources.icon_16);
+            miSuperLauncher.SetMenuItemBitmap(Properties.Resources.logo_16);
             miAddShortcut.SetMenuItemBitmap(Properties.Resources.shortcut);
             miElevate.SetMenuItemBitmap(Properties.Resources.shield);
             if (UserAccountControl.Uac.IsProcessElevated())

@@ -139,10 +139,10 @@
             // 
             // SuperIcon
             // 
-            this.SuperIcon.Image = ((System.Drawing.Image)(resources.GetObject("SuperIcon.Image")));
+            this.SuperIcon.Image = global::SuperLauncher.Properties.Resources.logo_16;
             this.SuperIcon.Location = new System.Drawing.Point(7, 0);
             this.SuperIcon.Name = "SuperIcon";
-            this.SuperIcon.Size = new System.Drawing.Size(13, 13);
+            this.SuperIcon.Size = new System.Drawing.Size(16, 16);
             this.SuperIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.SuperIcon.TabIndex = 1;
             this.SuperIcon.TabStop = false;

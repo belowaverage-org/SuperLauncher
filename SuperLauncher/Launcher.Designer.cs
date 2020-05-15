@@ -58,7 +58,6 @@
             // TrayIcon
             // 
             this.TrayIcon.BalloonTipTitle = "Super Launcher";
-            this.TrayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("TrayIcon.Icon")));
             this.TrayIcon.Text = "Super Launcher";
             this.TrayIcon.Visible = true;
             this.TrayIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseClick);
@@ -241,7 +240,6 @@
             this.MinimumSize = new System.Drawing.Size(148, 200);
             this.Name = "Launcher";
             this.Opacity = 0.96D;
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.TopMost = true;
             this.Deactivate += new System.EventHandler(this.Launcher_Deactivate);

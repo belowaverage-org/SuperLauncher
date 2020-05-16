@@ -5,6 +5,9 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Collections.Specialized;
 using CredentialManagement;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using SuperLauncher.Properties;
 
 namespace SuperLauncher
 {
@@ -13,19 +16,57 @@ namespace SuperLauncher
         public ImageList imageList = new ImageList();
         public bool fakeClose = true;
         private bool fileDialogOpen = false;
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+        [DllImport("dwmapi.dll")]
+        private static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS margins);
+        [StructLayout(LayoutKind.Sequential)]
+        private struct MARGINS
+        {
+            public int cxLeftWidth;
+            public int cxRightWidth;
+            public int cyBottomHeight;
+            public int cyTopHeight;
+        }
+        protected override void WndProc(ref Message m)
+        {
+            IntPtr lRet = (IntPtr)0;
+            if (m.Msg == 0x6) //WM_ACTIVATE
+            {
+                MARGINS margins;
+                margins.cxLeftWidth = 1;
+                margins.cxRightWidth = 1;
+                margins.cyBottomHeight = 1;
+                margins.cyTopHeight = 1;
+                DwmExtendFrameIntoClientArea(Handle, ref margins);
+            }
+            if (m.Msg == 0x1) //WM_CREATE
+            {
+                SetWindowPos(Handle, IntPtr.Zero, Left, Top, Width, Height, 0x20); //SWP_FRAMECHANGED
+            }
+            if (m.Msg == 0x83 && m.WParam == (IntPtr)1) //WM_NCCALCSIZE
+            {
+                return;
+            }
+            if (m.Msg == 0x84) //WM_NCHITTEST
+            {
+
+            }
+            base.WndProc(ref m);
+        }
         public Launcher()
         {
-            var initialWidth = Properties.Settings.Default.width;
-            var initialHeight = Properties.Settings.Default.height;
+            var initialWidth = Settings.Default.width;
+            var initialHeight = Settings.Default.height;
             InitializeComponent();
-            Icon = TrayIcon.Icon = Properties.Resources.logo;
-            miSuperLauncher.SetMenuItemBitmap(Properties.Resources.logo_16);
-            miAddShortcut.SetMenuItemBitmap(Properties.Resources.shortcut);
-            miElevate.SetMenuItemBitmap(Properties.Resources.shield);
+            Icon = TrayIcon.Icon = Resources.logo;
+            miSuperLauncher.SetMenuItemBitmap(Resources.logo_16);
+            miAddShortcut.SetMenuItemBitmap(Resources.shortcut);
+            miElevate.SetMenuItemBitmap(Resources.shield);
             if (UserAccountControl.Uac.IsProcessElevated())
             {
                 ShieldIcon.Visible = true;
-                UserLabel.Location = new Point(115, -2);
+                UserLabel.Location = new Point(113, 5);
                 UserLabel.Size = new Size(238, 22);
                 miElevate.Text = "Elevated";
                 miElevate.Enabled = false;
@@ -34,11 +75,11 @@ namespace SuperLauncher
             imageList.ImageSize = new Size(32, 32);
             Width = initialWidth;
             Height = initialHeight;
-            if (Properties.Settings.Default.fileList == null)
+            if (Settings.Default.fileList == null)
             {
-                Properties.Settings.Default.fileList = new StringCollection();
+                Settings.Default.fileList = new StringCollection();
             }
-            foreach (string file in Properties.Settings.Default.fileList)
+            foreach (string file in Settings.Default.fileList)
             {
                 if (File.Exists(file))
                 {
@@ -86,7 +127,7 @@ namespace SuperLauncher
             }
             else
             {
-                Properties.Settings.Default.Save();
+                Settings.Default.Save();
             }
         }
         private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
@@ -124,15 +165,19 @@ namespace SuperLauncher
         private void LaunchFocusedItem()
         {
             FadeOut();
-            Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
+            try
+            {
+                Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
+            }
+            catch (Exception) { } //User canceled a UAC probbably...
         }
         private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
         {
             foreach (string file in OpenFileDialog.FileNames)
             {
                 addIcon(file);
-                Properties.Settings.Default.fileList.Add(file);
-                Properties.Settings.Default.Save();
+                Settings.Default.fileList.Add(file);
+                Settings.Default.Save();
             }
         }
         private void IconsBox_MouseClick(object sender, MouseEventArgs e)
@@ -144,14 +189,14 @@ namespace SuperLauncher
         }
         private void removeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Properties.Settings.Default.fileList.Remove(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
-            Properties.Settings.Default.Save();
+            Settings.Default.fileList.Remove(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
+            Settings.Default.Save();
             IconsBox.FocusedItem.Remove();
         }
         private void Launcher_Resize(object sender, EventArgs e)
         {
-            Properties.Settings.Default.width = Width;
-            Properties.Settings.Default.height = Height;
+            Settings.Default.width = Width;
+            Settings.Default.height = Height;
         }
         private void ShowRunAs(int ErrorCode = 0)
         {

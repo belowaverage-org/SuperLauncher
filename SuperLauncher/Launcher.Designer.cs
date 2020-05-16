@@ -73,12 +73,12 @@
             this.IconsBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.IconsBox.ForeColor = System.Drawing.Color.White;
             this.IconsBox.HideSelection = false;
-            this.IconsBox.Location = new System.Drawing.Point(0, 29);
+            this.IconsBox.Location = new System.Drawing.Point(1, 30);
             this.IconsBox.Margin = new System.Windows.Forms.Padding(10);
             this.IconsBox.MultiSelect = false;
             this.IconsBox.Name = "IconsBox";
             this.IconsBox.ShowGroups = false;
-            this.IconsBox.Size = new System.Drawing.Size(376, 191);
+            this.IconsBox.Size = new System.Drawing.Size(374, 189);
             this.IconsBox.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.IconsBox.TabIndex = 1;
             this.IconsBox.TileSize = new System.Drawing.Size(50, 50);
@@ -101,24 +101,26 @@
             // 
             // TopPanel
             // 
+            this.TopPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.TopPanel.BackColor = System.Drawing.Color.White;
             this.TopPanel.Controls.Add(this.ShieldIcon);
             this.TopPanel.Controls.Add(this.UserLabel);
             this.TopPanel.Controls.Add(this.SuperIcon);
             this.TopPanel.Controls.Add(this.AppLabel);
-            this.TopPanel.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TopPanel.Location = new System.Drawing.Point(0, 0);
+            this.TopPanel.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.TopPanel.Location = new System.Drawing.Point(1, 1);
             this.TopPanel.Name = "TopPanel";
-            this.TopPanel.Size = new System.Drawing.Size(376, 20);
+            this.TopPanel.Size = new System.Drawing.Size(374, 26);
             this.TopPanel.TabIndex = 2;
             // 
             // ShieldIcon
             // 
             this.ShieldIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ShieldIcon.Image = ((System.Drawing.Image)(resources.GetObject("ShieldIcon.Image")));
-            this.ShieldIcon.Location = new System.Drawing.Point(357, 0);
+            this.ShieldIcon.Location = new System.Drawing.Point(353, 5);
             this.ShieldIcon.Name = "ShieldIcon";
-            this.ShieldIcon.Size = new System.Drawing.Size(13, 13);
+            this.ShieldIcon.Size = new System.Drawing.Size(16, 16);
             this.ShieldIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ShieldIcon.TabIndex = 3;
             this.ShieldIcon.TabStop = false;
@@ -130,16 +132,16 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UserLabel.AutoEllipsis = true;
             this.UserLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.UserLabel.Location = new System.Drawing.Point(115, -2);
+            this.UserLabel.Location = new System.Drawing.Point(115, 4);
             this.UserLabel.Name = "UserLabel";
-            this.UserLabel.Size = new System.Drawing.Size(255, 22);
+            this.UserLabel.Size = new System.Drawing.Size(255, 15);
             this.UserLabel.TabIndex = 2;
             this.UserLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // SuperIcon
             // 
             this.SuperIcon.Image = global::SuperLauncher.Properties.Resources.logo_16;
-            this.SuperIcon.Location = new System.Drawing.Point(7, 0);
+            this.SuperIcon.Location = new System.Drawing.Point(6, 5);
             this.SuperIcon.Name = "SuperIcon";
             this.SuperIcon.Size = new System.Drawing.Size(16, 16);
             this.SuperIcon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -149,9 +151,9 @@
             // AppLabel
             // 
             this.AppLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AppLabel.Location = new System.Drawing.Point(25, -2);
+            this.AppLabel.Location = new System.Drawing.Point(26, 4);
             this.AppLabel.Name = "AppLabel";
-            this.AppLabel.Size = new System.Drawing.Size(90, 22);
+            this.AppLabel.Size = new System.Drawing.Size(90, 15);
             this.AppLabel.TabIndex = 0;
             this.AppLabel.Text = "Super Launcher";
             // 
@@ -240,6 +242,7 @@
             this.MinimumSize = new System.Drawing.Size(148, 200);
             this.Name = "Launcher";
             this.Opacity = 0.96D;
+            this.Padding = new System.Windows.Forms.Padding(1);
             this.ShowInTaskbar = false;
             this.TopMost = true;
             this.Deactivate += new System.EventHandler(this.Launcher_Deactivate);

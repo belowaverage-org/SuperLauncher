@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Diagnostics;
 using System.Collections.Specialized;
 using CredentialManagement;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using SuperLauncher.Properties;
 
@@ -59,7 +58,7 @@ namespace SuperLauncher
             var initialWidth = Settings.Default.width;
             var initialHeight = Settings.Default.height;
             InitializeComponent();
-            Icon = TrayIcon.Icon = Resources.logo;
+            Icon = TrayIcon.Icon = new Icon(Resources.logo, 16, 16);
             miSuperLauncher.SetMenuItemBitmap(Resources.logo_16);
             miAddShortcut.SetMenuItemBitmap(Resources.shortcut);
             miElevate.SetMenuItemBitmap(Resources.shield);

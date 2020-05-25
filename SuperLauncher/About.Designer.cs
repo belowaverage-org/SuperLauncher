@@ -189,12 +189,13 @@
             // pbLogo
             // 
             this.pbLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLogo.Image = global::SuperLauncher.Properties.Resources.logo_256;
             this.pbLogo.Location = new System.Drawing.Point(313, 3);
             this.pbLogo.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
             this.pbLogo.Name = "pbLogo";
             this.tableLayoutPanel.SetRowSpan(this.pbLogo, 4);
             this.pbLogo.Size = new System.Drawing.Size(152, 118);
-            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbLogo.TabIndex = 27;
             this.pbLogo.TabStop = false;
             // 

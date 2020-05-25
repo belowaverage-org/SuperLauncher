@@ -89,6 +89,9 @@
     </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Win32Interop.cs" />
+    <EmbeddedResource Include="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Launcher.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>

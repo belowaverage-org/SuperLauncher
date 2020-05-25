@@ -17,7 +17,6 @@ namespace SuperLauncher
             labelCopyright.Text = AssemblyCopyright;
             labelCompanyName.Text = AssemblyCompany;
             textBoxDescription.Text = AssemblyDescription;
-            pbLogo.Image = Properties.Resources.logo.ToBitmapAlpha(64, 64);
         }
 
         #region Assembly Attribute Accessors

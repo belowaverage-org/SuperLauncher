@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using CredentialManagement;
 using System.Runtime.InteropServices;
 using SuperLauncher.Properties;
+using System.Media;
 
 namespace SuperLauncher
 {

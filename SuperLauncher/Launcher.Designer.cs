@@ -241,7 +241,6 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(148, 200);
             this.Name = "Launcher";
-            this.Opacity = 0.96D;
             this.Padding = new System.Windows.Forms.Padding(1);
             this.ShowInTaskbar = false;
             this.TopMost = true;

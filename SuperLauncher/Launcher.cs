@@ -8,6 +8,7 @@ using CredentialManagement;
 using System.Runtime.InteropServices;
 using SuperLauncher.Properties;
 using System.Media;
+using System.Threading;
 
 namespace SuperLauncher
 {
@@ -16,6 +17,8 @@ namespace SuperLauncher
         public ImageList imageList = new ImageList();
         public bool fakeClose = true;
         private bool fileDialogOpen = false;
+        [DllImport("user32.dll")]
+        static extern bool AnimateWindow(IntPtr hwnd, int time, AnimateWindowFlags flags);
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
         [DllImport("dwmapi.dll")]
@@ -27,6 +30,18 @@ namespace SuperLauncher
             public int cxRightWidth;
             public int cyBottomHeight;
             public int cyTopHeight;
+        }
+        private enum AnimateWindowFlags : uint
+        {
+            AW_HOR_POSITIVE = 0x00000001,
+            AW_HOR_NEGATIVE = 0x00000002,
+            AW_VER_POSITIVE = 0x00000004,
+            AW_VER_NEGATIVE = 0x00000008,
+            AW_CENTER = 0x00000010,
+            AW_HIDE = 0x00010000,
+            AW_ACTIVATE = 0x00020000,
+            AW_SLIDE = 0x00040000,
+            AW_BLEND = 0x00080000
         }
         protected override void WndProc(ref Message m)
         {
@@ -90,7 +105,6 @@ namespace SuperLauncher
         public void FadeIn()
         {
             Show();
-            BringToFront();
         }
         public void FadeOut()
         {

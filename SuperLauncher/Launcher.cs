@@ -337,7 +337,6 @@ namespace SuperLauncher
             Point posOff = Cursor.Position;
             posOff.X -= Left;
             posOff.Y -= Top;
-            Console.WriteLine(MouseIsDown);
             if (!MouseIsDown)
             {
                 CurrentRH = ResizeHandles.None;
@@ -378,6 +377,11 @@ namespace SuperLauncher
                     Left = pos.X;
                 }
             }
+        }
+        private void miExplorer_Click(object sender, EventArgs e)
+        {
+            ShellHost sh = new ShellHost();
+            sh.Show();
         }
     }
 }

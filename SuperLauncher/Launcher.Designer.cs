@@ -50,6 +50,8 @@
             this.miSeperator3 = new System.Windows.Forms.MenuItem();
             this.miExit = new System.Windows.Forms.MenuItem();
             this.TrayMenu = new System.Windows.Forms.ContextMenu();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.miExplorer = new System.Windows.Forms.MenuItem();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).BeginInit();
@@ -204,12 +206,12 @@
             // 
             // miSeperator3
             // 
-            this.miSeperator3.Index = 6;
+            this.miSeperator3.Index = 8;
             this.miSeperator3.Text = "-";
             // 
             // miExit
             // 
-            this.miExit.Index = 7;
+            this.miExit.Index = 9;
             this.miExit.Text = "Exit";
             this.miExit.Click += new System.EventHandler(this.miExit_Click);
             // 
@@ -222,9 +224,22 @@
             this.miRunAs,
             this.miSeperator2,
             this.miAddShortcut,
+            this.menuItem1,
+            this.miExplorer,
             this.miSeperator3,
             this.miExit});
             this.TrayMenu.Popup += new System.EventHandler(this.TrayMenu_Popup);
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 6;
+            this.menuItem1.Text = "-";
+            // 
+            // miExplorer
+            // 
+            this.miExplorer.Index = 7;
+            this.miExplorer.Text = "Explorer...";
+            this.miExplorer.Click += new System.EventHandler(this.miExplorer_Click);
             // 
             // Launcher
             // 
@@ -280,6 +295,8 @@
         private System.Windows.Forms.MenuItem miSeperator3;
         private System.Windows.Forms.MenuItem miExit;
         private System.Windows.Forms.ContextMenu TrayMenu;
+        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.MenuItem miExplorer;
     }
 }
 

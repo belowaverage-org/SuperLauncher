@@ -21,25 +21,19 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_343029706C4E1EB941AADA88A2FC8E4E"
+        "MsmKey" = "8:_0C502293725689FD4DAEC795F2152DD6"
         "OwnerKey" = "8:_0BDD2FEF099F4B93B71CE86E1E354470"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_6ACF64330D67C9C7B10F869F7C38F450"
+        "MsmKey" = "8:_280540A354408438B1B3B9101D6A61D9"
         "OwnerKey" = "8:_0BDD2FEF099F4B93B71CE86E1E354470"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_7F9B88CD6FA29D45CC99366295EB7889"
-        "OwnerKey" = "8:_0BDD2FEF099F4B93B71CE86E1E354470"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B6DCE9CC29615C7F1640CC5874B2D19A"
+        "MsmKey" = "8:_3AFA7F21809D1F6C164DC92CF742634B"
         "OwnerKey" = "8:_0BDD2FEF099F4B93B71CE86E1E354470"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -58,25 +52,19 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_B6DCE9CC29615C7F1640CC5874B2D19A"
+        "OwnerKey" = "8:_3AFA7F21809D1F6C164DC92CF742634B"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_6ACF64330D67C9C7B10F869F7C38F450"
+        "OwnerKey" = "8:_0C502293725689FD4DAEC795F2152DD6"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_343029706C4E1EB941AADA88A2FC8E4E"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_7F9B88CD6FA29D45CC99366295EB7889"
+        "OwnerKey" = "8:_280540A354408438B1B3B9101D6A61D9"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -136,6 +124,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -166,45 +162,14 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_343029706C4E1EB941AADA88A2FC8E4E"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Costura, Version=4.0.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_343029706C4E1EB941AADA88A2FC8E4E"
-                    {
-                    "Name" = "8:Costura.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Costura.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_6ACF64330D67C9C7B10F869F7C38F450"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_0C502293725689FD4DAEC795F2152DD6"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:CredentialManagement, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_6ACF64330D67C9C7B10F869F7C38F450"
+                    "_0C502293725689FD4DAEC795F2152DD6"
                     {
                     "Name" = "8:CredentialManagement.dll"
                     "Attributes" = "3:512"
@@ -228,20 +193,20 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7F9B88CD6FA29D45CC99366295EB7889"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_280540A354408438B1B3B9101D6A61D9"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:System.Net.Http, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"
+            "AssemblyAsmDisplayName" = "8:Costura, Version=4.1.0.0, Culture=neutral, PublicKeyToken=9919ef960d84173d, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_7F9B88CD6FA29D45CC99366295EB7889"
+                    "_280540A354408438B1B3B9101D6A61D9"
                     {
-                    "Name" = "8:System.Net.Http.dll"
+                    "Name" = "8:Costura.dll"
                     "Attributes" = "3:512"
                     }
                 }
-            "SourcePath" = "8:System.Net.Http.dll"
+            "SourcePath" = "8:Costura.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"
@@ -259,14 +224,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B6DCE9CC29615C7F1640CC5874B2D19A"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_3AFA7F21809D1F6C164DC92CF742634B"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
             "AssemblyAsmDisplayName" = "8:UserAccountControl, Version=1.0.4636.39457, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_B6DCE9CC29615C7F1640CC5874B2D19A"
+                    "_3AFA7F21809D1F6C164DC92CF742634B"
                     {
                     "Name" = "8:UserAccountControl.dll"
                     "Attributes" = "3:512"
@@ -371,7 +336,7 @@
         "UpgradeCode" = "8:{B97E5DFB-9607-4472-B75A-E7726FC5B769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
         "ProductVersion" = "8:1.1.0"

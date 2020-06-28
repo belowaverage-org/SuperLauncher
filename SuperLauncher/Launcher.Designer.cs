@@ -32,7 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launcher));
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
             this.IconsBox = new System.Windows.Forms.ListView();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.TopPanel = new System.Windows.Forms.Panel();
             this.ShieldIcon = new System.Windows.Forms.PictureBox();
@@ -50,8 +50,9 @@
             this.miSeperator3 = new System.Windows.Forms.MenuItem();
             this.miExit = new System.Windows.Forms.MenuItem();
             this.TrayMenu = new System.Windows.Forms.ContextMenu();
-            this.menuItem1 = new System.Windows.Forms.MenuItem();
+            this.miSeperator4 = new System.Windows.Forms.MenuItem();
             this.miExplorer = new System.Windows.Forms.MenuItem();
+            this.miConfig = new System.Windows.Forms.MenuItem();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).BeginInit();
@@ -89,11 +90,11 @@
             this.IconsBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.IconsBox_MouseClick);
             this.IconsBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.IconsBox_MouseDoubleClick);
             // 
-            // toolStripMenuItem1
+            // toolStripMenu
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(32, 19);
-            this.toolStripMenuItem1.Text = "Exit Super Launcher";
+            this.toolStripMenu.Name = "toolStripMenu";
+            this.toolStripMenu.Size = new System.Drawing.Size(32, 19);
+            this.toolStripMenu.Text = "Exit Super Launcher";
             // 
             // OpenFileDialog
             // 
@@ -211,7 +212,7 @@
             // 
             // miExit
             // 
-            this.miExit.Index = 9;
+            this.miExit.Index = 10;
             this.miExit.Text = "Exit";
             this.miExit.Click += new System.EventHandler(this.miExit_Click);
             // 
@@ -224,22 +225,29 @@
             this.miRunAs,
             this.miSeperator2,
             this.miAddShortcut,
-            this.menuItem1,
+            this.miSeperator4,
             this.miExplorer,
             this.miSeperator3,
+            this.miConfig,
             this.miExit});
             this.TrayMenu.Popup += new System.EventHandler(this.TrayMenu_Popup);
             // 
-            // menuItem1
+            // miSeperator4
             // 
-            this.menuItem1.Index = 6;
-            this.menuItem1.Text = "-";
+            this.miSeperator4.Index = 6;
+            this.miSeperator4.Text = "-";
             // 
             // miExplorer
             // 
             this.miExplorer.Index = 7;
-            this.miExplorer.Text = "Explorer...";
+            this.miExplorer.Text = "Open Explorer";
             this.miExplorer.Click += new System.EventHandler(this.miExplorer_Click);
+            // 
+            // miConfig
+            // 
+            this.miConfig.Index = 9;
+            this.miConfig.Text = "View Config...";
+            this.miConfig.Click += new System.EventHandler(this.miConfig_Click);
             // 
             // Launcher
             // 
@@ -277,7 +285,7 @@
 
         private System.Windows.Forms.NotifyIcon TrayIcon;
         private System.Windows.Forms.ListView IconsBox;
-        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenu;
         private System.Windows.Forms.OpenFileDialog OpenFileDialog;
         private System.Windows.Forms.Panel TopPanel;
         private System.Windows.Forms.Label AppLabel;
@@ -295,8 +303,9 @@
         private System.Windows.Forms.MenuItem miSeperator3;
         private System.Windows.Forms.MenuItem miExit;
         private System.Windows.Forms.ContextMenu TrayMenu;
-        private System.Windows.Forms.MenuItem menuItem1;
+        private System.Windows.Forms.MenuItem miSeperator4;
         private System.Windows.Forms.MenuItem miExplorer;
+        private System.Windows.Forms.MenuItem miConfig;
     }
 }
 

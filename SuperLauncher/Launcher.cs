@@ -7,6 +7,7 @@ using System.Collections.Specialized;
 using CredentialManagement;
 using System.Runtime.InteropServices;
 using SuperLauncher.Properties;
+using System.Configuration;
 
 namespace SuperLauncher
 {
@@ -382,6 +383,10 @@ namespace SuperLauncher
         {
             ShellHost sh = new ShellHost();
             sh.Show();
+        }
+        private void miConfig_Click(object sender, EventArgs e)
+        {
+            Process.Start(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath);
         }
     }
 }

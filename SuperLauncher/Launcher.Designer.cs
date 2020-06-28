@@ -247,6 +247,9 @@
             this.Deactivate += new System.EventHandler(this.Launcher_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Launcher_FormClosing);
             this.Shown += new System.EventHandler(this.Launcher_Shown);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Launcher_MouseDown);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Launcher_MouseMove);
+            this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Launcher_MouseUp);
             this.Resize += new System.EventHandler(this.Launcher_Resize);
             this.TopPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).EndInit();

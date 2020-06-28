@@ -7,8 +7,6 @@ using System.Collections.Specialized;
 using CredentialManagement;
 using System.Runtime.InteropServices;
 using SuperLauncher.Properties;
-using System.Media;
-using System.Threading;
 
 namespace SuperLauncher
 {
@@ -17,6 +15,10 @@ namespace SuperLauncher
         public ImageList imageList = new ImageList();
         public bool fakeClose = true;
         private bool fileDialogOpen = false;
+        private ResizeHandles CurrentRH = ResizeHandles.None;
+        private bool MouseIsDown = false;
+        private int HandleWidth = 5;
+        private int BottomRightMargin = 5;
         [DllImport("user32.dll")]
         static extern bool AnimateWindow(IntPtr hwnd, int time, AnimateWindowFlags flags);
         [DllImport("user32.dll", SetLastError = true)]
@@ -42,6 +44,18 @@ namespace SuperLauncher
             AW_ACTIVATE = 0x00020000,
             AW_SLIDE = 0x00040000,
             AW_BLEND = 0x00080000
+        }
+        private enum ResizeHandles
+        {
+            None = 0,
+            Top = 1,
+            Right = 2,
+            Bottom = 4,
+            Left = 8,
+            TopRight = 3,
+            TopLeft = 9,
+            BottomRight = 6,
+            BottomLeft = 12
         }
         protected override void WndProc(ref Message m)
         {
@@ -74,6 +88,7 @@ namespace SuperLauncher
             var initialWidth = Settings.Default.width;
             var initialHeight = Settings.Default.height;
             InitializeComponent();
+            RegHandleEvents(Controls);
             Icon = TrayIcon.Icon = new Icon(Resources.logo, 16, 16);
             miSuperLauncher.SetMenuItemBitmap(Resources.logo_16);
             miAddShortcut.SetMenuItemBitmap(Resources.shortcut);
@@ -152,9 +167,9 @@ namespace SuperLauncher
                 Left = MousePosition.X - (Width / 2);
                 if ((PScreen.Right) < (Left + Width))
                 {
-                    Left = PScreen.Width - Width;
+                    Left = (PScreen.Width - Width) - BottomRightMargin;
                 }
-                Top = PScreen.Bottom - Height;
+                Top = (PScreen.Bottom - Height) - BottomRightMargin;
                 FadeIn();
                 Activate();
             }
@@ -163,6 +178,7 @@ namespace SuperLauncher
                 Opacity = 0;
                 Location = MousePosition;
                 Show();
+                Activate();
                 TrayMenu.Show(this, new Point(0, 0));
                 Hide();
                 Opacity = 1;
@@ -295,6 +311,73 @@ namespace SuperLauncher
         private void miSuperLauncher_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
+        }
+        private void RegHandleEvents(Control.ControlCollection ControlCollection)
+        {
+            foreach (Control control in ControlCollection)
+            {
+                Console.WriteLine(control);
+                control.MouseDown += Launcher_MouseDown;
+                control.MouseUp += Launcher_MouseUp;
+                control.MouseMove += Launcher_MouseMove;
+                RegHandleEvents(control.Controls);
+            }
+        }
+        private void Launcher_MouseDown(object sender, MouseEventArgs e)
+        {
+            MouseIsDown = true;
+        }
+        private void Launcher_MouseUp(object sender, MouseEventArgs e)
+        {
+            MouseIsDown = false;
+        }
+        private void Launcher_MouseMove(object sender, MouseEventArgs e)
+        {
+            Point pos = Cursor.Position;
+            Point posOff = Cursor.Position;
+            posOff.X -= Left;
+            posOff.Y -= Top;
+            Console.WriteLine(MouseIsDown);
+            if (!MouseIsDown)
+            {
+                CurrentRH = ResizeHandles.None;
+                if (posOff.Y <= HandleWidth) CurrentRH = CurrentRH | ResizeHandles.Top;
+                if (posOff.X > Width - HandleWidth) CurrentRH = CurrentRH | ResizeHandles.Right;
+                if (posOff.Y > Height - HandleWidth) CurrentRH = CurrentRH | ResizeHandles.Bottom;
+                if (posOff.X <= HandleWidth) CurrentRH = CurrentRH | ResizeHandles.Left;
+                if (CurrentRH == ResizeHandles.None) Cursor = Cursors.Arrow;
+                if (CurrentRH == ResizeHandles.Left || CurrentRH == ResizeHandles.Right) Cursor = Cursors.SizeWE;
+                if (CurrentRH == ResizeHandles.Top || CurrentRH == ResizeHandles.Bottom) Cursor = Cursors.SizeNS;
+                if (CurrentRH == ResizeHandles.TopLeft || CurrentRH == ResizeHandles.BottomRight) Cursor = Cursors.SizeNWSE;
+                if (CurrentRH == ResizeHandles.TopRight || CurrentRH == ResizeHandles.BottomLeft) Cursor = Cursors.SizeNESW;
+                return;
+            }
+            if ((CurrentRH & ResizeHandles.Top) == ResizeHandles.Top)
+            {
+                int newHeight = (Top + Height) - pos.Y;
+                if (newHeight > MinimumSize.Height)
+                {
+                    Height = newHeight;
+                    Top = pos.Y;
+                }
+            }
+            if ((CurrentRH & ResizeHandles.Right) == ResizeHandles.Right)
+            {
+                Width = pos.X - Left;
+            }
+            if ((CurrentRH & ResizeHandles.Bottom) == ResizeHandles.Bottom)
+            {
+                Height = pos.Y - Top;
+            }
+            if ((CurrentRH & ResizeHandles.Left) == ResizeHandles.Left)
+            {
+                int newWidth = (Left + Width) - pos.X;
+                if (newWidth > MinimumSize.Width)
+                {
+                    Width = newWidth;
+                    Left = pos.X;
+                }
+            }
         }
     }
 }

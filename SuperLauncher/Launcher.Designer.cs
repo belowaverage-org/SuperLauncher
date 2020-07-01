@@ -76,12 +76,12 @@
             this.IconsBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.IconsBox.ForeColor = System.Drawing.Color.White;
             this.IconsBox.HideSelection = false;
-            this.IconsBox.Location = new System.Drawing.Point(1, 30);
+            this.IconsBox.Location = new System.Drawing.Point(1, 35);
             this.IconsBox.Margin = new System.Windows.Forms.Padding(10);
             this.IconsBox.MultiSelect = false;
             this.IconsBox.Name = "IconsBox";
             this.IconsBox.ShowGroups = false;
-            this.IconsBox.Size = new System.Drawing.Size(374, 189);
+            this.IconsBox.Size = new System.Drawing.Size(374, 184);
             this.IconsBox.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.IconsBox.TabIndex = 1;
             this.IconsBox.TileSize = new System.Drawing.Size(50, 50);

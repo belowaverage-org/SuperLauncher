@@ -1,6 +1,9 @@
-﻿using SuperLauncher.Properties;
+﻿using Microsoft.WindowsAPICodePack.Controls;
+using Microsoft.WindowsAPICodePack.Shell;
+using SuperLauncher.Properties;
 using System;
 using System.Windows.Forms;
+using System.IO;
 
 namespace SuperLauncher
 {
@@ -10,25 +13,15 @@ namespace SuperLauncher
         {
             InitializeComponent();
             Icon = Resources.logo;
-            Browser.DocumentTitleChanged += Browser_DocumentTitleChanged;
-        }
-        private void Browser_DocumentTitleChanged(object sender, EventArgs e)
-        {
-            Text = Browser.DocumentTitle;
+            Browser.Navigate(ShellObject.FromParsingName("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"));
         }
         private void btnBack_Click(object sender, EventArgs e)
         {
-            Browser.GoBack();
+            Browser.NavigateLogLocation(NavigationLogDirection.Backward);
         }
         private void btnForward_Click(object sender, EventArgs e)
         {
-            Browser.GoForward();
-        }
-        private void Browser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
-        {
-            txtNav.Text = Browser.Url.ToString();
-            btnBack.Enabled = Browser.CanGoBack;
-            btnForward.Enabled = Browser.CanGoForward;
+            Browser.NavigateLogLocation(NavigationLogDirection.Forward);
         }
         private void txtNav_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -37,17 +30,32 @@ namespace SuperLauncher
                 e.Handled = true;
                 try
                 {
-                    Browser.Url = new Uri(txtNav.Text);
+                    Browser.Navigate(ShellObject.FromParsingName(txtNav.Text));
                 }
-                catch (Exception exc)
+                catch (Exception)
                 {
-                    MessageBox.Show(exc.Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("Not a valid path / directory.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
         }
-        private void btnRefresh_Click(object sender, EventArgs e)
+        private void Browser_NavigationComplete(object sender, NavigationCompleteEventArgs e)
         {
-            Browser.Refresh();
+            Text = e.NewLocation.Name;
+            if (e.NewLocation.IsFileSystemObject)
+            {
+                txtNav.Text = e.NewLocation.ParsingName;
+            }
+            else
+            {
+                txtNav.Text = e.NewLocation.GetDisplayName(DisplayNameType.Default);
+            }
+            btnNavUp.Enabled = Directory.Exists(txtNav.Text) && Directory.GetParent(txtNav.Text) != null;
+            btnBack.Enabled = Browser.NavigationLog.CanNavigateBackward;
+            btnForward.Enabled = Browser.NavigationLog.CanNavigateForward;
+        }
+        private void btnNavUp_Click(object sender, EventArgs e)
+        {
+            Browser.Navigate(ShellObject.FromParsingName(Directory.GetParent(txtNav.Text).FullName));
         }
     }
 }

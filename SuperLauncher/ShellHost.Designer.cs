@@ -34,11 +34,11 @@
             this.miExit = new System.Windows.Forms.MenuItem();
             this.miWindowList = new System.Windows.Forms.MenuItem();
             this.miOrganize = new System.Windows.Forms.MenuItem();
-            this.miNew = new System.Windows.Forms.MenuItem();
             this.miArrange = new System.Windows.Forms.MenuItem();
             this.miCascade = new System.Windows.Forms.MenuItem();
             this.miTileHoriz = new System.Windows.Forms.MenuItem();
             this.miTileVert = new System.Windows.Forms.MenuItem();
+            this.miNew = new System.Windows.Forms.MenuItem();
             this.SuspendLayout();
             // 
             // MainMenu
@@ -78,12 +78,6 @@
             this.miTileVert});
             this.miOrganize.Text = "&Organize...";
             // 
-            // miNew
-            // 
-            this.miNew.Index = 3;
-            this.miNew.Text = "&New";
-            this.miNew.Click += new System.EventHandler(this.miNew_Click);
-            // 
             // miArrange
             // 
             this.miArrange.Index = 0;
@@ -108,15 +102,23 @@
             this.miTileVert.Text = "Tile &Vertical";
             this.miTileVert.Click += new System.EventHandler(this.miTileVert_Click);
             // 
+            // miNew
+            // 
+            this.miNew.Index = 3;
+            this.miNew.Text = "&New";
+            this.miNew.Click += new System.EventHandler(this.miNew_Click);
+            // 
             // ShellHost
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1099, 603);
             this.DoubleBuffered = true;
             this.IsMdiContainer = true;
             this.Menu = this.MainMenu;
             this.Name = "ShellHost";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Explorer";
             this.Load += new System.EventHandler(this.ShellHost_Load);
             this.ResumeLayout(false);

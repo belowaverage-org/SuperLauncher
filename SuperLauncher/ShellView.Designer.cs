@@ -31,8 +31,9 @@
             this.btnBack = new System.Windows.Forms.Button();
             this.btnForward = new System.Windows.Forms.Button();
             this.txtNav = new System.Windows.Forms.TextBox();
-            this.btnRefresh = new System.Windows.Forms.Button();
-            this.Browser = new System.Windows.Forms.WebBrowser();
+            this.Browser = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser();
+            this.btnNavUp = new System.Windows.Forms.Button();
+            this.panelBorderCover = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
             // btnBack
@@ -65,53 +66,64 @@
             // 
             this.txtNav.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNav.Location = new System.Drawing.Point(63, 4);
+            this.txtNav.Location = new System.Drawing.Point(96, 4);
             this.txtNav.Multiline = true;
             this.txtNav.Name = "txtNav";
-            this.txtNav.Size = new System.Drawing.Size(837, 23);
+            this.txtNav.Size = new System.Drawing.Size(474, 23);
             this.txtNav.TabIndex = 3;
             this.txtNav.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNav_KeyPress);
             // 
-            // btnRefresh
-            // 
-            this.btnRefresh.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnRefresh.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnRefresh.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRefresh.Location = new System.Drawing.Point(904, 3);
-            this.btnRefresh.Name = "btnRefresh";
-            this.btnRefresh.Size = new System.Drawing.Size(25, 25);
-            this.btnRefresh.TabIndex = 4;
-            this.btnRefresh.Text = "";
-            this.btnRefresh.UseVisualStyleBackColor = true;
-            this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
-            // 
             // Browser
             // 
+            this.Browser.AllowDrop = true;
             this.Browser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.Browser.Location = new System.Drawing.Point(0, 34);
+            this.Browser.Location = new System.Drawing.Point(-1, 32);
             this.Browser.Name = "Browser";
-            this.Browser.ScriptErrorsSuppressed = true;
-            this.Browser.Size = new System.Drawing.Size(933, 485);
-            this.Browser.TabIndex = 6;
-            this.Browser.Url = new System.Uri("C:\\", System.UriKind.Absolute);
-            this.Browser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.Browser_Navigated);
+            this.Browser.PropertyBagName = "Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser";
+            this.Browser.Size = new System.Drawing.Size(577, 290);
+            this.Browser.TabIndex = 5;
+            this.Browser.NavigationComplete += new System.EventHandler<Microsoft.WindowsAPICodePack.Controls.NavigationCompleteEventArgs>(this.Browser_NavigationComplete);
+            // 
+            // btnNavUp
+            // 
+            this.btnNavUp.Enabled = false;
+            this.btnNavUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.btnNavUp.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNavUp.Location = new System.Drawing.Point(67, 3);
+            this.btnNavUp.Name = "btnNavUp";
+            this.btnNavUp.Size = new System.Drawing.Size(25, 25);
+            this.btnNavUp.TabIndex = 6;
+            this.btnNavUp.Text = "";
+            this.btnNavUp.UseVisualStyleBackColor = true;
+            this.btnNavUp.Click += new System.EventHandler(this.btnNavUp_Click);
+            // 
+            // panelBorderCover
+            // 
+            this.panelBorderCover.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panelBorderCover.Location = new System.Drawing.Point(0, 31);
+            this.panelBorderCover.Name = "panelBorderCover";
+            this.panelBorderCover.Size = new System.Drawing.Size(575, 3);
+            this.panelBorderCover.TabIndex = 7;
             // 
             // ShellView
             // 
             this.AllowDrop = true;
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(933, 519);
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.ClientSize = new System.Drawing.Size(575, 321);
+            this.Controls.Add(this.panelBorderCover);
+            this.Controls.Add(this.btnNavUp);
             this.Controls.Add(this.Browser);
-            this.Controls.Add(this.btnRefresh);
             this.Controls.Add(this.txtNav);
             this.Controls.Add(this.btnForward);
             this.Controls.Add(this.btnBack);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "ShellView";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Explorer";
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -122,7 +134,8 @@
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnForward;
         private System.Windows.Forms.TextBox txtNav;
-        private System.Windows.Forms.Button btnRefresh;
-        private System.Windows.Forms.WebBrowser Browser;
+        private Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser Browser;
+        private System.Windows.Forms.Button btnNavUp;
+        private System.Windows.Forms.Panel panelBorderCover;
     }
 }

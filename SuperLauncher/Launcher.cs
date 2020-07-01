@@ -94,6 +94,7 @@ namespace SuperLauncher
             miSuperLauncher.SetMenuItemBitmap(Resources.logo_16);
             miAddShortcut.SetMenuItemBitmap(Resources.shortcut);
             miElevate.SetMenuItemBitmap(Resources.shield);
+            miExplorer.SetMenuItemBitmap(Resources.explorer);
             if (UserAccountControl.Uac.IsProcessElevated())
             {
                 ShieldIcon.Visible = true;

@@ -1,9 +1,10 @@
-<h1 align="center"><img width="20" src="https://raw.githubusercontent.com/belowaverage-org/SuperLauncher/master/SuperLauncher/icon.ico"> Super Launcher</h1>
-<br>
 <p align="center">
-  <img height="80" src="https://raw.githubusercontent.com/krisdb2009/documentation/master/images/supersweet.png">
-  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  <img height="80" src="https://raw.githubusercontent.com/belowaverage-org/SuperLauncher/master/SuperLauncher/icon.ico">
-  <br><br>
-  <img src="https://raw.githubusercontent.com/krisdb2009/documentation/master/images/suplaunch.png">
+	<img src="https://raw.githubusercontent.com/belowaverage-org/Wiki/master/assets/software/supersuite/superlauncher/logo.svg" width="75">
+</p>
+<h2 align="center">Super Launcher</h2>
+<h3 align="center"><a href="https://belowaverage.org/software/supersuite">More Super Suite Tools</a> &bull; <a href="https://wiki.belowaverage.org/software/supersuite/superlauncher">Documentation</a> &bull; <a href="https://github.com/belowaverage-org/SuperLauncher/releases">Download</a></h3>
+<p align="center">
+	<img src="https://raw.githubusercontent.com/belowaverage-org/Wiki/master/assets/software/supersuite/superlauncher/superlaunchermain.png">
+  <img src="https://raw.githubusercontent.com/belowaverage-org/Wiki/master/assets/software/supersuite/superlauncher/superlaunchersplorer.png">
+  <img src="https://raw.githubusercontent.com/belowaverage-org/Wiki/master/assets/software/supersuite/superlauncher/superlaunchercontext.png">
 </p>

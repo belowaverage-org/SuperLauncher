@@ -39,14 +39,44 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_AD3B994D27A641F87F46F30272B9D809"
+        "OwnerKey" = "8:_0BDD2FEF099F4B93B71CE86E1E354470"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_AD3B994D27A641F87F46F30272B9D809"
+        "OwnerKey" = "8:_EF7B1018BB2EE178BFB4DF9542CB1FDA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C7CF9F3FF5754299BBCC47CAAA6D7C46"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
+        "MsmKey" = "8:_EF7B1018BB2EE178BFB4DF9542CB1FDA"
+        "OwnerKey" = "8:_0BDD2FEF099F4B93B71CE86E1E354470"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_0BDD2FEF099F4B93B71CE86E1E354470"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_EF7B1018BB2EE178BFB4DF9542CB1FDA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_AD3B994D27A641F87F46F30272B9D809"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -255,6 +285,37 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AD3B994D27A641F87F46F30272B9D809"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_AD3B994D27A641F87F46F30272B9D809"
+                    {
+                    "Name" = "8:Microsoft.WindowsAPICodePack.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.WindowsAPICodePack.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_C7CF9F3FF5754299BBCC47CAAA6D7C46"
             {
             "SourcePath" = "8:..\\SuperLauncherAssets\\install_banner.bmp"
@@ -273,6 +334,37 @@
             "Register" = "3:1"
             "Exclude" = "11:TRUE"
             "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_EF7B1018BB2EE178BFB4DF9542CB1FDA"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.WindowsAPICodePack.Shell, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_EF7B1018BB2EE178BFB4DF9542CB1FDA"
+                    {
+                    "Name" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.WindowsAPICodePack.Shell.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
         }
@@ -331,15 +423,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Super Launcher"
-        "ProductCode" = "8:{797B80A5-1E31-42AC-8978-9E03BE48B347}"
-        "PackageCode" = "8:{DABA9913-1974-4F64-819D-C074A1D76B3E}"
+        "ProductCode" = "8:{4FB63B09-9DB3-49DF-9BDF-08A892F16168}"
+        "PackageCode" = "8:{3FF252A9-E9BB-4A60-BCF4-5E30837CA5FF}"
         "UpgradeCode" = "8:{B97E5DFB-9607-4472-B75A-E7726FC5B769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.1.0"
+        "ProductVersion" = "8:1.1.1"
         "Manufacturer" = "8:Below Average"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://belowaverage.org/"

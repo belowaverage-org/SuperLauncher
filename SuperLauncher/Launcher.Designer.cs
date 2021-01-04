@@ -53,6 +53,7 @@
             this.miSeperator4 = new System.Windows.Forms.MenuItem();
             this.miExplorer = new System.Windows.Forms.MenuItem();
             this.miConfig = new System.Windows.Forms.MenuItem();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).BeginInit();
@@ -212,7 +213,7 @@
             // 
             // miExit
             // 
-            this.miExit.Index = 10;
+            this.miExit.Index = 11;
             this.miExit.Text = "Exit";
             this.miExit.Click += new System.EventHandler(this.miExit_Click);
             // 
@@ -229,6 +230,7 @@
             this.miExplorer,
             this.miSeperator3,
             this.miConfig,
+            this.menuItem1,
             this.miExit});
             this.TrayMenu.Popup += new System.EventHandler(this.TrayMenu_Popup);
             // 
@@ -248,6 +250,12 @@
             this.miConfig.Index = 9;
             this.miConfig.Text = "View Config...";
             this.miConfig.Click += new System.EventHandler(this.miConfig_Click);
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 10;
+            this.menuItem1.Text = "Settings";
+            this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
             // 
             // Launcher
             // 
@@ -306,6 +314,7 @@
         private System.Windows.Forms.MenuItem miSeperator4;
         private System.Windows.Forms.MenuItem miExplorer;
         private System.Windows.Forms.MenuItem miConfig;
+        private System.Windows.Forms.MenuItem menuItem1;
     }
 }
 

@@ -8,6 +8,7 @@ using CredentialManagement;
 using System.Runtime.InteropServices;
 using SuperLauncher.Properties;
 using System.Configuration;
+using System.ComponentModel;
 
 namespace SuperLauncher
 {
@@ -86,6 +87,31 @@ namespace SuperLauncher
         }
         public Launcher()
         {
+            bool isElevated = UserAccountControl.Uac.IsProcessElevated();
+
+            ConfigHelper configHelper = new ConfigHelper();
+
+            if (!isElevated)
+            {
+                if (configHelper.HasRunAsCredential())
+                {
+                    // I can't directly start an elevated session as a different user. Something about "security"
+                    // Whatever
+                    // So if we're starting elevated skip checking for an alternate user
+
+                    ShowRunAs(0, configHelper);
+                }
+
+                if (configHelper.AutoElevate)
+                {
+                    // Funny story, if you have autoElevate on and don't check if you're already elevated
+                    // You get this awesome infinite loop of it restarting until you restart the machine
+
+                    miElevate_Click(null, null);
+                }
+                
+            }
+
             var initialWidth = Settings.Default.width;
             var initialHeight = Settings.Default.height;
             InitializeComponent();
@@ -95,7 +121,7 @@ namespace SuperLauncher
             miAddShortcut.SetMenuItemBitmap(Resources.shortcut);
             miElevate.SetMenuItemBitmap(Resources.shield);
             miExplorer.SetMenuItemBitmap(Resources.explorer);
-            if (UserAccountControl.Uac.IsProcessElevated())
+            if (isElevated)
             {
                 ShieldIcon.Visible = true;
                 UserLabel.Location = new Point(113, 5);
@@ -230,12 +256,19 @@ namespace SuperLauncher
             Settings.Default.width = Width;
             Settings.Default.height = Height;
         }
-        private void ShowRunAs(int ErrorCode = 0)
+        private void ShowRunAs(int ErrorCode = 0, ConfigHelper configHelper = null)
         {
             VistaPrompt prompt = new VistaPrompt();
             prompt.ErrorCode = ErrorCode;
             prompt.Title = "Run As - Super Launcher";
             prompt.Message = "Please enter the credentials you would like Super Launcher to run as...";
+
+            if (configHelper != null && configHelper.HasRunAsCredential())
+            {
+                prompt.Username = configHelper.UserName;
+                prompt.Domain = configHelper.Domain;
+            }
+
             if (prompt.ShowDialog() == CredentialManagement.DialogResult.OK)
             {
                 string username, domain;
@@ -251,8 +284,10 @@ namespace SuperLauncher
                 process.StartInfo = startInfo;
                 try
                 {
+                    Settings.Default.Save();
                     process.Start();
-                    Application.ExitThread();
+                    // Forcibly close and skip FormClosing event
+                    Environment.Exit(0);
                 }
                 catch (System.ComponentModel.Win32Exception e)
                 {
@@ -300,9 +335,11 @@ namespace SuperLauncher
             elevatedProcess.StartInfo = elevatedProcStartInfo;
             try
             {
+                Settings.Default.Save();
                 elevatedProcess.Start();
                 fakeClose = false;
-                Close();
+
+                Environment.Exit(0);
             }
             catch (Exception) { }
         }
@@ -387,7 +424,36 @@ namespace SuperLauncher
         }
         private void miConfig_Click(object sender, EventArgs e)
         {
-            Process.Start(ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath);
+            string configPath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
+            try
+            {
+                Process.Start(configPath);
+            } 
+            catch (Win32Exception except)
+            {
+                uint AppNotFoundErr = 2147500037;
+                if (except.NativeErrorCode == AppNotFoundErr)
+                {
+                    // No default app for the type was configured... so use notepad
+                    ProcessStartInfo startInfo = new ProcessStartInfo();
+                    startInfo.FileName = "notepad.exe";
+                    startInfo.Arguments = configPath;
+                    startInfo.UseShellExecute = true;
+                    Process.Start(startInfo);
+                } else
+                {
+                    // Not that error? oops
+                    throw except;
+                }
+            }
+            
+        }
+
+        private void menuItem1_Click(object sender, EventArgs e)
+        {
+            SettingsForm form = new SettingsForm();
+
+            form.ShowDialog();
         }
     }
 }

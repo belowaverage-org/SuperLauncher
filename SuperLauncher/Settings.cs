@@ -1,4 +1,5 @@
-﻿namespace SuperLauncher.Properties {
+﻿using System.IO;
+namespace SuperLauncher.Properties {
     
     
     // This class allows you to handle specific events on the settings class:
@@ -23,6 +24,17 @@
         
         private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
             // Add code to handle the SettingsSaving event here.
+        }
+        public void CheckUpgrade()
+        {
+            string runningVer = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+
+            if (Settings.Default.appVersion!= runningVer)
+            {
+                Settings.Default.Upgrade();
+                Settings.Default.appVersion = runningVer;
+                Settings.Default.Save();
+            }
         }
     }
 }

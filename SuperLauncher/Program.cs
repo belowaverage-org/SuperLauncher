@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using SuperLauncher.Properties;
+
+
 
 namespace SuperLauncher
 {
@@ -11,8 +14,10 @@ namespace SuperLauncher
         [STAThread]
         static void Main()
         {
+            Settings.Default.CheckUpgrade();
             Application.EnableVisualStyles();
             Application.Run(new Launcher());
         }
+
     }
 }

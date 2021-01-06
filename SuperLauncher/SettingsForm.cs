@@ -1,8 +1,5 @@
 ﻿using SuperLauncher.Properties;
 using System;
-using System.Drawing;
-using System.Diagnostics;
-
 using System.Windows.Forms;
 
 namespace SuperLauncher
@@ -17,12 +14,10 @@ namespace SuperLauncher
 
         private void SettingsForm_Load(object sender, EventArgs e)
         {
-            Icon icon = new Icon(Resources.logo, 16, 16);
-            this.Icon = icon;
-
+            Icon = Resources.logo;
             txtUsername.Text = configHelper.UserName;
             txtDomain.Text = configHelper.Domain;
-
+            chkAutoElevate.Checked = configHelper.AutoElevate;
             lblWho.Text = $"{Environment.UserDomainName}\\{Environment.UserName}";
         }
 
@@ -36,12 +31,12 @@ namespace SuperLauncher
             configHelper.UpdateSetting(txtUsername.Text, ConfigField.UserName);
             configHelper.UpdateSetting(txtDomain.Text, ConfigField.Domain);
             configHelper.UpdateSetting(chkAutoElevate.Checked, ConfigField.AutoElevate);
-            this.Close();
+            Close();
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
     }
 }

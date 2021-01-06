@@ -48,8 +48,8 @@
             // 
             this.tableLayoutPanel.ColumnCount = 3;
             this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 170F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
-            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 145F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 221F));
+            this.tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 64F));
             this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
             this.tableLayoutPanel.Controls.Add(this.logoPictureBox, 0, 0);
             this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
@@ -77,9 +77,8 @@
             this.labelProductName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelProductName.Location = new System.Drawing.Point(170, 10);
             this.labelProductName.Margin = new System.Windows.Forms.Padding(0, 10, 3, 0);
-            this.labelProductName.MaximumSize = new System.Drawing.Size(131, 17);
             this.labelProductName.Name = "labelProductName";
-            this.labelProductName.Size = new System.Drawing.Size(131, 17);
+            this.labelProductName.Size = new System.Drawing.Size(218, 17);
             this.labelProductName.TabIndex = 19;
             this.labelProductName.Text = "Product Name";
             this.labelProductName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -102,9 +101,8 @@
             this.labelVersion.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelVersion.Location = new System.Drawing.Point(170, 41);
             this.labelVersion.Margin = new System.Windows.Forms.Padding(0, 10, 3, 0);
-            this.labelVersion.MaximumSize = new System.Drawing.Size(131, 17);
             this.labelVersion.Name = "labelVersion";
-            this.labelVersion.Size = new System.Drawing.Size(131, 17);
+            this.labelVersion.Size = new System.Drawing.Size(218, 17);
             this.labelVersion.TabIndex = 0;
             this.labelVersion.Text = "Version";
             this.labelVersion.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -114,9 +112,8 @@
             this.labelCopyright.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCopyright.Location = new System.Drawing.Point(170, 72);
             this.labelCopyright.Margin = new System.Windows.Forms.Padding(0, 10, 3, 0);
-            this.labelCopyright.MaximumSize = new System.Drawing.Size(131, 17);
             this.labelCopyright.Name = "labelCopyright";
-            this.labelCopyright.Size = new System.Drawing.Size(131, 17);
+            this.labelCopyright.Size = new System.Drawing.Size(218, 17);
             this.labelCopyright.TabIndex = 21;
             this.labelCopyright.Text = "Copyright";
             this.labelCopyright.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -126,9 +123,8 @@
             this.labelCompanyName.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.labelCompanyName.Location = new System.Drawing.Point(170, 103);
             this.labelCompanyName.Margin = new System.Windows.Forms.Padding(0, 10, 3, 0);
-            this.labelCompanyName.MaximumSize = new System.Drawing.Size(131, 17);
             this.labelCompanyName.Name = "labelCompanyName";
-            this.labelCompanyName.Size = new System.Drawing.Size(131, 17);
+            this.labelCompanyName.Size = new System.Drawing.Size(218, 17);
             this.labelCompanyName.TabIndex = 22;
             this.labelCompanyName.Text = "Company Name";
             this.labelCompanyName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -190,11 +186,11 @@
             // 
             this.pbLogo.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pbLogo.Image = global::SuperLauncher.Properties.Resources.logo_256;
-            this.pbLogo.Location = new System.Drawing.Point(313, 3);
-            this.pbLogo.Margin = new System.Windows.Forms.Padding(3, 3, 6, 3);
+            this.pbLogo.Location = new System.Drawing.Point(394, 3);
+            this.pbLogo.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.pbLogo.Name = "pbLogo";
             this.tableLayoutPanel.SetRowSpan(this.pbLogo, 4);
-            this.pbLogo.Size = new System.Drawing.Size(152, 118);
+            this.pbLogo.Size = new System.Drawing.Size(57, 118);
             this.pbLogo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pbLogo.TabIndex = 27;
             this.pbLogo.TabStop = false;

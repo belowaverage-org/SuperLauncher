@@ -229,7 +229,7 @@ namespace SuperLauncher
             }
             catch (Exception) { } //User canceled a UAC probbably...
         }
-        private void OpenFileDialog_FileOk(object sender, System.ComponentModel.CancelEventArgs e)
+        private void OpenFileDialog_FileOk(object sender, CancelEventArgs e)
         {
             foreach (string file in OpenFileDialog.FileNames)
             {
@@ -260,7 +260,7 @@ namespace SuperLauncher
         {
             VistaPrompt prompt = new VistaPrompt();
             prompt.ErrorCode = ErrorCode;
-            prompt.Title = "Run As - Super Launcher";
+            prompt.Title = "Super Launcher - Run-As";
             prompt.Message = "Please enter the credentials you would like Super Launcher to run as...";
 
             if (configHelper != null && configHelper.HasRunAsCredential())
@@ -271,8 +271,7 @@ namespace SuperLauncher
 
             if (prompt.ShowDialog() == CredentialManagement.DialogResult.OK)
             {
-                string username, domain;
-                CredentialParser.ParseUserName(prompt.Username, out username, out domain);
+                CredentialParser.ParseUserName(prompt.Username, out string username, out string domain);
                 Process process = new Process();
                 ProcessStartInfo startInfo = process.StartInfo;
                 startInfo.FileName = Application.ExecutablePath;
@@ -289,13 +288,12 @@ namespace SuperLauncher
                     // Forcibly close and skip FormClosing event
                     Environment.Exit(0);
                 }
-                catch (System.ComponentModel.Win32Exception e)
+                catch (Win32Exception e)
                 {
                     if (e.NativeErrorCode == 267)
                     {
-                        TrayIcon.BalloonTipIcon = ToolTipIcon.Warning;
-                        TrayIcon.BalloonTipText = "The credentials supplied does not have access to the currently running \"SuperLauncher\" executable file.";
-                        TrayIcon.ShowBalloonTip(10000);
+                        int result = (int)MessageBox.Show("The credentials supplied do not have access to the currently running \"Super Launcher\" executable file.\n\nConsider moving Super Launcher to a location that this account has access too.", "Super Launcher: Permission Error.", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                        if (result == 2) return; //If result equals "Cancel". https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.dialogresult?view=net-5.0
                     }
                     ShowRunAs(e.NativeErrorCode);
                 }

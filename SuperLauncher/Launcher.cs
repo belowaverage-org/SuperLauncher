@@ -116,7 +116,8 @@ namespace SuperLauncher
             var initialHeight = Settings.Default.height;
             InitializeComponent();
             RegHandleEvents(Controls);
-            Icon = TrayIcon.Icon = new Icon(Resources.logo, 16, 16);
+            Icon = Resources.logo;
+            TrayIcon.Icon = new Icon(Resources.logo, 16, 16);
             miSuperLauncher.SetMenuItemBitmap(Resources.logo_16);
             miAddShortcut.SetMenuItemBitmap(Resources.shortcut);
             miElevate.SetMenuItemBitmap(Resources.shield);

@@ -16,13 +16,23 @@ using System.Windows.Shapes;
 namespace SuperLauncher.Elements
 {
     /// <summary>
-    /// Interaction logic for AppIconMain.xaml
+    /// Interaction logic for SuperLauncherIcon.xaml
     /// </summary>
-    public partial class AppIconMain : UserControl
+    public partial class SuperLauncherIcon : UserControl
     {
-        public AppIconMain()
+        public SuperLauncherIcon()
         {
-            //InitializeComponent();
+            InitializeComponent();
+        }
+
+        private void UserControl_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ControlBG.Opacity = 0.5;
+        }
+
+        private void UserControl_MouseLeave(object sender, MouseEventArgs e)
+        {
+            ControlBG.Opacity = 1;
         }
     }
 }

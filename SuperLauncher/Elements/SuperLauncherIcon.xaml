@@ -5,9 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:SuperLauncher.Elements"
              mc:Ignorable="d" 
-             d:DesignHeight="80" d:DesignWidth="80" Width="80" Height="80" Margin="5,5,0,0" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave">
+             d:DesignHeight="80" d:DesignWidth="80" Width="80" Height="80" Margin="10,10,0,0" MouseEnter="UserControl_MouseEnter" MouseLeave="UserControl_MouseLeave">
     <Grid>
-        <Rectangle x:Name="ControlBG" Fill="#4C7C7C7C" RadiusX="10" RadiusY="10" />
-        <Label Margin="0,50,0,0" FontSize="11" Padding="0,0,0,0" VerticalContentAlignment="Top" HorizontalContentAlignment="Center">Label</Label>
+        <Rectangle x:Name="ControlBG" Fill="#4C7C7C7C" RadiusX="15" RadiusY="15" >
+            <Rectangle.Effect>
+                <DropShadowEffect Opacity="0.2" Direction="270"/>
+            </Rectangle.Effect>
+        </Rectangle>
+        <Label Margin="0,50,0,0" FontSize="11" Padding="0,0,0,0" VerticalContentAlignment="Top" HorizontalContentAlignment="Center" Foreground="#FFF7F7F7">Label</Label>
     </Grid>
 </UserControl>

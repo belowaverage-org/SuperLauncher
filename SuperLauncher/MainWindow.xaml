@@ -5,8 +5,20 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:elements="clr-namespace:SuperLauncher.Elements"
         mc:Ignorable="d"
-        Title="Super Launcher" Height="450" Width="800" WindowStyle="SingleBorderWindow" Visibility="Visible" Background="Black">
+        Title="Super Launcher" Height="450" Width="800" WindowStyle="SingleBorderWindow" Visibility="Visible" Background="#FF191919">
     <Grid>
+        <Grid.Background>
+            <ImageBrush TileMode="Tile" ImageSource="Assets/noise.png" ViewportUnits="Absolute" Viewport="0,0,300,300" Opacity="0.2">
+                <ImageBrush.Transform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleX="0.5" ScaleY="0.5"/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </ImageBrush.Transform>
+            </ImageBrush>
+        </Grid.Background>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <WrapPanel Margin="0,0,10,10">
                 <elements:SuperLauncherIcon/>

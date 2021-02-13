@@ -8,7 +8,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Resource Include="..\SuperLauncherAssets\16.png" Link="Assets\16.png" />
+    <Resource Include="..\SuperLauncherAssets\256.png" Link="Assets\256.png" />
+    <Resource Include="..\SuperLauncherAssets\32.png" Link="Assets\32.png" />
+    <Resource Include="..\SuperLauncherAssets\48.png" Link="Assets\48.png" />
+    <Resource Include="..\SuperLauncherAssets\install_banner.bmp" Link="Assets\install_banner.bmp" />
+    <Resource Include="..\SuperLauncherAssets\logo.ico" Link="Assets\logo.ico" />
+    <Resource Include="..\SuperLauncherAssets\logo.png" Link="Assets\logo.png" />
+    <Resource Include="..\SuperLauncherAssets\noise.png" Link="Assets\noise.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\" />
     <Folder Include="Classes\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="..\SuperLauncherAssets\logo.svg" Link="Assets\logo.svg" />
+    <Resource Include="..\SuperLauncherAssets\logo_tiny.svg" Link="Assets\logo_tiny.svg" />
   </ItemGroup>
 
 </Project>

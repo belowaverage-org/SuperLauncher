@@ -3,12 +3,11 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing;
 using System.Diagnostics;
-using System.Collections.Specialized;
 using CredentialManagement;
 using System.Runtime.InteropServices;
 using SuperLauncher.Properties;
-using System.Configuration;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace SuperLauncher
 {
@@ -16,6 +15,7 @@ namespace SuperLauncher
     {
         public ImageList imageList = new ImageList();
         public bool fakeClose = true;
+        public bool saving = true;
         private bool fileDialogOpen = false;
         private ResizeHandles CurrentRH = ResizeHandles.None;
         private bool MouseIsDown = false;
@@ -89,22 +89,6 @@ namespace SuperLauncher
         {
             bool isElevated = UserAccountControl.Uac.IsProcessElevated();
             ConfigHelper configHelper = new ConfigHelper();
-            if (!isElevated)
-            {
-                if (configHelper.HasRunAsCredential())
-                {
-                    // I can't directly start an elevated session as a different user. Something about "security"
-                    // Whatever
-                    // So if we're starting elevated skip checking for an alternate user
-                    ShowRunAs(0, configHelper);
-                }
-                if (configHelper.AutoElevate)
-                {
-                    // Funny story, if you have autoElevate on and don't check if you're already elevated
-                    // You get this awesome infinite loop of it restarting until you restart the machine
-                    miElevate_Click(null, null);
-                }
-            }
             var initialWidth = Settings.Default.width;
             var initialHeight = Settings.Default.height;
             InitializeComponent();
@@ -136,6 +120,22 @@ namespace SuperLauncher
                 if (File.Exists(file))
                 {
                     addIcon(file);
+                }
+            }
+            if (!isElevated)
+            {
+                if (configHelper.HasRunAsCredential())
+                {
+                    // I can't directly start an elevated session as a different user. Something about "security"
+                    // Whatever
+                    // So if we're starting elevated skip checking for an alternate user
+                    ShowRunAs(0, configHelper);
+                }
+                if (configHelper.AutoElevate)
+                {
+                    // Funny story, if you have autoElevate on and don't check if you're already elevated
+                    // You get this awesome infinite loop of it restarting until you restart the machine
+                    miElevate_Click(null, null);
                 }
             }
         }
@@ -176,9 +176,12 @@ namespace SuperLauncher
                 e.Cancel = true;
                 FadeOut();
             }
-            else
+            else if(saving)
             {
+                e.Cancel = true;
                 Settings.Default.Save();
+                saving = false;
+                Close();
             }
         }
         private void TrayIcon_MouseClick(object sender, MouseEventArgs e)
@@ -275,10 +278,9 @@ namespace SuperLauncher
                 process.StartInfo = startInfo;
                 try
                 {
-                    Settings.Default.Save();
                     process.Start();
-                    // Forcibly close and skip FormClosing event
-                    Environment.Exit(0);
+                    fakeClose = false;
+                    Close();
                 }
                 catch (Win32Exception e)
                 {
@@ -325,11 +327,9 @@ namespace SuperLauncher
             elevatedProcess.StartInfo = elevatedProcStartInfo;
             try
             {
-                Settings.Default.Save();
                 elevatedProcess.Start();
                 fakeClose = false;
-
-                Environment.Exit(0);
+                Close();
             }
             catch (Exception) { }
         }
@@ -414,11 +414,10 @@ namespace SuperLauncher
         }
         private void miConfig_Click(object sender, EventArgs e)
         {
-            string configPath = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
             try
             {
-                Process.Start(configPath);
-            } 
+                Process.Start(Settings.Default.configPath);
+            }
             catch (Win32Exception except)
             {
                 uint AppNotFoundErr = 2147500037;
@@ -427,22 +426,20 @@ namespace SuperLauncher
                     // No default app for the type was configured... so use notepad
                     ProcessStartInfo startInfo = new ProcessStartInfo();
                     startInfo.FileName = "notepad.exe";
-                    startInfo.Arguments = configPath;
+                    startInfo.Arguments = Settings.Default.configPath;
                     startInfo.UseShellExecute = true;
                     Process.Start(startInfo);
-                } else
+                }
+                else
                 {
                     // Not that error? oops
                     throw except;
                 }
             }
-            
         }
-
-        private void menuItem1_Click(object sender, EventArgs e)
+        private void miSettings_Click(object sender, EventArgs e)
         {
             SettingsForm form = new SettingsForm();
-
             form.ShowDialog();
         }
     }

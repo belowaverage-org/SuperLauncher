@@ -12,34 +12,37 @@ namespace SuperLauncher.Properties {
         private string configDir = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName);
         public string configPath = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName, "SuperLauncherConfig.xml");
         public XmlDocument XDoc = new XmlDocument();
-        public bool autoElevate { 
-            get {
-                return false;
-            } 
-            set { 
-                
-            } 
+        public bool autoElevate {
+            get
+            {
+                if (!bool.TryParse(XDoc.SelectSingleNode("/SuperLauncher/AutoElevate").InnerText, out bool val)) val = false;
+                return val;
+            }
+            set
+            {
+                XDoc.SelectSingleNode("/SuperLauncher/AutoElevate").InnerText = value.ToString();
+            }
         }
         public string autoRunAsDomain
         {
             get
             {
-                return "";
+                return XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsDomain").InnerText;
             }
             set
             {
-
+                XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsDomain").InnerText = value;
             }
         }
         public string autoRunAsUser
         {
             get
             {
-                return "";
+                return XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsUser").InnerText;
             }
             set
             {
-
+                XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsUser").InnerText = value;
             }
         }
         public AppListStringCollection fileList
@@ -60,22 +63,24 @@ namespace SuperLauncher.Properties {
         {
             get
             {
-                return 0;
+                if (!int.TryParse(XDoc.SelectSingleNode("/SuperLauncher/Height").InnerText, out int val)) val = 0;
+                return val;
             }
             set
             {
-
+                XDoc.SelectSingleNode("/SuperLauncher/Height").InnerText = value.ToString();
             }
         }
         public int width
         {
             get
             {
-                return 0;
+                if (!int.TryParse(XDoc.SelectSingleNode("/SuperLauncher/Width").InnerText, out int val)) val = 0;
+                return val;
             }
             set
             {
-
+                XDoc.SelectSingleNode("/SuperLauncher/Width").InnerText = value.ToString();
             }
         }
         public SettingsDefault()

@@ -257,7 +257,7 @@
             // 
             this.miSettings.Index = 10;
             this.miSettings.Text = "Settings...";
-            this.miSettings.Click += new System.EventHandler(this.menuItem1_Click);
+            this.miSettings.Click += new System.EventHandler(this.miSettings_Click);
             // 
             // miSeperator5
             // 

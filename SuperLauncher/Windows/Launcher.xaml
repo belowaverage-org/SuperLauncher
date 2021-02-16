@@ -5,12 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:elements="clr-namespace:SuperLauncher.Elements"
         mc:Ignorable="d"
-        Title="Super Launcher" Height="450" Width="800" WindowStyle="None" Visibility="Visible" ShowInTaskbar="False" SnapsToDevicePixels="True" ResizeMode="NoResize" AllowsTransparency="True" Background="#FF1B1B1B" Icon="/Assets/logo.ico">
-    <Grid>
+        Title="Super Launcher" Height="450" Width="800" WindowStyle="None" Visibility="Visible" ShowInTaskbar="False" SnapsToDevicePixels="True" ResizeMode="NoResize" AllowsTransparency="True" Icon="/Assets/logo.ico" Background="Transparent">
+
+    <Grid x:Name="MainGrid">
+        <Rectangle x:Name="BackgroundColorWind" Fill="#FF2C2C2C"/>
         <Image Source="/Assets/16.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="16" Height="16" Margin="7,8,0,0" />
         <Label Foreground="White" Content="Super Launcher" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25" Width="99" Margin="25,2,0,0" />
-        <Grid Margin="0,30,0,0">
-            <Rectangle x:Name="BackgroundColorRect" Fill="#FF0F0F0F"/>
+        <Grid x:Name="AppGrid" Margin="0,30,0,0">
+            <Rectangle x:Name="BackgroundColorRect" Fill="White"/>
+            <Rectangle x:Name="BackgroundThemeRect" Fill="Black" Opacity="0.75"/>
             <Rectangle x:Name="BackgroundNoiseRect">
                 <Rectangle.Fill>
                     <ImageBrush TileMode="Tile" ImageSource="/Assets/noise.png" ViewportUnits="Absolute" Viewport="0,0,300,300" Opacity="0.2">

@@ -1,11 +1,6 @@
 ﻿using Microsoft.Win32;
 using SuperLauncher.Classes;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 
 namespace SuperLauncher
@@ -15,7 +10,7 @@ namespace SuperLauncher
     /// </summary>
     public partial class App : Application
     {
-        public static Window LauncherWindow = null;
+        public static Launcher LauncherWindow = null;
         public App()
         {
             new RegWatcher(RegistryHive.CurrentUser, RegistryView.Default, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize").Event += SystemThemingChanged;

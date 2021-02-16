@@ -28,7 +28,9 @@ namespace SuperLauncher.Classes
                 SysAccentColorMenu = new byte[4] { a, r, g, b };
                 App.LauncherWindow.Dispatcher.Invoke(new Action(() => {
                     byte[] c = SysAccentColorMenu;
-                    App.LauncherWindow.Background = new SolidColorBrush(Color.FromArgb(c[0], c[1], c[2], c[3]));
+                    SolidColorBrush brush = new SolidColorBrush(Color.FromArgb(c[0], c[1], c[2], c[3]));
+                    App.LauncherWindow.BackgroundColorWind.Fill = brush;
+                    App.LauncherWindow.BackgroundColorRect.Fill = brush;
                 }));
             }
         }

@@ -5,6 +5,22 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
+    <Version>2.0.0.0</Version>
+    <Copyright>Below Average; Dylan Bickerstaff (C) 2021</Copyright>
+    <PackageProjectUrl>https://github.com/belowaverage-org/SuperLauncher</PackageProjectUrl>
+    <PackageIcon>logo.png</PackageIcon>
+    <RepositoryUrl>https://github.com/belowaverage-org/SuperLauncher</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <Authors>Dylan Bickerstaff</Authors>
+    <Company>Below Average</Company>
+    <Product>Super Launcher</Product>
+    <PackageTags>Super, Launcher, Admin, Tool, Tray</PackageTags>
+    <ApplicationIcon>..\SuperLauncherAssets\logo.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Optimize>false</Optimize>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,12 +36,19 @@
 
   <ItemGroup>
     <Folder Include="Assets\" />
-    <Folder Include="Classes\" />
+    <Folder Include="Elements\Window\Controls\" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="..\SuperLauncherAssets\logo.svg" Link="Assets\logo.svg" />
     <Resource Include="..\SuperLauncherAssets\logo_tiny.svg" Link="Assets\logo_tiny.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\SuperLauncherAssets\logo.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

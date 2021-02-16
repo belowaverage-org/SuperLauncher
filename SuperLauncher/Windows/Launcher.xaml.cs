@@ -12,17 +12,23 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Interop;
+using Microsoft.Win32;
+using System.Security.AccessControl;
+using SuperLauncher.Classes;
 
 namespace SuperLauncher
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Launcher : Window
     {
-        public MainWindow()
+        public Launcher()
         {
+            App.LauncherWindow = this;
             InitializeComponent();
+            Theming.Update();
         }
     }
 }

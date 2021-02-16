@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using System.Security.Cryptography;
-using System.Configuration;
 using SuperLauncher.Properties;
 
 namespace SuperLauncher
@@ -17,16 +16,17 @@ namespace SuperLauncher
         public string UserName { get; set; }
         public string Domain { get; set; }
         public bool AutoElevate { get; set; } = Settings.Default.autoElevate;
-
         public ConfigHelper()
         {
-            if (! String.IsNullOrEmpty(Settings.Default.autoRunAsUser))
+            if (!string.IsNullOrEmpty(Settings.Default.autoRunAsUser))
+            {
                 UserName = DecryptData(Settings.Default.autoRunAsUser);
-                else
+            }
+            else
             {
                 UserName = null;
             }
-            if (! String.IsNullOrEmpty(Settings.Default.autoRunAsDomain))
+            if (!string.IsNullOrEmpty(Settings.Default.autoRunAsDomain))
             {
                 Domain = DecryptData(Settings.Default.autoRunAsDomain);
             }
@@ -34,19 +34,12 @@ namespace SuperLauncher
             {
                 Domain = null;
             }
-            
-        }
 
-        public ConfigHelper(string userName, string domain, bool autoElevate)
-        {
-            UserName = userName;
-            Domain = domain;
-            AutoElevate = autoElevate;
         }
-
         public void UpdateSetting(dynamic configData, ConfigField configField)
         {
-            switch (configField){
+            switch (configField)
+            {
                 case ConfigField.UserName:
                     Settings.Default.autoRunAsUser = EncryptData(configData);
                     UserName = configData;
@@ -60,38 +53,28 @@ namespace SuperLauncher
                     AutoElevate = Convert.ToBoolean(configData);
                     break;
                 default:
-                    throw new ArgumentException("Invalid paramater specified","configField");
+                    throw new ArgumentException("Invalid paramater specified", "configField");
             }
-
             Settings.Default.Save();
         }
-
         public bool HasRunAsCredential()
         {
-            if (!String.IsNullOrEmpty(UserName) && !String.IsNullOrEmpty(Domain))
+            if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Domain))
             {
                 return true;
             }
-
             return false;
-        }
-        public static string GetConfigPath()
-        {
-            return ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
         }
         private static string EncryptData(string clearData)
         {
             byte[] encData = ProtectedData.Protect(Encoding.ASCII.GetBytes(clearData), null, DataProtectionScope.CurrentUser);
             string b64Data = Convert.ToBase64String(encData);
-
             return b64Data;
         }
-
         private static string DecryptData(string encData)
         {
             byte[] b64Data = ProtectedData.Unprotect(Convert.FromBase64String(encData), null, DataProtectionScope.CurrentUser);
             string clearData = Encoding.ASCII.GetString(b64Data);
-
             return clearData;
         }
     }

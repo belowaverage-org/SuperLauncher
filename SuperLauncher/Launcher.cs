@@ -21,8 +21,8 @@ namespace SuperLauncher
         private bool MouseIsDown = false;
         private int HandleWidth = 5;
         private int BottomRightMargin = 5;
-        [DllImport("user32.dll")]
-        static extern bool AnimateWindow(IntPtr hwnd, int time, AnimateWindowFlags flags);
+        //[DllImport("user32.dll")]
+        //static extern bool AnimateWindow(IntPtr hwnd, int time, AnimateWindowFlags flags);
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
         [DllImport("dwmapi.dll")]
@@ -88,9 +88,7 @@ namespace SuperLauncher
         public Launcher()
         {
             bool isElevated = UserAccountControl.Uac.IsProcessElevated();
-
             ConfigHelper configHelper = new ConfigHelper();
-
             if (!isElevated)
             {
                 if (configHelper.HasRunAsCredential())
@@ -98,20 +96,15 @@ namespace SuperLauncher
                     // I can't directly start an elevated session as a different user. Something about "security"
                     // Whatever
                     // So if we're starting elevated skip checking for an alternate user
-
                     ShowRunAs(0, configHelper);
                 }
-
                 if (configHelper.AutoElevate)
                 {
                     // Funny story, if you have autoElevate on and don't check if you're already elevated
                     // You get this awesome infinite loop of it restarting until you restart the machine
-
                     miElevate_Click(null, null);
                 }
-                
             }
-
             var initialWidth = Settings.Default.width;
             var initialHeight = Settings.Default.height;
             InitializeComponent();
@@ -136,7 +129,7 @@ namespace SuperLauncher
             Height = initialHeight;
             if (Settings.Default.fileList == null)
             {
-                Settings.Default.fileList = new StringCollection();
+                Settings.Default.fileList = new AppListStringCollection();
             }
             foreach (string file in Settings.Default.fileList)
             {
@@ -263,13 +256,11 @@ namespace SuperLauncher
             prompt.ErrorCode = ErrorCode;
             prompt.Title = "Super Launcher - Run-As";
             prompt.Message = "Please enter the credentials you would like Super Launcher to run as...";
-
             if (configHelper != null && configHelper.HasRunAsCredential())
             {
                 prompt.Username = configHelper.UserName;
                 prompt.Domain = configHelper.Domain;
             }
-
             if (prompt.ShowDialog() == CredentialManagement.DialogResult.OK)
             {
                 CredentialParser.ParseUserName(prompt.Username, out string username, out string domain);

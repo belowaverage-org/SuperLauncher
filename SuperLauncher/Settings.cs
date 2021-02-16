@@ -1,40 +1,133 @@
-﻿using System.IO;
-namespace SuperLauncher.Properties {
-    
-    
-    // This class allows you to handle specific events on the settings class:
-    //  The SettingChanging event is raised before a setting's value is changed.
-    //  The PropertyChanged event is raised after a setting's value is changed.
-    //  The SettingsLoaded event is raised after the setting values are loaded.
-    //  The SettingsSaving event is raised before the setting values are saved.
-    internal sealed partial class Settings {
-        
-        public Settings() {
-            // // To add event handlers for saving and changing settings, uncomment the lines below:
-            //
-            // this.SettingChanging += this.SettingChangingEventHandler;
-            //
-            // this.SettingsSaving += this.SettingsSavingEventHandler;
-            //
-        }
-        
-        private void SettingChangingEventHandler(object sender, System.Configuration.SettingChangingEventArgs e) {
-            // Add code to handle the SettingChangingEvent event here.
-        }
-        
-        private void SettingsSavingEventHandler(object sender, System.ComponentModel.CancelEventArgs e) {
-            // Add code to handle the SettingsSaving event here.
-        }
-        public void CheckUpgrade()
-        {
-            string runningVer = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+﻿using System;
+using System.Collections.Specialized;
+using System.IO;
+using System.Xml;
 
-            if (Settings.Default.appVersion!= runningVer)
+namespace SuperLauncher.Properties {
+    class Settings {
+        public static SettingsDefault Default = new SettingsDefault();
+    }
+    class SettingsDefault
+    {
+        private string configDir = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName);
+        public string configPath = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName, "SuperLauncherConfig.xml");
+        public XmlDocument XDoc = new XmlDocument();
+        public bool autoElevate { 
+            get {
+                return false;
+            } 
+            set { 
+                
+            } 
+        }
+        public string autoRunAsDomain
+        {
+            get
             {
-                Settings.Default.Upgrade();
-                Settings.Default.appVersion = runningVer;
-                Settings.Default.Save();
+                return "";
+            }
+            set
+            {
+
             }
         }
+        public string autoRunAsUser
+        {
+            get
+            {
+                return "";
+            }
+            set
+            {
+
+            }
+        }
+        public AppListStringCollection fileList
+        {
+            get
+            {
+                AppListStringCollection sc = new AppListStringCollection();
+                XmlNodeList apps = XDoc.SelectNodes("/SuperLauncher/AppList/App");
+                foreach(XmlNode app in apps)
+                {
+                    ((StringCollection)sc).Add(app.InnerText);
+                }
+                return sc;
+            }
+            set { }
+        }
+        public int height
+        {
+            get
+            {
+                return 0;
+            }
+            set
+            {
+
+            }
+        }
+        public int width
+        {
+            get
+            {
+                return 0;
+            }
+            set
+            {
+
+            }
+        }
+        public SettingsDefault()
+        {
+            if(File.Exists(configPath))
+            {
+                XDoc.Load(configPath);
+            }
+            else
+            {
+                XDoc.InnerXml =
+                "<!-- Super Launcher Config File -->" +
+                "<SuperLauncher>" +
+                "   <AutoElevate>false</AutoElevate>" +
+                "   <AutoRunAsDomain></AutoRunAsDomain>" +
+                "   <AutoRunAsUser></AutoRunAsUser>" +
+                "   <AppList>" +
+                "       <App>C:\\Windows\\System32\\cmd.exe</App>" +
+                "   </AppList>" +
+                "   <Width>390</Width>" +
+                "   <Height>230</Height>" +
+                "</SuperLauncher>";
+            }
+        }
+        public void Save()
+        {
+            if (!Directory.Exists(configDir)) Directory.CreateDirectory(configDir);
+            if (!File.Exists(configPath)) File.Create(configPath).Close();
+            XDoc.Save(configPath);
+        }
     }
+    class AppListStringCollection : StringCollection
+    {
+        private XmlNode Apps = Settings.Default.XDoc.SelectSingleNode("/SuperLauncher/AppList");
+        public new int Add(string value)
+        {
+            XmlNode app = Settings.Default.XDoc.CreateElement("App");
+            app.AppendChild(Settings.Default.XDoc.CreateTextNode(value));
+            Apps.AppendChild(app);
+            return base.Add(value);
+        }
+        public new void Remove(string value)
+        {
+            foreach (XmlNode app in Apps.ChildNodes)
+            {
+                if (app.InnerText == value)
+                {
+                    Apps.RemoveChild(app);
+                    break;
+                }
+            }
+            base.Remove(value);
+        }
+    } 
 }

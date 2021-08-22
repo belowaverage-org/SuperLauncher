@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -9,17 +10,31 @@ namespace SuperLauncher
         public ShellHost()
         {
             InitializeComponent();
+
+            MsMiExit.Click += MsMiExit_Click;
+            MsMiNew.Click += MsMiNew_Click;
+            MsMiArrange.Click += MsMiArrange_Click;
+            MsMiCascade.Click += MsMiCascade_Click;
+            MsMiTileVertical.Click += MsMiTileVertical_Click;
+            MsMiTileHorizontal.Click += MsMiTileHorizontal_Click;
+            MsMiOptions.Click += MsMiOptions_Click;
+
+            MsMiShowFileExtensions.Click += MsMiOptionsSubItem_Click;
+            MsMiShowHiddenItems.Click += MsMiOptionsSubItem_Click;
+            MsMiShowSuperHiddenItems.Click += MsMiOptionsSubItem_Click;
+
+
             Icon = Resources.logo;
         }
         private void ShellHost_Load(object sender, EventArgs e)
         {
-            MiNew_Click(null, null);
+            MsMiNew_Click(null, null);
         }
-        private void MiExit_Click(object sender, EventArgs e)
+        private void MsMiExit_Click(object sender, EventArgs e)
         {
             Close();
         }
-        private void MiNew_Click(object sender, EventArgs e)
+        private void MsMiNew_Click(object sender, EventArgs e)
         {
             ShellView sv = new();
             sv.MdiParent = this;
@@ -28,26 +43,25 @@ namespace SuperLauncher
             sv.Show();
             sv.WindowState = FormWindowState.Maximized;
         }
-        private void MiArrange_Click(object sender, EventArgs e)
+        private void MsMiArrange_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.ArrangeIcons);
         }
-        private void MiCascade_Click(object sender, EventArgs e)
+        private void MsMiCascade_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
         }
-        private void MiTileHoriz_Click(object sender, EventArgs e)
+        private void MsMiTileHorizontal_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileHorizontal);
         }
-        private void MiTileVert_Click(object sender, EventArgs e)
+        private void MsMiTileVertical_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileVertical);
         }
-        /*
-        private void miAdvancedShowSettings_Click(object sender, EventArgs e)
+        private void MsMiOptionsSubItem_Click(object sender, EventArgs e)
         {
-            //MenuItem mi = (MenuItem)sender;
+            ToolStripMenuItem mi = (ToolStripMenuItem)sender;
             mi.Checked = !mi.Checked;
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced", true);
             string tag = (string)mi.Tag;
@@ -58,12 +72,10 @@ namespace SuperLauncher
             key.SetValue(name, set);
             key.Close();
         }
-        */
-        /*
-        private void miOptions_Popup(object sender, EventArgs e)
+        private void MsMiOptions_Click(object sender, EventArgs e)
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced", false);
-            foreach (MenuItem mi in miOptions.MenuItems)
+            foreach (ToolStripMenuItem mi in MsMiOptions.DropDownItems)
             {
                 string tag = (string)mi.Tag;
                 string name = tag.Substring(1);
@@ -79,6 +91,5 @@ namespace SuperLauncher
             }
             key.Close();
         }
-        */
     }
 }

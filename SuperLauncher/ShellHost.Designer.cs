@@ -30,18 +30,18 @@
         {
             this.MsMiExplorer = new System.Windows.Forms.MenuStrip();
             this.MsMiFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.MsMiWindows = new System.Windows.Forms.ToolStripMenuItem();
             this.MsMiOptions = new System.Windows.Forms.ToolStripMenuItem();
-            this.MsMiOrganize = new System.Windows.Forms.ToolStripMenuItem();
-            this.MsMiNew = new System.Windows.Forms.ToolStripMenuItem();
-            this.MsMiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.MsMiShowFileExtensions = new System.Windows.Forms.ToolStripMenuItem();
             this.MsMiShowHiddenItems = new System.Windows.Forms.ToolStripMenuItem();
             this.MsMiShowSuperHiddenItems = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiOrganize = new System.Windows.Forms.ToolStripMenuItem();
             this.MsMiArrange = new System.Windows.Forms.ToolStripMenuItem();
             this.MsMiCascade = new System.Windows.Forms.ToolStripMenuItem();
             this.MsMiTileHorizontal = new System.Windows.Forms.ToolStripMenuItem();
             this.MsMiTileVertical = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiNew = new System.Windows.Forms.ToolStripMenuItem();
             this.MsMiExplorer.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,6 +54,7 @@
             this.MsMiOrganize,
             this.MsMiNew});
             this.MsMiExplorer.Location = new System.Drawing.Point(0, 0);
+            this.MsMiExplorer.MdiWindowListItem = this.MsMiWindows;
             this.MsMiExplorer.Name = "MsMiExplorer";
             this.MsMiExplorer.Size = new System.Drawing.Size(1282, 24);
             this.MsMiExplorer.TabIndex = 1;
@@ -66,6 +67,12 @@
             this.MsMiFile.Name = "MsMiFile";
             this.MsMiFile.Size = new System.Drawing.Size(37, 20);
             this.MsMiFile.Text = "File";
+            // 
+            // MsMiExit
+            // 
+            this.MsMiExit.Name = "MsMiExit";
+            this.MsMiExit.Size = new System.Drawing.Size(93, 22);
+            this.MsMiExit.Text = "Exit";
             // 
             // MsMiWindows
             // 
@@ -83,6 +90,27 @@
             this.MsMiOptions.Size = new System.Drawing.Size(70, 20);
             this.MsMiOptions.Text = "Options...";
             // 
+            // MsMiShowFileExtensions
+            // 
+            this.MsMiShowFileExtensions.Name = "MsMiShowFileExtensions";
+            this.MsMiShowFileExtensions.Size = new System.Drawing.Size(280, 22);
+            this.MsMiShowFileExtensions.Tag = "1HideFileExt";
+            this.MsMiShowFileExtensions.Text = "Show File Extensions";
+            // 
+            // MsMiShowHiddenItems
+            // 
+            this.MsMiShowHiddenItems.Name = "MsMiShowHiddenItems";
+            this.MsMiShowHiddenItems.Size = new System.Drawing.Size(280, 22);
+            this.MsMiShowHiddenItems.Tag = "0Hidden";
+            this.MsMiShowHiddenItems.Text = "Show Hidden Items";
+            // 
+            // MsMiShowSuperHiddenItems
+            // 
+            this.MsMiShowSuperHiddenItems.Name = "MsMiShowSuperHiddenItems";
+            this.MsMiShowSuperHiddenItems.Size = new System.Drawing.Size(280, 22);
+            this.MsMiShowSuperHiddenItems.Tag = "0ShowSuperHidden";
+            this.MsMiShowSuperHiddenItems.Text = "Show Protected Operating System Files";
+            // 
             // MsMiOrganize
             // 
             this.MsMiOrganize.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -93,36 +121,6 @@
             this.MsMiOrganize.Name = "MsMiOrganize";
             this.MsMiOrganize.Size = new System.Drawing.Size(75, 20);
             this.MsMiOrganize.Text = "Organize...";
-            // 
-            // MsMiNew
-            // 
-            this.MsMiNew.Name = "MsMiNew";
-            this.MsMiNew.Size = new System.Drawing.Size(43, 20);
-            this.MsMiNew.Text = "New";
-            // 
-            // MsMiExit
-            // 
-            this.MsMiExit.Name = "MsMiExit";
-            this.MsMiExit.Size = new System.Drawing.Size(93, 22);
-            this.MsMiExit.Text = "Exit";
-            // 
-            // MsMiShowFileExtensions
-            // 
-            this.MsMiShowFileExtensions.Name = "MsMiShowFileExtensions";
-            this.MsMiShowFileExtensions.Size = new System.Drawing.Size(280, 22);
-            this.MsMiShowFileExtensions.Text = "Show File Extensions";
-            // 
-            // MsMiShowHiddenItems
-            // 
-            this.MsMiShowHiddenItems.Name = "MsMiShowHiddenItems";
-            this.MsMiShowHiddenItems.Size = new System.Drawing.Size(280, 22);
-            this.MsMiShowHiddenItems.Text = "Show Hidden Items";
-            // 
-            // MsMiShowSuperHiddenItems
-            // 
-            this.MsMiShowSuperHiddenItems.Name = "MsMiShowSuperHiddenItems";
-            this.MsMiShowSuperHiddenItems.Size = new System.Drawing.Size(280, 22);
-            this.MsMiShowSuperHiddenItems.Text = "Show Protected Operating System Files";
             // 
             // MsMiArrange
             // 
@@ -147,6 +145,12 @@
             this.MsMiTileVertical.Name = "MsMiTileVertical";
             this.MsMiTileVertical.Size = new System.Drawing.Size(150, 22);
             this.MsMiTileVertical.Text = "Tile Vertical";
+            // 
+            // MsMiNew
+            // 
+            this.MsMiNew.Name = "MsMiNew";
+            this.MsMiNew.Size = new System.Drawing.Size(43, 20);
+            this.MsMiNew.Text = "New";
             // 
             // ShellHost
             // 

@@ -10,20 +10,16 @@ namespace SuperLauncher
         public ShellHost()
         {
             InitializeComponent();
-
             MsMiExit.Click += MsMiExit_Click;
             MsMiNew.Click += MsMiNew_Click;
             MsMiArrange.Click += MsMiArrange_Click;
             MsMiCascade.Click += MsMiCascade_Click;
             MsMiTileVertical.Click += MsMiTileVertical_Click;
             MsMiTileHorizontal.Click += MsMiTileHorizontal_Click;
-            MsMiOptions.Click += MsMiOptions_Click;
-
+            MsMiOptions.DropDownOpening += MsMiOptions_DropDownOpening;
             MsMiShowFileExtensions.Click += MsMiOptionsSubItem_Click;
             MsMiShowHiddenItems.Click += MsMiOptionsSubItem_Click;
             MsMiShowSuperHiddenItems.Click += MsMiOptionsSubItem_Click;
-
-
             Icon = Resources.logo;
         }
         private void ShellHost_Load(object sender, EventArgs e)
@@ -72,7 +68,7 @@ namespace SuperLauncher
             key.SetValue(name, set);
             key.Close();
         }
-        private void MsMiOptions_Click(object sender, EventArgs e)
+        private void MsMiOptions_DropDownOpening(object sender, EventArgs e)
         {
             RegistryKey key = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced", false);
             foreach (ToolStripMenuItem mi in MsMiOptions.DropDownItems)

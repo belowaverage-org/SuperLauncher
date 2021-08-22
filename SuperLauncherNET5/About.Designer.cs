@@ -86,7 +86,7 @@
             // logoPictureBox
             // 
             this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.logoPictureBox.Image = global::SuperLauncherNET5.Resources.banner;
+            this.logoPictureBox.Image = global::SuperLauncher.Resources.banner;
             this.logoPictureBox.Location = new System.Drawing.Point(0, 0);
             this.logoPictureBox.Margin = new System.Windows.Forms.Padding(0, 0, 6, 0);
             this.logoPictureBox.Name = "logoPictureBox";
@@ -185,7 +185,7 @@
             // pbLogo
             // 
             this.pbLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbLogo.Image = global::SuperLauncherNET5.Resources.logo_256;
+            this.pbLogo.Image = global::SuperLauncher.Resources.logo_256;
             this.pbLogo.Location = new System.Drawing.Point(394, 3);
             this.pbLogo.Margin = new System.Windows.Forms.Padding(3, 3, 20, 3);
             this.pbLogo.Name = "pbLogo";

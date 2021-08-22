@@ -2,7 +2,6 @@
 using System.Reflection;
 using System.Windows.Forms;
 using System.Diagnostics;
-using SuperLauncherNET5;
 
 namespace SuperLauncher
 {

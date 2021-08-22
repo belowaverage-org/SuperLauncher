@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.IO;
 using System.Xml;
 
-namespace SuperLauncherNET5 {
+namespace SuperLauncher {
     class Settings {
         public static SettingsDefault Default = new();
     }

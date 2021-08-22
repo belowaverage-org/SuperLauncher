@@ -1,5 +1,4 @@
-﻿using SuperLauncherNET5;
-using System;
+﻿using System;
 using System.Windows.Forms;
 
 namespace SuperLauncher

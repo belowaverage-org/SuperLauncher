@@ -147,7 +147,7 @@
             // 
             // SuperIcon
             // 
-            this.SuperIcon.Image = SuperLauncherNET5.Resources.logo_16;
+            this.SuperIcon.Image = SuperLauncher.Resources.logo_16;
             this.SuperIcon.Location = new System.Drawing.Point(6, 5);
             this.SuperIcon.Name = "SuperIcon";
             this.SuperIcon.Size = new System.Drawing.Size(16, 16);

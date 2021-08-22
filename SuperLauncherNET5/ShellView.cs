@@ -3,7 +3,6 @@ using Microsoft.WindowsAPICodePack.Shell;
 using System;
 using System.Windows.Forms;
 using System.IO;
-using SuperLauncherNET5;
 
 namespace SuperLauncher
 {

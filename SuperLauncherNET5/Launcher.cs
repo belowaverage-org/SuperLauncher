@@ -5,7 +5,6 @@ using System.Drawing;
 using System.Diagnostics;
 using CredentialManagement;
 using System.Runtime.InteropServices;
-using SuperLauncherNET5;
 using System.ComponentModel;
 
 namespace SuperLauncher

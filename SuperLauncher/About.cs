@@ -101,7 +101,7 @@ namespace SuperLauncher
 
         private void BtnGithub_Click(object sender, EventArgs e)
         {
-            Process.Start("https://github.com/belowaverage-org/SuperLauncher");
+            Process.Start("OpenWith.exe", "https://github.com/belowaverage-org/SuperLauncher");
         }
     }
 }

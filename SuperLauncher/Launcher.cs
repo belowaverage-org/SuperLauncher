@@ -6,6 +6,7 @@ using System.Diagnostics;
 using CredentialManagement;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace SuperLauncher
 {
@@ -96,6 +97,15 @@ namespace SuperLauncher
             miAddShortcut.SetMenuItemBitmap(Resources.shortcut);
             miElevate.SetMenuItemBitmap(Resources.shield);
             miExplorer.SetMenuItemBitmap(Resources.explorer);*/
+            TcMiSuperLauncher.Click += TcMiSuperLauncher_Click;
+            TcMiElevate.Click += TcMiElevate_Click;
+            TcMiRunAs.Click += TcMiRunAs_Click;
+            TcMiAddShortcut.Click += TcMiAddShortcut_Click;
+            TcMiOpenExplorer.Click += TcMiOpenExplorer_Click;
+            TcMiViewConfig.Click += TcMiConfig_Click;
+            TcMiSettings.Click += TcMiSettings_Click;
+            TcMiExit.Click += TcMiExit_Click;
+            RicMiRemove.Click += RicMiRemove_Click;
             if (isElevated)
             {
                 ShieldIcon.Visible = true;
@@ -132,7 +142,7 @@ namespace SuperLauncher
                 {
                     // Funny story, if you have autoElevate on and don't check if you're already elevated
                     // You get this awesome infinite loop of it restarting until you restart the machine
-                    MiElevate_Click(null, null);
+                    TcMiElevate_Click(null, null);
                 }
             }
         }
@@ -195,7 +205,8 @@ namespace SuperLauncher
                 FadeIn();
                 Activate();
             }
-            if (e.Button == MouseButtons.Right)
+            //Old Menu Method.
+            /*if (e.Button == MouseButtons.Right)
             {
                 Opacity = 0;
                 Location = MousePosition;
@@ -204,7 +215,7 @@ namespace SuperLauncher
                 //TrayMenu.Show(this, new Point(0, 0));
                 Hide();
                 Opacity = 1;
-            }
+            }*/
         }
         private void Launcher_Deactivate(object sender, EventArgs e)
         {
@@ -219,7 +230,12 @@ namespace SuperLauncher
             FadeOut();
             try
             {
-                Process.Start(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
+                ProcessStartInfo psi = new()
+                {
+                    FileName = ((IconData)IconsBox.FocusedItem.Tag).fileLocation,
+                    UseShellExecute = true
+                };
+                Process.Start(psi);
             }
             catch (Exception) { } //User canceled a UAC probbably...
         }
@@ -239,8 +255,9 @@ namespace SuperLauncher
                 //RightClickMenu.Show(this, e.Location);
             }
         }
-        private void RemoveToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RicMiRemove_Click(object sender, EventArgs e)
         {
+            if (IconsBox.FocusedItem == null) return;
             Settings.Default.FileList.Remove(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
             Settings.Default.Save();
             IconsBox.FocusedItem.Remove();
@@ -252,43 +269,47 @@ namespace SuperLauncher
         }
         private void ShowRunAs(int ErrorCode = 0, ConfigHelper configHelper = null)
         {
-            VistaPrompt prompt = new();
-            prompt.ErrorCode = ErrorCode;
-            prompt.Title = "Super Launcher - Run-As";
-            prompt.Message = "Please enter the credentials you would like Super Launcher to run as...";
-            if (configHelper != null && configHelper.HasRunAsCredential())
-            {
-                prompt.Username = configHelper.UserName;
-                prompt.Domain = configHelper.Domain;
-            }
-            if (prompt.ShowDialog() == CredentialManagement.DialogResult.OK)
-            {
-                CredentialParser.ParseUserName(prompt.Username, out string username, out string domain);
-                Process process = new();
-                ProcessStartInfo startInfo = process.StartInfo;
-                startInfo.FileName = Application.ExecutablePath;
-                startInfo.WorkingDirectory = Application.StartupPath;
-                startInfo.Domain = domain;
-                startInfo.UserName = username;
-                startInfo.Password = prompt.SecurePassword;
-                startInfo.UseShellExecute = false;
-                process.StartInfo = startInfo;
-                try
+            Task.Run(() => {
+                VistaPrompt prompt = new();
+                prompt.ErrorCode = ErrorCode;
+                prompt.Title = "Super Launcher - Run-As";
+                prompt.Message = "Please enter the credentials you would like Super Launcher to run as...";
+                if (configHelper != null && configHelper.HasRunAsCredential())
                 {
-                    process.Start();
-                    fakeClose = false;
-                    Close();
+                    prompt.Username = configHelper.UserName;
+                    prompt.Domain = configHelper.Domain;
                 }
-                catch (Win32Exception e)
+                if (prompt.ShowDialog() == CredentialManagement.DialogResult.OK)
                 {
-                    if (e.NativeErrorCode == 267)
+                    CredentialParser.ParseUserName(prompt.Username, out string username, out string domain);
+                    Process process = new();
+                    ProcessStartInfo startInfo = process.StartInfo;
+                    startInfo.FileName = Application.ExecutablePath;
+                    startInfo.WorkingDirectory = Application.StartupPath;
+                    startInfo.Domain = domain;
+                    startInfo.UserName = username;
+                    startInfo.Password = prompt.SecurePassword;
+                    startInfo.UseShellExecute = false;
+                    process.StartInfo = startInfo;
+                    try
                     {
-                        int result = (int)MessageBox.Show("The credentials supplied do not have access to the currently running \"Super Launcher\" executable file.\n\nConsider moving Super Launcher to a location that this account has access too.", "Super Launcher: Permission Error.", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
-                        if (result == 2) return; //If result equals "Cancel". https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.dialogresult?view=net-5.0
+                        process.Start();
+                        fakeClose = false;
+                        Invoke(new Action(() => {
+                            Close();
+                        }));
                     }
-                    ShowRunAs(e.NativeErrorCode);
+                    catch (Win32Exception e)
+                    {
+                        if (e.NativeErrorCode == 267)
+                        {
+                            int result = (int)MessageBox.Show("The credentials supplied do not have access to the currently running \"Super Launcher\" executable file.\n\nConsider moving Super Launcher to a location that this account has access too.", "Super Launcher: Permission Error.", MessageBoxButtons.RetryCancel, MessageBoxIcon.Warning);
+                            if (result == 2) return; //If result equals "Cancel". https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.dialogresult?view=net-5.0
+                        }
+                        ShowRunAs(e.NativeErrorCode);
+                    }
                 }
-            }
+            });
         }
         private void IconsBox_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -297,12 +318,12 @@ namespace SuperLauncher
                 LaunchFocusedItem();
             }
         }
-        private void MiExit_Click(object sender, EventArgs e)
+        private void TcMiExit_Click(object sender, EventArgs e)
         {
             fakeClose = false;
             Close();
         }
-        private void MiAddShortcut_Click(object sender, EventArgs e)
+        private void TcMiAddShortcut_Click(object sender, EventArgs e)
         {
             if (!fileDialogOpen)
             {
@@ -311,30 +332,35 @@ namespace SuperLauncher
                 fileDialogOpen = false;
             }
         }
-        private void MiRunAs_Click(object sender, EventArgs e)
+        private void TcMiRunAs_Click(object sender, EventArgs e)
         {
             ShowRunAs();
         }
-        private void MiElevate_Click(object sender, EventArgs e)
+        private void TcMiElevate_Click(object sender, EventArgs e)
         {
-            ProcessStartInfo elevatedProcStartInfo = new();
-            elevatedProcStartInfo.FileName = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            elevatedProcStartInfo.Verb = "RunAs";
-            Process elevatedProcess = new();
-            elevatedProcess.StartInfo = elevatedProcStartInfo;
-            try
-            {
-                elevatedProcess.Start();
-                fakeClose = false;
-                Close();
-            }
-            catch (Exception) { }
+            Task.Run(() => {
+                ProcessStartInfo elevatedProcStartInfo = new();
+                elevatedProcStartInfo.FileName = System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe");
+                elevatedProcStartInfo.Verb = "RunAs";
+                elevatedProcStartInfo.UseShellExecute = true;
+                Process elevatedProcess = new();
+                elevatedProcess.StartInfo = elevatedProcStartInfo;
+                try
+                {
+                    elevatedProcess.Start();
+                    fakeClose = false;
+                    Invoke(new Action(() => {
+                        Close();
+                    }));
+                }
+                catch (Exception) { }
+            });
         }
         private void TrayMenu_Popup(object sender, EventArgs e)
         {
             //((Menu)sender).DrawMenuItemBitmaps();
         }
-        private void MiSuperLauncher_Click(object sender, EventArgs e)
+        private void TcMiSuperLauncher_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
         }
@@ -404,12 +430,12 @@ namespace SuperLauncher
                 }
             }
         }
-        private void MiExplorer_Click(object sender, EventArgs e)
+        private void TcMiOpenExplorer_Click(object sender, EventArgs e)
         {
             ShellHost sh = new();
             sh.Show();
         }
-        private void MiConfig_Click(object sender, EventArgs e)
+        private void TcMiConfig_Click(object sender, EventArgs e)
         {
             try
             {
@@ -434,7 +460,7 @@ namespace SuperLauncher
                 }
             }
         }
-        private void MiSettings_Click(object sender, EventArgs e)
+        private void TcMiSettings_Click(object sender, EventArgs e)
         {
             SettingsForm form = new();
             form.ShowDialog();

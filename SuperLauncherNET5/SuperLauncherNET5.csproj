@@ -1,0 +1,100 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\banner.png" />
+    <None Remove="Resources\explorer.png" />
+    <None Remove="Resources\shield.png" />
+    <None Remove="Resources\shortcut.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CredentialManagement" Version="1.0.2">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
+    <PackageReference Include="UserAccountControl" Version="1.0.4636.39457">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+	  <PackageReference Include="WindowsAPICodePack-Core" Version="1.1.1">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\banner.png" />
+    <Resource Include="Resources\explorer.png" />
+    <Resource Include="Resources\shield.png" />
+    <Resource Include="Resources\shortcut.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="About.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="About.Designer.cs">
+      <DependentUpon>About.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Launcher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Launcher.Designer.cs">
+      <DependentUpon>Launcher.cs</DependentUpon>
+    </Compile>
+    <Compile Update="Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ShellHost.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ShellHost.Designer.cs">
+      <DependentUpon>ShellHost.cs</DependentUpon>
+    </Compile>
+    <Compile Update="ShellView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ShellView.Designer.cs">
+      <DependentUpon>ShellView.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="About.resx">
+      <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Launcher.resx">
+      <DependentUpon>Launcher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ShellHost.resx">
+      <DependentUpon>ShellHost.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Update="ShellView.resx">
+      <DependentUpon>ShellView.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+
+</Project>

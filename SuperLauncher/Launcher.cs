@@ -20,8 +20,6 @@ namespace SuperLauncher
         private bool MouseIsDown = false;
         private readonly int HandleWidth = 5;
         private readonly int BottomRightMargin = 5;
-        //[DllImport("user32.dll")]
-        //static extern bool AnimateWindow(IntPtr hwnd, int time, AnimateWindowFlags flags);
         [DllImport("user32.dll", SetLastError = true)]
         static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
         [DllImport("dwmapi.dll")]
@@ -93,10 +91,6 @@ namespace SuperLauncher
             RegHandleEvents(Controls);
             Icon = Resources.logo;
             TrayIcon.Icon = new Icon(Resources.logo, 16, 16);
-            /*miSuperLauncher.SetMenuItemBitmap(Resources.logo_16);
-            miAddShortcut.SetMenuItemBitmap(Resources.shortcut);
-            miElevate.SetMenuItemBitmap(Resources.shield);
-            miExplorer.SetMenuItemBitmap(Resources.explorer);*/
             TcMiSuperLauncher.Click += TcMiSuperLauncher_Click;
             TcMiElevate.Click += TcMiElevate_Click;
             TcMiRunAs.Click += TcMiRunAs_Click;
@@ -111,8 +105,8 @@ namespace SuperLauncher
                 ShieldIcon.Visible = true;
                 UserLabel.Location = new Point(113, 5);
                 UserLabel.Size = new Size(238, 22);
-                //miElevate.Text = "Elevated";
-                //miElevate.Enabled = false;
+                TcMiElevate.Text = "Elevated";
+                TcMiElevate.Enabled = false;
             }
             UserLabel.Text = Environment.UserDomainName + @"\" + Environment.UserName;
             imageList.ImageSize = new Size(32, 32);
@@ -205,17 +199,6 @@ namespace SuperLauncher
                 FadeIn();
                 Activate();
             }
-            //Old Menu Method.
-            /*if (e.Button == MouseButtons.Right)
-            {
-                Opacity = 0;
-                Location = MousePosition;
-                Show();
-                Activate();
-                //TrayMenu.Show(this, new Point(0, 0));
-                Hide();
-                Opacity = 1;
-            }*/
         }
         private void Launcher_Deactivate(object sender, EventArgs e)
         {
@@ -246,13 +229,6 @@ namespace SuperLauncher
                 AddIcon(file);
                 Settings.Default.FileList.Add(file);
                 Settings.Default.Save();
-            }
-        }
-        private void IconsBox_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-            {
-                //RightClickMenu.Show(this, e.Location);
             }
         }
         private void RicMiRemove_Click(object sender, EventArgs e)
@@ -356,10 +332,6 @@ namespace SuperLauncher
                 catch (Exception) { }
             });
         }
-        private void TrayMenu_Popup(object sender, EventArgs e)
-        {
-            //((Menu)sender).DrawMenuItemBitmaps();
-        }
         private void TcMiSuperLauncher_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
@@ -437,28 +409,7 @@ namespace SuperLauncher
         }
         private void TcMiConfig_Click(object sender, EventArgs e)
         {
-            try
-            {
-                Process.Start(Settings.Default.configPath);
-            }
-            catch (Win32Exception except)
-            {
-                uint AppNotFoundErr = 2147500037;
-                if (except.NativeErrorCode == AppNotFoundErr)
-                {
-                    // No default app for the type was configured... so use notepad
-                    ProcessStartInfo startInfo = new();
-                    startInfo.FileName = "notepad.exe";
-                    startInfo.Arguments = Settings.Default.configPath;
-                    startInfo.UseShellExecute = true;
-                    Process.Start(startInfo);
-                }
-                else
-                {
-                    // Not that error? oops
-                    //throw except;
-                }
-            }
+            Process.Start("OpenWith.exe", "\"" + Settings.Default.configPath + "\"");
         }
         private void TcMiSettings_Click(object sender, EventArgs e)
         {

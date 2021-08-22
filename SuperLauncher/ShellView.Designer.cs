@@ -40,7 +40,7 @@
             // 
             this.btnBack.Enabled = false;
             this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnBack.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBack.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnBack.Location = new System.Drawing.Point(4, 3);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(25, 25);
@@ -53,7 +53,7 @@
             // 
             this.btnForward.Enabled = false;
             this.btnForward.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnForward.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnForward.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.btnForward.Location = new System.Drawing.Point(33, 3);
             this.btnForward.Name = "btnForward";
             this.btnForward.Size = new System.Drawing.Size(25, 25);
@@ -66,10 +66,10 @@
             // 
             this.txtNav.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtNav.Location = new System.Drawing.Point(96, 4);
+            this.txtNav.Location = new System.Drawing.Point(98, 4);
             this.txtNav.Multiline = true;
             this.txtNav.Name = "txtNav";
-            this.txtNav.Size = new System.Drawing.Size(474, 23);
+            this.txtNav.Size = new System.Drawing.Size(472, 23);
             this.txtNav.TabIndex = 3;
             this.txtNav.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtNav_KeyPress);
             // 
@@ -90,8 +90,8 @@
             // 
             this.btnNavUp.Enabled = false;
             this.btnNavUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnNavUp.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnNavUp.Location = new System.Drawing.Point(67, 3);
+            this.btnNavUp.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnNavUp.Location = new System.Drawing.Point(69, 3);
             this.btnNavUp.Name = "btnNavUp";
             this.btnNavUp.Size = new System.Drawing.Size(25, 25);
             this.btnNavUp.TabIndex = 6;
@@ -121,7 +121,7 @@
             this.Controls.Add(this.btnForward);
             this.Controls.Add(this.btnBack);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Name = "ShellView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Explorer";

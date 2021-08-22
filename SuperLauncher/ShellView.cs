@@ -1,5 +1,6 @@
 ﻿using Microsoft.WindowsAPICodePack.Controls;
 using Microsoft.WindowsAPICodePack.Shell;
+using Microsoft.WindowsAPICodePack.Controls.WindowsForms;
 using System;
 using System.Windows.Forms;
 using System.IO;
@@ -9,6 +10,10 @@ namespace SuperLauncher
     public partial class ShellView : Form
     {
         public ShellView()
+        {
+            Init();   
+        }
+        public void Init()
         {
             InitializeComponent();
             Icon = Resources.logo;

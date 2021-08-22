@@ -171,13 +171,13 @@
             // 
             this.miRemove.Index = 0;
             this.miRemove.Text = "Remove";
-            this.miRemove.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            this.miRemove.Click += new System.EventHandler(this.RemoveToolStripMenuItem_Click);
             // 
             // miSuperLauncher
             // 
             this.miSuperLauncher.Index = 0;
             this.miSuperLauncher.Text = "Super Launcher";
-            this.miSuperLauncher.Click += new System.EventHandler(this.miSuperLauncher_Click);
+            this.miSuperLauncher.Click += new System.EventHandler(this.MiSuperLauncher_Click);
             // 
             // miSeperator1
             // 
@@ -188,13 +188,13 @@
             // 
             this.miElevate.Index = 2;
             this.miElevate.Text = "Elevate...";
-            this.miElevate.Click += new System.EventHandler(this.miElevate_Click);
+            this.miElevate.Click += new System.EventHandler(this.MiElevate_Click);
             // 
             // miRunAs
             // 
             this.miRunAs.Index = 3;
             this.miRunAs.Text = "Run as...";
-            this.miRunAs.Click += new System.EventHandler(this.miRunAs_Click);
+            this.miRunAs.Click += new System.EventHandler(this.MiRunAs_Click);
             // 
             // miSeperator2
             // 
@@ -205,7 +205,7 @@
             // 
             this.miAddShortcut.Index = 5;
             this.miAddShortcut.Text = "Add shortcut...";
-            this.miAddShortcut.Click += new System.EventHandler(this.miAddShortcut_Click);
+            this.miAddShortcut.Click += new System.EventHandler(this.MiAddShortcut_Click);
             // 
             // miSeperator3
             // 
@@ -216,7 +216,7 @@
             // 
             this.miExit.Index = 12;
             this.miExit.Text = "Exit";
-            this.miExit.Click += new System.EventHandler(this.miExit_Click);
+            this.miExit.Click += new System.EventHandler(this.MiExit_Click);
             // 
             // TrayMenu
             // 
@@ -245,19 +245,19 @@
             // 
             this.miExplorer.Index = 7;
             this.miExplorer.Text = "Open Explorer";
-            this.miExplorer.Click += new System.EventHandler(this.miExplorer_Click);
+            this.miExplorer.Click += new System.EventHandler(this.MiExplorer_Click);
             // 
             // miConfig
             // 
             this.miConfig.Index = 9;
             this.miConfig.Text = "View Config...";
-            this.miConfig.Click += new System.EventHandler(this.miConfig_Click);
+            this.miConfig.Click += new System.EventHandler(this.MiConfig_Click);
             // 
             // miSettings
             // 
             this.miSettings.Index = 10;
             this.miSettings.Text = "Settings...";
-            this.miSettings.Click += new System.EventHandler(this.miSettings_Click);
+            this.miSettings.Click += new System.EventHandler(this.MiSettings_Click);
             // 
             // miSeperator5
             // 

@@ -26,7 +26,7 @@ namespace SuperLauncher
             ERROR_INVALID_FLAGS = 1004,
             ERROR_BAD_ARGUMENTS = 160
         }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters")]
+
         public static bool ParseUserName(string userName, out string user, out string domain)
         {
             if (string.IsNullOrEmpty(userName))

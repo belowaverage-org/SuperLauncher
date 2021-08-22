@@ -5,14 +5,14 @@ using System.Xml;
 
 namespace SuperLauncherNET5 {
     class Settings {
-        public static SettingsDefault Default = new SettingsDefault();
+        public static SettingsDefault Default = new();
     }
     class SettingsDefault
     {
-        private string configDir = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName);
+        private readonly string configDir = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName);
         public string configPath = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName, "SuperLauncherConfig.xml");
-        public XmlDocument XDoc = new XmlDocument();
-        public bool autoElevate {
+        public XmlDocument XDoc = new();
+        public bool AutoElevate {
             get
             {
                 if (!bool.TryParse(XDoc.SelectSingleNode("/SuperLauncher/AutoElevate").InnerText, out bool val)) val = false;
@@ -23,7 +23,7 @@ namespace SuperLauncherNET5 {
                 XDoc.SelectSingleNode("/SuperLauncher/AutoElevate").InnerText = value.ToString();
             }
         }
-        public string autoRunAsDomain
+        public string AutoRunAsDomain
         {
             get
             {
@@ -34,7 +34,7 @@ namespace SuperLauncherNET5 {
                 XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsDomain").InnerText = value;
             }
         }
-        public string autoRunAsUser
+        public string AutoRunAsUser
         {
             get
             {
@@ -45,11 +45,11 @@ namespace SuperLauncherNET5 {
                 XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsUser").InnerText = value;
             }
         }
-        public AppListStringCollection fileList
+        public AppListStringCollection FileList
         {
             get
             {
-                AppListStringCollection sc = new AppListStringCollection();
+                AppListStringCollection sc = new();
                 XmlNodeList apps = XDoc.SelectNodes("/SuperLauncher/AppList/App");
                 foreach(XmlNode app in apps)
                 {
@@ -59,7 +59,7 @@ namespace SuperLauncherNET5 {
             }
             set { }
         }
-        public int height
+        public int Height
         {
             get
             {
@@ -71,7 +71,7 @@ namespace SuperLauncherNET5 {
                 XDoc.SelectSingleNode("/SuperLauncher/Height").InnerText = value.ToString();
             }
         }
-        public int width
+        public int Width
         {
             get
             {
@@ -114,7 +114,7 @@ namespace SuperLauncherNET5 {
     }
     class AppListStringCollection : StringCollection
     {
-        private XmlNode Apps = Settings.Default.XDoc.SelectSingleNode("/SuperLauncher/AppList");
+        private readonly XmlNode Apps = Settings.Default.XDoc.SelectSingleNode("/SuperLauncher/AppList");
         public new int Add(string value)
         {
             XmlNode app = Settings.Default.XDoc.CreateElement("App");

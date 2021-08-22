@@ -15,20 +15,20 @@ namespace SuperLauncher
     {
         public string UserName { get; set; }
         public string Domain { get; set; }
-        public bool AutoElevate { get; set; } = Settings.Default.autoElevate;
+        public bool AutoElevate { get; set; } = Settings.Default.AutoElevate;
         public ConfigHelper()
         {
-            if (!string.IsNullOrEmpty(Settings.Default.autoRunAsUser))
+            if (!string.IsNullOrEmpty(Settings.Default.AutoRunAsUser))
             {
-                UserName = DecryptData(Settings.Default.autoRunAsUser);
+                UserName = DecryptData(Settings.Default.AutoRunAsUser);
             }
             else
             {
                 UserName = null;
             }
-            if (!string.IsNullOrEmpty(Settings.Default.autoRunAsDomain))
+            if (!string.IsNullOrEmpty(Settings.Default.AutoRunAsDomain))
             {
-                Domain = DecryptData(Settings.Default.autoRunAsDomain);
+                Domain = DecryptData(Settings.Default.AutoRunAsDomain);
             }
             else
             {
@@ -41,19 +41,19 @@ namespace SuperLauncher
             switch (configField)
             {
                 case ConfigField.UserName:
-                    Settings.Default.autoRunAsUser = EncryptData(configData);
+                    Settings.Default.AutoRunAsUser = EncryptData(configData);
                     UserName = configData;
                     break;
                 case ConfigField.Domain:
-                    Settings.Default.autoRunAsDomain = EncryptData(configData);
+                    Settings.Default.AutoRunAsDomain = EncryptData(configData);
                     Domain = configData;
                     break;
                 case ConfigField.AutoElevate:
-                    Settings.Default.autoElevate = Convert.ToBoolean(configData);
+                    Settings.Default.AutoElevate = Convert.ToBoolean(configData);
                     AutoElevate = Convert.ToBoolean(configData);
                     break;
                 default:
-                    throw new ArgumentException("Invalid paramater specified", "configField");
+                    throw new ArgumentException("Invalid paramater specified", nameof(configField));
             }
             Settings.Default.Save();
         }

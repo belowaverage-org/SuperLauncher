@@ -39,7 +39,7 @@ namespace SuperLauncher
             }
         }
 
-        public string AssemblyVersion
+        public static string AssemblyVersion
         {
             get
             {
@@ -47,7 +47,7 @@ namespace SuperLauncher
             }
         }
 
-        public string AssemblyDescription
+        public static string AssemblyDescription
         {
             get
             {
@@ -60,7 +60,7 @@ namespace SuperLauncher
             }
         }
 
-        public string AssemblyProduct
+        public static string AssemblyProduct
         {
             get
             {
@@ -73,7 +73,7 @@ namespace SuperLauncher
             }
         }
 
-        public string AssemblyCopyright
+        public static string AssemblyCopyright
         {
             get
             {
@@ -86,7 +86,7 @@ namespace SuperLauncher
             }
         }
 
-        public string AssemblyCompany
+        public static string AssemblyCompany
         {
             get
             {

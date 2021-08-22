@@ -47,7 +47,7 @@
             this.btnBack.TabIndex = 1;
             this.btnBack.Text = "";
             this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.btnBack_Click);
+            this.btnBack.Click += new System.EventHandler(this.BtnBack_Click);
             // 
             // btnForward
             // 
@@ -60,7 +60,7 @@
             this.btnForward.TabIndex = 2;
             this.btnForward.Text = "";
             this.btnForward.UseVisualStyleBackColor = true;
-            this.btnForward.Click += new System.EventHandler(this.btnForward_Click);
+            this.btnForward.Click += new System.EventHandler(this.BtnForward_Click);
             // 
             // txtNav
             // 
@@ -71,7 +71,7 @@
             this.txtNav.Name = "txtNav";
             this.txtNav.Size = new System.Drawing.Size(474, 23);
             this.txtNav.TabIndex = 3;
-            this.txtNav.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNav_KeyPress);
+            this.txtNav.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtNav_KeyPress);
             // 
             // Browser
             // 
@@ -97,7 +97,7 @@
             this.btnNavUp.TabIndex = 6;
             this.btnNavUp.Text = "";
             this.btnNavUp.UseVisualStyleBackColor = true;
-            this.btnNavUp.Click += new System.EventHandler(this.btnNavUp_Click);
+            this.btnNavUp.Click += new System.EventHandler(this.BtnNavUp_Click);
             // 
             // panelBorderCover
             // 

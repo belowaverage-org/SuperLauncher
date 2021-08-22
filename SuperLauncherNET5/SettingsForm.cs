@@ -6,7 +6,7 @@ namespace SuperLauncher
 {
     public partial class SettingsForm : Form
     {
-        ConfigHelper configHelper = new ConfigHelper();
+        readonly ConfigHelper configHelper = new();
         public SettingsForm()
         {
             InitializeComponent();
@@ -21,12 +21,12 @@ namespace SuperLauncher
             lblWho.Text = $"{Environment.UserDomainName}\\{Environment.UserName}";
         }
 
-        private void chkAutoElevate_CheckedChanged(object sender, EventArgs e)
+        private void ChkAutoElevate_CheckedChanged(object sender, EventArgs e)
         {
             configHelper.UpdateSetting(chkAutoElevate.Checked, ConfigField.AutoElevate);
         }
 
-        private void btnOK_Click(object sender, EventArgs e)
+        private void BtnOK_Click(object sender, EventArgs e)
         {
             configHelper.UpdateSetting(txtUsername.Text, ConfigField.UserName);
             configHelper.UpdateSetting(txtDomain.Text, ConfigField.Domain);
@@ -34,7 +34,7 @@ namespace SuperLauncher
             Close();
         }
 
-        private void btnCancel_Click(object sender, EventArgs e)
+        private void BtnCancel_Click(object sender, EventArgs e)
         {
             Close();
         }

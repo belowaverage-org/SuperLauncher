@@ -15,15 +15,15 @@ namespace SuperLauncher
             Icon = Resources.logo;
             Browser.Navigate(ShellObject.FromParsingName("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"));
         }
-        private void btnBack_Click(object sender, EventArgs e)
+        private void BtnBack_Click(object sender, EventArgs e)
         {
             Browser.NavigateLogLocation(NavigationLogDirection.Backward);
         }
-        private void btnForward_Click(object sender, EventArgs e)
+        private void BtnForward_Click(object sender, EventArgs e)
         {
             Browser.NavigateLogLocation(NavigationLogDirection.Forward);
         }
-        private void txtNav_KeyPress(object sender, KeyPressEventArgs e)
+        private void TxtNav_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '\r')
             {
@@ -53,7 +53,7 @@ namespace SuperLauncher
             btnBack.Enabled = Browser.NavigationLog.CanNavigateBackward;
             btnForward.Enabled = Browser.NavigationLog.CanNavigateForward;
         }
-        private void btnNavUp_Click(object sender, EventArgs e)
+        private void BtnNavUp_Click(object sender, EventArgs e)
         {
             Browser.Navigate(ShellObject.FromParsingName(Directory.GetParent(txtNav.Text).FullName));
         }

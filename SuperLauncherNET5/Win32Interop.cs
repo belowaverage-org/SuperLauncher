@@ -40,7 +40,7 @@ namespace SuperLauncher
         /// <param name="Icon">Icon Object</param>
         public static void SetSystemIcon(this Button Button, Icon Icon, int Width = 16, int Height = 16)
         {
-            SendMessage(Button.Handle, 0xf7, (IntPtr)1, new Icon(Icon, Width, Height).Handle);
+            _ = SendMessage(Button.Handle, 0xf7, (IntPtr)1, new Icon(Icon, Width, Height).Handle);
         }
         /*
         public static void SetMenuItemBitmap(this MenuItem MenuItem, Image Image)
@@ -73,8 +73,8 @@ namespace SuperLauncher
         */
         public static Bitmap ToBitmapAlpha(this Icon Icon, int Width, int Height, Color Background)
         {
-            Icon rsIcon = new Icon(Icon, Width, Height);
-            Bitmap bmIcon = new Bitmap(Width, Height);
+            Icon rsIcon = new(Icon, Width, Height);
+            Bitmap bmIcon = new(Width, Height);
             Graphics g = Graphics.FromImage(bmIcon);
             IntPtr hdc = g.GetHdc();
             DrawIconEx(hdc, 0, 0, rsIcon.Handle, Width, Height, 0, CreateSolidBrush((uint)ColorTranslator.ToWin32(Background)), 0x3);

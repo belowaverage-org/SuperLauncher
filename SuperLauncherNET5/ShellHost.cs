@@ -15,34 +15,34 @@ namespace SuperLauncher
         }
         private void ShellHost_Load(object sender, EventArgs e)
         {
-            miNew_Click(null, null);
+            MiNew_Click(null, null);
         }
-        private void miExit_Click(object sender, EventArgs e)
+        private void MiExit_Click(object sender, EventArgs e)
         {
             Close();
         }
-        private void miNew_Click(object sender, EventArgs e)
+        private void MiNew_Click(object sender, EventArgs e)
         {
-            ShellView sv = new ShellView();
+            ShellView sv = new();
             sv.MdiParent = this;
-            Size svSize = new Size(Size.Width - 4, Size.Height);
+            Size svSize = new(Size.Width - 4, Size.Height);
             sv.Size = svSize;
             sv.Show();
             sv.WindowState = FormWindowState.Maximized;
         }
-        private void miArrange_Click(object sender, EventArgs e)
+        private void MiArrange_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.ArrangeIcons);
         }
-        private void miCascade_Click(object sender, EventArgs e)
+        private void MiCascade_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.Cascade);
         }
-        private void miTileHoriz_Click(object sender, EventArgs e)
+        private void MiTileHoriz_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileHorizontal);
         }
-        private void miTileVert_Click(object sender, EventArgs e)
+        private void MiTileVert_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileVertical);
         }

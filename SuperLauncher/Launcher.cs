@@ -19,8 +19,8 @@ namespace SuperLauncher
         private bool fileDialogOpen = false;
         private ResizeHandles CurrentRH = ResizeHandles.None;
         private bool MouseIsDown = false;
-        private int HandleWidth = 5;
-        private int BottomRightMargin = 5;
+        private readonly int HandleWidth = 5;
+        private readonly int BottomRightMargin = 5;
         //[DllImport("user32.dll")]
         //static extern bool AnimateWindow(IntPtr hwnd, int time, AnimateWindowFlags flags);
         [DllImport("user32.dll", SetLastError = true)]
@@ -61,7 +61,6 @@ namespace SuperLauncher
         }
         protected override void WndProc(ref Message m)
         {
-            IntPtr lRet = (IntPtr)0;
             if (m.Msg == 0x6) //WM_ACTIVATE
             {
                 MARGINS margins;
@@ -119,7 +118,7 @@ namespace SuperLauncher
             {
                 if (File.Exists(file))
                 {
-                    addIcon(file);
+                    AddIcon(file);
                 }
             }
             if (!isElevated)
@@ -135,7 +134,7 @@ namespace SuperLauncher
                 {
                     // Funny story, if you have autoElevate on and don't check if you're already elevated
                     // You get this awesome infinite loop of it restarting until you restart the machine
-                    miElevate_Click(null, null);
+                    MiElevate_Click(null, null);
                 }
             }
         }
@@ -155,7 +154,7 @@ namespace SuperLauncher
                 fileLocation = FileLocation;
             }
         }
-        public void addIcon(string filePath)
+        public void AddIcon(string filePath)
         {
             FileInfo fileInfo = new FileInfo(filePath);
             imageList.Images.Add(filePath, Icon.ExtractAssociatedIcon(filePath));
@@ -230,7 +229,7 @@ namespace SuperLauncher
         {
             foreach (string file in OpenFileDialog.FileNames)
             {
-                addIcon(file);
+                AddIcon(file);
                 Settings.Default.fileList.Add(file);
                 Settings.Default.Save();
             }
@@ -242,7 +241,7 @@ namespace SuperLauncher
                 RightClickMenu.Show(this, e.Location);
             }
         }
-        private void removeToolStripMenuItem_Click(object sender, EventArgs e)
+        private void RemoveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Settings.Default.fileList.Remove(((IconData)IconsBox.FocusedItem.Tag).fileLocation);
             Settings.Default.Save();
@@ -255,10 +254,12 @@ namespace SuperLauncher
         }
         private void ShowRunAs(int ErrorCode = 0, ConfigHelper configHelper = null)
         {
-            VistaPrompt prompt = new VistaPrompt();
-            prompt.ErrorCode = ErrorCode;
-            prompt.Title = "Super Launcher - Run-As";
-            prompt.Message = "Please enter the credentials you would like Super Launcher to run as...";
+            VistaPrompt prompt = new VistaPrompt
+            {
+                ErrorCode = ErrorCode,
+                Title = "Super Launcher - Run-As",
+                Message = "Please enter the credentials you would like Super Launcher to run as..."
+            };
             if (configHelper != null && configHelper.HasRunAsCredential())
             {
                 prompt.Username = configHelper.UserName;
@@ -300,12 +301,12 @@ namespace SuperLauncher
                 LaunchFocusedItem();
             }
         }
-        private void miExit_Click(object sender, EventArgs e)
+        private void MiExit_Click(object sender, EventArgs e)
         {
             fakeClose = false;
             Close();
         }
-        private void miAddShortcut_Click(object sender, EventArgs e)
+        private void MiAddShortcut_Click(object sender, EventArgs e)
         {
             if (!fileDialogOpen)
             {
@@ -314,17 +315,21 @@ namespace SuperLauncher
                 fileDialogOpen = false;
             }
         }
-        private void miRunAs_Click(object sender, EventArgs e)
+        private void MiRunAs_Click(object sender, EventArgs e)
         {
             ShowRunAs();
         }
-        private void miElevate_Click(object sender, EventArgs e)
+        private void MiElevate_Click(object sender, EventArgs e)
         {
-            ProcessStartInfo elevatedProcStartInfo = new ProcessStartInfo();
-            elevatedProcStartInfo.FileName = System.Reflection.Assembly.GetExecutingAssembly().Location;
-            elevatedProcStartInfo.Verb = "RunAs";
-            Process elevatedProcess = new Process();
-            elevatedProcess.StartInfo = elevatedProcStartInfo;
+            ProcessStartInfo elevatedProcStartInfo = new ProcessStartInfo
+            {
+                FileName = System.Reflection.Assembly.GetExecutingAssembly().Location,
+                Verb = "RunAs"
+            };
+            Process elevatedProcess = new Process
+            {
+                StartInfo = elevatedProcStartInfo
+            };
             try
             {
                 elevatedProcess.Start();
@@ -337,7 +342,7 @@ namespace SuperLauncher
         {
             ((Menu)sender).DrawMenuItemBitmaps();
         }
-        private void miSuperLauncher_Click(object sender, EventArgs e)
+        private void MiSuperLauncher_Click(object sender, EventArgs e)
         {
             new About().ShowDialog();
         }
@@ -369,10 +374,10 @@ namespace SuperLauncher
             if (!MouseIsDown)
             {
                 CurrentRH = ResizeHandles.None;
-                if (posOff.Y <= HandleWidth) CurrentRH = CurrentRH | ResizeHandles.Top;
-                if (posOff.X > Width - HandleWidth) CurrentRH = CurrentRH | ResizeHandles.Right;
-                if (posOff.Y > Height - HandleWidth) CurrentRH = CurrentRH | ResizeHandles.Bottom;
-                if (posOff.X <= HandleWidth) CurrentRH = CurrentRH | ResizeHandles.Left;
+                if (posOff.Y <= HandleWidth) CurrentRH |= ResizeHandles.Top;
+                if (posOff.X > Width - HandleWidth) CurrentRH |= ResizeHandles.Right;
+                if (posOff.Y > Height - HandleWidth) CurrentRH |= ResizeHandles.Bottom;
+                if (posOff.X <= HandleWidth) CurrentRH |= ResizeHandles.Left;
                 if (CurrentRH == ResizeHandles.None) Cursor = Cursors.Arrow;
                 if (CurrentRH == ResizeHandles.Left || CurrentRH == ResizeHandles.Right) Cursor = Cursors.SizeWE;
                 if (CurrentRH == ResizeHandles.Top || CurrentRH == ResizeHandles.Bottom) Cursor = Cursors.SizeNS;
@@ -407,12 +412,12 @@ namespace SuperLauncher
                 }
             }
         }
-        private void miExplorer_Click(object sender, EventArgs e)
+        private void MiExplorer_Click(object sender, EventArgs e)
         {
             ShellHost sh = new ShellHost();
             sh.Show();
         }
-        private void miConfig_Click(object sender, EventArgs e)
+        private void MiConfig_Click(object sender, EventArgs e)
         {
             try
             {
@@ -424,10 +429,12 @@ namespace SuperLauncher
                 if (except.NativeErrorCode == AppNotFoundErr)
                 {
                     // No default app for the type was configured... so use notepad
-                    ProcessStartInfo startInfo = new ProcessStartInfo();
-                    startInfo.FileName = "notepad.exe";
-                    startInfo.Arguments = Settings.Default.configPath;
-                    startInfo.UseShellExecute = true;
+                    ProcessStartInfo startInfo = new ProcessStartInfo
+                    {
+                        FileName = "notepad.exe",
+                        Arguments = Settings.Default.configPath,
+                        UseShellExecute = true
+                    };
                     Process.Start(startInfo);
                 }
                 else
@@ -437,7 +444,7 @@ namespace SuperLauncher
                 }
             }
         }
-        private void miSettings_Click(object sender, EventArgs e)
+        private void MiSettings_Click(object sender, EventArgs e)
         {
             SettingsForm form = new SettingsForm();
             form.ShowDialog();

@@ -116,7 +116,7 @@
                 "InstallUrl" = "8:https://dotnet.microsoft.com/download/dotnet-core/[NetCoreVerMajorDotMinor]"
                 "IsNETCore" = "11:TRUE"
                 "Architecture" = "2:0"
-                "Runtime" = "2:0"
+                "Runtime" = "2:2"
                 }
             }
         }
@@ -199,7 +199,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Super Launcher"
         "ProductCode" = "8:{D008EF86-8D4D-41A9-A970-041D4774FFF5}"
-        "PackageCode" = "8:{97ECEDF1-A7F5-40FB-8482-EECCFBB98B5A}"
+        "PackageCode" = "8:{5AA940EF-5138-4789-8690-DEBC715D245D}"
         "UpgradeCode" = "8:{B97E5DFB-9607-4472-B75A-E7726FC5B769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

@@ -28,142 +28,162 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            /*
-            this.MainMenu = new System.Windows.Forms.MainMenu(this.components);
-            this.miFile = new System.Windows.Forms.MenuItem();
-            this.miExit = new System.Windows.Forms.MenuItem();
-            this.miWindowList = new System.Windows.Forms.MenuItem();
-            this.miOrganize = new System.Windows.Forms.MenuItem();
-            this.miArrange = new System.Windows.Forms.MenuItem();
-            this.miCascade = new System.Windows.Forms.MenuItem();
-            this.miTileHoriz = new System.Windows.Forms.MenuItem();
-            this.miTileVert = new System.Windows.Forms.MenuItem();
-            this.miNew = new System.Windows.Forms.MenuItem();
-            this.miOptions = new System.Windows.Forms.MenuItem();
-            this.miShowFileExt = new System.Windows.Forms.MenuItem();
-            this.miShowHiddenItems = new System.Windows.Forms.MenuItem();
-            this.miShowSuperHidden = new System.Windows.Forms.MenuItem();
-            */
+            this.MsMiExplorer = new System.Windows.Forms.MenuStrip();
+            this.MsMiFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiWindows = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiOptions = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiOrganize = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiNew = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiShowFileExtensions = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiShowHiddenItems = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiShowSuperHiddenItems = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiArrange = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiCascade = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiTileHorizontal = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiTileVertical = new System.Windows.Forms.ToolStripMenuItem();
+            this.MsMiExplorer.SuspendLayout();
             this.SuspendLayout();
             // 
-            // MainMenu
+            // MsMiExplorer
             // 
-            /*
-            this.MainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.miFile,
-            this.miWindowList,
-            this.miOptions,
-            this.miOrganize,
-            this.miNew});
+            this.MsMiExplorer.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MsMiFile,
+            this.MsMiWindows,
+            this.MsMiOptions,
+            this.MsMiOrganize,
+            this.MsMiNew});
+            this.MsMiExplorer.Location = new System.Drawing.Point(0, 0);
+            this.MsMiExplorer.Name = "MsMiExplorer";
+            this.MsMiExplorer.Size = new System.Drawing.Size(1282, 24);
+            this.MsMiExplorer.TabIndex = 1;
+            this.MsMiExplorer.Text = "MsMiExplorer";
             // 
-            // miFile
+            // MsMiFile
             // 
-            this.miFile.Index = 0;
-            this.miFile.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.miExit});
-            this.miFile.Text = "&File";
+            this.MsMiFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MsMiExit});
+            this.MsMiFile.Name = "MsMiFile";
+            this.MsMiFile.Size = new System.Drawing.Size(37, 20);
+            this.MsMiFile.Text = "File";
             // 
-            // miExit
+            // MsMiWindows
             // 
-            this.miExit.Index = 0;
-            this.miExit.Text = "Exit";
-            this.miExit.Click += new System.EventHandler(this.miExit_Click);
+            this.MsMiWindows.Name = "MsMiWindows";
+            this.MsMiWindows.Size = new System.Drawing.Size(68, 20);
+            this.MsMiWindows.Text = "Windows";
             // 
-            // miWindowList
+            // MsMiOptions
             // 
-            this.miWindowList.Index = 1;
-            this.miWindowList.MdiList = true;
-            this.miWindowList.Text = "&Windows";
+            this.MsMiOptions.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MsMiShowFileExtensions,
+            this.MsMiShowHiddenItems,
+            this.MsMiShowSuperHiddenItems});
+            this.MsMiOptions.Name = "MsMiOptions";
+            this.MsMiOptions.Size = new System.Drawing.Size(70, 20);
+            this.MsMiOptions.Text = "Options...";
             // 
-            // miOrganize
+            // MsMiOrganize
             // 
-            this.miOrganize.Index = 3;
-            this.miOrganize.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.miArrange,
-            this.miCascade,
-            this.miTileHoriz,
-            this.miTileVert});
-            this.miOrganize.Text = "&Organize...";
+            this.MsMiOrganize.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MsMiArrange,
+            this.MsMiCascade,
+            this.MsMiTileHorizontal,
+            this.MsMiTileVertical});
+            this.MsMiOrganize.Name = "MsMiOrganize";
+            this.MsMiOrganize.Size = new System.Drawing.Size(75, 20);
+            this.MsMiOrganize.Text = "Organize...";
             // 
-            // miArrange
+            // MsMiNew
             // 
-            this.miArrange.Index = 0;
-            this.miArrange.Text = "&Arrange";
-            this.miArrange.Click += new System.EventHandler(this.miArrange_Click);
+            this.MsMiNew.Name = "MsMiNew";
+            this.MsMiNew.Size = new System.Drawing.Size(43, 20);
+            this.MsMiNew.Text = "New";
             // 
-            // miCascade
+            // MsMiExit
             // 
-            this.miCascade.Index = 1;
-            this.miCascade.Text = "&Cascade";
-            this.miCascade.Click += new System.EventHandler(this.miCascade_Click);
+            this.MsMiExit.Name = "MsMiExit";
+            this.MsMiExit.Size = new System.Drawing.Size(93, 22);
+            this.MsMiExit.Text = "Exit";
             // 
-            // miTileHoriz
+            // MsMiShowFileExtensions
             // 
-            this.miTileHoriz.Index = 2;
-            this.miTileHoriz.Text = "Tile &Horizontal";
-            this.miTileHoriz.Click += new System.EventHandler(this.miTileHoriz_Click);
+            this.MsMiShowFileExtensions.Name = "MsMiShowFileExtensions";
+            this.MsMiShowFileExtensions.Size = new System.Drawing.Size(280, 22);
+            this.MsMiShowFileExtensions.Text = "Show File Extensions";
             // 
-            // miTileVert
+            // MsMiShowHiddenItems
             // 
-            this.miTileVert.Index = 3;
-            this.miTileVert.Text = "Tile &Vertical";
-            this.miTileVert.Click += new System.EventHandler(this.miTileVert_Click);
+            this.MsMiShowHiddenItems.Name = "MsMiShowHiddenItems";
+            this.MsMiShowHiddenItems.Size = new System.Drawing.Size(280, 22);
+            this.MsMiShowHiddenItems.Text = "Show Hidden Items";
             // 
-            // miNew
+            // MsMiShowSuperHiddenItems
             // 
-            this.miNew.Index = 4;
-            this.miNew.Text = "&New";
-            this.miNew.Click += new System.EventHandler(this.miNew_Click);
+            this.MsMiShowSuperHiddenItems.Name = "MsMiShowSuperHiddenItems";
+            this.MsMiShowSuperHiddenItems.Size = new System.Drawing.Size(280, 22);
+            this.MsMiShowSuperHiddenItems.Text = "Show Protected Operating System Files";
             // 
-            // miOptions
+            // MsMiArrange
             // 
-            this.miOptions.Index = 2;
-            this.miOptions.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-            this.miShowFileExt,
-            this.miShowHiddenItems,
-            this.miShowSuperHidden});
-            this.miOptions.Text = "Options...";
-            this.miOptions.Popup += new System.EventHandler(this.miOptions_Popup);
+            this.MsMiArrange.Name = "MsMiArrange";
+            this.MsMiArrange.Size = new System.Drawing.Size(150, 22);
+            this.MsMiArrange.Text = "Arrange";
             // 
-            // miShowFileExt
+            // MsMiCascade
             // 
-            this.miShowFileExt.Index = 0;
-            this.miShowFileExt.Tag = "1HideFileExt";
-            this.miShowFileExt.Text = "Show File Extensions";
-            this.miShowFileExt.Click += new System.EventHandler(this.miAdvancedShowSettings_Click);
+            this.MsMiCascade.Name = "MsMiCascade";
+            this.MsMiCascade.Size = new System.Drawing.Size(150, 22);
+            this.MsMiCascade.Text = "Cascade";
             // 
-            // miShowHiddenItems
+            // MsMiTileHorizontal
             // 
-            this.miShowHiddenItems.Index = 1;
-            this.miShowHiddenItems.Tag = "0Hidden";
-            this.miShowHiddenItems.Text = "Show Hidden Items";
-            this.miShowHiddenItems.Click += new System.EventHandler(this.miAdvancedShowSettings_Click);
+            this.MsMiTileHorizontal.Name = "MsMiTileHorizontal";
+            this.MsMiTileHorizontal.Size = new System.Drawing.Size(150, 22);
+            this.MsMiTileHorizontal.Text = "Tile Horizontal";
             // 
-            // miShowSuperHidden
+            // MsMiTileVertical
             // 
-            this.miShowSuperHidden.Index = 2;
-            this.miShowSuperHidden.Tag = "0ShowSuperHidden";
-            this.miShowSuperHidden.Text = "Show Super Hidden Items";
-            this.miShowSuperHidden.Click += new System.EventHandler(this.miAdvancedShowSettings_Click);
-            */
+            this.MsMiTileVertical.Name = "MsMiTileVertical";
+            this.MsMiTileVertical.Size = new System.Drawing.Size(150, 22);
+            this.MsMiTileVertical.Text = "Tile Vertical";
             // 
             // ShellHost
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1099, 603);
+            this.ClientSize = new System.Drawing.Size(1282, 696);
+            this.Controls.Add(this.MsMiExplorer);
             this.DoubleBuffered = true;
             this.IsMdiContainer = true;
-            //this.Menu = this.MainMenu;
+            this.MainMenuStrip = this.MsMiExplorer;
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "ShellHost";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Explorer";
             this.Load += new System.EventHandler(this.ShellHost_Load);
+            this.MsMiExplorer.ResumeLayout(false);
+            this.MsMiExplorer.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
+
+        private System.Windows.Forms.MenuStrip MsMiExplorer;
+        private System.Windows.Forms.ToolStripMenuItem MsMiFile;
+        private System.Windows.Forms.ToolStripMenuItem MsMiExit;
+        private System.Windows.Forms.ToolStripMenuItem MsMiWindows;
+        private System.Windows.Forms.ToolStripMenuItem MsMiOptions;
+        private System.Windows.Forms.ToolStripMenuItem MsMiShowFileExtensions;
+        private System.Windows.Forms.ToolStripMenuItem MsMiShowHiddenItems;
+        private System.Windows.Forms.ToolStripMenuItem MsMiShowSuperHiddenItems;
+        private System.Windows.Forms.ToolStripMenuItem MsMiOrganize;
+        private System.Windows.Forms.ToolStripMenuItem MsMiArrange;
+        private System.Windows.Forms.ToolStripMenuItem MsMiCascade;
+        private System.Windows.Forms.ToolStripMenuItem MsMiTileHorizontal;
+        private System.Windows.Forms.ToolStripMenuItem MsMiTileVertical;
+        private System.Windows.Forms.ToolStripMenuItem MsMiNew;
 
         #endregion
 

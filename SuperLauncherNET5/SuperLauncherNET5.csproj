@@ -5,7 +5,7 @@
     <TargetFramework>net5.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>..\SuperLauncherAssets\logo.ico</ApplicationIcon>
-    <AssemblyName>SuperLauncherNET5</AssemblyName>
+    <AssemblyName>SuperLauncher</AssemblyName>
     <PackageId>SuperLauncher</PackageId>
     <Authors>Dylan Bickerstaff, Adam Cunningham.</Authors>
     <Product>Super Launcher</Product>

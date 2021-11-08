@@ -54,7 +54,7 @@
                 {
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.5.0.x64"
                     {
-                    "Name" = "8:.NET Desktop Runtime 5.0.4 (x64)"
+                    "Name" = "8:.NET Desktop Runtime 5.0.11 (x64)"
                     "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.5.0.x64"
                     }
                 }
@@ -199,7 +199,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Super Launcher"
         "ProductCode" = "8:{F8A889A4-C14C-4D81-9714-7026E688EBB4}"
-        "PackageCode" = "8:{144766BA-106D-47EA-ABEB-F5EDF15852BC}"
+        "PackageCode" = "8:{453C6314-7698-4193-898B-E30DA9D59EE3}"
         "UpgradeCode" = "8:{B97E5DFB-9607-4472-B75A-E7726FC5B769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"

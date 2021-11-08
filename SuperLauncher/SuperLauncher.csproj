@@ -21,6 +21,7 @@
     <Version>1.2.4.0</Version>
     <Description>🚀 Super Launcher is an admin launcher that persists in the system tray that can launch programs quickly; optionally, with administrator rights, as another user, or both.</Description>
     <RootNamespace>SuperLauncher</RootNamespace>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

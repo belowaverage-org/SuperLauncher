@@ -58,6 +58,14 @@ namespace SuperLauncher
         }
         protected override void WndProc(ref Message m)
         {
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == 0) //WM_HOTKEY //ALT + S
+            {
+                FadeIn();
+            }
+            if (m.Msg == 0x0100 && m.WParam.ToInt32() == 0x1B) //WM_KEYDOWN //ESC
+            {
+                FadeOut();
+            }
             if (m.Msg == 0x6) //WM_ACTIVATE
             {
                 MARGINS margins;
@@ -139,10 +147,12 @@ namespace SuperLauncher
                     TcMiElevate_Click(null, null);
                 }
             }
+            Win32Interop.RegisterHotKey(Handle, 0, 0x1 | 0x4000, 0x53);
         }
         public void FadeIn()
         {
             Show();
+            Activate();
         }
         public void FadeOut()
         {
@@ -415,6 +425,10 @@ namespace SuperLauncher
         {
             SettingsForm form = new();
             form.ShowDialog();
+        }
+        private void Launcher_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape) FadeOut();
         }
     }
 }

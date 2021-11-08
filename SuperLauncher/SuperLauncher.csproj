@@ -9,8 +9,8 @@
     <PackageId>SuperLauncher</PackageId>
     <Authors>Dylan Bickerstaff, Adam Cunningham.</Authors>
     <Product>Super Launcher</Product>
-    <AssemblyVersion>1.2.3.0</AssemblyVersion>
-    <FileVersion>1.2.3.0</FileVersion>
+    <AssemblyVersion>1.2.4.0</AssemblyVersion>
+    <FileVersion>1.2.4.0</FileVersion>
     <NeutralLanguage>en-US</NeutralLanguage>
     <RepositoryUrl>https://github.com/belowaverage-org/SuperLauncher</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
@@ -18,7 +18,7 @@
     <PackageLicenseFile>..\LICENSE</PackageLicenseFile>
     <Copyright>below average (C) 2021</Copyright>
     <Company>below average</Company>
-    <Version>1.2.3.0</Version>
+    <Version>1.2.4.0</Version>
     <Description>🚀 Super Launcher is an admin launcher that persists in the system tray that can launch programs quickly; optionally, with administrator rights, as another user, or both.</Description>
     <RootNamespace>SuperLauncher</RootNamespace>
   </PropertyGroup>

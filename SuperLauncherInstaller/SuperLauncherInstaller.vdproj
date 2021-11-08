@@ -198,15 +198,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Super Launcher"
-        "ProductCode" = "8:{D008EF86-8D4D-41A9-A970-041D4774FFF5}"
-        "PackageCode" = "8:{5AA940EF-5138-4789-8690-DEBC715D245D}"
+        "ProductCode" = "8:{F8A889A4-C14C-4D81-9714-7026E688EBB4}"
+        "PackageCode" = "8:{144766BA-106D-47EA-ABEB-F5EDF15852BC}"
         "UpgradeCode" = "8:{B97E5DFB-9607-4472-B75A-E7726FC5B769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.2.3"
+        "ProductVersion" = "8:1.2.4"
         "Manufacturer" = "8:Below Average"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://belowaverage.org/"
@@ -590,7 +590,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6C8A26AB9F2F482F8EC675B3688256AF"
             {
-            "SourcePath" = "8:..\\SuperLauncherNET5\\obj\\Debug\\net5.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\SuperLauncher\\obj\\Debug\\net5.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"

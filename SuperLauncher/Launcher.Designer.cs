@@ -88,84 +88,85 @@
             this.TcSeparator5,
             this.TcMiExit});
             this.TrayContext.Name = "contextMenuStrip1";
-            this.TrayContext.Size = new System.Drawing.Size(157, 210);
+            this.TrayContext.Size = new System.Drawing.Size(193, 232);
             this.TrayContext.Text = "TrayContext";
             // 
             // TcMiSuperLauncher
             // 
             this.TcMiSuperLauncher.Image = global::SuperLauncher.Resources.logo_16;
             this.TcMiSuperLauncher.Name = "TcMiSuperLauncher";
-            this.TcMiSuperLauncher.Size = new System.Drawing.Size(156, 22);
+            this.TcMiSuperLauncher.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
+            this.TcMiSuperLauncher.Size = new System.Drawing.Size(192, 22);
             this.TcMiSuperLauncher.Text = "Super Launcher";
             // 
             // TcSeparator1
             // 
             this.TcSeparator1.Name = "TcSeparator1";
-            this.TcSeparator1.Size = new System.Drawing.Size(153, 6);
+            this.TcSeparator1.Size = new System.Drawing.Size(189, 6);
             // 
             // TcMiElevate
             // 
             this.TcMiElevate.Image = global::SuperLauncher.Resources.shield;
             this.TcMiElevate.Name = "TcMiElevate";
-            this.TcMiElevate.Size = new System.Drawing.Size(156, 22);
+            this.TcMiElevate.Size = new System.Drawing.Size(192, 22);
             this.TcMiElevate.Text = "Elevate...";
             // 
             // TcMiRunAs
             // 
             this.TcMiRunAs.Name = "TcMiRunAs";
-            this.TcMiRunAs.Size = new System.Drawing.Size(156, 22);
+            this.TcMiRunAs.Size = new System.Drawing.Size(192, 22);
             this.TcMiRunAs.Text = "Run as...";
             // 
             // TcSeparator2
             // 
             this.TcSeparator2.Name = "TcSeparator2";
-            this.TcSeparator2.Size = new System.Drawing.Size(153, 6);
+            this.TcSeparator2.Size = new System.Drawing.Size(189, 6);
             // 
             // TcMiAddShortcut
             // 
             this.TcMiAddShortcut.Image = global::SuperLauncher.Resources.shortcut;
             this.TcMiAddShortcut.Name = "TcMiAddShortcut";
-            this.TcMiAddShortcut.Size = new System.Drawing.Size(156, 22);
+            this.TcMiAddShortcut.Size = new System.Drawing.Size(192, 22);
             this.TcMiAddShortcut.Text = "Add shortcut...";
             // 
             // TcSeparator3
             // 
             this.TcSeparator3.Name = "TcSeparator3";
-            this.TcSeparator3.Size = new System.Drawing.Size(153, 6);
+            this.TcSeparator3.Size = new System.Drawing.Size(189, 6);
             // 
             // TcMiOpenExplorer
             // 
             this.TcMiOpenExplorer.Image = global::SuperLauncher.Resources.explorer;
             this.TcMiOpenExplorer.Name = "TcMiOpenExplorer";
-            this.TcMiOpenExplorer.Size = new System.Drawing.Size(156, 22);
+            this.TcMiOpenExplorer.Size = new System.Drawing.Size(192, 22);
             this.TcMiOpenExplorer.Text = "Open Explorer";
             // 
             // TcSeparator4
             // 
             this.TcSeparator4.Name = "TcSeparator4";
-            this.TcSeparator4.Size = new System.Drawing.Size(153, 6);
+            this.TcSeparator4.Size = new System.Drawing.Size(189, 6);
             // 
             // TcMiViewConfig
             // 
             this.TcMiViewConfig.Name = "TcMiViewConfig";
-            this.TcMiViewConfig.Size = new System.Drawing.Size(156, 22);
+            this.TcMiViewConfig.Size = new System.Drawing.Size(192, 22);
             this.TcMiViewConfig.Text = "View Config...";
             // 
             // TcMiSettings
             // 
             this.TcMiSettings.Name = "TcMiSettings";
-            this.TcMiSettings.Size = new System.Drawing.Size(156, 22);
+            this.TcMiSettings.Size = new System.Drawing.Size(192, 22);
             this.TcMiSettings.Text = "Settings...";
             // 
             // TcSeparator5
             // 
             this.TcSeparator5.Name = "TcSeparator5";
-            this.TcSeparator5.Size = new System.Drawing.Size(153, 6);
+            this.TcSeparator5.Size = new System.Drawing.Size(189, 6);
             // 
             // TcMiExit
             // 
             this.TcMiExit.Name = "TcMiExit";
-            this.TcMiExit.Size = new System.Drawing.Size(156, 22);
+            this.TcMiExit.Size = new System.Drawing.Size(192, 22);
             this.TcMiExit.Text = "Exit";
             // 
             // IconsBox
@@ -286,6 +287,7 @@
             this.Controls.Add(this.IconsBox);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.KeyPreview = true;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -297,6 +299,7 @@
             this.Deactivate += new System.EventHandler(this.Launcher_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Launcher_FormClosing);
             this.Shown += new System.EventHandler(this.Launcher_Shown);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Launcher_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Launcher_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Launcher_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Launcher_MouseUp);

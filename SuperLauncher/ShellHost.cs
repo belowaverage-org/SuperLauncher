@@ -67,6 +67,7 @@ namespace SuperLauncher
             if (tag[0] == '1' && !mi.Checked) set = 1;
             key.SetValue(name, set);
             key.Close();
+            MessageBox.Show("In order for these changes to take effect, right click anywhere in the file explorer window and select \"Refresh\".", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
         private void MsMiOptions_DropDownOpening(object sender, EventArgs e)
         {
@@ -75,14 +76,15 @@ namespace SuperLauncher
             {
                 string tag = (string)mi.Tag;
                 string name = tag.Substring(1);
-                int set = (int)key.GetValue(name);
+                object set = key.GetValue(name);
+                if (set == null) continue;
                 if (tag[0] == '0')
                 {
-                    mi.Checked = (set == 1);
+                    mi.Checked = ((int)set == 1);
                 }
                 else
                 {
-                    mi.Checked = (set == 0);
+                    mi.Checked = ((int)set == 0);
                 }
             }
             key.Close();

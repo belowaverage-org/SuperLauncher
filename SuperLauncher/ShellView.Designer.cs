@@ -30,7 +30,7 @@
         {
             this.btnBack = new System.Windows.Forms.Button();
             this.btnForward = new System.Windows.Forms.Button();
-            this.txtNav = new System.Windows.Forms.TextBox();
+            this.txtNav = new System.Windows.Forms.ComboBox();
             this.Browser = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser();
             this.btnNavUp = new System.Windows.Forms.Button();
             this.panelBorderCover = new System.Windows.Forms.Panel();
@@ -66,12 +66,12 @@
             // 
             this.txtNav.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtNav.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.txtNav.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllSystemSources;
             this.txtNav.Location = new System.Drawing.Point(98, 4);
-            this.txtNav.Multiline = true;
             this.txtNav.Name = "txtNav";
             this.txtNav.Size = new System.Drawing.Size(472, 23);
             this.txtNav.TabIndex = 3;
-            this.txtNav.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TxtNav_KeyPress);
             // 
             // Browser
             // 
@@ -122,18 +122,19 @@
             this.Controls.Add(this.btnBack);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.KeyPreview = true;
             this.Name = "ShellView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Explorer";
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ShellView_KeyDown);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
         private System.Windows.Forms.Button btnBack;
         private System.Windows.Forms.Button btnForward;
-        private System.Windows.Forms.TextBox txtNav;
+        private System.Windows.Forms.ComboBox txtNav;
         private Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser Browser;
         private System.Windows.Forms.Button btnNavUp;
         private System.Windows.Forms.Panel panelBorderCover;

@@ -67,6 +67,10 @@ namespace SuperLauncher
             {
                 TcMiOpenExplorer_Click(null, null);
             }
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == 2) //WM_HOTKEY //ALT + R
+            {
+                TcMIOpenRun_Click(null, null);
+            }
             if (m.Msg == 0x0100 && m.WParam.ToInt32() == 0x1B) //WM_KEYDOWN //ESC
             {
                 FadeOut();
@@ -154,6 +158,7 @@ namespace SuperLauncher
             }
             Win32Interop.RegisterHotKey(Handle, 0, 0x1 | 0x4000, 0x53); //Register Hot Key ALT + S
             Win32Interop.RegisterHotKey(Handle, 1, 0x1 | 0x4000, 0x45); //Register Hot Key ALT + E
+            Win32Interop.RegisterHotKey(Handle, 2, 0x1 | 0x4000, 0x52); //Register Hot Key ALT + R
         }
         public void FadeIn()
         {
@@ -435,6 +440,11 @@ namespace SuperLauncher
         private void Launcher_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape) FadeOut();
+        }
+        private void TcMIOpenRun_Click(object sender, EventArgs e)
+        {
+            Run run = new();
+            run.ShowDialog();
         }
     }
 }

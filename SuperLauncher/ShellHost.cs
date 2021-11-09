@@ -7,7 +7,8 @@ namespace SuperLauncher
 {
     public partial class ShellHost : Form
     {
-        public ShellHost()
+        private string InitialPath;
+        public ShellHost(string InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
         {
             InitializeComponent();
             MsMiExit.Click += MsMiExit_Click;
@@ -21,6 +22,7 @@ namespace SuperLauncher
             MsMiShowHiddenItems.Click += MsMiOptionsSubItem_Click;
             MsMiShowSuperHiddenItems.Click += MsMiOptionsSubItem_Click;
             Icon = Resources.logo;
+            this.InitialPath = InitialPath;
         }
         private void ShellHost_Load(object sender, EventArgs e)
         {
@@ -32,12 +34,13 @@ namespace SuperLauncher
         }
         private void MsMiNew_Click(object sender, EventArgs e)
         {
-            ShellView sv = new();
+            ShellView sv = new(InitialPath);
             sv.MdiParent = this;
             Size svSize = new(Size.Width - 4, Size.Height);
             sv.Size = svSize;
             sv.Show();
             sv.WindowState = FormWindowState.Maximized;
+            InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}";
         }
         private void MsMiArrange_Click(object sender, EventArgs e)
         {

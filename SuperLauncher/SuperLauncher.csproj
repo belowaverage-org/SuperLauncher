@@ -27,6 +27,7 @@
   <ItemGroup>
     <None Remove="Resources\banner.png" />
     <None Remove="Resources\explorer.png" />
+    <None Remove="Resources\run.png" />
     <None Remove="Resources\shield.png" />
     <None Remove="Resources\shortcut.png" />
   </ItemGroup>
@@ -50,6 +51,7 @@
   <ItemGroup>
     <Resource Include="Resources\banner.png" />
     <Resource Include="Resources\explorer.png" />
+    <Resource Include="Resources\run.png" />
     <Resource Include="Resources\shield.png" />
     <Resource Include="Resources\shortcut.png" />
   </ItemGroup>

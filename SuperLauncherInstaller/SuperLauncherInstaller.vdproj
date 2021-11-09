@@ -77,17 +77,17 @@
         "InstallerBootstrapper" = "3:2"
             "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
             {
-            "Enabled" = "11:TRUE"
+            "Enabled" = "11:FALSE"
             "PromptEnabled" = "11:TRUE"
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
                 "Items"
                 {
-                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     {
-                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
-                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    "Name" = "8:.NET Desktop Runtime 6.0.0 (x64)"
+                    "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     }
                 }
             }
@@ -198,15 +198,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Super Launcher"
-        "ProductCode" = "8:{F8A889A4-C14C-4D81-9714-7026E688EBB4}"
-        "PackageCode" = "8:{453C6314-7698-4193-898B-E30DA9D59EE3}"
+        "ProductCode" = "8:{60936F69-9171-4E48-9469-98B77E0D97C8}"
+        "PackageCode" = "8:{99B3BBED-F340-4AA2-B113-B4A1EB1F5E52}"
         "UpgradeCode" = "8:{B97E5DFB-9607-4472-B75A-E7726FC5B769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.2.4"
+        "ProductVersion" = "8:1.2.5"
         "Manufacturer" = "8:Below Average"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://belowaverage.org/"
@@ -590,7 +590,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6C8A26AB9F2F482F8EC675B3688256AF"
             {
-            "SourcePath" = "8:..\\SuperLauncher\\obj\\Debug\\net5.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\SuperLauncher\\obj\\Release\\net6.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"

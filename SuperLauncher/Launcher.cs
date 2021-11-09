@@ -60,7 +60,12 @@ namespace SuperLauncher
         {
             if (m.Msg == 0x0312 && m.WParam.ToInt32() == 0) //WM_HOTKEY //ALT + S
             {
+                CenterToScreen();
                 FadeIn();
+            }
+            if (m.Msg == 0x0312 && m.WParam.ToInt32() == 1) //WM_HOTKEY //ALT + E
+            {
+                TcMiOpenExplorer_Click(null, null);
             }
             if (m.Msg == 0x0100 && m.WParam.ToInt32() == 0x1B) //WM_KEYDOWN //ESC
             {
@@ -147,7 +152,8 @@ namespace SuperLauncher
                     TcMiElevate_Click(null, null);
                 }
             }
-            Win32Interop.RegisterHotKey(Handle, 0, 0x1 | 0x4000, 0x53);
+            Win32Interop.RegisterHotKey(Handle, 0, 0x1 | 0x4000, 0x53); //Register Hot Key ALT + S
+            Win32Interop.RegisterHotKey(Handle, 1, 0x1 | 0x4000, 0x45); //Register Hot Key ALT + E
         }
         public void FadeIn()
         {

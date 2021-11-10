@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Run));
             this.btnOK = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnBrowse = new System.Windows.Forms.Button();
@@ -77,18 +76,18 @@
             // lblDesc
             // 
             this.lblDesc.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.lblDesc.Location = new System.Drawing.Point(62, 25);
+            this.lblDesc.Location = new System.Drawing.Point(60, 25);
             this.lblDesc.Name = "lblDesc";
-            this.lblDesc.Size = new System.Drawing.Size(310, 30);
+            this.lblDesc.Size = new System.Drawing.Size(312, 30);
             this.lblDesc.TabIndex = 4;
             this.lblDesc.Text = "Type the name of a program, folder, document, or Internet resource, and Super Lau" +
     "ncher will open it for you.";
             // 
             // pbIcon
             // 
-            this.pbIcon.Location = new System.Drawing.Point(12, 25);
+            this.pbIcon.Location = new System.Drawing.Point(12, 23);
             this.pbIcon.Name = "pbIcon";
-            this.pbIcon.Size = new System.Drawing.Size(44, 30);
+            this.pbIcon.Size = new System.Drawing.Size(32, 32);
             this.pbIcon.TabIndex = 5;
             this.pbIcon.TabStop = false;
             // 
@@ -119,10 +118,11 @@
             this.cbInput.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllSystemSources;
             this.cbInput.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cbInput.FormattingEnabled = true;
-            this.cbInput.Location = new System.Drawing.Point(62, 72);
+            this.cbInput.Location = new System.Drawing.Point(60, 72);
             this.cbInput.Name = "cbInput";
-            this.cbInput.Size = new System.Drawing.Size(310, 23);
+            this.cbInput.Size = new System.Drawing.Size(312, 23);
             this.cbInput.TabIndex = 0;
+            this.cbInput.SelectedIndexChanged += new System.EventHandler(this.cbInput_TextUpdate);
             this.cbInput.TextUpdate += new System.EventHandler(this.cbInput_TextUpdate);
             // 
             // Run
@@ -139,7 +139,6 @@
             this.Controls.Add(this.pnl1);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;

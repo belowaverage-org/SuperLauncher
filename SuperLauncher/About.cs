@@ -103,5 +103,10 @@ namespace SuperLauncher
         {
             Process.Start("OpenWith.exe", "https://github.com/belowaverage-org/SuperLauncher");
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new Window1().Show();
+        }
     }
 }

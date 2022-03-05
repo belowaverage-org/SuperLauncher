@@ -22,8 +22,10 @@
     <Description>🚀 Super Launcher is an admin launcher that persists in the system tray that can launch programs quickly; optionally, with administrator rights, as another user, or both.</Description>
     <RootNamespace>SuperLauncher</RootNamespace>
     <PlatformTarget>x64</PlatformTarget>
+	<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
 	<TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
-	<TargetPlatformVersion>8.0</TargetPlatformVersion>
+	<TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
+	<WindowsSdkPackageVersion>10.0.19041.23-preview</WindowsSdkPackageVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,12 +40,13 @@
     <PackageReference Include="CredentialManagement" Version="1.0.2">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
+    <PackageReference Include="Microsoft.ProjectReunion" Version="0.8.7-preview1" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.0.0" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="5.0.0" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0-preview.1.22076.8" />
     <PackageReference Include="UserAccountControl" Version="1.0.4636.39457">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
-	  <PackageReference Include="WindowsAPICodePack-Core" Version="1.1.1">
+	  <PackageReference Include="WindowsAPICodePack-Core" Version="1.1.2">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
     <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1">

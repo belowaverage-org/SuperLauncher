@@ -38,7 +38,6 @@
             this.okButton = new System.Windows.Forms.Button();
             this.btnGithub = new System.Windows.Forms.Button();
             this.pbLogo = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.tableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).BeginInit();
             this.panel1.SuspendLayout();
@@ -149,7 +148,6 @@
             // panel1
             // 
             this.tableLayoutPanel.SetColumnSpan(this.panel1, 2);
-            this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.okButton);
             this.panel1.Controls.Add(this.btnGithub);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -197,16 +195,6 @@
             this.pbLogo.TabIndex = 27;
             this.pbLogo.TabStop = false;
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(99, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 26;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // About
             // 
             this.AcceptButton = this.okButton;
@@ -243,6 +231,5 @@
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button btnGithub;
         private System.Windows.Forms.PictureBox pbLogo;
-        private System.Windows.Forms.Button button1;
     }
 }

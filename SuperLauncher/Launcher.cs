@@ -15,6 +15,7 @@ namespace SuperLauncher
         public ImageList imageList = new();
         public bool fakeClose = true;
         public bool saving = true;
+        public static ModernLauncher ModernLauncher = new();
         private bool fileDialogOpen = false;
         private ResizeHandles CurrentRH = ResizeHandles.None;
         private bool MouseIsDown = false;

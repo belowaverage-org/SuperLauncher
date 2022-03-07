@@ -11,6 +11,7 @@ namespace SuperLauncher
         [STAThread]
         static void Main()
         {
+            new ModernLauncher().Show();
             Application.EnableVisualStyles();
             Application.Run(new Launcher());
         }

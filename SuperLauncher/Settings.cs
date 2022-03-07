@@ -45,6 +45,18 @@ namespace SuperLauncher {
                 XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsUser").InnerText = value;
             }
         }
+        public bool UseLegacyUI
+        {
+            get
+            {
+                if (!bool.TryParse(XDoc.SelectSingleNode("/SuperLauncher/UseLegacyUI")?.InnerText, out bool val)) val = false;
+                return val;
+            }
+            set
+            {
+                XDoc.SelectSingleNode("/SuperLauncher/UseLegacyUI").InnerText = value.ToString();
+            }
+        }
         public AppListStringCollection FileList
         {
             get
@@ -97,6 +109,7 @@ namespace SuperLauncher {
                 "   <AutoElevate>false</AutoElevate>" +
                 "   <AutoRunAsDomain></AutoRunAsDomain>" +
                 "   <AutoRunAsUser></AutoRunAsUser>" +
+                "   <UseLegacyUI>false</UseLegacyUI>" +
                 "   <AppList>" +
                 "       <App>C:\\Windows\\System32\\cmd.exe</App>" +
                 "   </AppList>" +

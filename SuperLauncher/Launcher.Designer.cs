@@ -40,6 +40,7 @@
             this.TcMiAddShortcut = new System.Windows.Forms.ToolStripMenuItem();
             this.TcSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.TcMiOpenExplorer = new System.Windows.Forms.ToolStripMenuItem();
+            this.TcMIOpenRun = new System.Windows.Forms.ToolStripMenuItem();
             this.TcSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.TcMiViewConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.TcMiSettings = new System.Windows.Forms.ToolStripMenuItem();
@@ -55,7 +56,6 @@
             this.UserLabel = new System.Windows.Forms.Label();
             this.SuperIcon = new System.Windows.Forms.PictureBox();
             this.AppLabel = new System.Windows.Forms.Label();
-            this.TcMIOpenRun = new System.Windows.Forms.ToolStripMenuItem();
             this.TrayContext.SuspendLayout();
             this.RemoveItemContext.SuspendLayout();
             this.TopPanel.SuspendLayout();
@@ -90,7 +90,7 @@
             this.TcSeparator5,
             this.TcMiExit});
             this.TrayContext.Name = "contextMenuStrip1";
-            this.TrayContext.Size = new System.Drawing.Size(193, 254);
+            this.TrayContext.Size = new System.Drawing.Size(193, 232);
             this.TrayContext.Text = "TrayContext";
             // 
             // TcMiSuperLauncher
@@ -143,6 +143,15 @@
             this.TcMiOpenExplorer.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
             this.TcMiOpenExplorer.Size = new System.Drawing.Size(192, 22);
             this.TcMiOpenExplorer.Text = "Open Explorer";
+            // 
+            // TcMIOpenRun
+            // 
+            this.TcMIOpenRun.Image = global::SuperLauncher.Resources.run;
+            this.TcMIOpenRun.Name = "TcMIOpenRun";
+            this.TcMIOpenRun.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
+            this.TcMIOpenRun.Size = new System.Drawing.Size(192, 22);
+            this.TcMIOpenRun.Text = "Run...";
+            this.TcMIOpenRun.Click += new System.EventHandler(this.TcMIOpenRun_Click);
             // 
             // TcSeparator4
             // 
@@ -278,15 +287,6 @@
             this.AppLabel.Size = new System.Drawing.Size(90, 15);
             this.AppLabel.TabIndex = 0;
             this.AppLabel.Text = "Super Launcher";
-            // 
-            // TcMIOpenRun
-            // 
-            this.TcMIOpenRun.Image = global::SuperLauncher.Resources.run;
-            this.TcMIOpenRun.Name = "TcMIOpenRun";
-            this.TcMIOpenRun.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
-            this.TcMIOpenRun.Size = new System.Drawing.Size(192, 22);
-            this.TcMIOpenRun.Text = "Run...";
-            this.TcMIOpenRun.Click += new System.EventHandler(this.TcMIOpenRun_Click);
             // 
             // Launcher
             // 

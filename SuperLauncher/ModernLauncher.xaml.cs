@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Interop;
 using PInvoke;
+using System.Windows.Media.Animation;
 //using Image = System.Drawing.Image;
 
 namespace SuperLauncher
@@ -28,7 +29,7 @@ namespace SuperLauncher
         }
         private void Window_Activated(object sender, EventArgs e)
         {
-           
+            
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {

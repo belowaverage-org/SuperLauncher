@@ -28,6 +28,8 @@
   <ItemGroup>
     <None Remove="Resources\banner.png" />
     <None Remove="Resources\explorer.png" />
+    <None Remove="Resources\logo_16.png" />
+    <None Remove="Resources\logo_256.png" />
     <None Remove="Resources\noise.png" />
     <None Remove="Resources\run.png" />
     <None Remove="Resources\shield.png" />
@@ -53,6 +55,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Resources\logo_16.png" />
+    <Resource Include="Resources\logo_256.png" />
     <Resource Include="Resources\banner.png" />
     <Resource Include="Resources\explorer.png" />
     <Resource Include="Resources\noise.png" />

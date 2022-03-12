@@ -6,6 +6,13 @@
         xmlns:local="clr-namespace:SuperLauncher"
         mc:Ignorable="d"
         Title="Super Launcher" Height="450" Width="800" ShowInTaskbar="False" WindowStartupLocation="CenterScreen" Loaded="Window_Loaded" Background="#00000000" WindowStyle="None">
+    <Window.Resources>
+        <ImageBrush x:Key="AcrylicNoise" AlignmentX="Center" ImageSource="/Resources/noise.png" Opacity="0.10" Stretch="UniformToFill" TileMode="Tile" ViewboxUnits="RelativeToBoundingBox" Viewbox="0,0,1,1" ViewportUnits="Absolute" Viewport="0,0,250,250"/>
+        <SolidColorBrush x:Key="BodyColor" Color="#CC323232"/>
+        <SolidColorBrush x:Key="PanelColor" Color="#CC232323"/>
+        <SolidColorBrush x:Key="BorderColor" Color="#26FFFFFF"/>
+        <SolidColorBrush x:Key="TextColor" Color="#FFC8C8C8"/>
+    </Window.Resources>
     <WindowChrome.WindowChrome>
         <WindowChrome 
             CaptionHeight="{x:Static SystemParameters.CaptionHeight}"
@@ -16,17 +23,23 @@
     </WindowChrome.WindowChrome>
     <Grid>
         <Grid>
-            <Rectangle Fill="#E51B1B1B" />
-            <Rectangle >
-                <Rectangle.Fill>
-                    <ImageBrush ImageSource="/Resources/noise.png" TileMode="Tile" ViewportUnits="Absolute" AlignmentX="Center" Viewport="0,0,250,250" Opacity="0.10" ViewboxUnits="RelativeToBoundingBox" Viewbox="0,0,1,1" Stretch="UniformToFill"/>
-                </Rectangle.Fill>
-            </Rectangle>
-            <Grid>
-                <Border VerticalAlignment="Top" Height="30" BorderThickness="0,0,0,1" BorderBrush="#26FFFFFF">
-                    <Grid  Background="#0CFFFFFF">
-                        <Image HorizontalAlignment="Left" Source="/Resources/run.png" Stretch="Fill" VerticalAlignment="Center" Margin="10,0,0,0" Width="16" Height="16" />
-                        <Label Content="Super Launcher" Foreground="#FFC8C8C8" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="31,0,0,0" Width="94" />
+            <Grid Height="32" VerticalAlignment="Top" Margin="0,0,0,0" Background="{DynamicResource PanelColor}">
+                <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource BorderColor}">
+                    <Grid Background="{DynamicResource AcrylicNoise}">
+                        <Image HorizontalAlignment="Left" Stretch="Fill" Margin="10,7,0,6" Width="16" Height="16" Source="/Resources/logo_16.png" />
+                        <Label Content="Super Launcher" Foreground="{DynamicResource TextColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="31,0,0,0" Width="94" />
+                    </Grid>
+                </Border>
+            </Grid>
+            <Grid Background="{DynamicResource BodyColor}" VerticalAlignment="Stretch" Margin="0,32,0,60">
+                <Grid Background="{DynamicResource AcrylicNoise}">
+                    
+                </Grid>
+            </Grid>
+            <Grid VerticalAlignment="Bottom" Height="60" Margin="0,0,0,0" Background="{DynamicResource PanelColor}">
+                <Border BorderThickness="0,1,0,0" BorderBrush="{DynamicResource BorderColor}">
+                    <Grid Background="{DynamicResource AcrylicNoise}">
+
                     </Grid>
                 </Border>
             </Grid>

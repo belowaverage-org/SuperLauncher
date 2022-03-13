@@ -7,13 +7,13 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="Super-Launcher"
-    Publisher="CN=dylan"
+    Name="51680krisdb2009.SuperLauncher"
+    Publisher="CN=6E63E126-30BA-4177-BAEA-970BD4938B7A"
     Version="1.2.5.0" />
 
   <Properties>
     <DisplayName>Super Launcher</DisplayName>
-    <PublisherDisplayName>dylan</PublisherDisplayName>
+    <PublisherDisplayName>krisdb2009</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
 

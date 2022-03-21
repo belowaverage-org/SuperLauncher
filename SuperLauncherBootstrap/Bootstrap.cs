@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 
 namespace SuperLauncherBootstrap
@@ -6,8 +7,11 @@ namespace SuperLauncherBootstrap
     public static class Bootstrap
     {
         public static string CopyPath = "C:\\Users\\Public\\below average\\Super Launcher\\";
+        [STAThread]
         public static void Main(string[] args)
         {
+            new Splash().ShowDialog();
+            return;
             Assembly assemblySelf = Assembly.GetExecutingAssembly();
             string rootPath = Path.GetDirectoryName(assemblySelf.Location);
             string superLauncherPath = Path.GetFullPath(Path.Combine(rootPath, "..\\SuperLauncher"));

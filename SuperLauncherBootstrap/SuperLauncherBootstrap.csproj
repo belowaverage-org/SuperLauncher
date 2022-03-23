@@ -10,12 +10,16 @@
 
   <ItemGroup>
     <None Remove="Assets\sl_bg.png" />
+    <None Remove="Assets\sl_bg_border.png" />
     <None Remove="Assets\sl_logo_big.png" />
+    <None Remove="Assets\sl_logo_big_flame.png" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Assets\sl_bg.png" />
+    <Resource Include="Assets\sl_bg_border.png" />
     <Resource Include="Assets\sl_logo_big.png" />
+    <Resource Include="Assets\sl_logo_big_flame.png" />
   </ItemGroup>
 
   <ItemGroup>

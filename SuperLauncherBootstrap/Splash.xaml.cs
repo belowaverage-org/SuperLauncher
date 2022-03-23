@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
+﻿using System.Windows;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace SuperLauncherBootstrap
 {
@@ -24,19 +12,35 @@ namespace SuperLauncherBootstrap
         {
             InitializeComponent();
         }
-
         private void Window_Initialized(object sender, EventArgs e)
         {
-            ThicknessAnimation horz = new()
+            IEasingFunction se = new SineEase();
+            ((SineEase)se).EasingMode = EasingMode.EaseInOut;
+            ThicknessAnimationUsingKeyFrames horz = new()
             {
-                From = new Thickness(0, 0, 0, 0),
-                To = new Thickness(0, 10, 10, 0),
-                Duration = TimeSpan.FromSeconds(1),
-                AutoReverse = true,
+                Duration = TimeSpan.FromSeconds(3),
                 RepeatBehavior = RepeatBehavior.Forever,
-                EasingFunction = new ElasticEase()
+                AutoReverse = true
             };
+            horz.KeyFrames.Add(new EasingThicknessKeyFrame(new(3, -3, 0, 0), KeyTime.Uniform, se));
+            horz.KeyFrames.Add(new EasingThicknessKeyFrame(new(3, 0, 0, 0), KeyTime.Uniform, se));
+            horz.KeyFrames.Add(new EasingThicknessKeyFrame(new(-3, -3, 0, 0), KeyTime.Uniform, se));
+            horz.KeyFrames.Add(new EasingThicknessKeyFrame(new(-3, 3, 0, 0), KeyTime.Uniform, se));
+            horz.KeyFrames.Add(new EasingThicknessKeyFrame(new(0, -3, 0, 0), KeyTime.Uniform, se));
+            horz.KeyFrames.Add(new EasingThicknessKeyFrame(new(-3, 0, 0, 0), KeyTime.Uniform, se));
+            horz.KeyFrames.Add(new EasingThicknessKeyFrame(new(3, 3, 0, 0), KeyTime.Uniform, se));
+            horz.KeyFrames.Add(new EasingThicknessKeyFrame(new(0, -3, 0, 0), KeyTime.Uniform, se));
+            horz.KeyFrames.Add(new EasingThicknessKeyFrame(new(0, 0, 0, 0), KeyTime.Uniform, se));
             Ship.BeginAnimation(MarginProperty, horz);
+            DoubleAnimationUsingKeyFrames flicker = new()
+            {
+                Duration = TimeSpan.FromSeconds(0.3),
+                RepeatBehavior = RepeatBehavior.Forever,
+                AutoReverse = true
+            };
+            flicker.KeyFrames.Add(new EasingDoubleKeyFrame(0.3));
+            flicker.KeyFrames.Add(new EasingDoubleKeyFrame(0));
+            Flame.BeginAnimation(OpacityProperty, flicker);
         }
     }
 }

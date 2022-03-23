@@ -8,15 +8,14 @@
         Title="Splash" Height="300" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True" ShowInTaskbar="False" AllowsTransparency="True" WindowStyle="None" Background="Transparent" Initialized="Window_Initialized">
 
     <Grid>
+        <Image Source="/Assets/sl_bg_border.png" Stretch="Fill" />
         <Grid Margin="30,30,30,30">
-            <Grid.Effect>
-                <DropShadowEffect RenderingBias="Quality" BlurRadius="30" Opacity="0.8" Direction="0" ShadowDepth="0"/>
-            </Grid.Effect>
             <Border BorderThickness="2,2,2,2" BorderBrush="#19FFFFFF" CornerRadius="20,20,20,20">
                 <Border.Background>
                     <ImageBrush ImageSource="/Assets/sl_bg.png"/>
                 </Border.Background>
             </Border>
+            <Image x:Name="Flame" Source="/Assets/sl_logo_big_flame.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="200" Opacity="0"/>
             <Image x:Name="Ship" Source="/Assets/sl_logo_big.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="200"/>
             <Label Content="Super Launcher" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="18" FontWeight="DemiBold" Foreground="#FFD8D8D8" FontStyle="Italic" />
         </Grid>

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Diagnostics;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Animation;
 
@@ -9,9 +11,15 @@ namespace SuperLauncherCommon
     /// </summary>
     public partial class Splash : Window
     {
+        string Site = "";
         public Splash()
         {
             InitializeComponent();
+            Assembly self = Assembly.GetEntryAssembly();
+            Copyright.Content = ((AssemblyCopyrightAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyCopyrightAttribute))).Copyright;
+            Author.Content = ((AssemblyCompanyAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyCompanyAttribute))).Company;
+            Version.Content = "v" + ((AssemblyInformationalVersionAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyInformationalVersionAttribute))).InformationalVersion;
+            Site = ((AssemblyMetadataAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyMetadataAttribute))).Value;
         }
         private void Window_Initialized(object sender, EventArgs e)
         {
@@ -42,6 +50,15 @@ namespace SuperLauncherCommon
             flicker.KeyFrames.Add(new EasingDoubleKeyFrame(0.3));
             flicker.KeyFrames.Add(new EasingDoubleKeyFrame(0));
             Flame.BeginAnimation(OpacityProperty, flicker);
+        }
+        private void Website_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            e.Handled = true;
+            Process.Start("OpenWith.exe", Site);
+        }
+        private void Window_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            Close();
         }
     }
 }

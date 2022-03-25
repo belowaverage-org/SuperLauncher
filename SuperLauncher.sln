@@ -13,6 +13,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperLauncherBootstrap", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperLauncherCommon", "SuperLauncherCommon\SuperLauncherCommon.csproj", "{6275A107-1BA8-4FBD-B809-9B36937BBB3F}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A77FBB21-87B2-41E2-9944-2D18D0FEFF1E}"
+	ProjectSection(SolutionItems) = preProject
+		CommonProperties.xml = CommonProperties.xml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64

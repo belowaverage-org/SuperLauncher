@@ -5,20 +5,17 @@ using System.Windows.Media.Animation;
 namespace SuperLauncherCommon
 {
     /// <summary>
-    /// Interaction logic for Clouds.xaml
+    /// Interaction logic for SplashClouds.xaml
     /// </summary>
-    public partial class Clouds : Page
+    public partial class SplashClouds : Page
     {
-        public Clouds()
+        public SplashClouds()
         {
             InitializeComponent();
-            Cloud1.StartCloudAnimation();
-            Cloud2.StartCloudAnimation();
-            Cloud3.StartCloudAnimation();
-            Cloud4.StartCloudAnimation();
-            Cloud5.StartCloudAnimation();
-            Cloud6.StartCloudAnimation();
-            Cloud7.StartCloudAnimation();
+            foreach(Image cloud in CloudCanvas.Children)
+            {
+                cloud.StartCloudAnimation();
+            }
         }
     }
     public static class CloudAnimation

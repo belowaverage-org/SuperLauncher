@@ -1,6 +1,5 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="..\CommonProperties.xml" />
-	
   <PropertyGroup>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>

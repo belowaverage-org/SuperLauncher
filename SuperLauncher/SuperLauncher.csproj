@@ -50,6 +50,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SuperLauncherCommon\SuperLauncherCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Resources\banner.png" />
     <Resource Include="Resources\explorer.png" />
     <Resource Include="Resources\run.png" />
@@ -58,12 +62,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="About.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Update="About.Designer.cs">
-      <DependentUpon>About.cs</DependentUpon>
-    </Compile>
     <Compile Update="Launcher.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -96,9 +94,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="About.resx">
-      <DependentUpon>About.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Update="Launcher.resx">
       <DependentUpon>Launcher.cs</DependentUpon>
     </EmbeddedResource>

@@ -355,7 +355,7 @@ namespace SuperLauncher
         }
         private void TcMiSuperLauncher_Click(object sender, EventArgs e)
         {
-            new About().ShowDialog();
+            new SuperLauncherCommon.Splash().ShowDialog();
         }
         private void RegHandleEvents(Control.ControlCollection ControlCollection)
         {

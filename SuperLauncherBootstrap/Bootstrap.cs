@@ -10,7 +10,7 @@ namespace SuperLauncherBootstrap
         [STAThread]
         public static void Main(string[] args)
         {
-            new Splash().ShowDialog();
+            new SuperLauncherCommon.Splash().ShowDialog();
             return;
             Assembly assemblySelf = Assembly.GetExecutingAssembly();
             string rootPath = Path.GetDirectoryName(assemblySelf.Location);

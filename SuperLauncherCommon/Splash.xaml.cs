@@ -1,7 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Media.Animation;
 
-namespace SuperLauncherBootstrap
+namespace SuperLauncherCommon
 {
     /// <summary>
     /// Interaction logic for Splash.xaml

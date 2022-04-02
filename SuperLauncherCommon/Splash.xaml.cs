@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Animation;
+using System.Threading.Tasks;
 
 namespace SuperLauncherCommon
 {
@@ -11,7 +12,22 @@ namespace SuperLauncherCommon
     /// </summary>
     public partial class Splash : Window
     {
-        string Site = "";
+        public string vMessageText = "";
+        public string MessageText { 
+            get
+            {
+                return vMessageText;
+            }
+            set
+            {
+                vMessageText = value;
+                Application.Current.Dispatcher.Invoke(() => {
+                    Message.Content = vMessageText;
+                });
+            }
+        }
+        private string Site = "";
+        private bool fadeOutPlayed = false;
         public Splash()
         {
             InitializeComponent();
@@ -23,6 +39,14 @@ namespace SuperLauncherCommon
         }
         private void Window_Initialized(object sender, EventArgs e)
         {
+            Opacity = 0;
+            DoubleAnimation fadein = new()
+            {
+                Duration = TimeSpan.FromSeconds(0.5),
+                From = 0,
+                To = 1
+            };
+            BeginAnimation(OpacityProperty, fadein);
             IEasingFunction se = new SineEase();
             ((SineEase)se).EasingMode = EasingMode.EaseInOut;
             ThicknessAnimationUsingKeyFrames horz = new()
@@ -58,6 +82,20 @@ namespace SuperLauncherCommon
         }
         private void Window_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            Close();
+        }
+        private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            e.Cancel = !fadeOutPlayed;
+            fadeOutPlayed = true;
+            DoubleAnimation fadeout = new()
+            {
+                Duration = TimeSpan.FromSeconds(0.3),
+                From = 1,
+                To = 0
+            };
+            BeginAnimation(OpacityProperty, fadeout);
+            await Task.Delay(300);
             Close();
         }
     }

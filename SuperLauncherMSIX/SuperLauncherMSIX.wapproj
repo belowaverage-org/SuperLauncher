@@ -157,6 +157,5 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SuperLauncherBootstrap\SuperLauncherBootstrap.csproj" />
-    <ProjectReference Include="..\SuperLauncher\SuperLauncher.csproj" />
   </ItemGroup>
 </Project>

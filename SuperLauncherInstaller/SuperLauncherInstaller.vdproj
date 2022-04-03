@@ -198,15 +198,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Super Launcher"
-        "ProductCode" = "8:{405341A1-CCE3-4999-809D-BE2C4FC897EE}"
-        "PackageCode" = "8:{35278153-BB09-4CCF-BEFB-D3C3C207891F}"
+        "ProductCode" = "8:{5D33303F-D971-43C4-92DF-4D0DF89E3561}"
+        "PackageCode" = "8:{90248208-B58B-4213-A4F4-77CDCD79E5F3}"
         "UpgradeCode" = "8:{B97E5DFB-9607-4472-B75A-E7726FC5B769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.2.6"
+        "ProductVersion" = "8:1.2.7"
         "Manufacturer" = "8:Below Average"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://belowaverage.org/"
@@ -588,37 +588,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_3D726A846D4A40108F7A91D5DC633456"
-            {
-            "SourcePath" = "8:"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:BuiltProjectOutputGroupDependencies"
-            "OutputProjectGuid" = "8:{B1D9C991-ABCA-4963-843E-2874A2937581}"
-            "ShowKeyOutput" = "11:TRUE"
-                "ExcludeFilters"
-                {
-                }
-            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F74E40F4794B42C0BA31F22E023F79DA"
             {
-            "SourcePath" = "8:..\\SuperLauncherBootstrap\\obj\\x64\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\SuperLauncherBootstrap\\obj\\x64\\Release\\net6.0-windows\\win-x64\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"
@@ -640,6 +612,7 @@
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{B1D9C991-ABCA-4963-843E-2874A2937581}"
             "ShowKeyOutput" = "11:TRUE"
+            "PublishProfilePath" = "8:Properties\\PublishProfiles\\FolderProfile.pubxml"
                 "ExcludeFilters"
                 {
                 }

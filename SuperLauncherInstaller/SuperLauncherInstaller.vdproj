@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_6C8A26AB9F2F482F8EC675B3688256AF"
+        "MsmKey" = "8:_C7CF9F3FF5754299BBCC47CAAA6D7C46"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_C7CF9F3FF5754299BBCC47CAAA6D7C46"
+        "MsmKey" = "8:_F74E40F4794B42C0BA31F22E023F79DA"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -86,7 +86,7 @@
                 {
                     "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     {
-                    "Name" = "8:.NET Desktop Runtime 6.0.0 (x64)"
+                    "Name" = "8:.NET Desktop Runtime 6.0.2 (x64)"
                     "ProductCode" = "8:Microsoft.NetCore.DesktopRuntime.6.0.x64"
                     }
                 }
@@ -198,15 +198,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Super Launcher"
-        "ProductCode" = "8:{60936F69-9171-4E48-9469-98B77E0D97C8}"
-        "PackageCode" = "8:{99B3BBED-F340-4AA2-B113-B4A1EB1F5E52}"
+        "ProductCode" = "8:{5D33303F-D971-43C4-92DF-4D0DF89E3561}"
+        "PackageCode" = "8:{90248208-B58B-4213-A4F4-77CDCD79E5F3}"
         "UpgradeCode" = "8:{B97E5DFB-9607-4472-B75A-E7726FC5B769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.2.5"
+        "ProductVersion" = "8:1.2.7"
         "Manufacturer" = "8:Below Average"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://belowaverage.org/"
@@ -216,7 +216,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:An admin for the system tray."
         "ARPURLINFOABOUT" = "8:https://belowaverage.org/software"
-        "ARPPRODUCTICON" = "8:_6C8A26AB9F2F482F8EC675B3688256AF"
+        "ARPPRODUCTICON" = "8:_F74E40F4794B42C0BA31F22E023F79DA"
         "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -319,7 +319,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_DF103B51ADCE496EBD18C384A6E106F7"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CF1112FDF1B94A659F2062EB9553BCE3"
             {
             "Name" = "8:Super Launcher"
             "Arguments" = "8:"
@@ -327,10 +327,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_6C8A26AB9F2F482F8EC675B3688256AF"
+            "Target" = "8:_F74E40F4794B42C0BA31F22E023F79DA"
             "Folder" = "8:_9D2B6F36DC8146DDBEB6B15D39CB31B0"
             "WorkingFolder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"
-            "Icon" = "8:_6C8A26AB9F2F482F8EC675B3688256AF"
+            "Icon" = "8:_F74E40F4794B42C0BA31F22E023F79DA"
             "Feature" = "8:"
             }
         }
@@ -588,9 +588,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_6C8A26AB9F2F482F8EC675B3688256AF"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F74E40F4794B42C0BA31F22E023F79DA"
             {
-            "SourcePath" = "8:..\\SuperLauncher\\obj\\Release\\net6.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\SuperLauncherBootstrap\\obj\\x64\\Release\\net6.0-windows\\win-x64\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"
@@ -610,8 +610,9 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:PublishItems"
-            "OutputProjectGuid" = "8:{5C1438AF-08DB-4336-959D-C5F8E65AE434}"
+            "OutputProjectGuid" = "8:{B1D9C991-ABCA-4963-843E-2874A2937581}"
             "ShowKeyOutput" = "11:TRUE"
+            "PublishProfilePath" = "8:Properties\\PublishProfiles\\FolderProfile.pubxml"
                 "ExcludeFilters"
                 {
                 }

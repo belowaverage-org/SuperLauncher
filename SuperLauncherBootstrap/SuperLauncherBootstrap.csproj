@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\CommonProperties.xml" />
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <UseWPF>True</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SuperLauncherCommon\SuperLauncherCommon.csproj" />
+    <ProjectReference Include="..\SuperLauncher\SuperLauncher.csproj" />
+  </ItemGroup>
+
+</Project>

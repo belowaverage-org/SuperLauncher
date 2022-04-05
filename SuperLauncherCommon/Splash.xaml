@@ -1,0 +1,28 @@
+﻿<Window x:Class="SuperLauncherCommon.Splash"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Splash" Height="300" Width="500" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" ShowInTaskbar="False" AllowsTransparency="True" WindowStyle="None" Background="Transparent" Initialized="Window_Initialized" MouseUp="Window_MouseUp" Closing="Window_Closing">
+
+    <Grid>
+        <Image Source="/SuperLauncherCommon;component/Assets/sl_bg_border.png" Stretch="Fill" />
+        <Grid Margin="30,30,30,30">
+            <Border BorderThickness="2,2,2,2" BorderBrush="#19FFFFFF" CornerRadius="20,20,20,20" ClipToBounds="True">
+                <Border.Background>
+                    <ImageBrush ImageSource="/SuperLauncherCommon;component/Assets/sl_bg.png"/>
+                </Border.Background>
+            </Border>
+            <Frame ClipToBounds="True" Source="SplashClouds.xaml"/>
+            <Image x:Name="Flame" Source="/SuperLauncherCommon;component/Assets/sl_logo_big_flame.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="200" Opacity="0"/>
+            <Image x:Name="Ship" Source="/SuperLauncherCommon;component/Assets/sl_logo_big.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="200"/>
+            <Label Content="Super Launcher" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="18" FontWeight="DemiBold" Foreground="#FFD8D8D8" FontStyle="Italic" />
+            <Label x:Name="Copyright" Content="..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10"/>
+            <Label x:Name="Author" Content="..." HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10"/>
+            <Label x:Name="Version" Content="..." HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10"/>
+            <Label x:Name="Message" Content="..." HorizontalAlignment="Left" Margin="10,205,0,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10"/>
+            <Label x:Name="Website" Content="" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10" FontFamily="Segoe UI Symbol" Cursor="Hand" MouseUp="Website_MouseUp"/>
+        </Grid>
+    </Grid>
+</Window>

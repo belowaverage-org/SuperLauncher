@@ -3,6 +3,7 @@
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <UseWindowsForms>true</UseWindowsForms>
+    <UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
@@ -41,6 +42,8 @@
   <ItemGroup>
     <Resource Include="Resources\banner.png" />
     <Resource Include="Resources\explorer.png" />
+    <Resource Include="Resources\logo_16.png" />
+    <Resource Include="Resources\logo_256.png" />
     <Resource Include="Resources\noise.png" />
     <Resource Include="Resources\run.png" />
     <Resource Include="Resources\shield.png" />

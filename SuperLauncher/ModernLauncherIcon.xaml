@@ -21,6 +21,6 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Label Content="Super Launcher" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Center" UseLayoutRounding="False" Height="33" Margin="0,51,0,0" VerticalContentAlignment="Top" Padding="0,0,0,0" />
+        <Label x:Name="NameText" Content="Super Launcher" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Center" UseLayoutRounding="False" Height="33" Margin="0,51,0,0" VerticalContentAlignment="Top" Padding="0,0,0,0" />
     </Grid>
 </UserControl>

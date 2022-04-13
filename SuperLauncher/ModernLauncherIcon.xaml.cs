@@ -3,14 +3,33 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
+using System.IO;
 
 namespace SuperLauncher
 {
     public partial class ModernLauncherIcon : UserControl
     {
+        public string rFilePath;
+        public string FilePath { 
+            get
+            {
+                return rFilePath;
+            } 
+            set
+            { 
+                rFilePath = value;
+                FileInfo fi = new(rFilePath);
+                NameText.Content = fi.Name;
+            }
+        }
         public ModernLauncherIcon()
         {
             InitializeComponent();
+        }
+        public ModernLauncherIcon(string FilePath)
+        {
+            InitializeComponent();
+            this.FilePath = FilePath;
         }
         private DoubleAnimation To1 = new()
         {

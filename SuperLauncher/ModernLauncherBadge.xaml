@@ -5,9 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperLauncher"
         mc:Ignorable="d"
-        Title="ModernLauncherBadge" Height="28" Width="95" ResizeMode="NoResize" ShowInTaskbar="False" SizeToContent="WidthAndHeight" Topmost="True" AllowsTransparency="True" WindowStyle="None" Background="Transparent">
+        Title="ModernLauncherBadge" Height="48" Width="125" ResizeMode="NoResize" ShowInTaskbar="False" SizeToContent="WidthAndHeight" Topmost="True" AllowsTransparency="True" WindowStyle="None" Background="Transparent" ShowActivated="False">
     <Grid>
-        <Rectangle RadiusX="10" RadiusY="10" Fill="Black" />
-        <Label x:Name="LabelText" Content="Super Launcher" Foreground="White" Initialized="Label_Initialized"/>
+        <Grid Margin="10,10,10,10">
+            <Rectangle RadiusX="14" RadiusY="14" Fill="#FF121212" />
+            <Label x:Name="LabelText" Content="Super Launcher" Foreground="White" Initialized="Label_Initialized" Margin="6,0,6,1"/>
+        </Grid>
     </Grid>
 </Window>

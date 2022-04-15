@@ -14,13 +14,13 @@
              MouseDown="UserControl_FadeOutHightlightSlight" >
     <Grid>
         <Rectangle x:Name="Highlight" RadiusX="10" RadiusY="10" Fill="#19FFFFFF" Opacity="0" />
-        <Image x:Name="LIcon" Source="/Resources/logo_256.png" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,14,0,0" RenderTransformOrigin="0.5,0.5" >
+        <Image x:Name="LIcon" Source="/Resources/logo_256.png" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,12,0,0" RenderTransformOrigin="0.5,0.5" >
             <Image.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform x:Name="IconScale" ScaleY="1" ScaleX="1"/>
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <Label x:Name="NameText" Content="Super Launcher" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" HorizontalContentAlignment="Center" UseLayoutRounding="False" Height="33" Margin="0,51,0,0" VerticalContentAlignment="Top" Padding="0,0,0,0" />
+        <TextBlock x:Name="NameText" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow" Text="Super Launcher" Foreground="White" Height="36" Margin="0,48,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="84" TextAlignment="Center" />
     </Grid>
 </UserControl>

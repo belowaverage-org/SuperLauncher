@@ -14,7 +14,7 @@
         Activated="Window_Activated"
         Background="#00000000"
         WindowStyle="None"
-        Topmost="True" >
+        Topmost="False" >
     <Window.Resources>
         <ImageBrush x:Key="AcrylicNoise" AlignmentX="Center" ImageSource="/Resources/noise.png" Opacity="0.10" Stretch="UniformToFill" TileMode="Tile" ViewboxUnits="RelativeToBoundingBox" Viewbox="0,0,1,1" ViewportUnits="Absolute" Viewport="0,0,250,250"/>
         <SolidColorBrush x:Key="BodyColor" Color="#CC323232"/>

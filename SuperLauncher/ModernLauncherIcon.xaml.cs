@@ -28,11 +28,10 @@ namespace SuperLauncher
                 FileInfo fi = new(rFilePath);
                 Icon icon = Icon.ExtractAssociatedIcon(rFilePath);
                 FileName = fi.Name;
-                NameText.Content = TextTrimmer(FileName);
+                NameText.Text = ExtRemover(FileName);
                 LIcon.Source = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
         }
-        private int TextMaxLength = 13;
         public ModernLauncherIcon()
         {
             InitializeComponent();
@@ -88,14 +87,16 @@ namespace SuperLauncher
             IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
             IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
         }
-        private string TextTrimmer(string input)
+        private string ExtRemover(string FileName)
         {
-            if (input.Length > TextMaxLength)
+            string[] parts = FileName.Split('.');
+            if (parts.Length > 1)
             {
-                input = input.Substring(0, TextMaxLength);
-                input += "...";
+                string[] newParts = new string[parts.Length - 1];
+                for (int i = 0; i < newParts.Length; i++) newParts[i] = parts[i];
+                return string.Join('.', newParts);
             }
-            return input;
+            return FileName;
         }
         public async Task StartBadgeTimer()
         {

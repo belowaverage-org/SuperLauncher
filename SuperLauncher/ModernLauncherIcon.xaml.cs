@@ -4,12 +4,19 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.IO;
+using System.Drawing;
+using System.Windows.Interop;
+using System.Windows.Media.Imaging;
+using System.Threading.Tasks;
 
 namespace SuperLauncher
 {
     public partial class ModernLauncherIcon : UserControl
     {
         public string rFilePath;
+        public ModernLauncherBadge Badge;
+        public bool MouseOver = false;
+        public string FileName;
         public string FilePath { 
             get
             {
@@ -19,9 +26,13 @@ namespace SuperLauncher
             { 
                 rFilePath = value;
                 FileInfo fi = new(rFilePath);
-                NameText.Content = fi.Name;
+                Icon icon = Icon.ExtractAssociatedIcon(rFilePath);
+                FileName = fi.Name;
+                NameText.Content = TextTrimmer(FileName);
+                LIcon.Source = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
         }
+        private int TextMaxLength = 13;
         public ModernLauncherIcon()
         {
             InitializeComponent();
@@ -53,10 +64,14 @@ namespace SuperLauncher
         };
         private void UserControl_FadeInHighlight(object sender, object e)
         {
+            MouseOver = true;
+            _ = StartBadgeTimer();
             Highlight.BeginAnimation(OpacityProperty, To1);
         }
         private void UserControl_FadeOutHightlight(object sender, object e)
         {
+            MouseOver = false;
+            if (Badge != null) Badge.Close();
             Highlight.BeginAnimation(OpacityProperty, To0);
             IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
             IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
@@ -72,6 +87,24 @@ namespace SuperLauncher
             Highlight.BeginAnimation(OpacityProperty, To1);
             IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
             IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
+        }
+        private string TextTrimmer(string input)
+        {
+            if (input.Length > TextMaxLength)
+            {
+                input = input.Substring(0, TextMaxLength);
+                input += "...";
+            }
+            return input;
+        }
+        public async Task StartBadgeTimer()
+        {
+            await Task.Delay(1000);
+            if (!MouseOver) return;
+            if (Badge != null) Badge.Close();
+            
+            Badge = new(FileName);
+            Badge.Show();
         }
     }
 }

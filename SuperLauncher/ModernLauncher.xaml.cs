@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Windows.Interop;
 using PInvoke;
 using System.Windows.Media.Animation;
+using System.Timers;
 //using Image = System.Drawing.Image;
 
 namespace SuperLauncher
@@ -23,17 +24,33 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncher : Window
     {
+        private WindowInteropHelper WIH;
+        private int y = 0;
+        private int ySpeed = 65;
+        private int screenHeight = (int)SystemParameters.FullPrimaryScreenHeight;
         public ModernLauncher()
         {
             InitializeComponent();
+            WIH = new(this);
         }
         private void Window_Activated(object sender, EventArgs e)
         {
-            
+            Top = screenHeight;
+            y = (int)Top;
+        }
+        private async Task OpenAnimation()
+        {
+            while (true)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(2));
+                User32.MoveWindow(WIH.Handle, (int)Left, y -= (ySpeed -= 4), (int)Width, (int)Height, true);
+                if (y <= 0) break;
+            }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Win32Interop.EnableBlur(new WindowInteropHelper(this).Handle, 200, 0);
+            Win32Interop.EnableBlur(WIH.Handle, 200, 0);
+            _ = OpenAnimation();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows;
+using PInvoke;
 
 namespace SuperLauncher
 {
@@ -11,8 +11,6 @@ namespace SuperLauncher
     {
         int X, Y = 0;
         string Text;
-        [DllImport("user32.dll", CharSet = CharSet.Unicode, SetLastError = true)]
-        public static extern bool GetCursorPos(out Win32Point point);
         public ModernLauncherBadge(string Text, int X = 0, int Y = 0)
         {
             this.X = X;
@@ -25,16 +23,10 @@ namespace SuperLauncher
             LabelText.Content = Text;
             if (X == 0 && Y == 0)
             {
-                GetCursorPos(out Win32Point point);
-                Top = point.Y;
-                Left = point.X;
+                User32.GetCursorPos(out POINT point);
+                Top = point.y;
+                Left = point.x;
             }
-        }
-        [StructLayout(LayoutKind.Sequential)]
-        public struct Win32Point
-        {
-            public uint X;
-            public uint Y;
         }
     }
 }

@@ -8,6 +8,8 @@ using System.Drawing;
 using System.Windows.Interop;
 using System.Windows.Media.Imaging;
 using System.Threading.Tasks;
+using System.Diagnostics;
+using System.Windows.Input;
 
 namespace SuperLauncher
 {
@@ -15,7 +17,8 @@ namespace SuperLauncher
     {
         public string rFilePath;
         public ModernLauncherBadge Badge;
-        public bool MouseOver = false;
+        public bool IsMouseOver = false;
+        public bool IsMouseDown = false;
         public string FileName;
         public string FilePath { 
             get
@@ -61,31 +64,55 @@ namespace SuperLauncher
             To = 0.9,
             Duration = new Duration(new TimeSpan(0, 0, 0, 0, 100))
         };
-        private void UserControl_FadeInHighlight(object sender, object e)
+        private void UserControl_MouseEnter(object sender, object e)
         {
-            MouseOver = true;
+            IsMouseOver = true;
             _ = StartBadgeTimer();
             Highlight.BeginAnimation(OpacityProperty, To1);
         }
-        private void UserControl_FadeOutHightlight(object sender, object e)
+        private void UserControl_MouseLeave(object sender, object e)
         {
-            MouseOver = false;
+            IsMouseOver = false;
             if (Badge != null) Badge.Close();
             Highlight.BeginAnimation(OpacityProperty, To0);
             IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
             IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
         }
-        private void UserControl_FadeOutHightlightSlight(object sender, object e)
+        private void UserControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            Highlight.BeginAnimation(OpacityProperty, To0_5);
-            IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To0_9);
-            IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To0_9);
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                IsMouseDown = true;
+                Highlight.BeginAnimation(OpacityProperty, To0_5);
+                IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To0_9);
+                IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To0_9);
+            }
         }
-        private void UserControl_FadeInHightlightSlight(object sender, object e)
+        private void UserControl_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Highlight.BeginAnimation(OpacityProperty, To1);
-            IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
-            IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                if (IsMouseDown)
+                {
+                    ((ModernLauncher)Window.GetWindow(this)).CloseWindow();
+                    Task.Run(() =>
+                    {
+                        try
+                        {
+                            Process.Start(new ProcessStartInfo()
+                            {
+                                FileName = FilePath,
+                                UseShellExecute = true
+                            });
+                        }
+                        catch { }
+                    });
+                }
+                IsMouseDown = false;
+                Highlight.BeginAnimation(OpacityProperty, To1);
+                IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
+                IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
+            }
         }
         private string ExtRemover(string FileName)
         {
@@ -101,7 +128,7 @@ namespace SuperLauncher
         public async Task StartBadgeTimer()
         {
             await Task.Delay(1000);
-            if (!MouseOver) return;
+            if (!IsMouseOver) return;
             if (Badge != null) Badge.Close();
             
             Badge = new(FileName);

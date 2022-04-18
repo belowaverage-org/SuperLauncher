@@ -16,6 +16,7 @@ using PInvoke;
 using System.Windows.Media.Animation;
 using System.Timers;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 //using Image = System.Drawing.Image;
 
 namespace SuperLauncher
@@ -28,11 +29,20 @@ namespace SuperLauncher
         private WindowInteropHelper WIH;
         private Int32Animation OpenAnimation;
         private Int32Animation CloseAnimation;
+        private bool IsVisible = false;
         public ModernLauncher()
         {
             InitializeComponent();
             WIH = new(this);
+            ModernLauncherNotifyIcon.Initialize();
+            ModernLauncherNotifyIcon.Icon.Click += Icon_Click;
         }
+
+        private void Icon_Click(object sender, EventArgs e)
+        {
+            ToggleWindow();
+        }
+
         public static readonly DependencyProperty Win32TopProperty = DependencyProperty.Register(
             "Win32Top",
             typeof(int),
@@ -46,18 +56,47 @@ namespace SuperLauncher
             SetPosition();
             CalculateAnimations();
             Win32Interop.EnableBlur(WIH.Handle, 200, 0);
-            _ = Task.Run(() => {
+            /*_ = Task.Run(() => {
                 Dispatcher.BeginInvoke(async () =>
                 {
                     while (true)
                     {
                         await Task.Delay(600);
-                        BeginAnimation(Win32TopProperty, OpenAnimation);
+                        OpenWindow();
                         await Task.Delay(600);
-                        BeginAnimation(Win32TopProperty, CloseAnimation);
+                        CloseWindow();
                     }
                 });
-            });
+            });*/
+        }
+        [DllImport("User32.dll")]
+        private static extern bool InvalidateRect(IntPtr Handle, IntPtr Rect, bool Erase);
+        private async void OpenWindow()
+        {
+            IsVisible = true;
+            User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_LAYERED);
+            BeginAnimation(Win32TopProperty, OpenAnimation);
+            await Task.Delay(300);
+            InvalidateRect(WIH.Handle, IntPtr.Zero, false);
+        }
+        private async void CloseWindow()
+        {
+            IsVisible = false;
+            BeginAnimation(Win32TopProperty, CloseAnimation);
+            await Task.Delay(300);
+            User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_TOOLWINDOW);
+        }
+        private void ToggleWindow()
+        {
+            CalculateAnimations(); //Do on resize instead
+            if (IsVisible)
+            {
+                CloseWindow();
+            }
+            else
+            {
+                OpenWindow();
+            }
         }
         private void SetPosition()
         {

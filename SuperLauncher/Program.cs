@@ -5,15 +5,24 @@ namespace SuperLauncher
 {
     static class Program
     {
+        public static Settings Settings = new();
+        public static System.Windows.Application ModernApplication;
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main()
         {
-            new ModernLauncher().Show();
-            Application.EnableVisualStyles();
-            Application.Run(new Launcher());
+            if (Settings.Default.UseLegacyUI)
+            {
+                Application.EnableVisualStyles();
+                Application.Run(new Launcher());
+            }
+            else
+            {
+                ModernApplication = new();
+                ModernApplication.Run(new ModernLauncher());
+            }
         }
     }
 }

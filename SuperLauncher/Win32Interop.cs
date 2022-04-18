@@ -44,7 +44,6 @@ namespace SuperLauncher
             ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
             ACCENT_INVALID_STATE = 5
         }
-
         [StructLayout(LayoutKind.Sequential)]
         public struct AccentPolicy
         {

@@ -24,8 +24,8 @@ namespace SuperLauncher
             if (X == 0 && Y == 0)
             {
                 User32.GetCursorPos(out POINT point);
-                Top = point.y;
-                Left = point.x;
+                Top = ModernLauncher.DPI.ScalePixelsDown(point.y);
+                Left = ModernLauncher.DPI.ScalePixelsDown(point.x);
             }
         }
     }

@@ -13,6 +13,7 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncher : Window
     {
+        public static DpiScale DPI;
         private WindowInteropHelper WIH;
         private Int32Animation OpenAnimation = new()
         {
@@ -31,6 +32,11 @@ namespace SuperLauncher
             WIH = new(this);
             Timeline.SetDesiredFrameRate(OpenAnimation, 300);
             Timeline.SetDesiredFrameRate(CloseAnimation, 300);
+            InitializeNotifyIcon();
+        }
+        private void InitializeNotifyIcon()
+        {
+            if (ModernLauncherNotifyIcon.Icon != null) ModernLauncherNotifyIcon.Icon.Dispose();
             ModernLauncherNotifyIcon.Initialize();
             ModernLauncherNotifyIcon.Icon.Click += Icon_Click;
         }
@@ -44,8 +50,8 @@ namespace SuperLauncher
         }
         private void UpdateAnimations()
         {
-            OpenAnimation.From = CloseAnimation.To = (int)SystemParameters.PrimaryScreenHeight;
-            OpenAnimation.To = CloseAnimation.From = (int)(SystemParameters.PrimaryScreenHeight - Height) - 60;
+            OpenAnimation.From = CloseAnimation.To = (int)DPI.ScalePixelsUp(SystemParameters.PrimaryScreenHeight);
+            OpenAnimation.To = CloseAnimation.From = (int)DPI.ScalePixelsUp((SystemParameters.PrimaryScreenHeight - Height) - 60);
         }
         public static readonly DependencyProperty Win32TopProperty = DependencyProperty.Register(
             "Win32Top",
@@ -100,7 +106,15 @@ namespace SuperLauncher
         public static void WindowPositionChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             ModernLauncher win = (ModernLauncher)obj;
-            User32.MoveWindow(win.WIH.Handle, (int)win.Left, (int)e.NewValue, (int)win.Width, (int)win.Height, false);
+            User32.MoveWindow(win.WIH.Handle, (int)DPI.ScalePixelsUp(win.Left), (int)e.NewValue, (int)DPI.ScalePixelsUp(win.Width), (int)DPI.ScalePixelsUp(win.Height), false);
+        }
+        private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
+        {
+            if (e.NewDpi.DpiScaleX != DPI.DpiScaleX)
+            {
+                DPI = e.NewDpi;
+                InitializeNotifyIcon();
+            }
         }
     }
 }

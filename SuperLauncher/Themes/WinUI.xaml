@@ -2,10 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/Themes/Controls/WinUIScrollBar.xaml" />
+        <ResourceDictionary Source="/Themes/Controls/WinUITextBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
     <ImageBrush x:Key="AcrylicNoise" AlignmentX="Center" ImageSource="/Resources/noise.png" Opacity="0.10" Stretch="UniformToFill" TileMode="Tile" ViewboxUnits="RelativeToBoundingBox" Viewbox="0,0,1,1" ViewportUnits="Absolute" Viewport="0,0,250,250"/>
     <SolidColorBrush x:Key="BodyColor" Color="#CC323232" />
     <SolidColorBrush x:Key="PanelColor" Color="#CC232323" />
     <SolidColorBrush x:Key="BorderColor" Color="#26FFFFFF" />
     <SolidColorBrush x:Key="TextColor" Color="#FFC8C8C8" />
+    <SolidColorBrush x:Key="LighterColor" Color="#19FFFFFF" />
+    <SolidColorBrush x:Key="DarkerColor" Color="#33000000" />
+    <SolidColorBrush x:Key="AccentColor" Color="#FFBB30DB" />
+    <FontFamily x:Key="Icons">/Resources/#Segoe Fluent Icons</FontFamily>
+    <FontFamily x:Key="Font">/Resources/#Segoe UI</FontFamily>
 </ResourceDictionary>

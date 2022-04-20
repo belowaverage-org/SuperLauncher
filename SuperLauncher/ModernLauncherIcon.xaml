@@ -13,7 +13,7 @@
              MouseUp="UserControl_MouseUp"
              MouseDown="UserControl_MouseDown" >
     <Grid>
-        <Rectangle x:Name="Highlight" RadiusX="10" RadiusY="10" Fill="#19FFFFFF" Opacity="0" />
+        <Rectangle x:Name="Highlight" RadiusX="10" RadiusY="10" Fill="{DynamicResource LighterColor}" Opacity="0" />
         <Image x:Name="LIcon" Source="/Resources/logo_256.png" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,12,0,0" RenderTransformOrigin="0.5,0.5" >
             <Image.RenderTransform>
                 <TransformGroup>

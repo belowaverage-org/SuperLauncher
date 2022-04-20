@@ -14,6 +14,8 @@
     <None Remove="Resources\logo_256.png" />
     <None Remove="Resources\noise.png" />
     <None Remove="Resources\run.png" />
+    <None Remove="Resources\SegoeIcons.ttf" />
+    <None Remove="Resources\segoeui.ttf" />
     <None Remove="Resources\shield.png" />
     <None Remove="Resources\shortcut.png" />
   </ItemGroup>
@@ -47,6 +49,10 @@
     <Resource Include="Resources\logo_256.png" />
     <Resource Include="Resources\noise.png" />
     <Resource Include="Resources\run.png" />
+    <Resource Include="Resources\SegoeIcons.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\SegoeUI.ttf" />
     <Resource Include="Resources\shield.png" />
     <Resource Include="Resources\shortcut.png" />
   </ItemGroup>

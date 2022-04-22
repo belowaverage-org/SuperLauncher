@@ -1,13 +1,37 @@
 ﻿using System.IO;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace SuperLauncher
 {
-    /// <summary>
-    /// Interaction logic for ModernLauncherIcons.xaml
-    /// </summary>
     public partial class ModernLauncherIcons : UserControl
     {
+        public string rFilter;
+        public string Filter
+        {
+            get
+            {
+                return rFilter;
+            }
+            set
+            {
+                rFilter = value;
+                bool first = true;
+                foreach (ModernLauncherIcon icon in IconPanel.Children)
+                {
+                    if (icon.NameText.Text.ToLower().Contains(value.ToLower()))
+                    {
+                        icon.FilterFocus = first;
+                        if (first) first = false;
+                        icon.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        icon.Visibility = Visibility.Collapsed;
+                    }
+                }
+            }
+        }
         public ModernLauncherIcons()
         {
             InitializeComponent();

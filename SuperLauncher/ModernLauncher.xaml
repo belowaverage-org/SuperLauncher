@@ -15,7 +15,7 @@
         WindowStyle="None"
         Deactivated="Window_Deactivated"
         DpiChanged="Window_DpiChanged" 
-        FontFamily="{DynamicResource Font}" >
+        FontFamily="{DynamicResource Font}" KeyDown="Window_KeyDown" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -44,13 +44,13 @@
             </Grid>
             <Grid Background="{DynamicResource BodyColor}" VerticalAlignment="Stretch" Margin="0,32,0,60">
                 <Grid Background="{DynamicResource AcrylicNoise}">
-                    <local:ModernLauncherIcons />
+                    <local:ModernLauncherIcons x:Name="MLI" />
                 </Grid>
             </Grid>
             <Grid VerticalAlignment="Bottom" Height="60" Margin="0,0,0,0" Background="{DynamicResource PanelColor}">
                 <Border BorderThickness="0,1,0,0" BorderBrush="{DynamicResource BorderColor}">
                     <Grid Background="{DynamicResource AcrylicNoise}">
-                        <TextBox Tag="" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="28" Margin="15,15,200,0" />
+                        <TextBox x:Name="Filter" Tag="" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="28" Margin="15,15,200,0" TextChanged="Filter_TextChanged" KeyDown="Filter_KeyDown" />
                     </Grid>
                 </Border>
             </Grid>

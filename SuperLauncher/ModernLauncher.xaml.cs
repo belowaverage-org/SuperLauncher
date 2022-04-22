@@ -5,6 +5,8 @@ using System.Windows.Interop;
 using PInvoke;
 using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
+using System.Windows.Input;
+using System.Windows.Controls;
 
 namespace SuperLauncher
 {
@@ -75,6 +77,8 @@ namespace SuperLauncher
             Activate();
             User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_LAYERED);
             BeginAnimation(Win32TopProperty, OpenAnimation);
+            Filter.Text = "";
+            Filter.Focus();
             await Task.Delay(300);
             InvalidateRect(WIH.Handle, IntPtr.Zero, false);
         }
@@ -115,6 +119,18 @@ namespace SuperLauncher
                 DPI = e.NewDpi;
                 InitializeNotifyIcon();
             }
+        }
+        private void Filter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            MLI.Filter = Filter.Text;
+        }
+        private void Filter_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) MoveFocus(new(FocusNavigationDirection.Next));
+        }
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (IsVisible && e.Key == Key.Escape) CloseWindow();
         }
     }
 }

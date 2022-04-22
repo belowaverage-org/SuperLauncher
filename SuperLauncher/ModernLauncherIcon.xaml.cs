@@ -16,23 +16,44 @@ namespace SuperLauncher
     public partial class ModernLauncherIcon : UserControl
     {
         public string rFilePath;
+        public bool rFilterFocus = false;
         public ModernLauncherBadge Badge;
         public bool IsMouseOver = false;
         public bool IsMouseDown = false;
         public string FileName;
-        public string FilePath { 
+        public string FilePath
+        {
             get
             {
                 return rFilePath;
-            } 
+            }
             set
-            { 
+            {
                 rFilePath = value;
                 FileInfo fi = new(rFilePath);
                 Icon icon = Icon.ExtractAssociatedIcon(rFilePath);
                 FileName = fi.Name;
                 NameText.Text = ExtRemover(FileName);
                 LIcon.Source = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
+            }
+        }
+        public bool FilterFocus
+        {
+            get
+            {
+                return rFilterFocus;
+            }
+            set
+            {
+                rFilterFocus = value;
+                if (value)
+                {
+                    Highlight.BeginAnimation(OpacityProperty, To1);
+                }
+                else
+                {
+                    Highlight.BeginAnimation(OpacityProperty, To0);
+                }
             }
         }
         public ModernLauncherIcon()
@@ -94,19 +115,7 @@ namespace SuperLauncher
             {
                 if (IsMouseDown)
                 {
-                    ((ModernLauncher)Window.GetWindow(this)).CloseWindow();
-                    Task.Run(() =>
-                    {
-                        try
-                        {
-                            Process.Start(new ProcessStartInfo()
-                            {
-                                FileName = FilePath,
-                                UseShellExecute = true
-                            });
-                        }
-                        catch { }
-                    });
+                    StartProgram();
                 }
                 IsMouseDown = false;
                 Highlight.BeginAnimation(OpacityProperty, To1);
@@ -130,9 +139,51 @@ namespace SuperLauncher
             await Task.Delay(1000);
             if (!IsMouseOver) return;
             if (Badge != null) Badge.Close();
-            
             Badge = new(FileName);
             Badge.Show();
+        }
+        public void StartProgram()
+        {
+            ((ModernLauncher)Window.GetWindow(this)).CloseWindow();
+            Task.Run(() =>
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo()
+                    {
+                        FileName = FilePath,
+                        UseShellExecute = true
+                    });
+                }
+                catch { }
+            });
+        }
+        private void UserControl_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            Highlight.BeginAnimation(OpacityProperty, To1);
+        }
+        private void UserControl_LostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+        {
+            Highlight.BeginAnimation(OpacityProperty, To0);
+        }
+        private void UserControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Space)
+            {
+                Highlight.BeginAnimation(OpacityProperty, To0_5);
+                IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To0_9);
+                IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To0_9);
+            }
+        }
+        private void UserControl_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter || e.Key == Key.Space)
+            {
+                StartProgram();
+                Highlight.BeginAnimation(OpacityProperty, To1);
+                IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
+                IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
+            }
         }
     }
 }

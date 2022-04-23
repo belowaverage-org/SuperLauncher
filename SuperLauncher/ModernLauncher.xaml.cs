@@ -17,6 +17,7 @@ namespace SuperLauncher
     {
         public static DpiScale DPI;
         private WindowInteropHelper WIH;
+        private HwndSource HWND;
         private Int32Animation OpenAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.3),
@@ -31,10 +32,22 @@ namespace SuperLauncher
         public ModernLauncher()
         {
             InitializeComponent();
-            WIH = new(this);
-            Timeline.SetDesiredFrameRate(OpenAnimation, 300);
-            Timeline.SetDesiredFrameRate(CloseAnimation, 300);
-            InitializeNotifyIcon();
+        }
+        private IntPtr HwndSourceHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        {
+            if (msg == 0x0312 && wParam.ToInt32() == 0) //WM_HOTKEY //ALT + S
+            {
+                OpenWindow();
+            }
+            if (msg == 0x0312 && wParam.ToInt32() == 1) //WM_HOTKEY //ALT + E
+            {
+                new ShellHost().Show();
+            }
+            if (msg == 0x0312 && wParam.ToInt32() == 2) //WM_HOTKEY //ALT + R
+            {
+                new Run().Show();
+            }
+            return IntPtr.Zero;
         }
         private void InitializeNotifyIcon()
         {
@@ -66,7 +79,16 @@ namespace SuperLauncher
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             SetPosition();
+            WIH = new(this);
+            HWND = HwndSource.FromHwnd(WIH.Handle);
             Win32Interop.EnableBlur(WIH.Handle, 200, 0);
+            Timeline.SetDesiredFrameRate(OpenAnimation, 300);
+            Timeline.SetDesiredFrameRate(CloseAnimation, 300);
+            InitializeNotifyIcon();
+            Win32Interop.RegisterHotKey(WIH.Handle, 0, 0x1 | 0x4000, 0x53); //Register Hot Key ALT + S
+            Win32Interop.RegisterHotKey(WIH.Handle, 1, 0x1 | 0x4000, 0x45); //Register Hot Key ALT + E
+            Win32Interop.RegisterHotKey(WIH.Handle, 2, 0x1 | 0x4000, 0x52); //Register Hot Key ALT + R
+            HWND.AddHook(HwndSourceHook);
         }
         [DllImport("User32.dll")]
         private static extern bool InvalidateRect(IntPtr Handle, IntPtr Rect, bool Erase);
@@ -131,6 +153,11 @@ namespace SuperLauncher
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (IsVisible && e.Key == Key.Escape) CloseWindow();
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CloseWindow();
+            new ShellHost().Show();
         }
     }
 }

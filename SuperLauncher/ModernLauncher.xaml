@@ -51,6 +51,7 @@
                 <Border BorderThickness="0,1,0,0" BorderBrush="{DynamicResource BorderColor}">
                     <Grid Background="{DynamicResource AcrylicNoise}">
                         <TextBox x:Name="Filter" Tag="" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="28" Margin="15,15,200,0" TextChanged="Filter_TextChanged" KeyDown="Filter_KeyDown" />
+                        <Button Content="" Margin="0,0,158,0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="Button_Click"/>
                     </Grid>
                 </Border>
             </Grid>

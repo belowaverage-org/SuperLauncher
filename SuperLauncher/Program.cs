@@ -13,9 +13,9 @@ namespace SuperLauncher
         [STAThread]
         static void Main()
         {
+            Application.EnableVisualStyles();
             if (Settings.Default.UseLegacyUI)
             {
-                Application.EnableVisualStyles();
                 Application.Run(new Launcher());
             }
             else

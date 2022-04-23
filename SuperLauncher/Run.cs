@@ -80,6 +80,10 @@ namespace SuperLauncher
             cbInput.Text = ofd.FileName;
             cbInput_TextUpdate(null, null);
         }
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
     public class RunMRU
     {

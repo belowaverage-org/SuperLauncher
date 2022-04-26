@@ -7,6 +7,7 @@ using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Diagnostics;
 
 namespace SuperLauncher
 {
@@ -71,9 +72,13 @@ namespace SuperLauncher
         }
         private void UpdateAnimations()
         {
-            OpenAnimation.From = CloseAnimation.From = (int)Top;
-            CloseAnimation.To = (int)DPI.ScalePixelsUp(SystemParameters.PrimaryScreenHeight);
-            OpenAnimation.To = (int)DPI.ScalePixelsUp((SystemParameters.PrimaryScreenHeight - Height) - 60);
+            User32.MONITORINFO mi = new User32.MONITORINFO();
+            mi.cbSize = Marshal.SizeOf(mi);
+            IntPtr hMonitor = User32.MonitorFromWindow(WIH.Handle, User32.MonitorOptions.MONITOR_DEFAULTTONEAREST);
+            User32.GetMonitorInfo(hMonitor, ref mi);
+            OpenAnimation.From = CloseAnimation.From = (int)DPI.ScalePixelsUp(Top);
+            CloseAnimation.To = mi.rcMonitor.bottom;
+            OpenAnimation.To = (mi.rcWork.bottom - (int)DPI.ScalePixelsUp(Height) - (int)DPI.ScalePixelsUp(10));
         }
         public static readonly DependencyProperty Win32TopProperty = DependencyProperty.Register(
             "Win32Top",

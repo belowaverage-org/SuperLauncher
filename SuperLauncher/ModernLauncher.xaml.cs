@@ -18,6 +18,12 @@ namespace SuperLauncher
         public static DpiScale DPI;
         private WindowInteropHelper WIH;
         private HwndSource HWND;
+        private DoubleAnimation RenderBoostAnimation = new()
+        {
+            Duration = TimeSpan.FromSeconds(0.3),
+            From = 1,
+            To = 0
+        };
         private Int32Animation OpenAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.3),
@@ -65,8 +71,9 @@ namespace SuperLauncher
         }
         private void UpdateAnimations()
         {
-            OpenAnimation.From = CloseAnimation.To = (int)DPI.ScalePixelsUp(SystemParameters.PrimaryScreenHeight);
-            OpenAnimation.To = CloseAnimation.From = (int)DPI.ScalePixelsUp((SystemParameters.PrimaryScreenHeight - Height) - 60);
+            OpenAnimation.From = CloseAnimation.From = (int)Top;
+            CloseAnimation.To = (int)DPI.ScalePixelsUp(SystemParameters.PrimaryScreenHeight);
+            OpenAnimation.To = (int)DPI.ScalePixelsUp((SystemParameters.PrimaryScreenHeight - Height) - 60);
         }
         public static readonly DependencyProperty Win32TopProperty = DependencyProperty.Register(
             "Win32Top",
@@ -82,8 +89,6 @@ namespace SuperLauncher
             WIH = new(this);
             HWND = HwndSource.FromHwnd(WIH.Handle);
             Win32Interop.EnableBlur(WIH.Handle, 200, 0);
-            Timeline.SetDesiredFrameRate(OpenAnimation, 300);
-            Timeline.SetDesiredFrameRate(CloseAnimation, 300);
             InitializeNotifyIcon();
             Win32Interop.RegisterHotKey(WIH.Handle, 0, 0x1 | 0x4000, 0x53); //Register Hot Key ALT + S
             Win32Interop.RegisterHotKey(WIH.Handle, 1, 0x1 | 0x4000, 0x45); //Register Hot Key ALT + E
@@ -99,6 +104,7 @@ namespace SuperLauncher
             Activate();
             User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_LAYERED);
             BeginAnimation(Win32TopProperty, OpenAnimation);
+            RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             Filter.Text = "";
             Filter.Focus();
             await Task.Delay(300);
@@ -110,6 +116,7 @@ namespace SuperLauncher
             UpdateAnimations();
             Activate();
             BeginAnimation(Win32TopProperty, CloseAnimation);
+            RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             await Task.Delay(300);
             User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_TOOLWINDOW);
         }

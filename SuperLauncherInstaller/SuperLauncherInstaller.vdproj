@@ -15,13 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_C7CF9F3FF5754299BBCC47CAAA6D7C46"
+        "MsmKey" = "8:_AEA6345ACC214327B2B6905B524ADDF5"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F74E40F4794B42C0BA31F22E023F79DA"
+        "MsmKey" = "8:_C7CF9F3FF5754299BBCC47CAAA6D7C46"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -172,7 +172,7 @@
             }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_EA3DE635538044C9A1F42744CE4FC13A"
             {
-            "DefaultLocation" = "8:[ProgramFiles64Folder][Manufacturer]\\[ProductName]"
+            "DefaultLocation" = "8:[ProgramFilesFolder][Manufacturer]\\[ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -199,7 +199,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Super Launcher"
         "ProductCode" = "8:{5D33303F-D971-43C4-92DF-4D0DF89E3561}"
-        "PackageCode" = "8:{90248208-B58B-4213-A4F4-77CDCD79E5F3}"
+        "PackageCode" = "8:{EFCD20C1-99AA-4FEC-A0EA-9A768925EDDD}"
         "UpgradeCode" = "8:{B97E5DFB-9607-4472-B75A-E7726FC5B769}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -216,11 +216,11 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:An admin for the system tray."
         "ARPURLINFOABOUT" = "8:https://belowaverage.org/software"
-        "ARPPRODUCTICON" = "8:_F74E40F4794B42C0BA31F22E023F79DA"
+        "ARPPRODUCTICON" = "8:_AEA6345ACC214327B2B6905B524ADDF5"
         "ARPIconIndex" = "3:32512"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:1"
+        "TargetPlatform" = "3:0"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
@@ -319,7 +319,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_CF1112FDF1B94A659F2062EB9553BCE3"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1FDFEB5B4BA34D50A0C660B56FAD0AA5"
             {
             "Name" = "8:Super Launcher"
             "Arguments" = "8:"
@@ -327,10 +327,10 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:32512"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_F74E40F4794B42C0BA31F22E023F79DA"
+            "Target" = "8:_AEA6345ACC214327B2B6905B524ADDF5"
             "Folder" = "8:_9D2B6F36DC8146DDBEB6B15D39CB31B0"
             "WorkingFolder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"
-            "Icon" = "8:_F74E40F4794B42C0BA31F22E023F79DA"
+            "Icon" = "8:_AEA6345ACC214327B2B6905B524ADDF5"
             "Feature" = "8:"
             }
         }
@@ -588,9 +588,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_F74E40F4794B42C0BA31F22E023F79DA"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_AEA6345ACC214327B2B6905B524ADDF5"
             {
-            "SourcePath" = "8:..\\SuperLauncherBootstrap\\obj\\x64\\Release\\net6.0-windows\\win-x64\\apphost.exe"
+            "SourcePath" = "8:..\\SuperLauncherBootstrap\\obj\\x86\\Release\\net6.0-windows\\win-x86\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EA3DE635538044C9A1F42744CE4FC13A"
@@ -612,7 +612,6 @@
             "OutputGroupCanonicalName" = "8:PublishItems"
             "OutputProjectGuid" = "8:{B1D9C991-ABCA-4963-843E-2874A2937581}"
             "ShowKeyOutput" = "11:TRUE"
-            "PublishProfilePath" = "8:Properties\\PublishProfiles\\FolderProfile.pubxml"
                 "ExcludeFilters"
                 {
                 }

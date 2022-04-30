@@ -3,6 +3,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
 using Microsoft.Win32;
+using System.Drawing;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace SuperLauncher
@@ -13,6 +14,8 @@ namespace SuperLauncher
         public Run()
         {
             InitializeComponent();
+            Top = Screen.GetWorkingArea(new Point(0, 0)).Height - Height - 5;
+            Left = Screen.GetWorkingArea(new Point(0, 0)).Width - Width - 5;
             pbIcon.Image = Resources.logo.ToBitmapAlpha(32, 32);
             Icon = Resources.logo;
             RunMRU.LoadMRU();
@@ -37,7 +40,8 @@ namespace SuperLauncher
             ProcessStartInfo startInfo = new()
             {
                 UseShellExecute = true,
-                FileName = cbInput.Text
+                FileName = cbInput.Text,
+                WorkingDirectory = Environment.GetEnvironmentVariable("USERPROFILE")
             };
             if (fileParts.Length != 0)
             {

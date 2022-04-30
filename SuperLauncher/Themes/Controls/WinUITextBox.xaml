@@ -22,12 +22,12 @@
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Unfocused">
                                     <Storyboard>
-                                        <DoubleAnimation Duration="00:00:00.3" To="0" Storyboard.TargetName="Accent" Storyboard.TargetProperty="Opacity"/>
+                                        <DoubleAnimation Duration="00:00:00.15" To="0" Storyboard.TargetName="Accent" Storyboard.TargetProperty="Opacity"/>
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Focused">
                                     <Storyboard>
-                                        <DoubleAnimation Duration="00:00:00.3" To="1" Storyboard.TargetName="Accent" Storyboard.TargetProperty="Opacity"/>
+                                        <DoubleAnimation Duration="00:00:00.15" To="1" Storyboard.TargetName="Accent" Storyboard.TargetProperty="Opacity"/>
                                     </Storyboard>
                                 </VisualState>
                             </VisualStateGroup>

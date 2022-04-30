@@ -16,7 +16,7 @@
     <Color x:Key="LighterColor">#19FFFFFF</Color>
     <SolidColorBrush x:Key="LighterColorBrush" Color="{DynamicResource LighterColor}" />
 
-    <Color x:Key="EvenLighterColor">#21FFFFFF</Color>
+    <Color x:Key="EvenLighterColor">#28FFFFFF</Color>
     <SolidColorBrush x:Key="EvenLighterColorBrush" Color="{DynamicResource EvenLighterColor}" />
 
     <Color x:Key="DarkerColor">#33000000</Color>

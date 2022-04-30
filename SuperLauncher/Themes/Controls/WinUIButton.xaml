@@ -22,20 +22,31 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="ButtonBorder" CornerRadius="4" Background="{DynamicResource LighterColorBrush}" BorderBrush="{DynamicResource EvenLighterColorBrush}" BorderThickness="1">
+                    <Border CornerRadius="4" BorderBrush="{DynamicResource EvenLighterColorBrush}" BorderThickness="1">
+                        <Grid>
+                            <Rectangle x:Name="BBLight" Opacity="1" Fill="{DynamicResource LighterColorBrush}" RadiusX="3" RadiusY="3" />
+                            <Rectangle x:Name="BBLighter" Opacity="0" Fill="{DynamicResource EvenLighterColorBrush}" RadiusX="3" RadiusY="3" />
+                            <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                        </Grid>
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Normal">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="BBLight" Storyboard.TargetProperty="Opacity" Duration="00:00:00.1" To="1" />
+                                        <DoubleAnimation Storyboard.TargetName="BBLighter" Storyboard.TargetProperty="Opacity" Duration="00:00:00.1" To="0" />
+                                    </Storyboard>
+                                </VisualState>
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard>
-                                        <ColorAnimation Duration="00:00:00.3" Storyboard.TargetProperty="Background.Color" Storyboard.TargetName="ButtonBorder" To="red" />
+                                        <DoubleAnimation Storyboard.TargetName="BBLight" Storyboard.TargetProperty="Opacity" Duration="00:00:00.1" To="0" />
+                                        <DoubleAnimation Storyboard.TargetName="BBLighter" Storyboard.TargetProperty="Opacity" Duration="00:00:00.1" To="1" />
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed"></VisualState>
                                 <VisualState x:Name="Disabled"></VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                        <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
+                        
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

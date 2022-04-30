@@ -152,7 +152,8 @@ namespace SuperLauncher
                     Process.Start(new ProcessStartInfo()
                     {
                         FileName = FilePath,
-                        UseShellExecute = true
+                        UseShellExecute = true,
+                        WorkingDirectory = Environment.GetEnvironmentVariable("USERPROFILE")
                     });
                 }
                 catch { }

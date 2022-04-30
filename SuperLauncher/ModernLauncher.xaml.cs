@@ -7,7 +7,6 @@ using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Windows.Controls;
-using System.Diagnostics;
 
 namespace SuperLauncher
 {
@@ -166,10 +165,15 @@ namespace SuperLauncher
         {
             if (IsVisible && e.Key == Key.Escape) CloseWindow();
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnExplorer_Click(object sender, RoutedEventArgs e)
         {
             CloseWindow();
             new ShellHost().Show();
+        }
+        private void BtnRun_Click(object sender, RoutedEventArgs e)
+        {
+            CloseWindow();
+            new Run().Show();
         }
     }
 }

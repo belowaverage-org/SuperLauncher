@@ -34,22 +34,22 @@
     <Grid>
         <Rectangle x:Name="RenderBoost" HorizontalAlignment="Left" Height="1" Fill="Transparent" VerticalAlignment="Top" Width="1" Margin="0,0,0,0"/>
         <Grid>
-            <Grid Height="32" VerticalAlignment="Top" Margin="0,0,0,0" Background="{DynamicResource PanelColor}">
-                <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource BorderColor}">
+            <Grid Height="32" VerticalAlignment="Top" Margin="0,0,0,0" Background="{DynamicResource PanelColorBrush}">
+                <Border BorderThickness="0,0,0,1" BorderBrush="{DynamicResource BorderColorBrush}">
                     <Grid Background="{DynamicResource AcrylicNoise}">
                         <Image HorizontalAlignment="Left" Stretch="Fill" Margin="10,7,0,6" Width="16" Height="16" Source="/Resources/logo_16.png" />
-                        <Label Content="Super Launcher" Foreground="{DynamicResource TextColor}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="31,0,0,0" Width="94" />
-                        <Label Content="" Foreground="{DynamicResource TextColor}" FontFamily="{DynamicResource Icons}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" Margin="0,0,5,0" />
+                        <Label Content="Super Launcher" Foreground="{DynamicResource TextColorBrush}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="31,0,0,0" Width="94" />
+                        <Label Content="" Foreground="{DynamicResource TextColorBrush}" FontFamily="{DynamicResource Icons}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" Margin="0,0,5,0" />
                     </Grid>
                 </Border>
             </Grid>
-            <Grid Background="{DynamicResource BodyColor}" VerticalAlignment="Stretch" Margin="0,32,0,60">
+            <Grid Background="{DynamicResource BodyColorBrush}" VerticalAlignment="Stretch" Margin="0,32,0,60">
                 <Grid Background="{DynamicResource AcrylicNoise}">
                     <local:ModernLauncherIcons x:Name="MLI" />
                 </Grid>
             </Grid>
-            <Grid VerticalAlignment="Bottom" Height="60" Margin="0,0,0,0" Background="{DynamicResource PanelColor}">
-                <Border BorderThickness="0,1,0,0" BorderBrush="{DynamicResource BorderColor}">
+            <Grid VerticalAlignment="Bottom" Height="60" Margin="0,0,0,0" Background="{DynamicResource PanelColorBrush}">
+                <Border BorderThickness="0,1,0,0" BorderBrush="{DynamicResource BorderColorBrush}">
                     <Grid Background="{DynamicResource AcrylicNoise}">
                         <TextBox x:Name="Filter" Tag="" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="28" Margin="15,15,200,0" TextChanged="Filter_TextChanged" KeyDown="Filter_KeyDown" />
                         <Button Content="" Margin="0,0,158,0" VerticalAlignment="Center" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="Button_Click"/>

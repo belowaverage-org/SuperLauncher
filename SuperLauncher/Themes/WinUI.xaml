@@ -1,13 +1,31 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" >
     <ImageBrush x:Key="AcrylicNoise" AlignmentX="Center" ImageSource="/Resources/noise.png" Opacity="0.10" Stretch="UniformToFill" TileMode="Tile" ViewboxUnits="RelativeToBoundingBox" Viewbox="0,0,1,1" ViewportUnits="Absolute" Viewport="0,0,250,250"/>
-    <SolidColorBrush x:Key="BodyColor" Color="#CC323232" />
-    <SolidColorBrush x:Key="PanelColor" Color="#CC232323" />
-    <SolidColorBrush x:Key="BorderColor" Color="#26FFFFFF" />
-    <SolidColorBrush x:Key="TextColor" Color="#FFC8C8C8" />
-    <SolidColorBrush x:Key="LighterColor" Color="#19FFFFFF" />
-    <SolidColorBrush x:Key="EvenLighterColor" Color="#21FFFFFF" />
-    <SolidColorBrush x:Key="DarkerColor" Color="#33000000" />
-    <SolidColorBrush x:Key="AccentColor" Color="#FFBB30DB" />
+
+    <Color x:Key="BodyColor">#CC323232</Color>
+    <SolidColorBrush x:Key="BodyColorBrush" Color="{DynamicResource BodyColor}" />
+
+    <Color x:Key="PanelColor">#CC232323</Color>
+    <SolidColorBrush x:Key="PanelColorBrush" Color="{DynamicResource PanelColor}" />
+
+    <Color x:Key="BorderColor">#26FFFFFF</Color>
+    <SolidColorBrush x:Key="BorderColorBrush" Color="{DynamicResource BorderColor}" />
+
+    <Color x:Key="TextColor">#FFC8C8C8</Color>
+    <SolidColorBrush x:Key="TextColorBrush" Color="{DynamicResource TextColor}" />
+
+    <Color x:Key="LighterColor">#19FFFFFF</Color>
+    <SolidColorBrush x:Key="LighterColorBrush" Color="{DynamicResource LighterColor}" />
+
+    <Color x:Key="EvenLighterColor">#21FFFFFF</Color>
+    <SolidColorBrush x:Key="EvenLighterColorBrush" Color="{DynamicResource EvenLighterColor}" />
+
+    <Color x:Key="DarkerColor">#33000000</Color>
+    <SolidColorBrush x:Key="DarkerColorBrush" Color="{DynamicResource DarkerColor}" />
+
+    <Color x:Key="AccentColor">#FFBB30DB</Color>
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource AccentColor}" />
+    
+    
     <FontFamily x:Key="Icons">/Resources/#Segoe Fluent Icons</FontFamily>
     <FontFamily x:Key="Font">/Resources/#Segoe UI</FontFamily>
     <ResourceDictionary.MergedDictionaries>

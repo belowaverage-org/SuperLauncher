@@ -7,15 +7,15 @@
         <Setter Property="MinWidth" Value="120" />
         <Setter Property="MinHeight" Value="20" />
         <Setter Property="AllowDrop" Value="true" />
-        <Setter Property="Foreground" Value="{DynamicResource TextColor}" />
-        <Setter Property="CaretBrush" Value="{DynamicResource TextColor}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextColorBrush}" />
+        <Setter Property="CaretBrush" Value="{DynamicResource TextColorBrush}" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type TextBoxBase}">
-                    <Border Name="Border" CornerRadius="4" BorderThickness="1" Background="{DynamicResource DarkerColor}" BorderBrush="{DynamicResource LighterColor}">
+                    <Border Name="Border" CornerRadius="4" BorderThickness="1" Background="{DynamicResource DarkerColorBrush}" BorderBrush="{DynamicResource LighterColorBrush}">
                         <Grid>
-                            <Label Margin="0,1,0,0" HorizontalAlignment="Left" Content="{TemplateBinding Tag}" FontFamily="{DynamicResource Icons}" Foreground="{DynamicResource TextColor}" />
-                            <Rectangle Name="Accent" RadiusX="4" RadiusY="4" Height="2" VerticalAlignment="Bottom" Fill="{DynamicResource AccentColor}" />
+                            <Label Margin="0,1,0,0" HorizontalAlignment="Left" Content="{TemplateBinding Tag}" FontFamily="{DynamicResource Icons}" Foreground="{DynamicResource TextColorBrush}" />
+                            <Rectangle Name="Accent" RadiusX="4" RadiusY="4" Height="2" VerticalAlignment="Bottom" Fill="{DynamicResource AccentColorBrush}" />
                             <ScrollViewer Margin="20,4,4,0" x:Name="PART_ContentHost" />
                         </Grid>
                         <VisualStateManager.VisualStateGroups>

@@ -15,7 +15,8 @@
         WindowStyle="None"
         Deactivated="Window_Deactivated"
         DpiChanged="Window_DpiChanged" 
-        FontFamily="{DynamicResource Font}" KeyDown="Window_KeyDown" >
+        FontFamily="{DynamicResource Font}"
+        KeyDown="Window_KeyDown" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -53,7 +54,7 @@
                     <Grid Background="{DynamicResource AcrylicNoise}">
                         <TextBox x:Name="Filter" Tag="" VerticalAlignment="Center" Height="28" Margin="15,0,144,0" TextChanged="Filter_TextChanged" KeyDown="Filter_KeyDown" />
                         <Button x:Name="BtnExplorer" Content="" Margin="0,15,101,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="BtnExplorer_Click"/>
-                        <Button x:Name="BtnMore" Content="" Margin="0,15,15,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16"/>
+                        <Button x:Name="BtnMore" Content="" Margin="0,15,15,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="BtnMore_Click"/>
                         <Button x:Name="BtnRun" Content="" Margin="0,15,58,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="BtnRun_Click"/>
                     </Grid>
                 </Border>

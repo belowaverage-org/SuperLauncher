@@ -1,0 +1,36 @@
+﻿<Window x:Class="SuperLauncher.ModernLauncherContextMenu"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SuperLauncher"
+        mc:Ignorable="d"
+        Title="Super Launcher"
+        ShowInTaskbar="False"
+        WindowStartupLocation="CenterScreen"
+        Background="#00000000"
+        WindowStyle="None"
+        FontFamily="{DynamicResource Font}"
+        Width="100" 
+        Height="100" Loaded="Window_Loaded">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/WinUI.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            CaptionHeight="0"
+            GlassFrameThickness="-1"
+            ResizeBorderThickness="0"
+            UseAeroCaptionButtons="true"
+        />
+    </WindowChrome.WindowChrome>
+    <Grid Background="{DynamicResource PanelColorBrush}">
+        <Grid Background="{DynamicResource AcrylicNoise}">
+            
+        </Grid>
+    </Grid>
+</Window>

@@ -175,5 +175,9 @@ namespace SuperLauncher
             CloseWindow();
             new Run().Show();
         }
+        private void BtnMore_Click(object sender, RoutedEventArgs e)
+        {
+            new ModernLauncherContextMenu().Show();
+        }
     }
 }

@@ -177,7 +177,9 @@ namespace SuperLauncher
         }
         private void BtnMore_Click(object sender, RoutedEventArgs e)
         {
-            new ModernLauncherContextMenu().Show();
+            ModernLauncherContextMenu menu = new();
+            menu.Frame.Content = new ModernLauncherContextMenuMain();
+            menu.Show();
         }
     }
 }

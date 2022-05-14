@@ -10,9 +10,11 @@
         WindowStartupLocation="CenterScreen"
         Background="#00000000"
         WindowStyle="None"
+        SizeToContent="WidthAndHeight"
         FontFamily="{DynamicResource Font}"
-        Width="100" 
-        Height="100" Loaded="Window_Loaded">
+        Width="100"
+        Height="100"
+        Loaded="Window_Loaded">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -29,8 +31,8 @@
         />
     </WindowChrome.WindowChrome>
     <Grid Background="{DynamicResource PanelColorBrush}">
-        <Grid Background="{DynamicResource AcrylicNoise}">
-            
+        <Grid x:Name="Grid" Background="{DynamicResource AcrylicNoise}">
+            <Frame x:Name="Frame" Margin="3,3,3,3" />
         </Grid>
     </Grid>
 </Window>

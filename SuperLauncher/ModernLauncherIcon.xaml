@@ -27,6 +27,6 @@
                 </TransformGroup>
             </Image.RenderTransform>
         </Image>
-        <TextBlock x:Name="NameText" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow" Text="Super Launcher" Foreground="White" Height="36" Margin="0,48,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="84" TextAlignment="Center" />
+        <TextBlock x:Name="NameText" ScrollViewer.VerticalScrollBarVisibility="Disabled" TextTrimming="CharacterEllipsis" TextWrapping="WrapWithOverflow" Text="Super Launcher" Foreground="{DynamicResource TextColorHighlightBrush}" Height="36" Margin="0,48,0,0" HorizontalAlignment="Center" VerticalAlignment="Top" Width="84" TextAlignment="Center" />
     </Grid>
 </UserControl>

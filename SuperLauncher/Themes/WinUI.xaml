@@ -13,6 +13,9 @@
     <Color x:Key="TextColor">#FFC8C8C8</Color>
     <SolidColorBrush x:Key="TextColorBrush" Color="{DynamicResource TextColor}" />
 
+    <Color x:Key="TextColorHighlight">white</Color>
+    <SolidColorBrush x:Key="TextColorHighlightBrush" Color="{DynamicResource TextColorHighlight}" />
+
     <Color x:Key="LighterColor">#19FFFFFF</Color>
     <SolidColorBrush x:Key="LighterColorBrush" Color="{DynamicResource LighterColor}" />
 

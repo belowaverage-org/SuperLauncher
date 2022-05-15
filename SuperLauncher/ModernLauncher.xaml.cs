@@ -16,6 +16,7 @@ namespace SuperLauncher
     public partial class ModernLauncher : Window
     {
         public static DpiScale DPI;
+        private bool IgnoreDeactivation = false;
         private WindowInteropHelper WIH;
         private HwndSource HWND;
         private DoubleAnimation RenderBoostAnimation = new()
@@ -67,6 +68,7 @@ namespace SuperLauncher
         }
         private void Window_Deactivated(object sender, EventArgs e)
         {
+            if (IgnoreDeactivation) return;
             if (IsVisible) CloseWindow();
         }
         private void UpdateAnimations()
@@ -175,18 +177,15 @@ namespace SuperLauncher
             CloseWindow();
             new Run().Show();
         }
-        private void BtnMore_Click(object sender, RoutedEventArgs e)
+        private async void BtnMore_Click(object sender, RoutedEventArgs e)
         {
+            IgnoreDeactivation = true;
             ModernLauncherContextMenu menu = new();
             menu.Frame.Content = new ModernLauncherContextMenuMain();
-            menu.Loaded += Menu_Loaded;
+            menu.Top = Top + Height - 255;
+            menu.Left = Left + Width - 180;
             menu.Show();
-        }
-        private void Menu_Loaded(object sender, RoutedEventArgs e)
-        {
-            ModernLauncherContextMenu menu = (ModernLauncherContextMenu)sender;
-            menu.Left = Left + Width - menu.Width - 5;
-            menu.Top = Top + Height - menu.Height - 5;
+            IgnoreDeactivation = false;
         }
     }
 }

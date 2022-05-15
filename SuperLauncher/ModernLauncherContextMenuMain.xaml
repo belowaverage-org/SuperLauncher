@@ -15,6 +15,14 @@
         </ResourceDictionary>
     </Page.Resources>
     <StackPanel >
-        <local:ModernLauncherContextMenuButton Content="test"></local:ModernLauncherContextMenuButton>
+        <local:ModernLauncherContextMenuButton Text="About Super Launcher" Icon="" />
+        <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
+        <local:ModernLauncherContextMenuButton Text="Elevate" Icon="" />
+        <local:ModernLauncherContextMenuButton Text="Run as" Icon="" />
+        <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
+        <local:ModernLauncherContextMenuButton Text="View config" Icon="" />
+        <local:ModernLauncherContextMenuButton Text="Settings" Icon="" />
+        <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
+        <local:ModernLauncherContextMenuButton Text="Exit" Icon="" />
     </StackPanel>
 </Page>

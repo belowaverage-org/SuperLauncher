@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SuperLauncher
 {
@@ -20,6 +8,16 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncherContextMenuButton : UserControl
     {
+        public string Text
+        {
+            get { return (string)TextLabel.Content; }
+            set { TextLabel.Content = value; }
+        }
+        public string Icon
+        {
+            get { return (string)IconLabel.Content; }
+            set { IconLabel.Content = value; }
+        }
         public ModernLauncherContextMenuButton()
         {
             InitializeComponent();

@@ -179,7 +179,14 @@ namespace SuperLauncher
         {
             ModernLauncherContextMenu menu = new();
             menu.Frame.Content = new ModernLauncherContextMenuMain();
+            menu.Loaded += Menu_Loaded;
             menu.Show();
+        }
+        private void Menu_Loaded(object sender, RoutedEventArgs e)
+        {
+            ModernLauncherContextMenu menu = (ModernLauncherContextMenu)sender;
+            menu.Left = Left + Width - menu.Width - 5;
+            menu.Top = Top + Height - menu.Height - 5;
         }
     }
 }

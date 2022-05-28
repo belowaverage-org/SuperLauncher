@@ -28,39 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btnBack = new System.Windows.Forms.Button();
-            this.btnForward = new System.Windows.Forms.Button();
             this.txtNav = new System.Windows.Forms.ComboBox();
             this.Browser = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser();
-            this.btnNavUp = new System.Windows.Forms.Button();
             this.panelBorderCover = new System.Windows.Forms.Panel();
             this.SuspendLayout();
-            // 
-            // btnBack
-            // 
-            this.btnBack.Enabled = false;
-            this.btnBack.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnBack.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnBack.Location = new System.Drawing.Point(4, 3);
-            this.btnBack.Name = "btnBack";
-            this.btnBack.Size = new System.Drawing.Size(25, 25);
-            this.btnBack.TabIndex = 1;
-            this.btnBack.Text = "";
-            this.btnBack.UseVisualStyleBackColor = true;
-            this.btnBack.Click += new System.EventHandler(this.BtnBack_Click);
-            // 
-            // btnForward
-            // 
-            this.btnForward.Enabled = false;
-            this.btnForward.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnForward.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnForward.Location = new System.Drawing.Point(33, 3);
-            this.btnForward.Name = "btnForward";
-            this.btnForward.Size = new System.Drawing.Size(25, 25);
-            this.btnForward.TabIndex = 2;
-            this.btnForward.Text = "";
-            this.btnForward.UseVisualStyleBackColor = true;
-            this.btnForward.Click += new System.EventHandler(this.BtnForward_Click);
             // 
             // txtNav
             // 
@@ -68,7 +39,9 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtNav.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtNav.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllSystemSources;
+            this.txtNav.ItemHeight = 15;
             this.txtNav.Location = new System.Drawing.Point(98, 4);
+            this.txtNav.MaxDropDownItems = 30;
             this.txtNav.Name = "txtNav";
             this.txtNav.Size = new System.Drawing.Size(472, 23);
             this.txtNav.TabIndex = 3;
@@ -86,19 +59,6 @@
             this.Browser.TabIndex = 5;
             this.Browser.NavigationComplete += new System.EventHandler<Microsoft.WindowsAPICodePack.Controls.NavigationCompleteEventArgs>(this.Browser_NavigationComplete);
             // 
-            // btnNavUp
-            // 
-            this.btnNavUp.Enabled = false;
-            this.btnNavUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.btnNavUp.Font = new System.Drawing.Font("Segoe UI Symbol", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnNavUp.Location = new System.Drawing.Point(69, 3);
-            this.btnNavUp.Name = "btnNavUp";
-            this.btnNavUp.Size = new System.Drawing.Size(25, 25);
-            this.btnNavUp.TabIndex = 6;
-            this.btnNavUp.Text = "";
-            this.btnNavUp.UseVisualStyleBackColor = true;
-            this.btnNavUp.Click += new System.EventHandler(this.BtnNavUp_Click);
-            // 
             // panelBorderCover
             // 
             this.panelBorderCover.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -113,14 +73,11 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(575, 321);
             this.Controls.Add(this.panelBorderCover);
-            this.Controls.Add(this.btnNavUp);
             this.Controls.Add(this.Browser);
             this.Controls.Add(this.txtNav);
-            this.Controls.Add(this.btnForward);
-            this.Controls.Add(this.btnBack);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.KeyPreview = true;
@@ -133,11 +90,8 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button btnBack;
-        private System.Windows.Forms.Button btnForward;
         private System.Windows.Forms.ComboBox txtNav;
         private Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser Browser;
-        private System.Windows.Forms.Button btnNavUp;
         private System.Windows.Forms.Panel panelBorderCover;
     }
 }

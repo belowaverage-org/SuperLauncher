@@ -2,6 +2,7 @@
 using Microsoft.WindowsAPICodePack.Shell;
 using System;
 using System.Windows.Forms;
+using System.Windows.Forms.Integration;
 using System.IO;
 
 namespace SuperLauncher
@@ -17,6 +18,13 @@ namespace SuperLauncher
         public void Init()
         {
             InitializeComponent();
+            ElementHost modernButtons = new ElementHost();
+            modernButtons.Width = 90;
+            modernButtons.Height = 30;
+            modernButtons.Top = 0;
+            modernButtons.Left = 0;
+            modernButtons.Child = new ModernLauncherExplorerButtons();
+            modernButtons.Parent = this;
             Icon = Resources.logo;
             try
             {
@@ -46,9 +54,9 @@ namespace SuperLauncher
             {
                 txtNav.Text = e.NewLocation.GetDisplayName(DisplayNameType.Default);
             }
-            btnNavUp.Enabled = Directory.Exists(txtNav.Text) && Directory.GetParent(txtNav.Text) != null;
-            btnBack.Enabled = Browser.NavigationLog.CanNavigateBackward;
-            btnForward.Enabled = Browser.NavigationLog.CanNavigateForward;
+            //btnNavUp.Enabled = Directory.Exists(txtNav.Text) && Directory.GetParent(txtNav.Text) != null;
+            //btnBack.Enabled = Browser.NavigationLog.CanNavigateBackward;
+            //btnForward.Enabled = Browser.NavigationLog.CanNavigateForward;
         }
         private void BtnNavUp_Click(object sender, EventArgs e)
         {

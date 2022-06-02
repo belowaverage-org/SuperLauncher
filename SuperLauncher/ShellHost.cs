@@ -2,14 +2,17 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Runtime.InteropServices;
 
 namespace SuperLauncher
 {
     public partial class ShellHost : Form
     {
         private string InitialPath;
+        private IntPtr FormHandle;
         public ShellHost(string InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
         {
+            FormHandle = Handle;
             InitializeComponent();
             MsMiExit.Click += MsMiExit_Click;
             MsMiNew.Click += MsMiNew_Click;
@@ -27,6 +30,15 @@ namespace SuperLauncher
         private void ShellHost_Load(object sender, EventArgs e)
         {
             MsMiNew_Click(null, null);
+            foreach(Control ctrl in Controls)
+            {
+                if (ctrl.GetType() == typeof(MdiClient))
+                {
+                    ctrl.BackColor = Color.WhiteSmoke;
+                    PInvoke.User32.SetWindowLong(ctrl.Handle, PInvoke.User32.WindowLongIndexFlags.GWL_EXSTYLE, 0);
+                }
+            }
+            Width += 1; Height += 1;
         }
         private void MsMiExit_Click(object sender, EventArgs e)
         {

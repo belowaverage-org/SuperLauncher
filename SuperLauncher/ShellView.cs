@@ -21,8 +21,8 @@ namespace SuperLauncher
             ElementHost modernButtons = new ElementHost();
             modernButtons.Width = 90;
             modernButtons.Height = 30;
-            modernButtons.Top = 0;
-            modernButtons.Left = 0;
+            modernButtons.Top = 2;
+            modernButtons.Left = 3;
             modernButtons.Child = new ModernLauncherExplorerButtons();
             modernButtons.Parent = this;
             Icon = Resources.logo;

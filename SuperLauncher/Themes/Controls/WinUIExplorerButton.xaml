@@ -46,46 +46,8 @@
                                 <VisualState x:Name="Disabled"></VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
+                        
                     </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Style x:Key="ExplorerButton"  TargetType="Button">
-        <Setter Property="SnapsToDevicePixels" Value="true" />
-        <Setter Property="OverridesDefaultStyle" Value="true" />
-        <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />
-        <Setter Property="MinHeight" Value="16" />
-        <Setter Property="MinWidth" Value="16" />
-        <Setter Property="Foreground" Value="#262626" />
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="Button">
-                    <Grid>
-                        <Grid>
-                            <Rectangle x:Name="BBLight" Opacity="1" Fill="Transparent" RadiusX="4" RadiusY="4" />
-                            <Rectangle x:Name="BBLighter" Opacity="0" RadiusX="4" RadiusY="4" Fill="#19000000" />
-                            <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
-                        </Grid>
-                        <VisualStateManager.VisualStateGroups>
-                            <VisualStateGroup x:Name="CommonStates">
-                                <VisualState x:Name="Normal">
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="BBLight" Storyboard.TargetProperty="Opacity" Duration="00:00:00.1" To="1" />
-                                        <DoubleAnimation Storyboard.TargetName="BBLighter" Storyboard.TargetProperty="Opacity" Duration="00:00:00.1" To="0" />
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="MouseOver">
-                                    <Storyboard>
-                                        <DoubleAnimation Storyboard.TargetName="BBLight" Storyboard.TargetProperty="Opacity" Duration="00:00:00.1" To="0" />
-                                        <DoubleAnimation Storyboard.TargetName="BBLighter" Storyboard.TargetProperty="Opacity" Duration="00:00:00.1" To="1" />
-                                    </Storyboard>
-                                </VisualState>
-                                <VisualState x:Name="Pressed"></VisualState>
-                                <VisualState x:Name="Disabled"></VisualState>
-                            </VisualStateGroup>
-                        </VisualStateManager.VisualStateGroups>
-                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

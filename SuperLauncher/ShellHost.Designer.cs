@@ -47,6 +47,7 @@
             // 
             // MsMiExplorer
             // 
+            this.MsMiExplorer.BackColor = System.Drawing.Color.WhiteSmoke;
             this.MsMiExplorer.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.MsMiFile,
             this.MsMiWindows,

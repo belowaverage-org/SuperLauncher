@@ -40,7 +40,7 @@
             this.txtNav.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtNav.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllSystemSources;
             this.txtNav.ItemHeight = 15;
-            this.txtNav.Location = new System.Drawing.Point(98, 4);
+            this.txtNav.Location = new System.Drawing.Point(99, 5);
             this.txtNav.MaxDropDownItems = 30;
             this.txtNav.Name = "txtNav";
             this.txtNav.Size = new System.Drawing.Size(472, 23);
@@ -73,7 +73,7 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
-            this.BackColor = System.Drawing.Color.Black;
+            this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(575, 321);
             this.Controls.Add(this.panelBorderCover);
             this.Controls.Add(this.Browser);

@@ -89,6 +89,14 @@ namespace SuperLauncher
                 new PropertyChangedCallback(WindowPositionChanged)
             )
         );
+        private void SetElevateLabels()
+        {
+            ElevateUser.Content = Environment.UserDomainName + @"\" + Environment.UserName;
+            if (UserAccountControl.Uac.IsProcessElevated())
+            {
+                ElevateIcon.Content = "";
+            }
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             SetPosition();
@@ -100,6 +108,7 @@ namespace SuperLauncher
             Win32Interop.RegisterHotKey(WIH.Handle, 1, 0x1 | 0x4000, 0x45); //Register Hot Key ALT + E
             Win32Interop.RegisterHotKey(WIH.Handle, 2, 0x1 | 0x4000, 0x52); //Register Hot Key ALT + R
             HWND.AddHook(HwndSourceHook);
+            SetElevateLabels();
         }
         [DllImport("User32.dll")]
         private static extern bool InvalidateRect(IntPtr Handle, IntPtr Rect, bool Erase);
@@ -177,7 +186,7 @@ namespace SuperLauncher
             CloseWindow();
             new Run().Show();
         }
-        private async void BtnMore_Click(object sender, RoutedEventArgs e)
+        private void BtnMore_Click(object sender, RoutedEventArgs e)
         {
             IgnoreDeactivation = true;
             ModernLauncherContextMenu menu = new();

@@ -10,7 +10,6 @@ namespace SuperLauncher
         private string InitialPath;
         public ShellHost(string InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
         {
-            FormHandle = Handle;
             InitializeComponent();
             MsMiExit.Click += MsMiExit_Click;
             MsMiNew.Click += MsMiNew_Click;

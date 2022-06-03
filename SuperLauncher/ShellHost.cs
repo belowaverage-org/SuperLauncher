@@ -2,14 +2,12 @@
 using System;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
 
 namespace SuperLauncher
 {
     public partial class ShellHost : Form
     {
         private string InitialPath;
-        private IntPtr FormHandle;
         public ShellHost(string InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
         {
             FormHandle = Handle;
@@ -35,6 +33,7 @@ namespace SuperLauncher
                 if (ctrl.GetType() == typeof(MdiClient))
                 {
                     ctrl.BackColor = Color.WhiteSmoke;
+                    ctrl.BackgroundImage = Resources.logo_explorer_divot;
                     PInvoke.User32.SetWindowLong(ctrl.Handle, PInvoke.User32.WindowLongIndexFlags.GWL_EXSTYLE, 0);
                 }
             }

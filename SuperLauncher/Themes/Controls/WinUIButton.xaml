@@ -61,7 +61,7 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Grid>
+                    <Grid x:Name="Grid">
                         <Grid>
                             <Rectangle x:Name="BBLight" Opacity="1" Fill="Transparent" RadiusX="4" RadiusY="4" />
                             <Rectangle x:Name="BBLighter" Opacity="0" RadiusX="4" RadiusY="4" Fill="#19000000" />
@@ -71,6 +71,7 @@
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
                                     <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" Duration="00:00:00.3" To="1" />
                                         <DoubleAnimation Storyboard.TargetName="BBLight" Storyboard.TargetProperty="Opacity" Duration="00:00:00.1" To="1" />
                                         <DoubleAnimation Storyboard.TargetName="BBLighter" Storyboard.TargetProperty="Opacity" Duration="00:00:00.1" To="0" />
                                     </Storyboard>
@@ -82,7 +83,11 @@
                                     </Storyboard>
                                 </VisualState>
                                 <VisualState x:Name="Pressed"></VisualState>
-                                <VisualState x:Name="Disabled"></VisualState>
+                                <VisualState x:Name="Disabled">
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="Grid" Storyboard.TargetProperty="Opacity" Duration="00:00:00.3" To="0.5" />
+                                    </Storyboard>
+                                </VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
                     </Grid>

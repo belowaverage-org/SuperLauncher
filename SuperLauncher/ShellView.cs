@@ -10,6 +10,7 @@ namespace SuperLauncher
     public partial class ShellView : Form
     {
         private string InitialPath;
+        private ModernLauncherExplorerButtons MButtons = new();
         public ShellView(string InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
         {
             this.InitialPath = InitialPath;
@@ -18,13 +19,16 @@ namespace SuperLauncher
         public void Init()
         {
             InitializeComponent();
-            ElementHost modernButtons = new ElementHost();
-            modernButtons.Width = 90;
-            modernButtons.Height = 30;
-            modernButtons.Top = 2;
-            modernButtons.Left = 3;
-            modernButtons.Child = new ModernLauncherExplorerButtons();
-            modernButtons.Parent = this;
+            ElementHost modernButtonsEH = new ElementHost();
+            modernButtonsEH.Width = 90;
+            modernButtonsEH.Height = 30;
+            modernButtonsEH.Top = 2;
+            modernButtonsEH.Left = 3;
+            modernButtonsEH.Child = MButtons;
+            modernButtonsEH.Parent = this;
+            MButtons.Back.Click += BtnBack_Click;
+            MButtons.Forward.Click += BtnForward_Click;
+            MButtons.Up.Click += BtnNavUp_Click;
             Icon = Resources.logo;
             try
             {
@@ -54,9 +58,9 @@ namespace SuperLauncher
             {
                 txtNav.Text = e.NewLocation.GetDisplayName(DisplayNameType.Default);
             }
-            //btnNavUp.Enabled = Directory.Exists(txtNav.Text) && Directory.GetParent(txtNav.Text) != null;
-            //btnBack.Enabled = Browser.NavigationLog.CanNavigateBackward;
-            //btnForward.Enabled = Browser.NavigationLog.CanNavigateForward;
+            MButtons.Up.IsEnabled = Directory.Exists(txtNav.Text) && Directory.GetParent(txtNav.Text) != null;
+            MButtons.Back.IsEnabled = Browser.NavigationLog.CanNavigateBackward;
+            MButtons.Forward.IsEnabled = Browser.NavigationLog.CanNavigateForward;
         }
         private void BtnNavUp_Click(object sender, EventArgs e)
         {

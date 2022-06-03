@@ -133,6 +133,9 @@
   <data name="logo_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\logo_256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="logo_explorer_divot" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>resources\logo_explorer_divot.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="noise" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>Resources\noise.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>

@@ -15,8 +15,8 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Button Style="{DynamicResource ExplorerButton}" Margin="0,1,62,1" FontFamily="{DynamicResource Icons}" Width="28" Height="28"></Button>
-        <Button Style="{DynamicResource ExplorerButton}" Margin="30,1,32,1" FontFamily="{DynamicResource Icons}" Width="28" Height="28"></Button>
-        <Button Style="{DynamicResource ExplorerButton}" Margin="62,1,0,1" FontFamily="{DynamicResource Icons}" Width="28" Height="28"></Button>
+        <Button x:Name="Back" Style="{DynamicResource ExplorerButton}" Margin="0,1,62,1" FontFamily="{DynamicResource Icons}" Width="28" Height="28"></Button>
+        <Button x:Name="Forward" Style="{DynamicResource ExplorerButton}" Margin="30,1,32,1" FontFamily="{DynamicResource Icons}" Width="28" Height="28"></Button>
+        <Button x:Name="Up" Style="{DynamicResource ExplorerButton}" Margin="62,1,0,1" FontFamily="{DynamicResource Icons}" Width="28" Height="28"></Button>
     </Grid>
 </UserControl>

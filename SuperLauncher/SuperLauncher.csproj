@@ -12,6 +12,7 @@
     <None Remove="Resources\explorer.png" />
     <None Remove="Resources\logo_16.png" />
     <None Remove="Resources\logo_256.png" />
+    <None Remove="Resources\logo_explorer_divot.png" />
     <None Remove="Resources\noise.png" />
     <None Remove="Resources\run.png" />
     <None Remove="Resources\SegoeIcons.ttf" />
@@ -26,7 +27,7 @@
     </PackageReference>
     <PackageReference Include="PInvoke.Gdi32" Version="0.7.104" />
     <PackageReference Include="PInvoke.User32" Version="0.7.104" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0-preview.1.22076.8" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0-preview.4.22229.4" />
     <PackageReference Include="UserAccountControl" Version="1.0.4636.39457">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
@@ -47,6 +48,7 @@
     <Resource Include="Resources\explorer.png" />
     <Resource Include="Resources\logo_16.png" />
     <Resource Include="Resources\logo_256.png" />
+    <Resource Include="Resources\logo_explorer_divot.png" />
     <Resource Include="Resources\noise.png" />
     <Resource Include="Resources\run.png" />
     <Resource Include="Resources\SegoeIcons.ttf">
@@ -107,12 +109,6 @@
     <EmbeddedResource Update="ShellView.resx">
       <DependentUpon>ShellView.cs</DependentUpon>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="Themes\Controls\WinUIExplorerButton.xaml">
-      <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
-    </Page>
   </ItemGroup>
 
 </Project>

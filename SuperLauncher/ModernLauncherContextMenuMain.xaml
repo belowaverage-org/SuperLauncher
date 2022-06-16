@@ -20,9 +20,9 @@
         <local:ModernLauncherContextMenuButton x:Name="BtnElevate" Text="Elevate" Icon="" />
         <local:ModernLauncherContextMenuButton x:Name="BtnRunAs" Text="Run as" Icon="" />
         <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
-        <local:ModernLauncherContextMenuButton x:Name="BtnViewConfig" Text="View config" Icon="" />
-        <local:ModernLauncherContextMenuButton x:Name="BtnSettings" Text="Settings" Icon="" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnViewConfig" Text="View config" Icon="" MouseUp="BtnViewConfig_MouseUp" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnSettings" Text="Settings" Icon="" MouseUp="BtnSettings_MouseUp" />
         <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
-        <local:ModernLauncherContextMenuButton x:Name="BtnExit" Text="Exit" Icon="" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnExit" Text="Exit" Icon="" MouseUp="BtnExit_MouseUp" />
     </StackPanel>
 </Page>

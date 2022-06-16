@@ -436,8 +436,7 @@ namespace SuperLauncher
         }
         private void TcMiSettings_Click(object sender, EventArgs e)
         {
-            SettingsForm form = new();
-            form.ShowDialog();
+            new SettingsForm().ShowDialog();
         }
         private void Launcher_KeyDown(object sender, KeyEventArgs e)
         {

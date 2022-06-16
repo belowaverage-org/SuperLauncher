@@ -21,6 +21,7 @@ namespace SuperLauncher
             else
             {
                 ModernApplication = new();
+                //ModernApplication.Run(new ModernLauncherCredentialUI());
                 ModernApplication.Run(new ModernLauncher());
             }
         }

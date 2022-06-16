@@ -51,7 +51,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="ExplorerButton"  TargetType="Button">
+    <Style x:Key="ExplorerButton" TargetType="Button">
         <Setter Property="SnapsToDevicePixels" Value="true" />
         <Setter Property="OverridesDefaultStyle" Value="true" />
         <Setter Property="FocusVisualStyle" Value="{StaticResource ButtonFocusVisual}" />

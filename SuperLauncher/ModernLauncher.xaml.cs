@@ -191,10 +191,20 @@ namespace SuperLauncher
             IgnoreDeactivation = true;
             ModernLauncherContextMenu menu = new();
             menu.Frame.Content = new ModernLauncherContextMenuMain();
+            menu.Closed += Menu_Closed;
+            menu.MouseUp += Menu_MouseUp;
             menu.Top = Top + Height - 255;
             menu.Left = Left + Width - 180;
             menu.Show();
             IgnoreDeactivation = false;
         }
+        private void Menu_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            CloseWindow();
+        }
+        private void Menu_Closed(object sender, EventArgs e)
+        {
+            Activate();
+        }
     }
-}
+} 

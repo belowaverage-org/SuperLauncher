@@ -35,5 +35,6 @@
         <ResourceDictionary Source="/Themes/Controls/WinUIScrollBar.xaml" />
         <ResourceDictionary Source="/Themes/Controls/WinUITextBox.xaml" />
         <ResourceDictionary Source="/Themes/Controls/WinUIButton.xaml" />
+        <ResourceDictionary Source="/Themes/Controls/WinUICheckBox.xaml" />
     </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

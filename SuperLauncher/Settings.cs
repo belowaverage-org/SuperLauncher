@@ -12,50 +12,116 @@ namespace SuperLauncher {
         private readonly string configDir = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName);
         public string configPath = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName, "SuperLauncherConfig.xml");
         public XmlDocument XDoc = new();
-        public bool AutoElevate {
+        public bool AutoElevate
+        {
             get
             {
-                if (!bool.TryParse(XDoc.SelectSingleNode("/SuperLauncher/AutoElevate").InnerText, out bool val)) val = false;
-                return val;
+                return ReadBool("AutoElevate");
             }
             set
             {
-                XDoc.SelectSingleNode("/SuperLauncher/AutoElevate").InnerText = value.ToString();
+                Write("AutoElevate", value);
+            }
+        }
+        public bool RememberMe
+        {
+            get
+            {
+                return ReadBool("RememberMe");
+            }
+            set
+            {
+                Write("RememberMe", value);
             }
         }
         public string AutoRunAsDomain
         {
             get
             {
-                return XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsDomain").InnerText;
+                return Read("AutoRunAsDomain");
             }
             set
             {
-                XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsDomain").InnerText = value;
+                Write("AutoRunAsDomain", value);
             }
         }
         public string AutoRunAsUser
         {
             get
             {
-                return XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsUser").InnerText;
+                return Read("AutoRunAsUser");
             }
             set
             {
-                XDoc.SelectSingleNode("/SuperLauncher/AutoRunAsUser").InnerText = value;
+                Write("AutoRunAsUser", value);
             }
         }
         public bool UseLegacyUI
         {
             get
             {
-                if (!bool.TryParse(XDoc.SelectSingleNode("/SuperLauncher/UseLegacyUI")?.InnerText, out bool val)) val = false;
-                return val;
+                return ReadBool("UseLegacyUI");
             }
             set
             {
-                XDoc.SelectSingleNode("/SuperLauncher/UseLegacyUI").InnerText = value.ToString();
+                Write("UseLegacyUI", value);
             }
+        }
+        public int Height
+        {
+            get
+            {
+                return ReadInt("Height");
+            }
+            set
+            {
+                Write("Height", value);
+            }
+        }
+        public int Width
+        {
+            get
+            {
+                return ReadInt("Width");
+            }
+            set
+            {
+                Write("Width", value);
+            }
+        }
+        public string Read(string NodeName)
+        {
+            XmlNode node = XDoc.SelectSingleNode("/SuperLauncher/" + NodeName);
+            if (node == null) return null;
+            return node.InnerText;
+        }
+        public bool ReadBool(string NodeName)
+        {
+            if (!bool.TryParse(Read(NodeName), out bool val)) val = false;
+            return val;
+        }
+        public int ReadInt(string NodeName)
+        {
+            if (!int.TryParse(Read(NodeName), out int val)) val = 0;
+            return val;
+        }
+        public void Write(string NodeName, string Value)
+        {
+            XmlNode node = XDoc.SelectSingleNode("/SuperLauncher/" + NodeName);
+            if (node == null)
+            {
+                node = XDoc.CreateElement(NodeName);
+                XDoc.SelectSingleNode("/SuperLauncher").AppendChild(node);
+            }
+            node.InnerText = Value;
+        }
+        public void Write(string NodeName, bool Value)
+        {
+            Write(NodeName, Value.ToString());
+        }
+        public void Write(string NodeName, int Value)
+        {
+            Write(NodeName, Value.ToString());
         }
         public AppListStringCollection FileList
         {
@@ -71,30 +137,6 @@ namespace SuperLauncher {
             }
             set { }
         }
-        public int Height
-        {
-            get
-            {
-                if (!int.TryParse(XDoc.SelectSingleNode("/SuperLauncher/Height").InnerText, out int val)) val = 0;
-                return val;
-            }
-            set
-            {
-                XDoc.SelectSingleNode("/SuperLauncher/Height").InnerText = value.ToString();
-            }
-        }
-        public int Width
-        {
-            get
-            {
-                if (!int.TryParse(XDoc.SelectSingleNode("/SuperLauncher/Width").InnerText, out int val)) val = 0;
-                return val;
-            }
-            set
-            {
-                XDoc.SelectSingleNode("/SuperLauncher/Width").InnerText = value.ToString();
-            }
-        }
         public SettingsDefault()
         {
             if(File.Exists(configPath))
@@ -109,6 +151,7 @@ namespace SuperLauncher {
                 "   <AutoElevate>false</AutoElevate>" +
                 "   <AutoRunAsDomain></AutoRunAsDomain>" +
                 "   <AutoRunAsUser></AutoRunAsUser>" +
+                "   <RememberMe>false</RememberMe>" +
                 "   <UseLegacyUI>false</UseLegacyUI>" +
                 "   <AppList>" +
                 "       <App>C:\\Windows\\System32\\cmd.exe</App>" +

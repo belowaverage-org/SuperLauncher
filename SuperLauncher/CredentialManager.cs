@@ -14,7 +14,7 @@ namespace SuperLauncher
         {
             bool success =  CredReadA(TargetName, Type, Flags, out IntPtr credPtr);
             Credential = new();
-            Marshal.PtrToStructure(credPtr, Credential);
+            try { Marshal.PtrToStructure(credPtr, Credential); } catch { }
             return success;
         }
         [StructLayout(LayoutKind.Sequential)]

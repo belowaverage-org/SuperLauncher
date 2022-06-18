@@ -27,6 +27,9 @@
 
     <Color x:Key="AccentColor">#FFBB30DB</Color>
     <SolidColorBrush x:Key="AccentColorBrush" Color="{DynamicResource AccentColor}" />
+
+    <Color x:Key="DarkerAccentColor">#FF8b1da3</Color>
+    <SolidColorBrush x:Key="DarkerAccentColorBrush" Color="{DynamicResource DarkerAccentColor}" />
     
     
     <FontFamily x:Key="Icons">/Resources/#Segoe Fluent Icons</FontFamily>

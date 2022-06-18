@@ -29,5 +29,9 @@ namespace SuperLauncher
         {
             Process.Start("OpenWith.exe", "\"" + Settings.Default.configPath + "\"");
         }
+        private void BtnElevate_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            RunAsHelper.Elevate();
+        }
     }
 }

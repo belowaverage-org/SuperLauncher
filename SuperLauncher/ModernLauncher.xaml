@@ -16,7 +16,7 @@
         Deactivated="Window_Deactivated"
         DpiChanged="Window_DpiChanged" 
         FontFamily="{DynamicResource Font}"
-        KeyDown="Window_KeyDown" >
+        KeyDown="Window_KeyDown" Closing="Window_Closing" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

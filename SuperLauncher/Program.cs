@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 
 namespace SuperLauncher
@@ -22,7 +24,22 @@ namespace SuperLauncher
             {
                 ModernApplication = new();
                 //ModernApplication.Run(new ModernLauncherCredentialUI());
-                ModernApplication.Run(new ModernLauncher());
+                //ModernApplication.Run(new ModernLauncher());
+
+                CredentialManager.CREDENTIAL cred = new()
+                {
+                    Type = CredentialManager.CredType.CRED_TYPE_GENERIC,
+                    TargetName = "Super Launcher",
+                    Comment = "Super Launcher - Run As",
+                    Persist = CredentialManager.CredPersist.CRED_PERSIST_LOCAL_MACHINE,
+                    UserName = "SUPERLAUNCHER",
+                    Password = "HELLOWORLD"
+                };
+
+                //CredentialManager.CredWriteA(cred, CredentialManager.CredWriteFlags.NONE);
+
+                CredentialManager.CredReadA("Super Launcher", CredentialManager.CredType.CRED_TYPE_GENERIC, CredentialManager.CredReadFlags.NONE, out CredentialManager.CREDENTIAL OutCred);
+                _ = OutCred;
             }
         }
     }

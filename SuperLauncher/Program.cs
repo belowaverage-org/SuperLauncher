@@ -14,7 +14,6 @@ namespace SuperLauncher
         static void Main(string[] arguments)
         {
             Arguments = arguments;
-            System.Windows.Forms.Application.EnableVisualStyles();
             if (Settings.Default.UseLegacyUI)
             {
                 System.Windows.Forms.Application.Run(new Launcher());

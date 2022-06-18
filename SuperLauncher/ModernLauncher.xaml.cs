@@ -92,7 +92,7 @@ namespace SuperLauncher
         private void SetElevateLabels()
         {
             ElevateUser.Content = Environment.UserDomainName + @"\" + Environment.UserName;
-            if (UserAccountControl.Uac.IsProcessElevated())
+            if (RunAsHelper.IsElevated())
             {
                 ElevateIcon.Content = "";
             }
@@ -193,7 +193,7 @@ namespace SuperLauncher
             menu.Frame.Content = new ModernLauncherContextMenuMain();
             menu.Closed += Menu_Closed;
             menu.MouseUp += Menu_MouseUp;
-            menu.Top = Top + Height - 255;
+            menu.Top = Top + Height - 230;
             menu.Left = Left + Width - 180;
             menu.Show();
             IgnoreDeactivation = false;

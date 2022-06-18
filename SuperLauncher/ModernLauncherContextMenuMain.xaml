@@ -18,7 +18,7 @@
         <local:ModernLauncherContextMenuButton x:Name="BtnAbout" Text="About Super Launcher" Icon="" MouseUp="BtnAbout_MouseUp" />
         <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
         <local:ModernLauncherContextMenuButton x:Name="BtnElevate" Text="Elevate" Icon="" MouseUp="BtnElevate_MouseUp" />
-        <local:ModernLauncherContextMenuButton x:Name="BtnRunAs" Text="Run as" Icon="" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnRunAs" Text="Run as" Icon="" MouseUp="BtnRunAs_MouseUp" />
         <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
         <local:ModernLauncherContextMenuButton x:Name="BtnViewConfig" Text="View config" Icon="" MouseUp="BtnViewConfig_MouseUp" />
         <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />

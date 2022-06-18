@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
+using System;
 
 namespace SuperLauncher
 {
@@ -34,12 +35,14 @@ namespace SuperLauncher
         }
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
+            DialogResult = false;
             Close();
         }
         private void BtnOK_Click(object sender, RoutedEventArgs e)
         {
             Settings.Default.RememberMe = CBRememberMe.IsChecked.Value;
             Settings.Default.AutoElevate = CBElevate.IsChecked.Value;
+            if (TBUserName.Text != "" && !TBUserName.Text.Contains('\\')) TBUserName.Text = Environment.UserDomainName + "\\" + TBUserName.Text;
             if (CBRememberMe.IsChecked.Value)
             {
                 CredentialManager.CREDENTIAL cred = new()
@@ -53,6 +56,7 @@ namespace SuperLauncher
                 CredentialManager.CredWriteA(cred, CredentialManager.CredWriteFlags.NONE);
             }
             Settings.Default.Save();
+            DialogResult = true;
             Close();
         }
         private void TBPassword_KeyDown(object sender, KeyEventArgs e)

@@ -17,11 +17,11 @@
             <Frame ClipToBounds="True" Source="SplashClouds.xaml"/>
             <Image x:Name="Flame" Source="/SuperLauncherCommon;component/Assets/sl_logo_big_flame.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="200" Opacity="0"/>
             <Image x:Name="Ship" Source="/SuperLauncherCommon;component/Assets/sl_logo_big.png" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="200"/>
-            <Label Content="Super Launcher" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10" FontSize="18" FontWeight="DemiBold" Foreground="#FFD8D8D8" FontStyle="Italic" />
+            <Label Content="Super Launcher" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,179,0,0" FontSize="18" FontWeight="DemiBold" Foreground="#FFD8D8D8" FontStyle="Italic" />
             <Label x:Name="Copyright" Content="..." HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10"/>
             <Label x:Name="Author" Content="..." HorizontalAlignment="Left" Margin="10,20,0,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10"/>
             <Label x:Name="Version" Content="..." HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10"/>
-            <Label x:Name="Message" Content="..." HorizontalAlignment="Left" Margin="10,205,0,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10"/>
+            <Label x:Name="Message" Content="..." HorizontalAlignment="Left" Margin="12,209,0,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10"/>
             <Label x:Name="Website" Content="" HorizontalAlignment="Right" Margin="0,10,10,0" VerticalAlignment="Top" Foreground="#33FFFFFF" FontSize="10" FontFamily="Segoe UI Symbol" Cursor="Hand" MouseUp="Website_MouseUp"/>
         </Grid>
     </Grid>

@@ -9,8 +9,8 @@ namespace SuperLauncher {
     }
     class SettingsDefault
     {
-        private readonly string configDir = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName);
-        public string configPath = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", Environment.UserDomainName, Environment.UserName, "SuperLauncherConfig.xml");
+        private readonly string configDir = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", RunAsHelper.GetOriginalInvokerDomain(), RunAsHelper.GetOriginalInvokerUserName());
+        public string configPath = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", RunAsHelper.GetOriginalInvokerDomain(), RunAsHelper.GetOriginalInvokerUserName(), "SuperLauncherConfig.xml");
         public XmlDocument XDoc = new();
         public bool AutoElevate
         {

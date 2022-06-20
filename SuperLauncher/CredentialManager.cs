@@ -10,6 +10,8 @@ namespace SuperLauncher
         public static extern bool CredWriteA(CREDENTIAL Credential, CredWriteFlags Flags);
         [DllImport("advapi32.dll")]
         public static extern bool CredReadA(string TargetName, CredType Type, CredReadFlags Flags, out IntPtr Credential);
+        [DllImport("advapi32.dll")]
+        public static extern bool CredDeleteA(string TargetName, CredType Type, CredDeleteFlags Flags);
         public static bool CredReadA(string TargetName, CredType Type, CredReadFlags Flags, out CREDENTIAL Credential)
         {
             bool success =  CredReadA(TargetName, Type, Flags, out IntPtr credPtr);
@@ -62,6 +64,10 @@ namespace SuperLauncher
             CRED_PRESERVE_CREDENTIAL_BLOB = 0x1
         }
         public enum CredReadFlags
+        {
+            NONE = 0x0
+        }
+        public enum CredDeleteFlags
         {
             NONE = 0x0
         }

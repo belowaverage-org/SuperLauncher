@@ -14,6 +14,10 @@ namespace SuperLauncher
         {
             InitializeComponent();
         }
+        private bool ShouldDisableUserInput()
+        {
+            return (RunAsHelper.GetOriginalInvokerDomainWithUserName() != RunAsHelper.GetCurrentDomainWithUserName());
+        }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             WindowInteropHelper WIH = new(this);
@@ -21,30 +25,33 @@ namespace SuperLauncher
             TBUserName.Focus();
             CBRememberMe.IsChecked = Settings.Default.RememberMe;
             CBElevate.IsChecked = Settings.Default.AutoElevate;
-            if (Settings.Default.RememberMe)
-            {
-                CredentialManager.CredReadA(
-                    "Super Launcher", 
-                    CredentialManager.CredType.CRED_TYPE_GENERIC, 
-                    CredentialManager.CredReadFlags.NONE, 
-                    out CredentialManager.CREDENTIAL cred
-                );
+            if(CredentialManager.CredReadA(
+                "Super Launcher", 
+                CredentialManager.CredType.CRED_TYPE_GENERIC, 
+                CredentialManager.CredReadFlags.NONE, 
+                out CredentialManager.CREDENTIAL cred
+            )) {
                 TBUserName.Text = cred.UserName;
                 TBPassword.Password = cred.Password;
+            }
+            if (ShouldDisableUserInput())
+            {
+                TBUserName.IsEnabled = TBPassword.IsEnabled = false;
+                TBUserName.Text = RunAsHelper.GetCurrentDomainWithUserName();
+                TBPassword.Password = "************";
             }
         }
         private void BtnCancel_Click(object sender, RoutedEventArgs e)
         {
-            DialogResult = false;
             Close();
         }
         private void BtnOK_Click(object sender, RoutedEventArgs e)
         {
             Settings.Default.RememberMe = CBRememberMe.IsChecked.Value;
             Settings.Default.AutoElevate = CBElevate.IsChecked.Value;
-            if (TBUserName.Text != "" && !TBUserName.Text.Contains('\\')) TBUserName.Text = Environment.UserDomainName + "\\" + TBUserName.Text;
-            if (CBRememberMe.IsChecked.Value)
+            if (!ShouldDisableUserInput() || !Settings.Default.RememberMe)
             {
+                if (TBUserName.Text != "" && !TBUserName.Text.Contains('\\')) TBUserName.Text = Environment.UserDomainName + "\\" + TBUserName.Text;
                 CredentialManager.CREDENTIAL cred = new()
                 {
                     TargetName = "Super Launcher",
@@ -56,7 +63,6 @@ namespace SuperLauncher
                 CredentialManager.CredWriteA(cred, CredentialManager.CredWriteFlags.NONE);
             }
             Settings.Default.Save();
-            DialogResult = true;
             Close();
         }
         private void TBPassword_KeyDown(object sender, KeyEventArgs e)

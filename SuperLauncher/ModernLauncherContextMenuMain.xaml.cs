@@ -16,7 +16,7 @@ namespace SuperLauncher
         private void BtnAbout_MouseUp(object sender, MouseButtonEventArgs e)
         {
             SuperLauncherCommon.Splash splash = new SuperLauncherCommon.Splash();
-            splash.MessageText = "Original Invoker: " + RunAsHelper.GetOriginalInvoker();
+            splash.MessageText = "Original Invoker: " + RunAsHelper.GetOriginalInvokerDomainWithUserName();
             splash.Show();
         }
         private void BtnExit_MouseUp(object sender, MouseButtonEventArgs e)
@@ -37,11 +37,8 @@ namespace SuperLauncher
         }
         private void BtnRunAs_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            ModernLauncherCredentialUI credUI = new();
-            if (credUI.ShowDialog().Value && credUI.TBUserName.Text != "" && credUI.TBPassword.Password != "")
-            {
-                RunAsHelper.RunAs(credUI.TBUserName.Text, credUI.TBPassword.Password);
-            }
+            new ModernLauncherCredentialUI().ShowDialog();
+            //RunAsHelper.StartupProcedure();
         }
     }
 }

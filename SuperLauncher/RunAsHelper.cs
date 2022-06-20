@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Security;
 using System.Security.Principal;
 using System.Windows;
 
@@ -15,12 +14,12 @@ namespace SuperLauncher
             ProcessStartInfo psi = new()
             {
                 FileName = SelfPath,
-                Arguments = InvokerArg + GetOriginalInvoker(),
+                Arguments = InvokerArg + GetOriginalInvokerDomainWithUserName(),
                 UseShellExecute = true,
                 Verb = "RunAs"
             };
             try { Process.Start(psi); } catch { return; }
-            Program.ModernApplication.Shutdown();
+            Exit();
         }
         public static void RunAs(string DomainWithUserName, string Password)
         {
@@ -30,14 +29,14 @@ namespace SuperLauncher
             ProcessStartInfo psi = new()
             {
                 FileName = SelfPath,
-                Arguments = InvokerArg + GetOriginalInvoker(),
+                Arguments = InvokerArg + GetOriginalInvokerDomainWithUserName(),
                 UseShellExecute = false,
                 UserName = UserName,
                 PasswordInClearText = Password,
                 Domain = Domain
             };
             try { Process.Start(psi); } catch (Exception e) {
-                MessageBoxResult result = MessageBox.Show(
+                MessageBox.Show(
                     e.Message,
                     "Super Launcher failed to switch users.",
                     MessageBoxButton.OK,
@@ -45,9 +44,35 @@ namespace SuperLauncher
                 );
                 return; 
             }
-            Program.ModernApplication.Shutdown();
+            Exit();
         }
-        public static string GetOriginalInvoker()
+        public static void StartupProcedure()
+        {
+            if (Settings.Default.RememberMe)
+            {
+                bool success = CredentialManager.CredReadA(
+                    "Super Launcher",
+                    CredentialManager.CredType.CRED_TYPE_GENERIC,
+                    CredentialManager.CredReadFlags.NONE,
+                    out CredentialManager.CREDENTIAL cred
+                );
+                if (
+                    success &&
+                    cred.UserName != null &&
+                    GetCurrentDomainWithUserName().ToLower() != cred.UserName.ToLower() &&
+                    GetOriginalInvokerDomainWithUserName().ToLower() != cred.UserName.ToLower()
+                )
+                {
+                    RunAs(cred.UserName, cred.Password);
+                }
+            }
+            else
+            {
+                CredentialManager.CredDeleteA("Super Launcher", CredentialManager.CredType.CRED_TYPE_GENERIC, CredentialManager.CredDeleteFlags.NONE);
+            }
+            if (Settings.Default.AutoElevate && !IsElevated()) Elevate();
+        }
+        public static string GetOriginalInvokerDomainWithUserName()
         {
             string invokerArg = GetOriginalInvokerArg();
             if (invokerArg != null) return invokerArg;
@@ -61,11 +86,26 @@ namespace SuperLauncher
         }
         public static string GetOriginalInvokerDomain()
         {
-            return GetOriginalInvoker().Split('\\')[0];
+            return GetOriginalInvokerDomainWithUserName().Split('\\')[0];
         }
         public static string GetOriginalInvokerUserName()
         {
-            return GetOriginalInvoker().Split('\\')[1];
+            return GetOriginalInvokerDomainWithUserName().Split('\\')[1];
+        }
+        public static string GetCurrentDomainWithUserName()
+        {
+            return Environment.UserDomainName + @"\" + Environment.UserName;
+        }
+        public static void Exit()
+        {
+            if (Program.ModernApplication != null)
+            {
+                Program.ModernApplication.Shutdown();
+            }
+            else
+            {
+                Environment.Exit(0);
+            }
         }
         public static bool IsElevated()
         {

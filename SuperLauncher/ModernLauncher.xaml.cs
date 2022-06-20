@@ -91,7 +91,7 @@ namespace SuperLauncher
         );
         private void SetElevateLabels()
         {
-            ElevateUser.Content = Environment.UserDomainName + @"\" + Environment.UserName;
+            ElevateUser.Content = RunAsHelper.GetCurrentDomainWithUserName();
             if (RunAsHelper.IsElevated())
             {
                 ElevateIcon.Content = "";

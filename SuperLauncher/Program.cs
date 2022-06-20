@@ -20,6 +20,7 @@ namespace SuperLauncher
             }
             else
             {
+                RunAsHelper.StartupProcedure();
                 ModernApplication = new();
                 ModernApplication.Run(new ModernLauncher());
             }

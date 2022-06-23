@@ -16,4 +16,4 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
     - name: Build
-      run: '$env:Path += ";C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE"; devenv.exe SuperLauncher.sln /build'
+      run: '& "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" SuperLauncher.sln /build'

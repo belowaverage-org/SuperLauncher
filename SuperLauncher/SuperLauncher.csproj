@@ -27,7 +27,6 @@
     </PackageReference>
     <PackageReference Include="PInvoke.Gdi32" Version="0.7.104" />
     <PackageReference Include="PInvoke.User32" Version="0.7.104" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0-preview.4.22229.4" />
     <PackageReference Include="UserAccountControl" Version="1.0.4636.39457">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>

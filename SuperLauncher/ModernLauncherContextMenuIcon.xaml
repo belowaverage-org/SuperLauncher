@@ -1,0 +1,23 @@
+﻿<Page
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SuperLauncher"
+      x:Class="SuperLauncher.ModernLauncherContextMenuIcon"
+      mc:Ignorable="d"
+      >
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/WinUI.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    <StackPanel >
+        <local:ModernLauncherContextMenuButton x:Name="BtnRunAsAdmin" Text="Run as administrator" Icon="" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnOpenLocation" Text="Open file location" Icon="" />
+        <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnUnpin" Text="Unpin from Super Launcher" Icon="" />
+    </StackPanel>
+</Page>

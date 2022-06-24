@@ -16,6 +16,7 @@ namespace SuperLauncherBootstrap
         [STAThread]
         public static void Main(string[] args)
         {
+            Splash.AllowClose = false;
             Application app = new();
             Task bsThread = Task.Run(() => {
                 DateTime start = DateTime.Now;

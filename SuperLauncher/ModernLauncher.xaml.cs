@@ -16,7 +16,7 @@ namespace SuperLauncher
     public partial class ModernLauncher : Window
     {
         public static DpiScale DPI;
-        private bool IgnoreDeactivation = false;
+        public bool IgnoreDeactivation = false;
         private WindowInteropHelper WIH;
         private HwndSource HWND;
         private DoubleAnimation RenderBoostAnimation = new()
@@ -25,12 +25,22 @@ namespace SuperLauncher
             From = 1,
             To = 0
         };
-        private Int32Animation OpenAnimation = new()
+        private DoubleAnimation OpenTopAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.3),
             EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
         };
-        private Int32Animation CloseAnimation = new()
+        private DoubleAnimation CloseTopAnimation = new()
+        {
+            Duration = TimeSpan.FromSeconds(0.3),
+            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn }
+        };
+        private DoubleAnimation OpenLeftAnimation = new()
+        {
+            Duration = TimeSpan.FromSeconds(0.3),
+            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+        };
+        private DoubleAnimation CloseLeftAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.3),
             EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn }
@@ -44,7 +54,7 @@ namespace SuperLauncher
         {
             if (msg == 0x0312 && wParam.ToInt32() == 0) //WM_HOTKEY //ALT + S
             {
-                OpenWindow();
+                OpenWindow(Center: true);
             }
             if (msg == 0x0312 && wParam.ToInt32() == 1) //WM_HOTKEY //ALT + E
             {
@@ -71,24 +81,25 @@ namespace SuperLauncher
             if (IgnoreDeactivation) return;
             if (IsVisible) CloseWindow();
         }
-        private void UpdateAnimations()
+        private void UpdateAnimations(bool Center = false)
         {
             User32.MONITORINFO mi = new User32.MONITORINFO();
             mi.cbSize = Marshal.SizeOf(mi);
             IntPtr hMonitor = User32.MonitorFromWindow(WIH.Handle, User32.MonitorOptions.MONITOR_DEFAULTTONEAREST);
             User32.GetMonitorInfo(hMonitor, ref mi);
-            OpenAnimation.From = CloseAnimation.From = (int)DPI.ScalePixelsUp(Top);
-            CloseAnimation.To = mi.rcMonitor.bottom;
-            OpenAnimation.To = (mi.rcWork.bottom - (int)DPI.ScalePixelsUp(Height) - (int)DPI.ScalePixelsUp(10));
+            OpenTopAnimation.From = CloseTopAnimation.From = (int)DPI.ScalePixelsUp(Top);
+            CloseTopAnimation.To = mi.rcMonitor.bottom;
+            if (Center)
+            {
+                OpenLeftAnimation.To = ((mi.rcWork.right / 2) - ((int)DPI.ScalePixelsUp(Width) / 2));
+                OpenTopAnimation.To = ((mi.rcWork.bottom / 2) - ((int)DPI.ScalePixelsUp(Height) / 2));
+            }
+            else
+            {
+                OpenLeftAnimation.To = ((mi.rcWork.right) - ((int)DPI.ScalePixelsUp(Width)) - (int)DPI.ScalePixelsUp(8));
+                OpenTopAnimation.To = (mi.rcWork.bottom - (int)DPI.ScalePixelsUp(Height) - (int)DPI.ScalePixelsUp(10));
+            }
         }
-        public static readonly DependencyProperty Win32TopProperty = DependencyProperty.Register(
-            "Win32Top",
-            typeof(int),
-            typeof(ModernLauncher),
-            new FrameworkPropertyMetadata(
-                new PropertyChangedCallback(WindowPositionChanged)
-            )
-        );
         private void SetElevateLabels()
         {
             ElevateUser.Content = RunAsHelper.GetCurrentDomainWithUserName();
@@ -112,13 +123,14 @@ namespace SuperLauncher
         }
         [DllImport("User32.dll")]
         private static extern bool InvalidateRect(IntPtr Handle, IntPtr Rect, bool Erase);
-        public async void OpenWindow()
+        public async void OpenWindow(bool Center = false)
         {
             IsVisible = true;
-            UpdateAnimations();
+            UpdateAnimations(Center: Center);
             Activate();
             User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_LAYERED);
-            BeginAnimation(Win32TopProperty, OpenAnimation);
+            BeginAnimation(TopProperty, OpenTopAnimation);
+            BeginAnimation(LeftProperty, OpenLeftAnimation);
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             Filter.Text = "";
             Filter.Focus();
@@ -130,7 +142,8 @@ namespace SuperLauncher
             IsVisible = false;
             UpdateAnimations();
             Activate();
-            BeginAnimation(Win32TopProperty, CloseAnimation);
+            BeginAnimation(TopProperty, CloseTopAnimation);
+            BeginAnimation(LeftProperty, CloseLeftAnimation);
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             await Task.Delay(300);
             User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_TOOLWINDOW);
@@ -149,12 +162,7 @@ namespace SuperLauncher
         private void SetPosition()
         {
             Top = SystemParameters.PrimaryScreenHeight;
-            Left = SystemParameters.PrimaryScreenWidth - Width - 10;
-        }
-        public static void WindowPositionChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
-        {
-            ModernLauncher win = (ModernLauncher)obj;
-            User32.MoveWindow(win.WIH.Handle, (int)DPI.ScalePixelsUp(win.Left), (int)e.NewValue, (int)DPI.ScalePixelsUp(win.Width), (int)DPI.ScalePixelsUp(win.Height), false);
+            Left = SystemParameters.PrimaryScreenWidth - Width - 8;
         }
         private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
         {

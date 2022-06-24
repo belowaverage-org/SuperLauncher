@@ -122,6 +122,19 @@ namespace SuperLauncher
                 IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
                 IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
             }
+            if (e.ChangedButton == MouseButton.Right)
+            {
+                ModernLauncher pWindow = (ModernLauncher)Window.GetWindow(this);
+                pWindow.IgnoreDeactivation = true;
+                ModernLauncherContextMenu menu = new();
+                menu.Frame.Content = new ModernLauncherContextMenuIcon();
+                PInvoke.User32.GetCursorPos(out PInvoke.POINT point);
+                menu.Left = point.x;
+                menu.Top = point.y - 100;
+                //menu.MouseUp
+                menu.Show();
+                pWindow.IgnoreDeactivation = false;
+            }
         }
         private string ExtRemover(string FileName)
         {

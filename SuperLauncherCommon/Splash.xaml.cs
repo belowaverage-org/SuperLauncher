@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Media.Animation;
 using System.Threading.Tasks;
+using System.Windows.Media;
 
 namespace SuperLauncherCommon
 {
@@ -13,6 +14,7 @@ namespace SuperLauncherCommon
     public partial class Splash : Window
     {
         public string vMessageText = "";
+        public bool AllowClose = true;
         public string MessageText { 
             get
             {
@@ -42,11 +44,20 @@ namespace SuperLauncherCommon
             Opacity = 0;
             DoubleAnimation fadein = new()
             {
-                Duration = TimeSpan.FromSeconds(0.5),
+                Duration = TimeSpan.FromSeconds(0.3),
                 From = 0,
                 To = 1
             };
+            DoubleAnimation scalein = new()
+            {
+                Duration = TimeSpan.FromSeconds(0.3),
+                EasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseOut },
+                From = 0.9,
+                To = 1
+            };
             BeginAnimation(OpacityProperty, fadein);
+            GridTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scalein);
+            GridTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scalein);
             IEasingFunction se = new SineEase();
             ((SineEase)se).EasingMode = EasingMode.EaseInOut;
             ThicknessAnimationUsingKeyFrames horz = new()
@@ -82,7 +93,7 @@ namespace SuperLauncherCommon
         }
         private void Window_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            Close();
+            if (AllowClose) Close();
         }
         private async void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -94,7 +105,16 @@ namespace SuperLauncherCommon
                 From = 1,
                 To = 0
             };
+            DoubleAnimation scaleout = new()
+            {
+                Duration = TimeSpan.FromSeconds(0.3),
+                EasingFunction = new QuadraticEase() { EasingMode = EasingMode.EaseIn },
+                From = 1,
+                To = 0.9
+            };
             BeginAnimation(OpacityProperty, fadeout);
+            GridTransform.BeginAnimation(ScaleTransform.ScaleXProperty, scaleout);
+            GridTransform.BeginAnimation(ScaleTransform.ScaleYProperty, scaleout);
             await Task.Delay(300);
             Close();
         }

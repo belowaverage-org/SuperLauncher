@@ -13,7 +13,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v3
-
-    # Restore the application to populate the obj folder with RuntimeIdentifiers
+      
     - name: Build
       run: '& "C:\Program Files\Microsoft Visual Studio\2022\Enterprise\Common7\IDE\devenv.com" SuperLauncher.sln /build release'
+      
+    - name: Upload
+      uses: actions/upload-artifact@v3.1.0
+      with:
+        path: .\SuperLauncherInstaller\Release\SuperLauncherInstaller.msi
+        retention-days: 90

@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SuperLauncher"
       x:Class="SuperLauncher.ModernLauncherContextMenuMain"
-      mc:Ignorable="d"
+      mc:Ignorable="d" Loaded="Page_Loaded"
       >
     <Page.Resources>
         <ResourceDictionary>

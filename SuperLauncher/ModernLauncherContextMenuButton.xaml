@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:SuperLauncher"
              mc:Ignorable="d"
              Height="30"
-             d:DesignWidth="200"
+             d:DesignWidth="200" 
+             IsEnabledChanged="userControl_IsEnabledChanged"
              >
     <Grid>
         <Border Name="HighlightBorder" CornerRadius="5" Background="white" Opacity="0">

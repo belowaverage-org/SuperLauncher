@@ -38,7 +38,10 @@ namespace SuperLauncher
         private void BtnRunAs_MouseUp(object sender, MouseButtonEventArgs e)
         {
             new ModernLauncherCredentialUI().ShowDialog();
-            //RunAsHelper.StartupProcedure();
+        }
+        private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (RunAsHelper.IsElevated()) BtnElevate.IsEnabled = false;
         }
     }
 }

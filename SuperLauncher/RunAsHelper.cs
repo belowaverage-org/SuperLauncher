@@ -9,6 +9,17 @@ namespace SuperLauncher
     {
         public const string InvokerArg = "/OriginalInvoker:";
         public static string SelfPath = Process.GetCurrentProcess().MainModule.FileName;
+        public static void Restart()
+        {
+            ProcessStartInfo psi = new()
+            {
+                FileName = SelfPath,
+                Arguments = InvokerArg + GetOriginalInvokerDomainWithUserName(),
+                UseShellExecute = true
+            };
+            try { Process.Start(psi); } catch { return; }
+            Exit();
+        }
         public static void Elevate()
         {
             ProcessStartInfo psi = new()

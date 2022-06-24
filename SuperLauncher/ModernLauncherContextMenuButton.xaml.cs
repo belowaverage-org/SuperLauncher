@@ -22,5 +22,16 @@ namespace SuperLauncher
         {
             InitializeComponent();
         }
+        private void userControl_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(bool)e.NewValue)
+            {
+                Opacity = 0.5;
+            }
+            else
+            {
+                Opacity = 1;
+            }
+        }
     }
 }

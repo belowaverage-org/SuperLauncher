@@ -16,7 +16,7 @@ namespace SuperLauncher
         }
         private bool ShouldDisableUserInput()
         {
-            return (RunAsHelper.GetOriginalInvokerDomainWithUserName() != RunAsHelper.GetCurrentDomainWithUserName());
+            return (RunAsHelper.GetOriginalInvokerDomainWithUserName().ToLower() != RunAsHelper.GetCurrentDomainWithUserName().ToLower());
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -49,9 +49,9 @@ namespace SuperLauncher
         {
             Settings.Default.RememberMe = CBRememberMe.IsChecked.Value;
             Settings.Default.AutoElevate = CBElevate.IsChecked.Value;
-            if (!ShouldDisableUserInput() || !Settings.Default.RememberMe)
+            if (TBUserName.Text != "" && !TBUserName.Text.Contains('\\')) TBUserName.Text = Environment.UserDomainName + "\\" + TBUserName.Text;
+            if (!ShouldDisableUserInput() && Settings.Default.RememberMe)
             {
-                if (TBUserName.Text != "" && !TBUserName.Text.Contains('\\')) TBUserName.Text = Environment.UserDomainName + "\\" + TBUserName.Text;
                 CredentialManager.CREDENTIAL cred = new()
                 {
                     TargetName = "Super Launcher",
@@ -63,7 +63,22 @@ namespace SuperLauncher
                 CredentialManager.CredWriteA(cred, CredentialManager.CredWriteFlags.NONE);
             }
             Settings.Default.Save();
-            Close();
+            if (
+                TBUserName.Text != "" &&
+                TBPassword.Password != "" &&
+                TBUserName.Text.ToLower() != RunAsHelper.GetCurrentDomainWithUserName().ToLower()
+                )
+            {
+                RunAsHelper.RunAs(TBUserName.Text, TBPassword.Password);
+            }
+            else if (Settings.Default.AutoElevate && !RunAsHelper.IsElevated())
+            {
+                RunAsHelper.Elevate();
+            }
+            else
+            {
+                Close();
+            }
         }
         private void TBPassword_KeyDown(object sender, KeyEventArgs e)
         {

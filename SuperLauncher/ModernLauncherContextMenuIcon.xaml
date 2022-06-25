@@ -15,8 +15,8 @@
         </ResourceDictionary>
     </Page.Resources>
     <StackPanel >
-        <local:ModernLauncherContextMenuButton x:Name="BtnRunAsAdmin" Text="Run as administrator" Icon="" />
-        <local:ModernLauncherContextMenuButton x:Name="BtnOpenLocation" Text="Open file location" Icon="" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnRunAsAdmin" Text="Run as administrator" Icon="" MouseUp="BtnRunAsAdmin_MouseUp" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnOpenLocation" Text="Open file location" Icon="" MouseUp="BtnOpenLocation_MouseUp" />
         <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
         <local:ModernLauncherContextMenuButton x:Name="BtnUnpin" Text="Unpin from Super Launcher" Icon="" />
     </StackPanel>

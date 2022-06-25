@@ -21,6 +21,7 @@ namespace SuperLauncher
         public bool IsMouseOver = false;
         public bool IsMouseDown = false;
         public string FileName;
+        private ModernLauncher PWindow;
         public string FilePath
         {
             get
@@ -55,10 +56,6 @@ namespace SuperLauncher
                     Highlight.BeginAnimation(OpacityProperty, To0);
                 }
             }
-        }
-        public ModernLauncherIcon()
-        {
-            InitializeComponent();
         }
         public ModernLauncherIcon(string FilePath)
         {
@@ -124,16 +121,28 @@ namespace SuperLauncher
             }
             if (e.ChangedButton == MouseButton.Right)
             {
-                ModernLauncher pWindow = (ModernLauncher)Window.GetWindow(this);
-                pWindow.IgnoreDeactivation = true;
+                PWindow.IgnoreDeactivation = true;
                 ModernLauncherContextMenu menu = new();
-                menu.Frame.Content = new ModernLauncherContextMenuIcon();
+                ModernLauncherContextMenuIcon menuItems = new(this);
+                menu.Frame.Content = menuItems;
                 PInvoke.User32.GetCursorPos(out PInvoke.POINT point);
                 menu.Left = point.x;
                 menu.Top = point.y - 100;
-                //menu.MouseUp
+                menuItems.MouseUp += Menu_MouseUp;
                 menu.Show();
-                pWindow.IgnoreDeactivation = false;
+                PWindow.IgnoreDeactivation = false;
+            }
+        }
+        private void Menu_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ModernLauncherContextMenuIcon menu = (ModernLauncherContextMenuIcon)sender;
+            if (e.Source == menu.BtnUnpin)
+            {
+                PWindow.Focus();
+            }
+            else
+            {
+                PWindow.CloseWindow();
             }
         }
         private string ExtRemover(string FileName)
@@ -198,6 +207,10 @@ namespace SuperLauncher
                 IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
                 IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
             }
+        }
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            PWindow = (ModernLauncher)Window.GetWindow(this);
         }
     }
 }

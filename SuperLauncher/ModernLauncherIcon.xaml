@@ -17,7 +17,7 @@
              IsTabStop="True"
              LostKeyboardFocus="UserControl_LostKeyboardFocus"
              KeyDown="UserControl_KeyDown"
-             KeyUp="UserControl_KeyUp">
+             KeyUp="UserControl_KeyUp" Loaded="UserControl_Loaded">
     <Grid>
         <Rectangle x:Name="Highlight" RadiusX="10" RadiusY="10" Fill="{DynamicResource LighterColorBrush}" Opacity="0" />
         <Image x:Name="LIcon" Source="/Resources/logo_256.png" Width="32" Height="32" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,12,0,0" RenderTransformOrigin="0.5,0.5" >

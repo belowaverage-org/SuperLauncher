@@ -22,12 +22,10 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="Button">
-                    <Border CornerRadius="4" BorderBrush="{DynamicResource EvenLighterColorBrush}" BorderThickness="1">
-                        <Grid>
-                            <Rectangle x:Name="BBLight" Opacity="1" Fill="{DynamicResource LighterColorBrush}" RadiusX="3" RadiusY="3" />
-                            <Rectangle x:Name="BBLighter" Opacity="0" Fill="{DynamicResource EvenLighterColorBrush}" RadiusX="3" RadiusY="3" />
-                            <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
-                        </Grid>
+                    <Grid>
+                        <Border x:Name="BBLight" BorderBrush="{DynamicResource EvenLighterColorBrush}" BorderThickness="1" Opacity="1" Background="{DynamicResource LighterColorBrush}" CornerRadius="4" />
+                        <Border x:Name="BBLighter" BorderBrush="{DynamicResource EvenLighterColorBrush}" BorderThickness="1" Opacity="0" Background="{DynamicResource EvenLighterColorBrush}" CornerRadius="4" />
+                        <ContentPresenter Margin="2" HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" />
                         <VisualStateManager.VisualStateGroups>
                             <VisualStateGroup x:Name="CommonStates">
                                 <VisualState x:Name="Normal">
@@ -46,7 +44,7 @@
                                 <VisualState x:Name="Disabled"></VisualState>
                             </VisualStateGroup>
                         </VisualStateManager.VisualStateGroups>
-                    </Border>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

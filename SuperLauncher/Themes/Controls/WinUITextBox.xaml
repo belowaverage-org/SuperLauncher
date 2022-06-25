@@ -15,7 +15,7 @@
                     <Border Name="Border" CornerRadius="4" BorderThickness="1" Background="{DynamicResource DarkerColorBrush}" BorderBrush="{DynamicResource LighterColorBrush}">
                         <Grid>
                             <Label VerticalAlignment="Center" HorizontalAlignment="Left" Content="{TemplateBinding Tag}" FontFamily="{DynamicResource Icons}" Foreground="{DynamicResource TextColorBrush}" />
-                            <Rectangle Name="Accent" RadiusX="4" RadiusY="4" Height="2" VerticalAlignment="Bottom" Fill="{DynamicResource AccentColorBrush}" />
+                            <Rectangle Name="Accent" RadiusX="4" RadiusY="4" Height="2" Margin="1,0,1,-1" VerticalAlignment="Bottom" Fill="{DynamicResource AccentColorBrush}" />
                             <ScrollViewer VerticalAlignment="Center" Margin="20,4,4,6" x:Name="PART_ContentHost" />
                         </Grid>
                         <VisualStateManager.VisualStateGroups>
@@ -54,7 +54,7 @@
                     <Border Name="Border" CornerRadius="4" BorderThickness="1" Background="{DynamicResource DarkerColorBrush}" BorderBrush="{DynamicResource LighterColorBrush}">
                         <Grid>
                             <Label VerticalAlignment="Center" HorizontalAlignment="Left" Content="{TemplateBinding Tag}" FontFamily="{DynamicResource Icons}" Foreground="{DynamicResource TextColorBrush}" />
-                            <Rectangle Name="Accent" RadiusX="4" RadiusY="4" Height="2" VerticalAlignment="Bottom" Fill="{DynamicResource AccentColorBrush}" />
+                            <Rectangle Name="Accent" RadiusX="4" RadiusY="4" Height="2" Margin="1,0,1,-1" VerticalAlignment="Bottom" Fill="{DynamicResource AccentColorBrush}" />
                             <ScrollViewer VerticalAlignment="Center" Margin="20,4,4,6" x:Name="PART_ContentHost" />
                         </Grid>
                         <VisualStateManager.VisualStateGroups>

@@ -8,6 +8,8 @@
         Title="Super Launcher"
         Height="450"
         Width="800"
+        MinHeight="350"
+        MinWidth="350"
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"

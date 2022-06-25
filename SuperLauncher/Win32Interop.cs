@@ -16,12 +16,6 @@ namespace SuperLauncher
         [DllImport("gdi32.dll")]
         private static extern IntPtr CreateSolidBrush(uint crColor);
         [DllImport("user32.dll")]
-        private static extern bool SetMenuItemInfo(IntPtr hMenu, uint uItem, bool fByPosition, [In] ref MENUITEMINFO lpmii);
-        [DllImport("user32.dll")]
-        public static extern bool SetLayeredWindowAttributes(IntPtr hwnd, IntPtr colorref, byte alpha, uint flags);
-        [DllImport("user32.dll")]
-        public static extern bool UpdateLayeredWindow(IntPtr hwnd, IntPtr hdc, IntPtr point, IntPtr size, IntPtr hdc2, IntPtr point2, uint colorref, IntPtr blendfnct, uint flags);
-        [DllImport("user32.dll")]
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
         [StructLayout(LayoutKind.Sequential)]
         private struct MENUITEMINFO

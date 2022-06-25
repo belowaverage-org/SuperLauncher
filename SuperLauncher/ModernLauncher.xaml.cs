@@ -15,37 +15,46 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncher : Window
     {
-        public static DpiScale DPI;
+        public static DpiScale DPI
+        {
+            get { return rDPI; }
+            set { rDPI = value; }
+        }
         public bool IgnoreDeactivation = false;
+        private static DpiScale rDPI;
         private WindowInteropHelper WIH;
         private HwndSource HWND;
-        private DoubleAnimation RenderBoostAnimation = new()
+        private readonly DoubleAnimation RenderBoostAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.3),
             From = 1,
             To = 0
         };
-        private DoubleAnimation OpenTopAnimation = new()
+        private readonly DoubleAnimation OpenTopAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.3),
-            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
+            FillBehavior = FillBehavior.Stop
         };
-        private DoubleAnimation CloseTopAnimation = new()
+        private readonly DoubleAnimation CloseTopAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.3),
-            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn }
+            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn },
+            FillBehavior = FillBehavior.Stop
         };
-        private DoubleAnimation OpenLeftAnimation = new()
+        private readonly DoubleAnimation OpenLeftAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.3),
-            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut },
+            FillBehavior = FillBehavior.Stop
         };
-        private DoubleAnimation CloseLeftAnimation = new()
+        private readonly DoubleAnimation CloseLeftAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.3),
-            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn }
+            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn },
+            FillBehavior = FillBehavior.Stop
         };
-        private bool IsVisible = false;
+        private bool Visible = false;
         public ModernLauncher()
         {
             InitializeComponent();
@@ -79,25 +88,25 @@ namespace SuperLauncher
         private void Window_Deactivated(object sender, EventArgs e)
         {
             if (IgnoreDeactivation) return;
-            if (IsVisible) CloseWindow();
+            if (Visible) CloseWindow();
         }
         private void UpdateAnimations(bool Center = false)
         {
-            User32.MONITORINFO mi = new User32.MONITORINFO();
+            User32.MONITORINFO mi = new();
             mi.cbSize = Marshal.SizeOf(mi);
             IntPtr hMonitor = User32.MonitorFromWindow(WIH.Handle, User32.MonitorOptions.MONITOR_DEFAULTTONEAREST);
             User32.GetMonitorInfo(hMonitor, ref mi);
-            OpenTopAnimation.From = CloseTopAnimation.From = (int)DPI.ScalePixelsUp(Top);
-            CloseTopAnimation.To = mi.rcMonitor.bottom;
+            OpenTopAnimation.From = CloseTopAnimation.From = Top;
+            CloseTopAnimation.To = DPI.ScalePixelsDown(mi.rcMonitor.bottom);
             if (Center)
             {
-                OpenLeftAnimation.To = ((mi.rcWork.right / 2) - ((int)DPI.ScalePixelsUp(Width) / 2));
-                OpenTopAnimation.To = ((mi.rcWork.bottom / 2) - ((int)DPI.ScalePixelsUp(Height) / 2));
+                OpenLeftAnimation.To = ((DPI.ScalePixelsDown(mi.rcWork.right) / 2) - Width / 2);
+                OpenTopAnimation.To = ((DPI.ScalePixelsDown(mi.rcWork.bottom) / 2) - Height / 2);
             }
             else
             {
-                OpenLeftAnimation.To = ((mi.rcWork.right) - ((int)DPI.ScalePixelsUp(Width)) - (int)DPI.ScalePixelsUp(8));
-                OpenTopAnimation.To = (mi.rcWork.bottom - (int)DPI.ScalePixelsUp(Height) - (int)DPI.ScalePixelsUp(10));
+                OpenLeftAnimation.To = ((DPI.ScalePixelsDown(mi.rcWork.right)) - Width - 8);
+                OpenTopAnimation.To = (DPI.ScalePixelsDown(mi.rcWork.bottom) - Height - 10);
             }
         }
         private void SetElevateLabels()
@@ -125,10 +134,10 @@ namespace SuperLauncher
         private static extern bool InvalidateRect(IntPtr Handle, IntPtr Rect, bool Erase);
         public async void OpenWindow(bool Center = false)
         {
-            IsVisible = true;
+            Visible = true;
             UpdateAnimations(Center: Center);
             Activate();
-            User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_LAYERED);
+            _ = User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_LAYERED);
             BeginAnimation(TopProperty, OpenTopAnimation);
             BeginAnimation(LeftProperty, OpenLeftAnimation);
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
@@ -139,29 +148,27 @@ namespace SuperLauncher
         }
         public async void CloseWindow()
         {
-            IsVisible = false;
+            Visible = false;
             UpdateAnimations();
             Activate();
             BeginAnimation(TopProperty, CloseTopAnimation);
             BeginAnimation(LeftProperty, CloseLeftAnimation);
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             await Task.Delay(300);
-            User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_TOOLWINDOW);
-        }
-        private void ToggleWindow()
-        {
-            if (IsVisible)
-            {
-                CloseWindow();
-            }
-            else
-            {
-                OpenWindow();
-            }
+            SetTopPosition();
+            _ = User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_TOOLWINDOW);
         }
         private void SetPosition()
         {
+            SetTopPosition();
+            SetLeftPosition();
+        }
+        private void SetTopPosition()
+        {
             Top = SystemParameters.PrimaryScreenHeight;
+        }
+        private void SetLeftPosition()
+        {
             Left = SystemParameters.PrimaryScreenWidth - Width - 8;
         }
         private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
@@ -182,7 +189,7 @@ namespace SuperLauncher
         }
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (IsVisible && e.Key == Key.Escape) CloseWindow();
+            if (Visible && e.Key == Key.Escape) CloseWindow();
         }
         private void BtnExplorer_Click(object sender, RoutedEventArgs e)
         {

@@ -17,6 +17,7 @@ namespace SuperLauncher
             {
                 rFilter = value;
                 bool first = true;
+                int invisibleCount = 0;
                 foreach (ModernLauncherIcon icon in IconPanel.Children)
                 {
                     if (icon.NameText.Text.ToLower().Contains(value.ToLower()))
@@ -27,8 +28,17 @@ namespace SuperLauncher
                     }
                     else
                     {
+                        invisibleCount++;
                         icon.Visibility = Visibility.Collapsed;
                     }
+                }
+                if (invisibleCount == IconPanel.Children.Count)
+                {
+                    NoResults.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    NoResults.Visibility = Visibility.Collapsed;
                 }
             }
         }

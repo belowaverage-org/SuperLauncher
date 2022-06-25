@@ -8,7 +8,7 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncherContextMenuIcon : Page
     {
-        private ModernLauncherIcon Icon;
+        private readonly ModernLauncherIcon Icon;
         public ModernLauncherContextMenuIcon(ModernLauncherIcon Icon)
         {
             this.Icon = Icon;
@@ -27,6 +27,15 @@ namespace SuperLauncher
         private void BtnOpenLocation_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {            
             new ShellHost(Icon.FilePath.Replace(Icon.FileName, "")).Show();
+        }
+        private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (
+                !Icon.FileName.ToLower().Contains(".exe")
+            ) {
+                BtnRunAsAdmin.IsEnabled = false;
+                BtnRunAsAdmin.Opacity = 0.5;
+            }
         }
     }
 }

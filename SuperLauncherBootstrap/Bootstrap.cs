@@ -8,13 +8,13 @@ namespace SuperLauncherBootstrap
 {
     public static class Bootstrap
     {
-        public static Splash Splash = new();
-        public static int SleepTime = 2000;
-        public static string TargetPath = "C:\\Users\\Public\\below average\\Super Launcher\\";
-        public static string TargetItem = "SuperLauncher.exe";
-        public static string SelfPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location);
+        private static readonly Splash Splash = new();
+        private static readonly int SleepTime = 2000;
+        private static readonly string TargetPath = "C:\\Users\\Public\\below average\\Super Launcher\\";
+        private static readonly string TargetItem = "SuperLauncher.exe";
+        private static readonly string SelfPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)!;
         [STAThread]
-        public static void Main(string[] args)
+        public static void Main()
         {
             Splash.AllowClose = false;
             Application app = new();

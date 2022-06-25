@@ -28,16 +28,16 @@ namespace SuperLauncherCommon
                 });
             }
         }
-        private string Site = "";
+        private readonly string Site = "";
         private bool fadeOutPlayed = false;
         public Splash()
         {
             InitializeComponent();
-            Assembly self = Assembly.GetEntryAssembly();
-            Copyright.Content = ((AssemblyCopyrightAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyCopyrightAttribute))).Copyright;
-            Author.Content = ((AssemblyCompanyAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyCompanyAttribute))).Company;
-            Version.Content = "v" + ((AssemblyInformationalVersionAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyInformationalVersionAttribute))).InformationalVersion;
-            Site = ((AssemblyMetadataAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyMetadataAttribute))).Value;
+            Assembly self = Assembly.GetEntryAssembly()!;
+            Copyright.Content = ((AssemblyCopyrightAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyCopyrightAttribute))!).Copyright;
+            Author.Content = ((AssemblyCompanyAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyCompanyAttribute))!).Company;
+            Version.Content = "v" + ((AssemblyInformationalVersionAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyInformationalVersionAttribute))!).InformationalVersion;
+            Site = ((AssemblyMetadataAttribute)Attribute.GetCustomAttribute(self, typeof(AssemblyMetadataAttribute))!).Value!;
         }
         private void Window_Initialized(object sender, EventArgs e)
         {

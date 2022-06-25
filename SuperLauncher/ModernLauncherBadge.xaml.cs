@@ -9,8 +9,8 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncherBadge : Window
     {
-        int X, Y = 0;
-        string Text;
+        private readonly int X, Y = 0;
+        private readonly string Text;
         public ModernLauncherBadge(string Text, int X = 0, int Y = 0)
         {
             this.X = X;

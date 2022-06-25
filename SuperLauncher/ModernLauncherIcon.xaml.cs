@@ -18,7 +18,7 @@ namespace SuperLauncher
         public string rFilePath;
         public bool rFilterFocus = false;
         public ModernLauncherBadge Badge;
-        public bool IsMouseOver = false;
+        public bool IsMouseOverIcon = false;
         public bool IsMouseDown = false;
         public string FileName;
         private ModernLauncher PWindow;
@@ -62,35 +62,35 @@ namespace SuperLauncher
             InitializeComponent();
             this.FilePath = FilePath;
         }
-        private DoubleAnimation To1 = new()
+        private readonly DoubleAnimation To1 = new()
         {
             To = 1,
             Duration = new Duration(new TimeSpan(0, 0, 0, 0, 100))
         };
-        private DoubleAnimation To0 = new()
+        private readonly DoubleAnimation To0 = new()
         {
             To = 0,
             Duration = new Duration(new TimeSpan(0, 0, 0, 0, 100))
         };
-        private DoubleAnimation To0_5 = new()
+        private readonly DoubleAnimation To0_5 = new()
         {
             To = 0.5,
             Duration = new Duration(new TimeSpan(0, 0, 0, 0, 100))
         };
-        private DoubleAnimation To0_9 = new()
+        private readonly DoubleAnimation To0_9 = new()
         {
             To = 0.9,
             Duration = new Duration(new TimeSpan(0, 0, 0, 0, 100))
         };
         private void UserControl_MouseEnter(object sender, object e)
         {
-            IsMouseOver = true;
+            IsMouseOverIcon = true;
             _ = StartBadgeTimer();
             Highlight.BeginAnimation(OpacityProperty, To1);
         }
         private void UserControl_MouseLeave(object sender, object e)
         {
-            IsMouseOver = false;
+            IsMouseOverIcon = false;
             if (Badge != null) Badge.Close();
             Highlight.BeginAnimation(OpacityProperty, To0);
             IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
@@ -126,8 +126,8 @@ namespace SuperLauncher
                 ModernLauncherContextMenuIcon menuItems = new(this);
                 menu.Frame.Content = menuItems;
                 PInvoke.User32.GetCursorPos(out PInvoke.POINT point);
-                menu.Left = point.x;
-                menu.Top = point.y - 100;
+                menu.Left = ModernLauncher.DPI.ScalePixelsDown(point.x);
+                menu.Top = ModernLauncher.DPI.ScalePixelsDown(point.y) - 100;
                 menuItems.MouseUp += Menu_MouseUp;
                 menu.Show();
                 PWindow.IgnoreDeactivation = false;
@@ -145,7 +145,7 @@ namespace SuperLauncher
                 PWindow.CloseWindow();
             }
         }
-        private string ExtRemover(string FileName)
+        private static string ExtRemover(string FileName)
         {
             string[] parts = FileName.Split('.');
             if (parts.Length > 1)
@@ -159,7 +159,7 @@ namespace SuperLauncher
         public async Task StartBadgeTimer()
         {
             await Task.Delay(1000);
-            if (!IsMouseOver) return;
+            if (!IsMouseOverIcon) return;
             if (Badge != null) Badge.Close();
             Badge = new(FileName);
             Badge.Show();

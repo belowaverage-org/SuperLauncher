@@ -8,6 +8,19 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
+        <StackPanel x:Name="NoResults" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.5,0.5" >
+            <StackPanel.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleX="0.8" ScaleY="0.8"/>
+                </TransformGroup>
+            </StackPanel.RenderTransform>
+            <Grid Width="190" Height="200" HorizontalAlignment="Center">
+                <Path Stroke="{DynamicResource TextColorBrush}" StrokeThickness="20" Data="M 40,10 L 40, 80" />
+                <Path Stroke="{DynamicResource TextColorBrush}" StrokeThickness="20" Data="M 150,10 L 150, 80" />
+                <Path Stroke="{DynamicResource TextColorBrush}" StrokeThickness="20" Data="M 20,170 A 100,100 90 0 1 170,170" />
+            </Grid>
+            <Label Foreground="{DynamicResource TextColorBrush}"  FontFamily="Segoe UI" FontSize="36" Content="No results found" HorizontalAlignment="Center" FontWeight="Bold" />
+        </StackPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <WrapPanel x:Name="IconPanel" Margin="10,10,10,10"/>
         </ScrollViewer>

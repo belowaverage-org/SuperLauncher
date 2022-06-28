@@ -225,5 +225,21 @@ namespace SuperLauncher
         {
             if (ModernLauncherNotifyIcon.Icon != null) ModernLauncherNotifyIcon.Icon.Dispose();
         }
+        private void BtnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            System.Windows.Forms.OpenFileDialog dialog = new();
+            dialog.InitialDirectory = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs";
+            dialog.Multiselect = true;
+            dialog.Title = "Select the items you would like to pin to Super Launcher";
+            dialog.DereferenceLinks = false;
+            dialog.ShowDialog();
+            foreach (string file in dialog.FileNames)
+            {
+                Settings.Default.FileList.Add(file);
+            }
+            Settings.Default.Save();
+            ((ModernLauncher)Program.ModernApplication.MainWindow).MLI.PopulateIcons();
+            ((ModernLauncher)Program.ModernApplication.MainWindow).OpenWindow();
+        }
     }
 } 

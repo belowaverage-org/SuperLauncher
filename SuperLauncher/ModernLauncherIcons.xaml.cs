@@ -45,6 +45,11 @@ namespace SuperLauncher
         public ModernLauncherIcons()
         {
             InitializeComponent();
+            PopulateIcons();
+        }
+        public void PopulateIcons()
+        {
+            IconPanel.Children.Clear();
             foreach (string filePath in Settings.Default.FileList)
             {
                 if (!File.Exists(filePath)) continue;

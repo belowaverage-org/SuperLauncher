@@ -7,6 +7,7 @@ using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Windows.Controls;
+using System.Timers;
 
 namespace SuperLauncher
 {
@@ -58,6 +59,8 @@ namespace SuperLauncher
         public ModernLauncher()
         {
             InitializeComponent();
+            Width = Settings.Default.Width;
+            Height = Settings.Default.Height;
         }
         private IntPtr HwndSourceHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
         {
@@ -157,11 +160,24 @@ namespace SuperLauncher
             await Task.Delay(300);
             SetTopPosition();
             _ = User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_TOOLWINDOW);
+            SaveSettingsIfSizeChanged();
         }
         private void SetPosition()
         {
             SetTopPosition();
             SetLeftPosition();
+        }
+        private void SaveSettingsIfSizeChanged()
+        {
+            if (
+                Settings.Default.Width == (int)Width &&
+                Settings.Default.Height == (int)Height
+            ) {
+                return;
+            }
+            Settings.Default.Width = (int)Width;
+            Settings.Default.Height = (int)Height;
+            Settings.Default.Save();
         }
         private void SetTopPosition()
         {

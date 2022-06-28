@@ -88,6 +88,15 @@ namespace SuperLauncher
             _ = StartBadgeTimer();
             Highlight.BeginAnimation(OpacityProperty, To1);
         }
+        private void StartDrag()
+        {
+            //Visibility = Visibility.Hidden;
+            //((WrapPanel)Parent).Children
+        }
+        private void EndDrag()
+        {
+            //Visibility = Visibility.Visible;
+        }
         private void UserControl_MouseLeave(object sender, object e)
         {
             IsMouseOverIcon = false;
@@ -95,6 +104,7 @@ namespace SuperLauncher
             Highlight.BeginAnimation(OpacityProperty, To0);
             IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
             IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
+            if (IsMouseDown) StartDrag();
         }
         private void UserControl_MouseDown(object sender, MouseButtonEventArgs e)
         {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace SuperLauncher
 {
@@ -14,6 +15,17 @@ namespace SuperLauncher
         static void Main(string[] arguments)
         {
             Arguments = arguments;
+            string runAs = Shared.GetArugement("RunAs");
+            if (runAs != null)
+            {
+                ProcessStartInfo psi = new()
+                {
+                    FileName = runAs,
+                    UseShellExecute = true
+                };
+                Process.Start(psi);
+                return;
+            }
             if (Settings.Default.UseLegacyUI)
             {
                 System.Windows.Forms.Application.Run(new Launcher());

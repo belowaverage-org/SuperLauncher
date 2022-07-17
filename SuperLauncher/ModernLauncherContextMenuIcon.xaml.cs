@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Controls;
-using IWshRuntimeLibrary;
 
 namespace SuperLauncher
 {
@@ -21,8 +20,9 @@ namespace SuperLauncher
             ProcessStartInfo psi = new()
             {
                 UseShellExecute = true,
-                FileName = Icon.FilePath,
-                Verb = "RunAs"
+                FileName = Environment.ProcessPath,
+                Verb = "RunAs",
+                Arguments = "\"/RunAs:" + Icon.FilePath + "\""
             };
             try
             {
@@ -34,30 +34,19 @@ namespace SuperLauncher
         {            
             new ShellHost(Icon.FilePath.Replace(Icon.FileName, "")).Show();
         }
-        private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
-        {
-            bool isExecutable = false;
-            try
-            {
-                WshShell shell = new();
-                WshShortcut shortcut = shell.CreateShortcut(Icon.FilePath);
-                isExecutable = shortcut.TargetPath.ToLower().Contains(".exe");
-            }
-            catch (Exception)
-            {
-                isExecutable = Icon.FileName.ToLower().Contains(".exe");
-            }   
-            if (!isExecutable)
-            {
-                BtnRunAsAdmin.IsEnabled = false;
-                BtnRunAsAdmin.Opacity = 0.5;
-            }
-        }
         private void BtnUnpin_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             Settings.Default.FileList.Remove(Icon.FilePath);
             Settings.Default.Save();
             ((ModernLauncher)Program.ModernApplication.MainWindow).MLI.PopulateIcons();
+        }
+        private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (RunAsHelper.IsElevated()) 
+            {
+                BtnRunAsAdmin.IsEnabled = false;
+                BtnRunAsAdmin.Opacity = 0.5;
+            }
         }
     }
 }

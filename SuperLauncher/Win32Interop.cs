@@ -7,6 +7,8 @@ namespace SuperLauncher
 {
     static class Win32Interop
     {
+        [DllImport("User32.dll")]
+        public static extern bool InvalidateRect(IntPtr Handle, IntPtr Rect, bool Erase);
         [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
         [DllImport("user32.dll")]

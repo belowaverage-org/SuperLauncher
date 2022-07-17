@@ -4,8 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SuperLauncher"
-      x:Class="SuperLauncher.ModernLauncherContextMenuIcon"
-      mc:Ignorable="d" Loaded="Page_Loaded"
+      x:Class="SuperLauncher.ModernLauncherContextMenuIcon" Loaded="Page_Loaded"
       >
     <Page.Resources>
         <ResourceDictionary>

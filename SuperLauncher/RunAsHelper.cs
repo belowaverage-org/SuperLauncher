@@ -85,15 +85,9 @@ namespace SuperLauncher
         }
         public static string GetOriginalInvokerDomainWithUserName()
         {
-            string invokerArg = GetOriginalInvokerArg();
+            string invokerArg = Shared.GetArugement("OriginalInvoker");
             if (invokerArg != null) return invokerArg;
             return Environment.UserDomainName + "\\" + Environment.UserName;
-        }
-        public static string GetOriginalInvokerArg()
-        {
-            string invokerArg = Array.Find(Program.Arguments, (value) => { return value.StartsWith(InvokerArg); });
-            if (invokerArg != null) return invokerArg.Substring(InvokerArg.Length);
-            return null;
         }
         public static string GetOriginalInvokerDomain()
         {

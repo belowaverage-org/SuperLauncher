@@ -7,7 +7,6 @@ using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 using System.Windows.Controls;
-using System.Timers;
 
 namespace SuperLauncher
 {
@@ -133,8 +132,6 @@ namespace SuperLauncher
             HWND.AddHook(HwndSourceHook);
             SetElevateLabels();
         }
-        [DllImport("User32.dll")]
-        private static extern bool InvalidateRect(IntPtr Handle, IntPtr Rect, bool Erase);
         public async void OpenWindow(bool Center = false)
         {
             Visible = true;
@@ -146,8 +143,8 @@ namespace SuperLauncher
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             Filter.Text = "";
             Filter.Focus();
-            await Task.Delay(300);
-            InvalidateRect(WIH.Handle, IntPtr.Zero, false);
+            await Task.Delay(310);
+            Win32Interop.InvalidateRect(WIH.Handle, IntPtr.Zero, false);
         }
         public async void CloseWindow()
         {
@@ -157,7 +154,7 @@ namespace SuperLauncher
             BeginAnimation(TopProperty, CloseTopAnimation);
             BeginAnimation(LeftProperty, CloseLeftAnimation);
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
-            await Task.Delay(300);
+            await Task.Delay(310);
             SetTopPosition();
             _ = User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_TOOLWINDOW);
             SaveSettingsIfSizeChanged();

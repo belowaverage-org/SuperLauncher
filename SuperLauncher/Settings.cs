@@ -190,5 +190,10 @@ namespace SuperLauncher {
             }
             base.Remove(value);
         }
+        public new void Clear()
+        {
+            Apps.RemoveAll();
+            base.Clear();
+        }
     } 
 }

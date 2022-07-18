@@ -63,6 +63,15 @@ namespace SuperLauncher
                 IconPanel.Children.Add(mli);
             }
         }
+        private void CommitIconsToFile()
+        {
+            Settings.Default.FileList.Clear();
+            foreach (ModernLauncherIcon mli in IconPanel.Children)
+            {
+                Settings.Default.FileList.Add(mli.FilePath);
+            }
+            Settings.Default.Save();
+        }
         private void UserControl_PreviewMouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
@@ -123,11 +132,18 @@ namespace SuperLauncher
         }
         private void PerformDrag()
         {
-            
+            ModernLauncherIcon mli = GetIconWithMouseOver();
+            if (mli != null)
+            {
+                int index = IconPanel.Children.IndexOf(mli);
+                IconPanel.Children.Remove(MouseDownIcon);
+                IconPanel.Children.Insert(index, MouseDownIcon);
+            }
         }
         private void EndDrag()
         {
             ShowAllIcons();
+            CommitIconsToFile();
         }
     }
 }

@@ -1,12 +1,18 @@
-﻿using System.IO;
-using System.Windows.Controls;
+﻿using System;
+using System.IO;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace SuperLauncher
 {
     public partial class ModernLauncherIcons : UserControl
     {
-        public string rFilter;
+        private string rFilter;
+        private Point MouseDownPoint;
+        private ModernLauncherIcon MouseDownIcon;
+        private bool IsMouseDown = false;
+        private bool IsDragging = false;
         public string Filter
         {
             get
@@ -56,6 +62,72 @@ namespace SuperLauncher
                 ModernLauncherIcon mli = new(filePath);
                 IconPanel.Children.Add(mli);
             }
+        }
+        private void UserControl_PreviewMouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                IsMouseDown = true;
+                MouseDownPoint = e.GetPosition(this);
+                MouseDownIcon = GetIconWithMouseOver();
+            }
+        }
+        private void UserControl_PreviewMouseUp(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                if (IsDragging) EndDrag();
+                IsMouseDown = IsDragging = false;
+            }
+        }
+        private void UserControl_PreviewMouseMove(object sender, MouseEventArgs e)
+        {
+            Point curPoint = e.GetPosition(this);
+            if (IsDragging && e.MouseDevice.LeftButton == MouseButtonState.Released)
+            {
+                EndDrag();
+                IsMouseDown = IsDragging = false;
+            }
+            if (!IsDragging && MouseDownIcon != null && IsMouseDown && OutOfBounds(MouseDownPoint, curPoint, 10))
+            {
+                BeginDrag();
+                IsDragging = true;
+            }
+            if (IsDragging)
+            {
+                PerformDrag();
+            }
+        }
+        private bool OutOfBounds(Point StartPoint, Point EndPoint, int Distance)
+        {
+            if (Math.Abs(StartPoint.X - EndPoint.X) > Distance) return true;
+            if (Math.Abs(StartPoint.Y - EndPoint.Y) > Distance) return true;
+            return false;
+        }
+        private ModernLauncherIcon GetIconWithMouseOver()
+        {
+            foreach (ModernLauncherIcon icon in IconPanel.Children)
+            {
+                if (icon.IsMouseOver) return icon;
+            }
+            return null;
+        }
+        private void ShowAllIcons()
+        {
+            foreach (ModernLauncherIcon icon in IconPanel.Children) icon.Visibility = Visibility.Visible;
+        }
+        private void BeginDrag()
+        {
+            new ModernLauncherIconDragFloat(MouseDownIcon.LIcon.Source).Show();
+            MouseDownIcon.Visibility = Visibility.Hidden;
+        }
+        private void PerformDrag()
+        {
+            
+        }
+        private void EndDrag()
+        {
+            ShowAllIcons();
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Input;
+using System.Timers;
 
 namespace SuperLauncher
 {
@@ -18,9 +19,14 @@ namespace SuperLauncher
         public string rFilePath;
         public bool rFilterFocus = false;
         public ModernLauncherBadge Badge;
-        public bool IsMouseOverIcon = false;
         public bool IsMouseDown = false;
         public string FileName;
+        public Timer BadgeTimer = new()
+        {
+            Interval = 1000,
+            Enabled = true,
+            AutoReset = false
+        };
         private ModernLauncher PWindow;
         public string FilePath
         {
@@ -84,31 +90,15 @@ namespace SuperLauncher
         };
         private void UserControl_MouseEnter(object sender, object e)
         {
-            IsMouseOverIcon = true;
-            _ = StartBadgeTimer();
+            StartBadgeTimer();
             Highlight.BeginAnimation(OpacityProperty, To1);
-        }
-        private void StartDrag()
-        {
-            Visibility = Visibility.Hidden;
-
-            ModernLauncherIconDragFloat drag = new(LIcon.Source);
-            drag.Show();
-
-            //((WrapPanel)Parent).Children
-        }
-        private void EndDrag()
-        {
-            Visibility = Visibility.Visible;
         }
         private void UserControl_MouseLeave(object sender, object e)
         {
-            IsMouseOverIcon = false;
             if (Badge != null) Badge.Close();
             Highlight.BeginAnimation(OpacityProperty, To0);
             IconScale.BeginAnimation(ScaleTransform.ScaleXProperty, To1);
             IconScale.BeginAnimation(ScaleTransform.ScaleYProperty, To1);
-            if (IsMouseDown) StartDrag();
         }
         private void UserControl_MouseDown(object sender, MouseButtonEventArgs e)
         {
@@ -170,13 +160,19 @@ namespace SuperLauncher
             }
             return FileName;
         }
-        public async Task StartBadgeTimer()
+        public void StartBadgeTimer()
         {
-            await Task.Delay(1000);
-            if (!IsMouseOverIcon) return;
-            if (Badge != null) Badge.Close();
-            Badge = new(FileName);
-            Badge.Show();
+            BadgeTimer.Stop();
+            BadgeTimer.Start();
+        }
+        private void BadgeTimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            Dispatcher.Invoke(() => {
+                if (!IsMouseOver) return;
+                if (Badge != null) Badge.Close();
+                Badge = new(FileName);
+                Badge.Show();
+            });
         }
         public void StartProgram()
         {
@@ -225,6 +221,7 @@ namespace SuperLauncher
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             PWindow = (ModernLauncher)Window.GetWindow(this);
+            BadgeTimer.Elapsed += BadgeTimer_Elapsed;
         }
     }
 }

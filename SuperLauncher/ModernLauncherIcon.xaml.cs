@@ -90,12 +90,16 @@ namespace SuperLauncher
         }
         private void StartDrag()
         {
-            //Visibility = Visibility.Hidden;
+            Visibility = Visibility.Hidden;
+
+            ModernLauncherIconDragFloat drag = new(LIcon.Source);
+            drag.Show();
+
             //((WrapPanel)Parent).Children
         }
         private void EndDrag()
         {
-            //Visibility = Visibility.Visible;
+            Visibility = Visibility.Visible;
         }
         private void UserControl_MouseLeave(object sender, object e)
         {

@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.txtNav = new System.Windows.Forms.ComboBox();
-            this.Browser = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser();
+            //this.Browser = new Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser();
             this.panelBorderCover = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -48,7 +48,7 @@
             // 
             // Browser
             // 
-            this.Browser.AllowDrop = true;
+            /*this.Browser.AllowDrop = true;
             this.Browser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -57,7 +57,7 @@
             this.Browser.PropertyBagName = "Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser";
             this.Browser.Size = new System.Drawing.Size(577, 290);
             this.Browser.TabIndex = 5;
-            this.Browser.NavigationComplete += new System.EventHandler<Microsoft.WindowsAPICodePack.Controls.NavigationCompleteEventArgs>(this.Browser_NavigationComplete);
+            this.Browser.NavigationComplete += new System.EventHandler<Microsoft.WindowsAPICodePack.Controls.NavigationCompleteEventArgs>(this.Browser_NavigationComplete);*/
             // 
             // panelBorderCover
             // 
@@ -76,7 +76,7 @@
             this.BackColor = System.Drawing.Color.WhiteSmoke;
             this.ClientSize = new System.Drawing.Size(575, 321);
             this.Controls.Add(this.panelBorderCover);
-            this.Controls.Add(this.Browser);
+            //this.Controls.Add(this.Browser);
             this.Controls.Add(this.txtNav);
             this.DoubleBuffered = true;
             this.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
@@ -91,7 +91,7 @@
 
         #endregion
         private System.Windows.Forms.ComboBox txtNav;
-        private Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser Browser;
+        //private Microsoft.WindowsAPICodePack.Controls.WindowsForms.ExplorerBrowser Browser;
         private System.Windows.Forms.Panel panelBorderCover;
     }
 }

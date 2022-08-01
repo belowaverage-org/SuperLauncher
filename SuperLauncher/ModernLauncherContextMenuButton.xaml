@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              Height="30"
              d:DesignWidth="200" 
-             IsEnabledChanged="userControl_IsEnabledChanged"
+             IsEnabledChanged="UserControl_IsEnabledChanged"
              >
     <Grid>
         <Border Name="HighlightBorder" CornerRadius="5" Background="white" Opacity="0">

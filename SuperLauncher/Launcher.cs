@@ -3,7 +3,6 @@ using System.Windows.Forms;
 using System.IO;
 using System.Drawing;
 using System.Diagnostics;
-using CredentialManagement;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Threading.Tasks;
@@ -101,7 +100,7 @@ namespace SuperLauncher
         }
         public Launcher()
         {
-            bool isElevated = UserAccountControl.Uac.IsProcessElevated();
+            bool isElevated = RunAsHelper.IsElevated();
             ConfigHelper configHelper = new();
             var initialWidth = Settings.Default.Width;
             var initialHeight = Settings.Default.Height;
@@ -267,6 +266,7 @@ namespace SuperLauncher
         }
         private void ShowRunAs(int ErrorCode = 0, ConfigHelper configHelper = null)
         {
+            /*
             Task.Run(() => {
                 VistaPrompt prompt = new();
                 prompt.ErrorCode = ErrorCode;
@@ -308,6 +308,7 @@ namespace SuperLauncher
                     }
                 }
             });
+            */
         }
         private void IconsBox_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -337,12 +338,16 @@ namespace SuperLauncher
         private void TcMiElevate_Click(object sender, EventArgs e)
         {
             Task.Run(() => {
-                ProcessStartInfo elevatedProcStartInfo = new();
-                elevatedProcStartInfo.FileName = System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe");
-                elevatedProcStartInfo.Verb = "RunAs";
-                elevatedProcStartInfo.UseShellExecute = true;
-                Process elevatedProcess = new();
-                elevatedProcess.StartInfo = elevatedProcStartInfo;
+                ProcessStartInfo elevatedProcStartInfo = new()
+                {
+                    FileName = System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"),
+                    Verb = "RunAs",
+                    UseShellExecute = true
+                };
+                Process elevatedProcess = new()
+                {
+                    StartInfo = elevatedProcStartInfo
+                };
                 try
                 {
                     elevatedProcess.Start();
@@ -356,7 +361,7 @@ namespace SuperLauncher
         }
         private void TcMiSuperLauncher_Click(object sender, EventArgs e)
         {
-            SuperLauncherCommon.Splash screen = new SuperLauncherCommon.Splash();
+            SuperLauncherCommon.Splash screen = new();
             screen.ShowDialog();
         }
         private void RegHandleEvents(Control.ControlCollection ControlCollection)

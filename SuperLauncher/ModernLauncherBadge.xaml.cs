@@ -1,6 +1,6 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
-using PInvoke;
 
 namespace SuperLauncher
 {
@@ -23,7 +23,7 @@ namespace SuperLauncher
             LabelText.Content = Text;
             if (X == 0 && Y == 0)
             {
-                User32.GetCursorPos(out POINT point);
+                Win32Interop.GetCursorPos(out Win32Interop.POINT point);
                 Top = ModernLauncher.DPI.ScalePixelsDown(point.y);
                 Left = ModernLauncher.DPI.ScalePixelsDown(point.x);
             }

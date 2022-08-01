@@ -33,7 +33,7 @@ namespace SuperLauncher
                 {
                     ctrl.BackColor = Color.WhiteSmoke;
                     ctrl.BackgroundImage = Resources.logo_explorer_divot;
-                    PInvoke.User32.SetWindowLong(ctrl.Handle, PInvoke.User32.WindowLongIndexFlags.GWL_EXSTYLE, 0);
+                    Win32Interop.SetWindowLong(ctrl.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, 0);
                 }
             }
             Width += 1; Height += 1;
@@ -44,8 +44,10 @@ namespace SuperLauncher
         }
         private void MsMiNew_Click(object sender, EventArgs e)
         {
-            ShellView sv = new(InitialPath);
-            sv.MdiParent = this;
+            ShellView sv = new(InitialPath)
+            {
+                MdiParent = this
+            };
             Size svSize = new(Size.Width - 4, Size.Height);
             sv.Size = svSize;
             sv.Show();

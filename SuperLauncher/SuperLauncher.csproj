@@ -40,23 +40,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CredentialManagement" Version="1.0.2">
-      <NoWarn>NU1701</NoWarn>
-    </PackageReference>
-    <PackageReference Include="PInvoke.Gdi32" Version="0.7.104" />
-    <PackageReference Include="PInvoke.User32" Version="0.7.104" />
-    <PackageReference Include="UserAccountControl" Version="1.0.4636.39457">
-      <NoWarn>NU1701</NoWarn>
-    </PackageReference>
-	  <PackageReference Include="WindowsAPICodePack-Core" Version="1.1.2">
-      <NoWarn>NU1701</NoWarn>
-    </PackageReference>
-    <PackageReference Include="WindowsAPICodePack-Shell" Version="1.1.1">
-      <NoWarn>NU1701</NoWarn>
-    </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SuperLauncherCommon\SuperLauncherCommon.csproj" />
   </ItemGroup>
 

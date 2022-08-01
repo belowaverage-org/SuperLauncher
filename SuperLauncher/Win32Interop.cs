@@ -8,6 +8,14 @@ namespace SuperLauncher
     static class Win32Interop
     {
         [DllImport("User32.dll")]
+        public static extern short GetKeyState(int nVirtKey);
+        [DllImport("User32.dll")]
+        public static extern bool GetCursorPos(out POINT lpPoint);
+        [DllImport("User32.dll")]
+        public static extern bool GetMonitorInfo(IntPtr hMonitor, out MONITORINFO lpmi);
+        [DllImport("User32.dll")]
+        public static extern IntPtr MonitorFromWindow(IntPtr hWnd, MonitorFromWindowFlags dwFlags);
+        [DllImport("User32.dll")]
         public static extern IntPtr SetCapture(IntPtr hWnd);
         [DllImport("User32.dll")]
         public static extern bool InvalidateRect(IntPtr hWnd, IntPtr Rect, bool Erase);
@@ -15,6 +23,8 @@ namespace SuperLauncher
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
         [DllImport("user32.dll")]
         private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        [DllImport("user32.dll")]
+        public static extern long SetWindowLong(IntPtr hWnd, SetWindowLongIndex nIndex, ExtendedWindowStyles dwNewLong);
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool DrawIconEx(IntPtr hdc, int xLeft, int yTop, IntPtr hIcon, int cxWidth, int cyHeight, int istepIfAniCur, IntPtr hbrFlickerFreeDraw, int diFlags);
         [DllImport("gdi32.dll")]
@@ -36,6 +46,53 @@ namespace SuperLauncher
             public string dwTypeData;
             public uint cch;
             public IntPtr hbmpItem;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            public int left;
+            public int top;
+            public int right;
+            public int bottom;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        public struct POINT
+        {
+            public int x;
+            public int y;
+        }
+        [StructLayout(LayoutKind.Sequential)]
+        public struct MONITORINFO
+        {
+            public uint cbSize;
+            public RECT rcMonitor;
+            public RECT rcWork;
+            public MonitoInfoFlags dwFlags;
+        }
+        public enum MonitoInfoFlags
+        {
+            MONITORINFOF_PRIMARY = 1
+        }
+        public enum MonitorFromWindowFlags
+        {
+            MONITOR_DEFAULTTONULL = 0x0,
+            MONITOR_DEFAULTTOPRIMARY = 0x1,
+            MONITOR_DEFAULTTONEAREST = 0x2
+        }
+        public enum SetWindowLongIndex
+        {
+            GWL_EXSTYLE = -20,
+            GWL_HINSTANCE = -6,
+            GWL_ID = -12,
+            GWL_STYLE = -16,
+            GWL_USERDATA = -21,
+            GWL_WNDPROC = -4
+        }
+        public enum ExtendedWindowStyles
+        {
+            WS_EX_TRANSPARENT = 0x20,
+            WS_EX_LAYERED = 0x80000,
+            WS_EX_TOOLWINDOW = 0x80
         }
         public enum AccentState
         {
@@ -124,17 +181,21 @@ namespace SuperLauncher
         }
         public static void EnableBlur(IntPtr Handle, uint BlurOpacity = 100, uint BlurBackgroundColor = 0x990000)
         {
-            var accent = new AccentPolicy();
-            //accent.AccentFlags = 2;
-            accent.AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND;
-            accent.GradientColor = (BlurOpacity << 24) | (BlurBackgroundColor & 0xFFFFFF);
+            var accent = new AccentPolicy
+            {
+                //accent.AccentFlags = 2;
+                AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND,
+                GradientColor = (BlurOpacity << 24) | (BlurBackgroundColor & 0xFFFFFF)
+            };
             var accentStructSize = Marshal.SizeOf(accent);
             var accentPtr = Marshal.AllocHGlobal(accentStructSize);
             Marshal.StructureToPtr(accent, accentPtr, false);
-            var data = new WindowCompositionAttributeData();
-            data.Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY;
-            data.SizeOfData = accentStructSize;
-            data.Data = accentPtr;
+            var data = new WindowCompositionAttributeData
+            {
+                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
+                SizeOfData = accentStructSize,
+                Data = accentPtr
+            };
             SetWindowCompositionAttribute(Handle, ref data);
             Marshal.FreeHGlobal(accentPtr);
         }

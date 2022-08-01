@@ -1,8 +1,9 @@
-﻿using PInvoke;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Interop;
 using System.Timers;
+using System;
+using System.Runtime.InteropServices;
 
 namespace SuperLauncher
 {
@@ -11,7 +12,7 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncherIconDragFloat : Window
     {
-        ImageSource ImageSource;
+        readonly ImageSource ImageSource;
         Timer Timer;
         public ModernLauncherIconDragFloat(ImageSource ImageSource)
         {
@@ -21,15 +22,15 @@ namespace SuperLauncher
         }
         private void SetPos()
         {
-            User32.GetCursorPos(out POINT Point);
-            Left = Point.x - (Width / 2);
-            Top = Point.y - (Height / 2);
+            Win32Interop.GetCursorPos(out Win32Interop.POINT point);
+            Left = point.x - (Width / 2);
+            Top = point.y - (Height / 2);
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            WindowInteropHelper wih = new WindowInteropHelper(this);
+            WindowInteropHelper wih = new(this);
             HwndSource hwndSource = HwndSource.FromHwnd(wih.Handle);
-            User32.SetWindowLong(wih.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_TRANSPARENT);
+            Win32Interop.SetWindowLong(wih.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_TRANSPARENT);
             Icon.Source = ImageSource;
             Timer = new()
             {
@@ -43,7 +44,7 @@ namespace SuperLauncher
         private void Timer_Elapsed(object sender, ElapsedEventArgs e)
         {
             Dispatcher.Invoke(SetPos);
-            if ((User32.GetKeyState(0x1) & 0x80) == 0) Dispatcher.Invoke(Close); //Close if mouse down.
+            if ((Win32Interop.GetKeyState(0x1) & 0x80) == 0) Dispatcher.Invoke(Close); //Close if mouse down.
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

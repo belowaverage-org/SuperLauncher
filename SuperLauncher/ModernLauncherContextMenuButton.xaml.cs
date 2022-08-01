@@ -22,7 +22,7 @@ namespace SuperLauncher
         {
             InitializeComponent();
         }
-        private void userControl_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        private void UserControl_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             if (!(bool)e.NewValue)
             {

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
-using PInvoke;
 using System.Windows.Media.Animation;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
@@ -94,10 +93,10 @@ namespace SuperLauncher
         }
         private void UpdateAnimations(bool Center = false)
         {
-            User32.MONITORINFO mi = new();
-            mi.cbSize = Marshal.SizeOf(mi);
-            IntPtr hMonitor = User32.MonitorFromWindow(WIH.Handle, User32.MonitorOptions.MONITOR_DEFAULTTONEAREST);
-            User32.GetMonitorInfo(hMonitor, ref mi);
+            Win32Interop.MONITORINFO mi = new();
+            mi.cbSize = (uint)Marshal.SizeOf(mi);
+            IntPtr hMonitor = Win32Interop.MonitorFromWindow(WIH.Handle, Win32Interop.MonitorFromWindowFlags.MONITOR_DEFAULTTONEAREST);
+            Win32Interop.GetMonitorInfo(hMonitor, out mi);
             OpenTopAnimation.From = CloseTopAnimation.From = Top;
             CloseTopAnimation.To = DPI.ScalePixelsDown(mi.rcMonitor.bottom);
             if (Center)
@@ -137,7 +136,7 @@ namespace SuperLauncher
             Visible = true;
             UpdateAnimations(Center: Center);
             Activate();
-            _ = User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_LAYERED);
+            _ = Win32Interop.SetWindowLong(WIH.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_LAYERED);
             BeginAnimation(TopProperty, OpenTopAnimation);
             BeginAnimation(LeftProperty, OpenLeftAnimation);
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
@@ -156,7 +155,7 @@ namespace SuperLauncher
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             await Task.Delay(310);
             SetTopPosition();
-            _ = User32.SetWindowLong(WIH.Handle, User32.WindowLongIndexFlags.GWL_EXSTYLE, User32.SetWindowLongFlags.WS_EX_TOOLWINDOW);
+            _ = Win32Interop.SetWindowLong(WIH.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_TOOLWINDOW);
             SaveSettingsIfSizeChanged();
         }
         private void SetPosition()
@@ -240,11 +239,13 @@ namespace SuperLauncher
         }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.OpenFileDialog dialog = new();
-            dialog.InitialDirectory = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs";
-            dialog.Multiselect = true;
-            dialog.Title = "Select the items you would like to pin to Super Launcher";
-            dialog.DereferenceLinks = false;
+            System.Windows.Forms.OpenFileDialog dialog = new()
+            {
+                InitialDirectory = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs",
+                Multiselect = true,
+                Title = "Select the items you would like to pin to Super Launcher",
+                DereferenceLinks = false
+            };
             dialog.ShowDialog();
             foreach (string file in dialog.FileNames)
             {

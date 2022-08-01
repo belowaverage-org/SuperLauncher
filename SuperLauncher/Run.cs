@@ -91,9 +91,9 @@ namespace SuperLauncher
     }
     public class RunMRU
     {
-        private char[] MRUKeys = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
-        private string[] MRUVals = new string[26];
-        private char[] MRUList = new char[26];
+        private readonly char[] MRUKeys = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+        private readonly string[] MRUVals = new string[26];
+        private readonly char[] MRUList = new char[26];
         public void LoadMRU()
         {
             RegistryKey reg = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Explorer\RunMRU");

@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.Timers;
+using System.Runtime.InteropServices;
 
 namespace SuperLauncher
 {
@@ -129,7 +130,7 @@ namespace SuperLauncher
                 ModernLauncherContextMenu menu = new();
                 ModernLauncherContextMenuIcon menuItems = new(this);
                 menu.Frame.Content = menuItems;
-                PInvoke.User32.GetCursorPos(out PInvoke.POINT point);
+                Win32Interop.GetCursorPos(out Win32Interop.POINT point);
                 menu.Left = ModernLauncher.DPI.ScalePixelsDown(point.x);
                 menu.Top = ModernLauncher.DPI.ScalePixelsDown(point.y) - 100;
                 menuItems.MouseUp += Menu_MouseUp;

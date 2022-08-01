@@ -7,9 +7,11 @@ namespace SuperLauncher
         public static NotifyIcon Icon;
         public static void Initialize()
         {
-            Icon = new();
-            Icon.Icon = Resources.logo;
-            Icon.Visible = true;
+            Icon = new()
+            {
+                Icon = Resources.logo,
+                Visible = true
+            };
         }
     }
 }

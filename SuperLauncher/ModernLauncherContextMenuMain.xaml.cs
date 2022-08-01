@@ -15,8 +15,10 @@ namespace SuperLauncher
         }
         private void BtnAbout_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            SuperLauncherCommon.Splash splash = new();
-            splash.MessageText = "Original Invoker: " + RunAsHelper.GetOriginalInvokerDomainWithUserName();
+            SuperLauncherCommon.Splash splash = new()
+            {
+                MessageText = "Original Invoker: " + RunAsHelper.GetOriginalInvokerDomainWithUserName()
+            };
             splash.Show();
         }
         private void BtnExit_MouseUp(object sender, MouseButtonEventArgs e)

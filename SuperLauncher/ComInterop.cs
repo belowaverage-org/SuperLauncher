@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace SuperLauncher
@@ -16,7 +17,7 @@ namespace SuperLauncher
             public uint SetPropertyBag([In] string pszPropertyBag);
             public uint SetEmptyText([In] string pszEmptyText);
             public uint SetFolderSettings([In] ref FOLDERSETTINGS pfs);
-            public uint Advise([In] ref IExplorerBrowserEvents psbe, [Out] out uint pdwCookie);
+            public uint Advise([In] IExplorerBrowserEvents psbe, [Out] out uint pdwCookie);
             public uint Unadvise([In] uint dwCookie);
             public uint SetOptions([In] EXPLORER_BROWSER_OPTIONS dwFlags);
             public uint GetOptions([Out] out EXPLORER_BROWSER_OPTIONS pdwFlags);
@@ -26,13 +27,17 @@ namespace SuperLauncher
             public uint RemoveAll();
             public uint GetCurrentView([In] IntPtr riid, [Out] out IntPtr ppv);
         }
-        [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("361bbdc7-e6ee-4e13-be58-58e2240c810f")]
+        [ComImport, Guid("361bbdc7-e6ee-4e13-be58-58e2240c810f"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         public interface IExplorerBrowserEvents
         {
-            public uint OnNavigationPending([In] IntPtr pidlFolder);
-            public uint OnViewCreated([In] IntPtr psv);
-            public uint OnNavigationComplete([In] IntPtr pidlFolder);
-            public uint OnNavigationFailed([In] IntPtr pidlFolder);
+            [PreserveSig]
+            uint OnNavigationPending([In] IntPtr pidlFolder);
+            [PreserveSig]
+            uint OnViewCreated([In] IntPtr psv);
+            [PreserveSig]
+            uint OnNavigationComplete([In] IntPtr pidlFolder);
+            [PreserveSig]
+            uint OnNavigationFailed([In] IntPtr pidlFolder);
         }
         [StructLayout(LayoutKind.Sequential)]
         public struct FOLDERSETTINGS

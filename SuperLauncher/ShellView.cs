@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace SuperLauncher
 {
@@ -44,6 +45,7 @@ namespace SuperLauncher
         private void ShellView_Load(object sender, EventArgs e)
         {
             Browser = (ComInterop.IExplorerBrowser)new ComInterop.ExplorerBrowser();
+            Browser.Advise(new ExplorerBrowserEvents(), out uint test);
             Browser.SetOptions(ComInterop.EXPLORER_BROWSER_OPTIONS.EBO_NOBORDER | ComInterop.EXPLORER_BROWSER_OPTIONS.EBO_SHOWFRAMES);
             Browser.Initialize(Handle, new Win32Interop.RECT(), new ComInterop.FOLDERSETTINGS()
             {
@@ -52,6 +54,26 @@ namespace SuperLauncher
             });
             Win32Interop.SHGetDesktopFolder(out IntPtr ppshf);
             Browser.BrowseToObjects(ppshf, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
+            
+        }
+        private class ExplorerBrowserEvents : ComInterop.IExplorerBrowserEvents
+        {
+            public uint OnNavigationPending([In] IntPtr pidlFolder)
+            {
+                return 0;
+            }
+            public uint OnViewCreated([In] IntPtr psv)
+            {
+                return 0;
+            }
+            public uint OnNavigationComplete([In] IntPtr pidlFolder)
+            {
+                return 0;
+            }
+            public uint OnNavigationFailed([In] IntPtr pidlFolder)
+            {
+                return 0;
+            }
         }
         private void BtnBack_Click(object sender, EventArgs e)
         {

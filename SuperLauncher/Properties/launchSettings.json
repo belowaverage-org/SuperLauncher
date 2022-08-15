@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "SuperLauncher": {
+      "commandName": "Project",
+      "hotReloadEnabled": false,
+      "nativeDebugging": false
+    }
+  }
+}

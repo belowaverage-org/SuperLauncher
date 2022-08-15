@@ -9,6 +9,7 @@ namespace SuperLauncher
     {
         private readonly string InitialPath;
         private readonly ModernLauncherExplorerButtons MButtons = new();
+        private ComInterop.IExplorerBrowser Browser;
         public ShellView(string InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
         {
             this.InitialPath = InitialPath;
@@ -30,6 +31,7 @@ namespace SuperLauncher
             MButtons.Forward.Click += BtnForward_Click;
             MButtons.Up.Click += BtnNavUp_Click;
             Icon = Resources.logo;
+
             try
             {
                 //Browser.Navigate(ShellObject.FromParsingName(InitialPath));
@@ -38,6 +40,18 @@ namespace SuperLauncher
             {
                 //Browser.Navigate(ShellObject.FromParsingName("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"));
             }
+        }
+        private void ShellView_Load(object sender, EventArgs e)
+        {
+            Browser = (ComInterop.IExplorerBrowser)new ComInterop.ExplorerBrowser();
+            Browser.SetOptions(ComInterop.EXPLORER_BROWSER_OPTIONS.EBO_NOBORDER | ComInterop.EXPLORER_BROWSER_OPTIONS.EBO_SHOWFRAMES);
+            Browser.Initialize(Handle, new Win32Interop.RECT(), new ComInterop.FOLDERSETTINGS()
+            {
+                fFlags = ComInterop.FOLDERFLAGS.FWF_NONE,
+                ViewMode = ComInterop.FOLDERVIEWMODE.FVM_AUTO
+            });
+            Win32Interop.SHGetDesktopFolder(out IntPtr ppshf);
+            Browser.BrowseToObjects(ppshf, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
         }
         private void BtnBack_Click(object sender, EventArgs e)
         {
@@ -82,6 +96,17 @@ namespace SuperLauncher
                     MessageBox.Show("Not a valid path / directory.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
+        }
+        private void ShellView_Resize(object sender, EventArgs e)
+        {
+            if (Browser == null) return;
+            Browser.SetRect(IntPtr.Zero, new Win32Interop.RECT() 
+            {
+                top = 36,
+                left = 0,
+                bottom = Height - 39,
+                right = Width - 16,
+            });
         }
     }
 }

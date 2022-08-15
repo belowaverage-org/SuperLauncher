@@ -5,8 +5,10 @@ using System.Runtime.InteropServices;
 
 namespace SuperLauncher
 {
-    static class Win32Interop
+    public static class Win32Interop
     {
+        [DllImport("Shell32.dll")]
+        public static extern uint SHGetDesktopFolder(out IntPtr ppshf);
         [DllImport("User32.dll")]
         public static extern short GetKeyState(int nVirtKey);
         [DllImport("User32.dll")]

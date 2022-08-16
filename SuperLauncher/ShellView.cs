@@ -11,6 +11,7 @@ namespace SuperLauncher
         private readonly string InitialPath;
         private readonly ModernLauncherExplorerButtons MButtons = new();
         private ComInterop.IExplorerBrowser Browser;
+        private uint AdviseCookie;
         public ShellView(string InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
         {
             this.InitialPath = InitialPath;
@@ -32,32 +33,37 @@ namespace SuperLauncher
             MButtons.Forward.Click += BtnForward_Click;
             MButtons.Up.Click += BtnNavUp_Click;
             Icon = Resources.logo;
-
-            try
-            {
-                //Browser.Navigate(ShellObject.FromParsingName(InitialPath));
-            }
-            catch
-            {
-                //Browser.Navigate(ShellObject.FromParsingName("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}"));
-            }
         }
         private void ShellView_Load(object sender, EventArgs e)
         {
             Browser = (ComInterop.IExplorerBrowser)new ComInterop.ExplorerBrowser();
-            Browser.Advise(new ExplorerBrowserEvents(), out uint test);
+            Browser.Advise(new ExplorerBrowserEvents(this), out AdviseCookie);
             Browser.SetOptions(ComInterop.EXPLORER_BROWSER_OPTIONS.EBO_NOBORDER | ComInterop.EXPLORER_BROWSER_OPTIONS.EBO_SHOWFRAMES);
             Browser.Initialize(Handle, new Win32Interop.RECT(), new ComInterop.FOLDERSETTINGS()
             {
                 fFlags = ComInterop.FOLDERFLAGS.FWF_NONE,
                 ViewMode = ComInterop.FOLDERVIEWMODE.FVM_AUTO
             });
-            Win32Interop.SHGetDesktopFolder(out IntPtr ppshf);
-            Browser.BrowseToObjects(ppshf, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
-            
+            uint hresult = Win32Interop.SHParseDisplayName(InitialPath, IntPtr.Zero, out IntPtr ppidl, 0, out _);
+            if (hresult == 0)
+            {
+                Browser.BrowseToIDList(ppidl, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
+                Win32Interop.ILFree(ppidl);
+            }
+            else
+            {
+                Win32Interop.SHParseDisplayName("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", IntPtr.Zero, out ppidl, 0, out _);
+                Browser.BrowseToIDList(ppidl, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
+                Win32Interop.ILFree(ppidl);
+            }
         }
         private class ExplorerBrowserEvents : ComInterop.IExplorerBrowserEvents
         {
+            public ShellView ShellView;
+            public ExplorerBrowserEvents(ShellView shellView)
+            {
+                ShellView = shellView;
+            }
             public uint OnNavigationPending([In] IntPtr pidlFolder)
             {
                 return 0;
@@ -68,6 +74,13 @@ namespace SuperLauncher
             }
             public uint OnNavigationComplete([In] IntPtr pidlFolder)
             {
+                Win32Interop.SHGetNameFromIDList(pidlFolder, Win32Interop.SIGDN.SIGDN_DESKTOPABSOLUTEEDITING, out string ppszName);
+
+                ShellView.txtNav.Text = ppszName;
+
+                ShellView.MButtons.Back.IsEnabled = true;
+                ShellView.MButtons.Forward.IsEnabled = true;
+                
                 return 0;
             }
             public uint OnNavigationFailed([In] IntPtr pidlFolder)
@@ -77,29 +90,12 @@ namespace SuperLauncher
         }
         private void BtnBack_Click(object sender, EventArgs e)
         {
-            //Browser.NavigateLogLocation(NavigationLogDirection.Backward);
+            Browser.BrowseToIDList(IntPtr.Zero, ComInterop.BROWSETOFLAGS.SBSP_NAVIGATEBACK);
         }
         private void BtnForward_Click(object sender, EventArgs e)
         {
-            //Browser.NavigateLogLocation(NavigationLogDirection.Forward);
+            Browser.BrowseToIDList(IntPtr.Zero, ComInterop.BROWSETOFLAGS.SBSP_NAVIGATEFORWARD);
         }
-        /*
-        private void Browser_NavigationComplete(object sender, NavigationCompleteEventArgs e)
-        {
-            Text = e.NewLocation.Name;
-            if (e.NewLocation.IsFileSystemObject)
-            {
-                txtNav.Text = e.NewLocation.ParsingName;
-            }
-            else
-            {
-                txtNav.Text = e.NewLocation.GetDisplayName(DisplayNameType.Default);
-            }
-            MButtons.Up.IsEnabled = Directory.Exists(txtNav.Text) && Directory.GetParent(txtNav.Text) != null;
-            MButtons.Back.IsEnabled = Browser.NavigationLog.CanNavigateBackward;
-            MButtons.Forward.IsEnabled = Browser.NavigationLog.CanNavigateForward;
-        }
-        */
         private void BtnNavUp_Click(object sender, EventArgs e)
         {
             //Browser.Navigate(ShellObject.FromParsingName(Directory.GetParent(txtNav.Text).FullName));
@@ -129,6 +125,11 @@ namespace SuperLauncher
                 bottom = Height - 39,
                 right = Width - 16,
             });
+        }
+        private void ShellView_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Browser.Unadvise(AdviseCookie);
+            Browser.Destroy();
         }
     }
 }

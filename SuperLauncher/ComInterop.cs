@@ -25,7 +25,7 @@ namespace SuperLauncher
             public uint BrowseToObjects([In] IntPtr punk,  [In] BROWSETOFLAGS uflags);
             public uint FillFromObject([In] IntPtr punk, [In] EXPLORER_BROWSER_FILL_FLAGS dwFlags);
             public uint RemoveAll();
-            public uint GetCurrentView([In] IntPtr riid, [Out] out IntPtr ppv);
+            public uint GetCurrentView([In] Guid riid, [Out] out IntPtr ppv);
         }
         [ComImport, Guid("361bbdc7-e6ee-4e13-be58-58e2240c810f"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         public interface IExplorerBrowserEvents

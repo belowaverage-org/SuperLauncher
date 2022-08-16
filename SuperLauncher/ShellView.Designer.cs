@@ -58,6 +58,7 @@
             this.Name = "ShellView";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Explorer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShellView_FormClosing);
             this.Load += new System.EventHandler(this.ShellView_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.ShellView_KeyDown);
             this.Resize += new System.EventHandler(this.ShellView_Resize);

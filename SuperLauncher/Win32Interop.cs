@@ -8,6 +8,8 @@ namespace SuperLauncher
     public static class Win32Interop
     {
         [DllImport("Shell32.dll")]
+        public static extern uint SHBindToParent(IntPtr pidl, Guid riid, out IntPtr ppv, out IntPtr ppidlLast);
+        [DllImport("Shell32.dll")]
         public static extern void SHGetNameFromIDList(IntPtr pidl, SIGDN sigdnName, [MarshalAs(UnmanagedType.LPWStr)] out string ppszName);
         [DllImport("Shell32.dll")]
         public static extern void ILFree(IntPtr pidl);

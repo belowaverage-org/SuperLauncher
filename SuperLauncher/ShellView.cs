@@ -12,6 +12,11 @@ namespace SuperLauncher
         private readonly ModernLauncherExplorerButtons MButtons = new();
         private ComInterop.IExplorerBrowser Browser;
         private uint AdviseCookie;
+        private IntPtr ParentFolder;
+        private uint NavLogCount = 0;
+        private uint NavLogPosition = 0;
+        private bool BackPressed = false;
+        private bool ForwardPressed = false;
         public ShellView(string InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
         {
             this.InitialPath = InitialPath;
@@ -56,6 +61,7 @@ namespace SuperLauncher
                 Browser.BrowseToIDList(ppidl, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
                 Win32Interop.ILFree(ppidl);
             }
+            ShellView_Resize(null, null);
         }
         private class ExplorerBrowserEvents : ComInterop.IExplorerBrowserEvents
         {
@@ -74,13 +80,37 @@ namespace SuperLauncher
             }
             public uint OnNavigationComplete([In] IntPtr pidlFolder)
             {
-                Win32Interop.SHGetNameFromIDList(pidlFolder, Win32Interop.SIGDN.SIGDN_DESKTOPABSOLUTEEDITING, out string ppszName);
-
-                ShellView.txtNav.Text = ppszName;
-
-                ShellView.MButtons.Back.IsEnabled = true;
-                ShellView.MButtons.Forward.IsEnabled = true;
-                
+                Win32Interop.SHGetNameFromIDList(pidlFolder, Win32Interop.SIGDN.SIGDN_NORMALDISPLAY, out string displayName);
+                Win32Interop.SHGetNameFromIDList(pidlFolder, Win32Interop.SIGDN.SIGDN_DESKTOPABSOLUTEEDITING, out string absoluteName);
+                Win32Interop.SHBindToParent(pidlFolder, Guid.Parse("000214E6-0000-0000-C000-000000000046"), out IntPtr ppv, out _);
+                ShellView.MButtons.Up.IsEnabled = !(ppv == ShellView.ParentFolder);
+                ShellView.ParentFolder = ppv;
+                ShellView.Text = displayName;
+                ShellView.txtNav.Text = absoluteName;
+                if (ShellView.BackPressed)
+                {
+                    ShellView.NavLogPosition--;
+                    ShellView.BackPressed = false;
+                }
+                else if (ShellView.ForwardPressed)
+                {
+                    ShellView.NavLogPosition++;
+                    ShellView.ForwardPressed = false;
+                }
+                else
+                {
+                    if (ShellView.NavLogPosition != ShellView.NavLogCount)
+                    {
+                        ShellView.NavLogCount = ShellView.NavLogPosition + 1;
+                    }
+                    else
+                    {
+                        ShellView.NavLogCount++;
+                    }
+                    ShellView.NavLogPosition = ShellView.NavLogCount;
+                }
+                ShellView.MButtons.Back.IsEnabled = (ShellView.NavLogPosition > 1);
+                ShellView.MButtons.Forward.IsEnabled = (ShellView.NavLogPosition < ShellView.NavLogCount);
                 return 0;
             }
             public uint OnNavigationFailed([In] IntPtr pidlFolder)
@@ -90,29 +120,33 @@ namespace SuperLauncher
         }
         private void BtnBack_Click(object sender, EventArgs e)
         {
+            BackPressed = true;
             Browser.BrowseToIDList(IntPtr.Zero, ComInterop.BROWSETOFLAGS.SBSP_NAVIGATEBACK);
         }
         private void BtnForward_Click(object sender, EventArgs e)
         {
+            ForwardPressed = true;
             Browser.BrowseToIDList(IntPtr.Zero, ComInterop.BROWSETOFLAGS.SBSP_NAVIGATEFORWARD);
         }
         private void BtnNavUp_Click(object sender, EventArgs e)
         {
-            //Browser.Navigate(ShellObject.FromParsingName(Directory.GetParent(txtNav.Text).FullName));
+            Browser.BrowseToObjects(ParentFolder, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
         }
         private void ShellView_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
             {
                 e.Handled = true;
-                try
+                uint hresult = Win32Interop.SHParseDisplayName(txtNav.Text, IntPtr.Zero, out IntPtr ppidl, 0, out _);
+                if (hresult == 0)
                 {
-                    //Browser.Navigate(ShellObject.FromParsingName(txtNav.Text));
+                    Browser.BrowseToIDList(ppidl, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
                 }
-                catch (Exception)
+                else
                 {
-                    MessageBox.Show("Not a valid path / directory.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(Marshal.GetExceptionForHR((int)hresult).Message, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
+                Win32Interop.ILFree(ppidl);
             }
         }
         private void ShellView_Resize(object sender, EventArgs e)

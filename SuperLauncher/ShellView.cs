@@ -8,10 +8,10 @@ namespace SuperLauncher
 {
     public partial class ShellView : Form
     {
+        public ComInterop.IShellView ComShellView;
         private readonly string InitialPath;
         private readonly ModernLauncherExplorerButtons MButtons = new();
         private ComInterop.IExplorerBrowser Browser;
-        private ComInterop.IShellView ComShellView;
         private uint AdviseCookie;
         private IntPtr ParentFolder;
         private uint NavLogCount = 0;
@@ -43,7 +43,7 @@ namespace SuperLauncher
         }
         private void Refresh_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            uint hresult = ComShellView.Refresh();
+            ComShellView.Refresh();
         }
         private void ShellView_Load(object sender, EventArgs e)
         {

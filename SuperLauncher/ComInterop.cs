@@ -71,7 +71,6 @@ namespace SuperLauncher
         public enum FOLDERVIEWMODE : int
         {
             FVM_AUTO = -1,
-            FVM_FIRST = 1,
             FVM_ICON = 1,
             FVM_SMALLICON = 2,
             FVM_LIST = 3,
@@ -79,8 +78,7 @@ namespace SuperLauncher
             FVM_THUMBNAIL = 5,
             FVM_TILE = 6,
             FVM_THUMBSTRIP = 7,
-            FVM_CONTENT = 8,
-            FVM_LAST = 8
+            FVM_CONTENT = 8
         }
         public enum FOLDERFLAGS : uint
         {

@@ -82,7 +82,7 @@ namespace SuperLauncher
             if (tag[0] == '1' && !mi.Checked) set = 1;
             key.SetValue(name, set);
             key.Close();
-            MessageBox.Show("In order for these changes to take effect, right click anywhere in the file explorer window and select \"Refresh\".", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            foreach (ShellView sv in MdiChildren) sv.ComShellView.Refresh();
         }
         private void MsMiOptions_DropDownOpening(object sender, EventArgs e)
         {

@@ -38,10 +38,10 @@
             this.txtNav.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
             this.txtNav.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllSystemSources;
             this.txtNav.ItemHeight = 15;
-            this.txtNav.Location = new System.Drawing.Point(99, 5);
+            this.txtNav.Location = new System.Drawing.Point(129, 6);
             this.txtNav.MaxDropDownItems = 30;
             this.txtNav.Name = "txtNav";
-            this.txtNav.Size = new System.Drawing.Size(472, 23);
+            this.txtNav.Size = new System.Drawing.Size(441, 23);
             this.txtNav.TabIndex = 3;
             // 
             // ShellView

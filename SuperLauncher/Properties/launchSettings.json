@@ -3,7 +3,7 @@
     "SuperLauncher": {
       "commandName": "Project",
       "hotReloadEnabled": false,
-      "nativeDebugging": true
+      "nativeDebugging": false
     }
   }
 }

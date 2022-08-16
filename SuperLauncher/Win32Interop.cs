@@ -24,8 +24,6 @@ namespace SuperLauncher
         [DllImport("User32.dll")]
         public static extern IntPtr MonitorFromWindow(IntPtr hWnd, MonitorFromWindowFlags dwFlags);
         [DllImport("User32.dll")]
-        public static extern IntPtr SetCapture(IntPtr hWnd);
-        [DllImport("User32.dll")]
         public static extern bool InvalidateRect(IntPtr hWnd, IntPtr Rect, bool Erase);
         [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
@@ -39,22 +37,6 @@ namespace SuperLauncher
         private static extern IntPtr CreateSolidBrush(uint crColor);
         [DllImport("user32.dll")]
         internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
-        [StructLayout(LayoutKind.Sequential)]
-        private struct MENUITEMINFO
-        {
-            public uint cbSize;
-            public uint fMask;
-            public uint fType;
-            public uint fState;
-            public uint wID;
-            public IntPtr hSubMenu;
-            public IntPtr hbmpChecked;
-            public IntPtr hbmpUnchecked;
-            public IntPtr dwItemData;
-            public string dwTypeData;
-            public uint cch;
-            public IntPtr hbmpItem;
-        }
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
@@ -148,15 +130,6 @@ namespace SuperLauncher
             SIGDN_PARENTRELATIVEFORUI = 0x80094001
         }
         //private static Dictionary<MenuItem, Image> MenuItemIcons = new Dictionary<MenuItem, Image>();
-        /// <summary>
-        /// Sets an icon on a button with the FlatStyle set to System.
-        /// </summary>
-        /// <param name="Button">Button Object</param>
-        /// <param name="Icon">Icon Object</param>
-        public static void SetSystemIcon(this Button Button, Icon Icon, int Width = 16, int Height = 16)
-        {
-            _ = SendMessage(Button.Handle, 0xf7, (IntPtr)1, new Icon(Icon, Width, Height).Handle);
-        }
         /*
         public static void SetMenuItemBitmap(this MenuItem MenuItem, Image Image)
         {

@@ -11,6 +11,7 @@ namespace SuperLauncher
         private readonly string InitialPath;
         private readonly ModernLauncherExplorerButtons MButtons = new();
         private ComInterop.IExplorerBrowser Browser;
+        private ComInterop.IShellView ComShellView;
         private uint AdviseCookie;
         private IntPtr ParentFolder;
         private uint NavLogCount = 0;
@@ -27,9 +28,9 @@ namespace SuperLauncher
             InitializeComponent();
             ElementHost modernButtonsEH = new()
             {
-                Width = 90,
-                Height = 30,
-                Top = 2,
+                Width = 121,
+                Height = 28,
+                Top = 3,
                 Left = 3,
                 Child = MButtons,
                 Parent = this
@@ -37,7 +38,12 @@ namespace SuperLauncher
             MButtons.Back.Click += BtnBack_Click;
             MButtons.Forward.Click += BtnForward_Click;
             MButtons.Up.Click += BtnNavUp_Click;
+            MButtons.Refresh.Click += Refresh_Click;
             Icon = Resources.logo;
+        }
+        private void Refresh_Click(object sender, System.Windows.RoutedEventArgs e)
+        {
+            uint hresult = ComShellView.Refresh();
         }
         private void ShellView_Load(object sender, EventArgs e)
         {
@@ -80,9 +86,11 @@ namespace SuperLauncher
             }
             public uint OnNavigationComplete([In] IntPtr pidlFolder)
             {
+                ShellView.Browser.GetCurrentView(Guid.Parse("000214E3-0000-0000-C000-000000000046"), out IntPtr ppv);
+                ShellView.ComShellView = (ComInterop.IShellView)Marshal.GetTypedObjectForIUnknown(ppv, typeof(ComInterop.IShellView));
                 Win32Interop.SHGetNameFromIDList(pidlFolder, Win32Interop.SIGDN.SIGDN_NORMALDISPLAY, out string displayName);
                 Win32Interop.SHGetNameFromIDList(pidlFolder, Win32Interop.SIGDN.SIGDN_DESKTOPABSOLUTEEDITING, out string absoluteName);
-                Win32Interop.SHBindToParent(pidlFolder, Guid.Parse("000214E6-0000-0000-C000-000000000046"), out IntPtr ppv, out _);
+                Win32Interop.SHBindToParent(pidlFolder, Guid.Parse("000214E6-0000-0000-C000-000000000046"), out ppv, out _);
                 ShellView.MButtons.Up.IsEnabled = !(ppv == ShellView.ParentFolder);
                 ShellView.ParentFolder = ppv;
                 ShellView.Text = displayName;

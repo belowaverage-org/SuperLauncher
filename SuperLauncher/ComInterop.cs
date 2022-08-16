@@ -11,7 +11,7 @@ namespace SuperLauncher
         [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("dfd3b6b5-c10c-4be9-85f6-a66969f402f6")]
         public interface IExplorerBrowser
         {
-            public uint Initialize([In] IntPtr hwndParent, [In] ref Win32Interop.RECT prc, [In, Optional]  ref FOLDERSETTINGS pfs);
+            public uint Initialize([In] IntPtr hwndParent, [In] ref Win32Interop.RECT prc, [In, Optional] ref FOLDERSETTINGS pfs);
             public uint Destroy();
             public uint SetRect([In, Out] ref IntPtr phdwp, [In] Win32Interop.RECT rcBrowser);
             public uint SetPropertyBag([In] string pszPropertyBag);
@@ -21,11 +21,34 @@ namespace SuperLauncher
             public uint Unadvise([In] uint dwCookie);
             public uint SetOptions([In] EXPLORER_BROWSER_OPTIONS dwFlags);
             public uint GetOptions([Out] out EXPLORER_BROWSER_OPTIONS pdwFlags);
-            public uint BrowseToIDList([In] IntPtr pidl,  [In] BROWSETOFLAGS uFlags);
-            public uint BrowseToObjects([In] IntPtr punk,  [In] BROWSETOFLAGS uflags);
+            public uint BrowseToIDList([In] IntPtr pidl, [In] BROWSETOFLAGS uFlags);
+            public uint BrowseToObjects([In] IntPtr punk, [In] BROWSETOFLAGS uflags);
             public uint FillFromObject([In] IntPtr punk, [In] EXPLORER_BROWSER_FILL_FLAGS dwFlags);
             public uint RemoveAll();
             public uint GetCurrentView([In] Guid riid, [Out] out IntPtr ppv);
+        }
+        [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("00000114-0000-0000-c000-000000000046")]
+        public interface IOleWindow
+        {
+            public uint GetWindow([Out] out IntPtr phwnd);
+            public uint ContextSensitiveHelp([In] bool fEnterMode);
+        }
+        [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("000214E3-0000-0000-C000-000000000046")]
+        public interface IShellView
+        {
+            public uint GetWindow([Out] out IntPtr phwnd);
+            public uint ContextSensitiveHelp([In] bool fEnterMode);
+            public uint TranslateAccelerator([In] IntPtr pmsg);
+            public uint EnableModeless([In] bool fEnable);
+            public uint UIActivate([In] uint uState);
+            public uint Refresh();
+            public uint CreateViewWindow([In] ref IShellView psvPrevious, [In] FOLDERSETTINGS pfs, [In] IntPtr psb, [In] ref Win32Interop.RECT prcView, [Out] out IntPtr phWnd);
+            public uint DestroyViewWindow();
+            public uint GetCurrentInfo([Out] out FOLDERSETTINGS pfs);
+            public uint AddPropertySheetPages([In] uint dwReserved, [In] object pfn, [In] uint lparam);
+            public uint SaveViewState();
+            public uint SelectItem([In] IntPtr pidlItem, [In] uint uFlags);
+            public uint GetItemObject([In] uint uItem, [In] Guid riid, [Out] out IntPtr ppv);
         }
         [ComImport, Guid("361bbdc7-e6ee-4e13-be58-58e2240c810f"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         public interface IExplorerBrowserEvents

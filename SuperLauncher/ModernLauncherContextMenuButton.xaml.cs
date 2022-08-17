@@ -8,6 +8,7 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncherContextMenuButton : UserControl
     {
+        private bool useSLIcons = false;
         public string Text
         {
             get { return (string)TextLabel.Content; }
@@ -16,7 +17,29 @@ namespace SuperLauncher
         public string Icon
         {
             get { return (string)IconLabel.Content; }
-            set { IconLabel.Content = value; }
+            set 
+            { 
+                IconLabel.Content = value;
+                SLIconLabel.Content = value;
+            }
+        }
+        public bool UserSLIcons
+        {
+            get { return useSLIcons; }
+            set 
+            {
+                useSLIcons = value;
+                if (useSLIcons)
+                {
+                    IconLabel.Visibility = Visibility.Hidden;
+                    SLIconLabel.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    IconLabel.Visibility = Visibility.Visible;
+                    SLIconLabel.Visibility = Visibility.Hidden;
+                }
+            }
         }
         public ModernLauncherContextMenuButton()
         {

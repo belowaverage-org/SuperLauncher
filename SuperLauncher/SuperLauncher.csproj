@@ -25,6 +25,7 @@
     <None Remove="Resources\segoeui.ttf" />
     <None Remove="Resources\shield.png" />
     <None Remove="Resources\shortcut.png" />
+    <None Remove="Resources\SuperLauncherIcons.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,9 +55,14 @@
     <Resource Include="Resources\SegoeIcons.ttf">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\SegoeUI.ttf" />
+    <Resource Include="Resources\SegoeUI.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\shield.png" />
     <Resource Include="Resources\shortcut.png" />
+    <Resource Include="Resources\SuperLauncherIcons.ttf">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>

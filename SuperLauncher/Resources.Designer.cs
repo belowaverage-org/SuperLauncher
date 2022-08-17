@@ -179,5 +179,15 @@ namespace SuperLauncher {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] SuperLauncherIcons {
+            get {
+                object obj = ResourceManager.GetObject("SuperLauncherIcons", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-using System.IO;
 using System.Runtime.InteropServices;
 
 namespace SuperLauncher

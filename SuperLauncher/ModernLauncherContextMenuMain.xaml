@@ -15,7 +15,7 @@
         </ResourceDictionary>
     </Page.Resources>
     <StackPanel >
-        <local:ModernLauncherContextMenuButton x:Name="BtnAbout" Text="About Super Launcher" Icon="" MouseUp="BtnAbout_MouseUp" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnAbout" Text="About Super Launcher" Icon="0" UserSLIcons="True" MouseUp="BtnAbout_MouseUp" />
         <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
         <local:ModernLauncherContextMenuButton x:Name="BtnElevate" Text="Elevate" Icon="" MouseUp="BtnElevate_MouseUp" />
         <local:ModernLauncherContextMenuButton x:Name="BtnRunAs" Text="Run as" Icon="" MouseUp="BtnRunAs_MouseUp" />

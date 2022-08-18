@@ -15,7 +15,8 @@
         Deactivated="Window_Deactivated"
         Loaded="Window_Loaded"
         d:DesignHeight="100"
-        d:DesignWidth="100">
+        d:DesignWidth="100"
+        Closing="Window_Closing">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -33,7 +34,7 @@
     </WindowChrome.WindowChrome>
     <Grid Background="{DynamicResource PanelColorBrush}">
         <Grid x:Name="Grid" Background="{DynamicResource AcrylicNoise}">
-            <Frame Opacity="1" x:Name="Frame" Margin="3,3,3,3" />
+            <Frame Opacity="0" x:Name="Frame" Margin="3,3,3,3" />
         </Grid>
     </Grid>
 </Window>

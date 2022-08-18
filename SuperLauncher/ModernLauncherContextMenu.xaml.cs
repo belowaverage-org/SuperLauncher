@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
@@ -12,6 +11,13 @@ namespace SuperLauncher
     public partial class ModernLauncherContextMenu : Window
     {
         private WindowInteropHelper WIH;
+        private bool ActuallyClose = false;
+        private DoubleAnimation FadeIn = new()
+        {
+            To = 1,
+            Duration = TimeSpan.FromMilliseconds(300),
+            EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
+        };
         public ModernLauncherContextMenu()
         {
             InitializeComponent();
@@ -20,17 +26,16 @@ namespace SuperLauncher
         {
             WIH = new(this);
             Win32Interop.EnableBlur(WIH.Handle, 200, 0);
-            /*Int32Animation fadeIn = new()
-            {
-                To = 0,
-                Duration = TimeSpan.FromMilliseconds(300),
-                EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseOut }
-            };
-            Frame.BeginAnimation(TopProperty, fadeIn);*/
+            Frame.BeginAnimation(OpacityProperty, FadeIn);
         }
         private void Window_Deactivated(object sender, System.EventArgs e)
         {
+            ActuallyClose = true;
             Close();
+        }
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (!ActuallyClose) e.Cancel = true;
         }
     }
 }

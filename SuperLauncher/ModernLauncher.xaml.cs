@@ -25,7 +25,7 @@ namespace SuperLauncher
         private HwndSource HWND;
         private readonly DoubleAnimation RenderBoostAnimation = new()
         {
-            Duration = TimeSpan.FromSeconds(0.3),
+            Duration = TimeSpan.FromSeconds(1),
             From = 1,
             To = 0
         };
@@ -123,6 +123,7 @@ namespace SuperLauncher
             SetPosition();
             WIH = new(this);
             HWND = HwndSource.FromHwnd(WIH.Handle);
+            Program.ModernApplication.Exit += ModernApplication_Exit;
             Win32Interop.EnableBlur(WIH.Handle, 200, 0);
             InitializeNotifyIcon();
             Win32Interop.RegisterHotKey(WIH.Handle, 0, 0x1 | 0x4000, 0x53); //Register Hot Key ALT + S
@@ -130,6 +131,10 @@ namespace SuperLauncher
             Win32Interop.RegisterHotKey(WIH.Handle, 2, 0x1 | 0x4000, 0x52); //Register Hot Key ALT + R
             HWND.AddHook(HwndSourceHook);
             SetElevateLabels();
+        }
+        private void ModernApplication_Exit(object sender, ExitEventArgs e)
+        {
+            if (ModernLauncherNotifyIcon.Icon != null) ModernLauncherNotifyIcon.Icon.Dispose();
         }
         public async void OpenWindow(bool Center = false)
         {
@@ -235,7 +240,7 @@ namespace SuperLauncher
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            if (ModernLauncherNotifyIcon.Icon != null) ModernLauncherNotifyIcon.Icon.Dispose();
+            e.Cancel = true;
         }
         private void BtnAdd_Click(object sender, RoutedEventArgs e)
         {

@@ -25,7 +25,7 @@ namespace SuperLauncher
         private HwndSource HWND;
         private readonly DoubleAnimation RenderBoostAnimation = new()
         {
-            Duration = TimeSpan.FromSeconds(1),
+            Duration = TimeSpan.FromSeconds(0.5),
             From = 1,
             To = 0
         };
@@ -124,6 +124,8 @@ namespace SuperLauncher
             WIH = new(this);
             HWND = HwndSource.FromHwnd(WIH.Handle);
             Program.ModernApplication.Exit += ModernApplication_Exit;
+            OpenTopAnimation.Completed += OpenTopAnimation_Completed;
+            CloseTopAnimation.Completed += CloseTopAnimation_Completed;
             Win32Interop.EnableBlur(WIH.Handle, 200, 0);
             InitializeNotifyIcon();
             Win32Interop.RegisterHotKey(WIH.Handle, 0, 0x1 | 0x4000, 0x53); //Register Hot Key ALT + S
@@ -132,11 +134,7 @@ namespace SuperLauncher
             HWND.AddHook(HwndSourceHook);
             SetElevateLabels();
         }
-        private void ModernApplication_Exit(object sender, ExitEventArgs e)
-        {
-            if (ModernLauncherNotifyIcon.Icon != null) ModernLauncherNotifyIcon.Icon.Dispose();
-        }
-        public async void OpenWindow(bool Center = false)
+        public void OpenWindow(bool Center = false)
         {
             Visible = true;
             UpdateAnimations(Center: Center);
@@ -147,10 +145,8 @@ namespace SuperLauncher
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             Filter.Text = "";
             Filter.Focus();
-            await Task.Delay(310);
-            Win32Interop.InvalidateRect(WIH.Handle, IntPtr.Zero, false);
         }
-        public async void CloseWindow()
+        public void CloseWindow()
         {
             Visible = false;
             UpdateAnimations();
@@ -158,10 +154,6 @@ namespace SuperLauncher
             BeginAnimation(TopProperty, CloseTopAnimation);
             BeginAnimation(LeftProperty, CloseLeftAnimation);
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
-            await Task.Delay(310);
-            SetTopPosition();
-            _ = Win32Interop.SetWindowLong(WIH.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_TOOLWINDOW);
-            SaveSettingsIfSizeChanged();
         }
         private void SetPosition()
         {
@@ -187,6 +179,20 @@ namespace SuperLauncher
         private void SetLeftPosition()
         {
             Left = SystemParameters.PrimaryScreenWidth - Width - 8;
+        }
+        private void CloseTopAnimation_Completed(object sender, EventArgs e)
+        {
+            SetTopPosition();
+            _ = Win32Interop.SetWindowLong(WIH.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_TOOLWINDOW);
+            SaveSettingsIfSizeChanged();
+        }
+        private void OpenTopAnimation_Completed(object sender, EventArgs e)
+        {
+            Win32Interop.InvalidateRect(WIH.Handle, IntPtr.Zero, false);
+        }
+        private void ModernApplication_Exit(object sender, ExitEventArgs e)
+        {
+            if (ModernLauncherNotifyIcon.Icon != null) ModernLauncherNotifyIcon.Icon.Dispose();
         }
         private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
         {

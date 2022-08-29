@@ -18,7 +18,7 @@
                 <Path Stroke="{DynamicResource TextColorBrush}" StrokeThickness="20" Data="M 150,10 L 150, 80" />
                 <Path Stroke="{DynamicResource TextColorBrush}" StrokeThickness="20" Data="M 20,170 A 100,100 90 0 1 170,170" />
             </Grid>
-            <Label Foreground="{DynamicResource TextColorBrush}"  FontFamily="Segoe UI" FontSize="36" Content="No results found" HorizontalAlignment="Center" FontWeight="Bold" />
+            <Label Foreground="{DynamicResource TextColorBrush}" FontSize="36" Content="No results found" HorizontalAlignment="Center" FontWeight="Bold" />
         </StackPanel>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <WrapPanel x:Name="IconPanel" Margin="10,10,10,10"/>

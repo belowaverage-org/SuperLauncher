@@ -5,6 +5,7 @@ namespace SuperLauncher
 {
     static class Program
     {
+        public static bool ModernApplicationShuttingDown = false;
         public static Settings Settings = new();
         public static System.Windows.Application ModernApplication;
         public static string[] Arguments;
@@ -12,7 +13,7 @@ namespace SuperLauncher
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main(string[] arguments)
+        public static void Main(string[] arguments)
         {
             Arguments = arguments;
             string runAs = Shared.GetArugement("RunAs");
@@ -36,6 +37,11 @@ namespace SuperLauncher
                 ModernApplication = new();
                 ModernApplication.Run(new ModernLauncher());
             }
+        }
+        public static void ModernApplicationShutdown()
+        {
+            ModernApplicationShuttingDown = true;
+            ModernApplication.Shutdown();
         }
     }
 }

@@ -28,7 +28,7 @@ namespace SuperLauncher
         private void Window_Deactivated(object sender, System.EventArgs e)
         {
             ActuallyClose = true;
-            Close();
+            if (!Program.ModernApplicationShuttingDown) Close();
         }
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {

@@ -23,7 +23,7 @@ namespace SuperLauncher
         }
         private void BtnExit_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Program.ModernApplication.Shutdown();
+            Program.ModernApplicationShutdown();
         }
         private void BtnSettings_MouseUp(object sender, MouseButtonEventArgs e)
         {

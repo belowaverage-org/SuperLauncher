@@ -23,7 +23,7 @@ namespace SuperLauncher
         }
         public static Color GetColorizationColor()
         {
-            RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\DWM");
+            RegistryKey key = Registry.Users.OpenSubKey(RunAsHelper.GetOriginalInvokerSID().ToString() + @"\Software\Microsoft\Windows\DWM");
             int themeColor = (int)key.GetValue("ColorizationColor");
             key.Close();
             byte[] colorBytes = BitConverter.GetBytes(themeColor);

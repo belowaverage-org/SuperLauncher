@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Windows;
 
@@ -97,9 +98,17 @@ namespace SuperLauncher
         {
             return GetOriginalInvokerDomainWithUserName().Split('\\')[1];
         }
+        public static string GetOriginalInvokerUPN()
+        {
+            return GetOriginalInvokerUserName() + "@" + GetOriginalInvokerDomain();
+        }
         public static string GetCurrentDomainWithUserName()
         {
             return Environment.UserDomainName + @"\" + Environment.UserName;
+        }
+        public static SecurityIdentifier GetOriginalInvokerSID()
+        {
+            return new WindowsIdentity(GetOriginalInvokerUPN()).User;
         }
         public static void Exit()
         {

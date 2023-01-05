@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
 
 namespace SuperLauncher
@@ -173,6 +172,7 @@ namespace SuperLauncher
         {
             return ToBitmapAlpha(Icon, Width, Height, Color.White);
         }
+        /*
         public static void EnableBlur(IntPtr Handle, uint BlurOpacity = 100, uint BlurBackgroundColor = 0x990000)
         {
             var accent = new AccentPolicy
@@ -193,5 +193,6 @@ namespace SuperLauncher
             SetWindowCompositionAttribute(Handle, ref data);
             Marshal.FreeHGlobal(accentPtr);
         }
+        */
     }
 }

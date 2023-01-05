@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Media.Animation;
 
 namespace SuperLauncher
@@ -10,7 +9,6 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncherContextMenu : Window
     {
-        private WindowInteropHelper WIH;
         private bool ActuallyClose = false;
         private DoubleAnimation FadeIn = new()
         {
@@ -24,8 +22,7 @@ namespace SuperLauncher
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            WIH = new(this);
-            Win32Interop.EnableBlur(WIH.Handle, 200, 0);
+            Shared.SetWindowColor(this);
             Frame.BeginAnimation(OpacityProperty, FadeIn);
         }
         private void Window_Deactivated(object sender, System.EventArgs e)

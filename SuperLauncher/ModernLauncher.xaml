@@ -13,7 +13,6 @@
         ShowInTaskbar="False"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
-        Background="#00000000"
         WindowStyle="None"
         Deactivated="Window_Deactivated"
         DpiChanged="Window_DpiChanged" 

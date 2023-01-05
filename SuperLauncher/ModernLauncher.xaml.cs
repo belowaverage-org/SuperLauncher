@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
@@ -53,6 +52,21 @@ namespace SuperLauncher
             EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn },
             FillBehavior = FillBehavior.Stop
         };
+        private static readonly DependencyProperty TopActivateProperty = DependencyProperty.Register(
+            "TopActivate",
+            typeof(double),
+            typeof(ModernLauncher),
+            new FrameworkPropertyMetadata(
+                (double)0,
+                FrameworkPropertyMetadataOptions.AffectsRender,
+                new PropertyChangedCallback(OnTopActivateChangedChanged)
+            )
+        );
+        private static void OnTopActivateChangedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            ((ModernLauncher)d).Activate();
+            ((ModernLauncher)d).Top = (double)e.NewValue;
+        }
         private bool Visible = false;
         public ModernLauncher()
         {
@@ -126,7 +140,6 @@ namespace SuperLauncher
             Program.ModernApplication.Exit += ModernApplication_Exit;
             OpenTopAnimation.Completed += OpenTopAnimation_Completed;
             CloseTopAnimation.Completed += CloseTopAnimation_Completed;
-            Win32Interop.EnableBlur(WIH.Handle, 200, 0);
             InitializeNotifyIcon();
             Win32Interop.RegisterHotKey(WIH.Handle, 0, 0x1 | 0x4000, 0x53); //Register Hot Key ALT + S
             Win32Interop.RegisterHotKey(WIH.Handle, 1, 0x1 | 0x4000, 0x45); //Register Hot Key ALT + E
@@ -137,6 +150,7 @@ namespace SuperLauncher
         public void OpenWindow(bool Center = false)
         {
             Visible = true;
+            Shared.SetWindowColor(this);
             UpdateAnimations(Center: Center);
             Activate();
             _ = Win32Interop.SetWindowLong(WIH.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_LAYERED);
@@ -150,8 +164,7 @@ namespace SuperLauncher
         {
             Visible = false;
             UpdateAnimations();
-            Activate();
-            BeginAnimation(TopProperty, CloseTopAnimation);
+            BeginAnimation(TopActivateProperty, CloseTopAnimation);
             BeginAnimation(LeftProperty, CloseLeftAnimation);
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
         }

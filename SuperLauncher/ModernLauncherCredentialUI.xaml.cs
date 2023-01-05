@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interop;
 using System;
 
 namespace SuperLauncher
@@ -20,8 +19,7 @@ namespace SuperLauncher
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            WindowInteropHelper WIH = new(this);
-            Win32Interop.EnableBlur(WIH.Handle, 200, 0);
+            Shared.SetWindowColor(this);
             TBUserName.Focus();
             CBRememberMe.IsChecked = Settings.Default.RememberMe;
             CBElevate.IsChecked = Settings.Default.AutoElevate;

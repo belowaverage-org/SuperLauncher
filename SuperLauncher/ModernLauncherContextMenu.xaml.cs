@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Media.Animation;
 
@@ -25,12 +26,12 @@ namespace SuperLauncher
             Shared.SetWindowColor(this);
             Frame.BeginAnimation(OpacityProperty, FadeIn);
         }
-        private void Window_Deactivated(object sender, System.EventArgs e)
+        private void Window_Deactivated(object sender, EventArgs e)
         {
             ActuallyClose = true;
             if (!Program.ModernApplicationShuttingDown) Close();
         }
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void Window_Closing(object sender, CancelEventArgs e)
         {
             if (!ActuallyClose) e.Cancel = true;
         }

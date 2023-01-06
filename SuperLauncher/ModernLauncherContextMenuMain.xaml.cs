@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -9,6 +10,7 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncherContextMenuMain : Page
     {
+        private bool Selected = false;
         public ModernLauncherContextMenuMain()
         {
             InitializeComponent();
@@ -41,9 +43,24 @@ namespace SuperLauncher
         {
             new ModernLauncherCredentialUI().ShowDialog();
         }
-        private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             if (RunAsHelper.IsElevated()) BtnElevate.IsEnabled = false;
+        }
+        private void BtnHelp_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("OpenWith.exe", "https://github.com/belowaverage-org/SuperLauncher/wiki");
+        }
+        private void Page_Unloaded(object sender, RoutedEventArgs e)
+        {
+            if (IsMouseOver)
+            {
+                ((ModernLauncher)Program.ModernApplication.MainWindow).CloseWindow();
+            }
+            else
+            {
+                Program.ModernApplication.MainWindow.Activate();
+            }
         }
     }
 }

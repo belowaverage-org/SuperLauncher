@@ -5,8 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SuperLauncher"
       x:Class="SuperLauncher.ModernLauncherContextMenuMain"
-      mc:Ignorable="d" Loaded="Page_Loaded"
-      >
+      mc:Ignorable="d" 
+      Loaded="Page_Loaded" 
+      Unloaded="Page_Unloaded" >
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -21,6 +22,8 @@
         <local:ModernLauncherContextMenuButton x:Name="BtnRunAs" Text="Run as" Icon="" MouseUp="BtnRunAs_MouseUp" />
         <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
         <local:ModernLauncherContextMenuButton x:Name="BtnViewConfig" Text="View config" Icon="" MouseUp="BtnViewConfig_MouseUp" />
+        <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnHelp" Text="Help" Icon="" MouseUp="BtnHelp_MouseUp" />
         <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
         <local:ModernLauncherContextMenuButton x:Name="BtnExit" Text="Exit" Icon="" MouseUp="BtnExit_MouseUp" />
     </StackPanel>

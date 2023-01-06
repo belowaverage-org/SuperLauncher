@@ -64,7 +64,8 @@ namespace SuperLauncher
                     ModernLauncherIcon mli = new(filePath);
                     IconPanel.Children.Add(mli);
                 }
-            } catch
+            }
+            catch
             {
                 IconPanel.Children.Add(new ModernLauncherIcon(@"C:\Windows\System32\cmd.exe"));
             }

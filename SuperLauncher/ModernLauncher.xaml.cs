@@ -90,8 +90,8 @@ namespace SuperLauncher
                 ModernLauncherContextMenu menu = new();
                 menu.Topmost = true;
                 menu.Frame.Content = new ModernLauncherContextMenuMain();
-                menu.Top = DPI.ScalePixelsUp(point.y) - 240;
-                menu.Left = DPI.ScalePixelsUp(point.x) - 80;
+                menu.Top = DPI.ScalePixelsDown(point.y) - 240;
+                menu.Left = DPI.ScalePixelsDown(point.x) - 80;
                 menu.Show();
                 menu.Activate();
             }

@@ -10,7 +10,6 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncherContextMenuMain : Page
     {
-        private bool Selected = false;
         public ModernLauncherContextMenuMain()
         {
             InitializeComponent();

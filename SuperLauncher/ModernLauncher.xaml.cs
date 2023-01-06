@@ -19,6 +19,7 @@ namespace SuperLauncher
             set { rDPI = value; }
         }
         public bool IgnoreDeactivation = false;
+        private bool IsClosing = false;
         private static DpiScale rDPI;
         private WindowInteropHelper WIH;
         private HwndSource HWND;
@@ -83,7 +84,7 @@ namespace SuperLauncher
         }
         private void Icon_Click(object sender, EventArgs e)
         {
-            OpenWindow();
+            if (!IsClosing) OpenWindow();
         }
         private void Window_Deactivated(object sender, EventArgs e)
         {
@@ -149,6 +150,7 @@ namespace SuperLauncher
         }
         public void CloseWindow()
         {
+            IsClosing = true;
             Visible = false;
             Topmost = true;
             UpdateAnimations();
@@ -186,6 +188,7 @@ namespace SuperLauncher
             SetTopPosition();
             _ = Win32Interop.SetWindowLong(WIH.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_TOOLWINDOW);
             SaveSettingsIfSizeChanged();
+            IsClosing = false;
         }
         private void OpenTopAnimation_Completed(object sender, EventArgs e)
         {

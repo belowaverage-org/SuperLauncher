@@ -6,7 +6,6 @@ namespace SuperLauncher
     static class Program
     {
         public static bool ModernApplicationShuttingDown = false;
-        public static Settings Settings = new();
         public static System.Windows.Application ModernApplication;
         public static string[] Arguments;
         /// <summary>

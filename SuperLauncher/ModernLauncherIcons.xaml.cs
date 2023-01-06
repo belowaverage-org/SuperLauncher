@@ -55,12 +55,18 @@ namespace SuperLauncher
         }
         public void PopulateIcons()
         {
-            IconPanel.Children.Clear();
-            foreach (string filePath in Settings.Default.FileList)
+            try
             {
-                if (!File.Exists(filePath)) continue;
-                ModernLauncherIcon mli = new(filePath);
-                IconPanel.Children.Add(mli);
+                IconPanel.Children.Clear();
+                foreach (string filePath in Settings.Default.FileList)
+                {
+                    if (!File.Exists(filePath)) continue;
+                    ModernLauncherIcon mli = new(filePath);
+                    IconPanel.Children.Add(mli);
+                }
+            } catch
+            {
+                IconPanel.Children.Add(new ModernLauncherIcon(@"C:\Windows\System32\cmd.exe"));
             }
         }
         private void CommitIconsToFile()
@@ -107,7 +113,7 @@ namespace SuperLauncher
                 PerformDrag();
             }
         }
-        private bool OutOfBounds(Point StartPoint, Point EndPoint, int Distance)
+        private static bool OutOfBounds(Point StartPoint, Point EndPoint, int Distance)
         {
             if (Math.Abs(StartPoint.X - EndPoint.X) > Distance) return true;
             if (Math.Abs(StartPoint.Y - EndPoint.Y) > Distance) return true;

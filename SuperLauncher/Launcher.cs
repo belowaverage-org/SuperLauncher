@@ -129,10 +129,7 @@ namespace SuperLauncher
             imageList.ImageSize = new Size(32, 32);
             Width = initialWidth;
             Height = initialHeight;
-            if (Settings.Default.FileList == null)
-            {
-                Settings.Default.FileList = new AppListStringCollection();
-            }
+            Settings.Default.FileList ??= new AppListStringCollection();
             foreach (string file in Settings.Default.FileList)
             {
                 if (File.Exists(file))

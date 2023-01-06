@@ -78,7 +78,7 @@ namespace SuperLauncher
         }
         private void InitializeNotifyIcon()
         {
-            if (ModernLauncherNotifyIcon.Icon != null) ModernLauncherNotifyIcon.Icon.Dispose();
+            ModernLauncherNotifyIcon.Icon?.Dispose();
             ModernLauncherNotifyIcon.Initialize();
             ModernLauncherNotifyIcon.Icon.Click += Icon_Click;
         }
@@ -196,7 +196,7 @@ namespace SuperLauncher
         }
         private void ModernApplication_Exit(object sender, ExitEventArgs e)
         {
-            if (ModernLauncherNotifyIcon.Icon != null) ModernLauncherNotifyIcon.Icon.Dispose();
+            ModernLauncherNotifyIcon.Icon?.Dispose();
         }
         private void Window_DpiChanged(object sender, DpiChangedEventArgs e)
         {

@@ -23,11 +23,18 @@ namespace SuperLauncher
         }
         public static Color GetColorizationColor()
         {
-            RegistryKey key = Registry.Users.OpenSubKey(RunAsHelper.GetOriginalInvokerSID().ToString() + @"\Software\Microsoft\Windows\DWM");
-            int themeColor = (int)key.GetValue("ColorizationColor");
-            key.Close();
-            byte[] colorBytes = BitConverter.GetBytes(themeColor);
-            return Color.FromArgb(colorBytes[3], colorBytes[2], colorBytes[1], colorBytes[0]);
+            try
+            {
+                RegistryKey key = Registry.Users.OpenSubKey(RunAsHelper.GetOriginalInvokerSID().ToString() + @"\Software\Microsoft\Windows\DWM");
+                int themeColor = (int)key.GetValue("ColorizationColor");
+                key.Close();
+                byte[] colorBytes = BitConverter.GetBytes(themeColor);
+                return Color.FromArgb(colorBytes[3], colorBytes[2], colorBytes[1], colorBytes[0]);
+            }
+            catch
+            {
+                return Colors.Black;
+            }
         }
         public static byte AddAndClip(byte Original, byte Add)
         {

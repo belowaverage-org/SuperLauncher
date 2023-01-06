@@ -52,21 +52,6 @@ namespace SuperLauncher
             EasingFunction = new QuarticEase() { EasingMode = EasingMode.EaseIn },
             FillBehavior = FillBehavior.Stop
         };
-        private static readonly DependencyProperty TopActivateProperty = DependencyProperty.Register(
-            "TopActivate",
-            typeof(double),
-            typeof(ModernLauncher),
-            new FrameworkPropertyMetadata(
-                (double)0,
-                FrameworkPropertyMetadataOptions.AffectsRender,
-                new PropertyChangedCallback(OnTopActivateChangedChanged)
-            )
-        );
-        private static void OnTopActivateChangedChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-        {
-            ((ModernLauncher)d).Activate();
-            ((ModernLauncher)d).Top = (double)e.NewValue;
-        }
         private bool Visible = false;
         public ModernLauncher()
         {
@@ -145,26 +130,29 @@ namespace SuperLauncher
             Win32Interop.RegisterHotKey(WIH.Handle, 1, 0x1 | 0x4000, 0x45); //Register Hot Key ALT + E
             Win32Interop.RegisterHotKey(WIH.Handle, 2, 0x1 | 0x4000, 0x52); //Register Hot Key ALT + R
             HWND.AddHook(HwndSourceHook);
+            _ = Win32Interop.SetWindowLong(WIH.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_TOOLWINDOW);
             SetElevateLabels();
         }
         public void OpenWindow(bool Center = false)
         {
             Visible = true;
+            Topmost = false;
             Shared.SetWindowColor(this);
             UpdateAnimations(Center: Center);
-            Activate();
             _ = Win32Interop.SetWindowLong(WIH.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_LAYERED);
             BeginAnimation(TopProperty, OpenTopAnimation);
             BeginAnimation(LeftProperty, OpenLeftAnimation);
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             Filter.Text = "";
             Filter.Focus();
+            Activate();
         }
         public void CloseWindow()
         {
             Visible = false;
+            Topmost = true;
             UpdateAnimations();
-            BeginAnimation(TopActivateProperty, CloseTopAnimation);
+            BeginAnimation(TopProperty, CloseTopAnimation);
             BeginAnimation(LeftProperty, CloseLeftAnimation);
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
         }

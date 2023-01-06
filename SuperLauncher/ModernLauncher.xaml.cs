@@ -22,6 +22,7 @@ namespace SuperLauncher
         private bool IsClosing = false;
         private static DpiScale rDPI;
         private WindowInteropHelper WIH;
+        private uint ShowSuperLauncherMessage = Win32Interop.RegisterWindowMessage("ShowSuperLauncher");
         private HwndSource HWND;
         private readonly DoubleAnimation RenderBoostAnimation = new()
         {
@@ -73,6 +74,10 @@ namespace SuperLauncher
             if (msg == 0x0312 && wParam.ToInt32() == 2) //WM_HOTKEY //ALT + R
             {
                 new Run().Show();
+            }
+            if (msg == ShowSuperLauncherMessage)
+            {
+                OpenWindow();
             }
             return IntPtr.Zero;
         }
@@ -137,6 +142,7 @@ namespace SuperLauncher
             SetPosition();
             WIH = new(this);
             HWND = HwndSource.FromHwnd(WIH.Handle);
+            Win32Interop.ChangeWindowMessageFilter(ShowSuperLauncherMessage, 0x1); //Allow lower priviledged processes to send this message.
             Program.ModernApplication.Exit += ModernApplication_Exit;
             OpenTopAnimation.Completed += OpenTopAnimation_Completed;
             CloseTopAnimation.Completed += CloseTopAnimation_Completed;

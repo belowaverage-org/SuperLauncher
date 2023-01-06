@@ -21,9 +21,13 @@ namespace SuperLauncher
         [DllImport("User32.dll")]
         public static extern bool GetMonitorInfo(IntPtr hMonitor, out MONITORINFO lpmi);
         [DllImport("User32.dll")]
+        public static extern bool ChangeWindowMessageFilter(uint message, uint action);
+        [DllImport("User32.dll")]
         public static extern IntPtr MonitorFromWindow(IntPtr hWnd, MonitorFromWindowFlags dwFlags);
         [DllImport("User32.dll")]
         public static extern bool InvalidateRect(IntPtr hWnd, IntPtr Rect, bool Erase);
+        [DllImport("User32.dll")]
+        public static extern uint RegisterWindowMessage(string lpString);
         [DllImport("user32.dll")]
         public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
         [DllImport("user32.dll")]

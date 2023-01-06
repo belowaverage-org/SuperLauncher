@@ -1,6 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using SuperLauncherCommon;
 
@@ -11,11 +12,25 @@ namespace SuperLauncherBootstrap
         private static readonly Splash Splash = new();
         private static readonly int SleepTime = 2000;
         private static readonly string TargetPath = "C:\\Users\\Public\\below average\\Super Launcher\\";
+        private static readonly string TargetWindowName = "Super Launcher";
         private static readonly string TargetItem = "SuperLauncher.exe";
+        private static readonly string TargetMessage = "ShowSuperLauncher";
         private static readonly string SelfPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)!;
+        [DllImport("User32.dll")]
+        private static extern uint SendNotifyMessage(IntPtr hWnd, uint Msg, uint wParam, uint lParam);
+        [DllImport("User32.dll")]
+        private static extern uint RegisterWindowMessage(string lpString);
+        [DllImport("User32.dll")]
+        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
         [STAThread]
         public static void Main()
         {
+            IntPtr existingWindow = FindWindow(null, TargetWindowName);
+            if (existingWindow != IntPtr.Zero)
+            {
+                SendNotifyMessage(existingWindow, RegisterWindowMessage(TargetMessage), 0x0, 0x0);
+                return;
+            }
             Splash.AllowClose = false;
             Application app = new();
             Task bsThread = Task.Run(() => {

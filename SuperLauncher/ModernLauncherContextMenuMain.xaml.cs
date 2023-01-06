@@ -10,9 +10,21 @@ namespace SuperLauncher
     /// </summary>
     public partial class ModernLauncherContextMenuMain : Page
     {
+        private bool ButtonClicked = false;
         public ModernLauncherContextMenuMain()
         {
             InitializeComponent();
+            foreach (UIElement button in MainPanel.Children)
+            {
+                if (button.GetType() == typeof(ModernLauncherContextMenuButton))
+                {
+                    button.MouseUp += Button_MouseUp;
+                }
+            }
+        }
+        private void Button_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            ButtonClicked = true;
         }
         private void BtnAbout_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -52,7 +64,7 @@ namespace SuperLauncher
         }
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {
-            if (IsMouseOver)
+            if (ButtonClicked)
             {
                 ((ModernLauncher)Program.ModernApplication.MainWindow).CloseWindow();
             }

@@ -80,11 +80,25 @@ namespace SuperLauncher
         {
             ModernLauncherNotifyIcon.Icon?.Dispose();
             ModernLauncherNotifyIcon.Initialize();
-            ModernLauncherNotifyIcon.Icon.Click += Icon_Click;
+            ModernLauncherNotifyIcon.Icon.MouseClick += Icon_Click;
         }
-        private void Icon_Click(object sender, EventArgs e)
+        private void Icon_Click(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-            if (!IsClosing) OpenWindow();
+            if (e.Button == System.Windows.Forms.MouseButtons.Right)
+            {
+                Win32Interop.GetCursorPos(out Win32Interop.POINT point);
+                ModernLauncherContextMenu menu = new();
+                menu.Topmost = true;
+                menu.Frame.Content = new ModernLauncherContextMenuMain();
+                menu.Top = DPI.ScalePixelsUp(point.y) - 240;
+                menu.Left = DPI.ScalePixelsUp(point.x) - 80;
+                menu.Show();
+                menu.Activate();
+            }
+            else
+            {
+                if (!IsClosing) OpenWindow();
+            }
         }
         private void Window_Deactivated(object sender, EventArgs e)
         {

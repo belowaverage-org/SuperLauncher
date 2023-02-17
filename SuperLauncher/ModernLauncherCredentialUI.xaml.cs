@@ -19,6 +19,7 @@ namespace SuperLauncher
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            Shared.EnableAcrylic(this);
             Shared.SetWindowColor(this);
             TBUserName.Focus();
             CBRememberMe.IsChecked = Settings.Default.RememberMe;

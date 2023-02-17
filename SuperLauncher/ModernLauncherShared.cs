@@ -1,6 +1,8 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Interop;
 using System.Windows.Media;
 
 namespace SuperLauncher
@@ -56,7 +58,19 @@ namespace SuperLauncher
             Color color = GetColorizationColor();
             Window.Resources["AccentColor"] = MakeLighterNoAlpha(color, 0x65);
             Window.Resources["DarkerAccentColor"] = MakeLighterNoAlpha(color, 0x20);
-            Window.Background = new SolidColorBrush(color);
+        }
+        public static void EnableAcrylic(Window Window)
+        {
+            Window.Background = Brushes.Transparent;
+            IntPtr handle = new WindowInteropHelper(Window).Handle;
+            IntPtr dwmDmVal = Marshal.AllocHGlobal(32);
+            Marshal.WriteInt32(dwmDmVal, 1);
+            Win32Interop.DwmSetWindowAttribute(handle, Win32Interop.DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, dwmDmVal, 32);
+            Marshal.FreeHGlobal(dwmDmVal);
+            IntPtr dwmBdVal = Marshal.AllocHGlobal(32);
+            Marshal.WriteInt32(dwmBdVal, 3);
+            Win32Interop.DwmSetWindowAttribute(handle, Win32Interop.DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE, dwmBdVal, 32);
+            Marshal.FreeHGlobal(dwmBdVal);
         }
     }
 }

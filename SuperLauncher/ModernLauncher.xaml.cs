@@ -142,6 +142,7 @@ namespace SuperLauncher
             SetPosition();
             WIH = new(this);
             HWND = HwndSource.FromHwnd(WIH.Handle);
+            Shared.EnableAcrylic(this);
             Win32Interop.ChangeWindowMessageFilter(ShowSuperLauncherMessage, 0x1); //Allow lower priviledged processes to send this message.
             Program.ModernApplication.Exit += ModernApplication_Exit;
             OpenTopAnimation.Completed += OpenTopAnimation_Completed;

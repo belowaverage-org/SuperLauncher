@@ -24,6 +24,7 @@ namespace SuperLauncher
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Shared.SetWindowColor(this);
+            Shared.EnableAcrylic(this);
             Frame.BeginAnimation(OpacityProperty, FadeIn);
         }
         private void Window_Deactivated(object sender, EventArgs e)

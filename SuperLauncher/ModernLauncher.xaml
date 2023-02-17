@@ -18,7 +18,8 @@
         DpiChanged="Window_DpiChanged" 
         FontFamily="{DynamicResource Font}"
         KeyDown="Window_KeyDown" 
-        Closing="Window_Closing" >
+        Closing="Window_Closing" 
+        Background="Transparent" >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

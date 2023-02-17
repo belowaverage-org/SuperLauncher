@@ -34,7 +34,7 @@
     </WindowChrome.WindowChrome>
     <Grid Background="{DynamicResource PanelColorBrush}">
         <Grid x:Name="Grid" Background="{DynamicResource AcrylicNoise}">
-            <Frame Opacity="0" x:Name="Frame" Margin="3,3,3,3" />
+            <Frame Focusable="False" Opacity="0" x:Name="Frame" Margin="3,3,3,3" />
         </Grid>
     </Grid>
 </Window>

@@ -36,6 +36,7 @@
     <FontFamily x:Key="Font">/Resources/#Segoe UI</FontFamily>
     <FontFamily x:Key="SLIcons">/Resources/#Super Launcher Icons</FontFamily>
     <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Themes/Controls/WinUIControl.xaml" />
         <ResourceDictionary Source="/Themes/Controls/WinUIScrollBar.xaml" />
         <ResourceDictionary Source="/Themes/Controls/WinUITextBox.xaml" />
         <ResourceDictionary Source="/Themes/Controls/WinUIButton.xaml" />

@@ -167,6 +167,7 @@ namespace SuperLauncher
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             Filter.Text = "";
             Filter.Focus();
+            SetTopPosition();
             Activate();
         }
         public void CloseWindow()

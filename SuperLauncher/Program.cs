@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using System;
 using System.Diagnostics;
+using System.Timers;
+
 
 namespace SuperLauncher
 {
@@ -7,6 +10,7 @@ namespace SuperLauncher
     {
         public static bool ModernApplicationShuttingDown = false;
         public static System.Windows.Application ModernApplication;
+        public static Timer accountMonitorTimer = new Timer(TimeSpan.FromMinutes(30));
         public static string[] Arguments;
         /// <summary>
         /// The main entry point for the application.
@@ -34,13 +38,24 @@ namespace SuperLauncher
             {
                 RunAsHelper.StartupProcedure();
                 ModernApplication = new();
+
+                // Clear any old notifications
+                ToastNotificationManagerCompat.History.Clear();
+                // Start the timer to handle monitoring password expiration
+                accountMonitorTimer.Elapsed += AccountInfo.AccountMonitorTask;
+                accountMonitorTimer.AutoReset = true;
+                accountMonitorTimer.Enabled = true;
+
                 ModernApplication.Run(new ModernLauncher());
             }
         }
         public static void ModernApplicationShutdown()
         {
             ModernApplicationShuttingDown = true;
+            accountMonitorTimer.Stop();
+            accountMonitorTimer.Dispose();
             ModernApplication.Shutdown();
         }
+
     }
 }

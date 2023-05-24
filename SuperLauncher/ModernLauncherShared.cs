@@ -1,7 +1,10 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Interop;
 using System.Windows.Media;
 
@@ -71,6 +74,54 @@ namespace SuperLauncher
             Marshal.WriteInt32(dwmBdVal, 3);
             Win32Interop.DwmSetWindowAttribute(handle, Win32Interop.DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE, dwmBdVal, 32);
             Marshal.FreeHGlobal(dwmBdVal);
+        }
+
+        /// <summary>
+        /// Send a tost notification
+        /// </summary>
+        /// <param name="title">Title of the notification</param>
+        /// <param name="msg">Message to user</param>
+        /// 
+        // This is the native notification implementation. Which doesn't work because the toast is sent to the run-as user
+        // Instead of the desktop user we're actually viewing it as
+        public static void SendDesktopToast_Native(string title, string msg)
+        {
+            // Round logo
+            //Uri logoUri = new Uri(System.IO.Path.GetFullPath("48.png"));
+            // Rocket
+            Uri logoUri = new Uri(System.IO.Path.GetFullPath("sl_logo_big.png"));
+
+            try
+            {
+                new ToastContentBuilder()
+                    .AddText(title)
+                    .AddText(msg)
+                    .AddAppLogoOverride(logoUri, hintCrop: ToastGenericAppLogoCrop.Circle)
+                    .Show(toast =>
+                    {
+                        toast.ExpirationTime = DateTime.Now.AddDays(1);
+                    });
+            }
+            catch (Exception ex)
+            {
+                //Debug.WriteLine(ex.ToString());
+                //throw;
+            }
+        }
+
+        /// <summary>
+        /// Send a tost notification
+        /// </summary>
+        /// <param name="title">Title of the notification</param>
+        /// <param name="msg">Message to user</param>
+        ///
+        public static void SendDesktopToast(string title, string msg)
+        {
+            NotifyIcon notifyIcon = ModernLauncherNotifyIcon.Icon;
+            notifyIcon.BalloonTipTitle = title;
+            notifyIcon.BalloonTipText = msg;
+            notifyIcon.BalloonTipIcon = ToolTipIcon.None;
+            notifyIcon.ShowBalloonTip(15000);
         }
     }
 }

@@ -31,24 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Launcher));
             this.TrayIcon = new System.Windows.Forms.NotifyIcon(this.components);
-            this.TrayContext = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.TcMiSuperLauncher = new System.Windows.Forms.ToolStripMenuItem();
-            this.TcSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-            this.TcMiElevate = new System.Windows.Forms.ToolStripMenuItem();
-            this.TcMiRunAs = new System.Windows.Forms.ToolStripMenuItem();
-            this.TcSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.TcMiAddShortcut = new System.Windows.Forms.ToolStripMenuItem();
-            this.TcSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.TcMiOpenExplorer = new System.Windows.Forms.ToolStripMenuItem();
-            this.TcMIOpenRun = new System.Windows.Forms.ToolStripMenuItem();
-            this.TcSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.TcMiViewConfig = new System.Windows.Forms.ToolStripMenuItem();
-            this.TcMiSettings = new System.Windows.Forms.ToolStripMenuItem();
-            this.TcSeparator5 = new System.Windows.Forms.ToolStripSeparator();
-            this.TcMiExit = new System.Windows.Forms.ToolStripMenuItem();
             this.IconsBox = new System.Windows.Forms.ListView();
-            this.RemoveItemContext = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.RicMiRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.TopPanel = new System.Windows.Forms.Panel();
@@ -56,8 +39,21 @@
             this.UserLabel = new System.Windows.Forms.Label();
             this.SuperIcon = new System.Windows.Forms.PictureBox();
             this.AppLabel = new System.Windows.Forms.Label();
-            this.TrayContext.SuspendLayout();
-            this.RemoveItemContext.SuspendLayout();
+            this.RightClickMenu = new System.Windows.Forms.ContextMenu();
+            this.miRemove = new System.Windows.Forms.MenuItem();
+            this.miSuperLauncher = new System.Windows.Forms.MenuItem();
+            this.miSeperator1 = new System.Windows.Forms.MenuItem();
+            this.miElevate = new System.Windows.Forms.MenuItem();
+            this.miRunAs = new System.Windows.Forms.MenuItem();
+            this.miSeperator2 = new System.Windows.Forms.MenuItem();
+            this.miAddShortcut = new System.Windows.Forms.MenuItem();
+            this.miSeperator3 = new System.Windows.Forms.MenuItem();
+            this.miExit = new System.Windows.Forms.MenuItem();
+            this.TrayMenu = new System.Windows.Forms.ContextMenu();
+            this.miSeperator4 = new System.Windows.Forms.MenuItem();
+            this.miExplorer = new System.Windows.Forms.MenuItem();
+            this.miConfig = new System.Windows.Forms.MenuItem();
+            this.menuItem1 = new System.Windows.Forms.MenuItem();
             this.TopPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).BeginInit();
@@ -66,120 +62,9 @@
             // TrayIcon
             // 
             this.TrayIcon.BalloonTipTitle = "Super Launcher";
-            this.TrayIcon.ContextMenuStrip = this.TrayContext;
             this.TrayIcon.Text = "Super Launcher";
             this.TrayIcon.Visible = true;
             this.TrayIcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.TrayIcon_MouseClick);
-            // 
-            // TrayContext
-            // 
-            this.TrayContext.DropShadowEnabled = false;
-            this.TrayContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.TcMiSuperLauncher,
-            this.TcSeparator1,
-            this.TcMiElevate,
-            this.TcMiRunAs,
-            this.TcSeparator2,
-            this.TcMiAddShortcut,
-            this.TcSeparator3,
-            this.TcMiOpenExplorer,
-            this.TcMIOpenRun,
-            this.TcSeparator4,
-            this.TcMiViewConfig,
-            this.TcMiSettings,
-            this.TcSeparator5,
-            this.TcMiExit});
-            this.TrayContext.Name = "contextMenuStrip1";
-            this.TrayContext.Size = new System.Drawing.Size(193, 232);
-            this.TrayContext.Text = "TrayContext";
-            // 
-            // TcMiSuperLauncher
-            // 
-            this.TcMiSuperLauncher.Image = global::SuperLauncher.Resources.logo_16;
-            this.TcMiSuperLauncher.Name = "TcMiSuperLauncher";
-            this.TcMiSuperLauncher.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.S)));
-            this.TcMiSuperLauncher.Size = new System.Drawing.Size(192, 22);
-            this.TcMiSuperLauncher.Text = "Super Launcher";
-            // 
-            // TcSeparator1
-            // 
-            this.TcSeparator1.Name = "TcSeparator1";
-            this.TcSeparator1.Size = new System.Drawing.Size(189, 6);
-            // 
-            // TcMiElevate
-            // 
-            this.TcMiElevate.Image = global::SuperLauncher.Resources.shield;
-            this.TcMiElevate.Name = "TcMiElevate";
-            this.TcMiElevate.Size = new System.Drawing.Size(192, 22);
-            this.TcMiElevate.Text = "Elevate...";
-            // 
-            // TcMiRunAs
-            // 
-            this.TcMiRunAs.Name = "TcMiRunAs";
-            this.TcMiRunAs.Size = new System.Drawing.Size(192, 22);
-            this.TcMiRunAs.Text = "Run as...";
-            // 
-            // TcSeparator2
-            // 
-            this.TcSeparator2.Name = "TcSeparator2";
-            this.TcSeparator2.Size = new System.Drawing.Size(189, 6);
-            // 
-            // TcMiAddShortcut
-            // 
-            this.TcMiAddShortcut.Image = global::SuperLauncher.Resources.shortcut;
-            this.TcMiAddShortcut.Name = "TcMiAddShortcut";
-            this.TcMiAddShortcut.Size = new System.Drawing.Size(192, 22);
-            this.TcMiAddShortcut.Text = "Add shortcut...";
-            // 
-            // TcSeparator3
-            // 
-            this.TcSeparator3.Name = "TcSeparator3";
-            this.TcSeparator3.Size = new System.Drawing.Size(189, 6);
-            // 
-            // TcMiOpenExplorer
-            // 
-            this.TcMiOpenExplorer.Image = global::SuperLauncher.Resources.explorer;
-            this.TcMiOpenExplorer.Name = "TcMiOpenExplorer";
-            this.TcMiOpenExplorer.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.E)));
-            this.TcMiOpenExplorer.Size = new System.Drawing.Size(192, 22);
-            this.TcMiOpenExplorer.Text = "Open Explorer";
-            // 
-            // TcMIOpenRun
-            // 
-            this.TcMIOpenRun.Image = global::SuperLauncher.Resources.run;
-            this.TcMIOpenRun.Name = "TcMIOpenRun";
-            this.TcMIOpenRun.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.R)));
-            this.TcMIOpenRun.Size = new System.Drawing.Size(192, 22);
-            this.TcMIOpenRun.Text = "Run...";
-            this.TcMIOpenRun.Click += new System.EventHandler(this.TcMIOpenRun_Click);
-            // 
-            // TcSeparator4
-            // 
-            this.TcSeparator4.Name = "TcSeparator4";
-            this.TcSeparator4.Size = new System.Drawing.Size(189, 6);
-            // 
-            // TcMiViewConfig
-            // 
-            this.TcMiViewConfig.Name = "TcMiViewConfig";
-            this.TcMiViewConfig.Size = new System.Drawing.Size(192, 22);
-            this.TcMiViewConfig.Text = "View Config...";
-            // 
-            // TcMiSettings
-            // 
-            this.TcMiSettings.Name = "TcMiSettings";
-            this.TcMiSettings.Size = new System.Drawing.Size(192, 22);
-            this.TcMiSettings.Text = "Settings...";
-            // 
-            // TcSeparator5
-            // 
-            this.TcSeparator5.Name = "TcSeparator5";
-            this.TcSeparator5.Size = new System.Drawing.Size(189, 6);
-            // 
-            // TcMiExit
-            // 
-            this.TcMiExit.Name = "TcMiExit";
-            this.TcMiExit.Size = new System.Drawing.Size(192, 22);
-            this.TcMiExit.Text = "Exit";
             // 
             // IconsBox
             // 
@@ -190,8 +75,8 @@
             this.IconsBox.BackColor = System.Drawing.Color.Black;
             this.IconsBox.BackgroundImageTiled = true;
             this.IconsBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.IconsBox.ContextMenuStrip = this.RemoveItemContext;
             this.IconsBox.ForeColor = System.Drawing.Color.White;
+            this.IconsBox.HideSelection = false;
             this.IconsBox.Location = new System.Drawing.Point(1, 35);
             this.IconsBox.Margin = new System.Windows.Forms.Padding(10);
             this.IconsBox.MultiSelect = false;
@@ -203,20 +88,8 @@
             this.IconsBox.TileSize = new System.Drawing.Size(50, 50);
             this.IconsBox.UseCompatibleStateImageBehavior = false;
             this.IconsBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.IconsBox_KeyPress);
+            this.IconsBox.MouseClick += new System.Windows.Forms.MouseEventHandler(this.IconsBox_MouseClick);
             this.IconsBox.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.IconsBox_MouseDoubleClick);
-            // 
-            // RemoveItemContext
-            // 
-            this.RemoveItemContext.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.RicMiRemove});
-            this.RemoveItemContext.Name = "RemoveItemContext";
-            this.RemoveItemContext.Size = new System.Drawing.Size(118, 26);
-            // 
-            // RicMiRemove
-            // 
-            this.RicMiRemove.Name = "RicMiRemove";
-            this.RicMiRemove.Size = new System.Drawing.Size(117, 22);
-            this.RicMiRemove.Text = "Remove";
             // 
             // toolStripMenu
             // 
@@ -262,7 +135,7 @@
             this.UserLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.UserLabel.AutoEllipsis = true;
-            this.UserLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.UserLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.UserLabel.Location = new System.Drawing.Point(115, 4);
             this.UserLabel.Name = "UserLabel";
             this.UserLabel.Size = new System.Drawing.Size(255, 15);
@@ -271,7 +144,7 @@
             // 
             // SuperIcon
             // 
-            this.SuperIcon.Image = global::SuperLauncher.Resources.logo_16;
+            this.SuperIcon.Image = global::SuperLauncher.Properties.Resources.logo_16;
             this.SuperIcon.Location = new System.Drawing.Point(6, 5);
             this.SuperIcon.Name = "SuperIcon";
             this.SuperIcon.Size = new System.Drawing.Size(16, 16);
@@ -281,24 +154,119 @@
             // 
             // AppLabel
             // 
-            this.AppLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.AppLabel.Font = new System.Drawing.Font("Segoe UI Semilight", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.AppLabel.Location = new System.Drawing.Point(26, 4);
             this.AppLabel.Name = "AppLabel";
             this.AppLabel.Size = new System.Drawing.Size(90, 15);
             this.AppLabel.TabIndex = 0;
             this.AppLabel.Text = "Super Launcher";
             // 
+            // RightClickMenu
+            // 
+            this.RightClickMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.miRemove});
+            // 
+            // miRemove
+            // 
+            this.miRemove.Index = 0;
+            this.miRemove.Text = "Remove";
+            this.miRemove.Click += new System.EventHandler(this.removeToolStripMenuItem_Click);
+            // 
+            // miSuperLauncher
+            // 
+            this.miSuperLauncher.Index = 0;
+            this.miSuperLauncher.Text = "Super Launcher";
+            this.miSuperLauncher.Click += new System.EventHandler(this.miSuperLauncher_Click);
+            // 
+            // miSeperator1
+            // 
+            this.miSeperator1.Index = 1;
+            this.miSeperator1.Text = "-";
+            // 
+            // miElevate
+            // 
+            this.miElevate.Index = 2;
+            this.miElevate.Text = "Elevate...";
+            this.miElevate.Click += new System.EventHandler(this.miElevate_Click);
+            // 
+            // miRunAs
+            // 
+            this.miRunAs.Index = 3;
+            this.miRunAs.Text = "Run as...";
+            this.miRunAs.Click += new System.EventHandler(this.miRunAs_Click);
+            // 
+            // miSeperator2
+            // 
+            this.miSeperator2.Index = 4;
+            this.miSeperator2.Text = "-";
+            // 
+            // miAddShortcut
+            // 
+            this.miAddShortcut.Index = 5;
+            this.miAddShortcut.Text = "Add shortcut...";
+            this.miAddShortcut.Click += new System.EventHandler(this.miAddShortcut_Click);
+            // 
+            // miSeperator3
+            // 
+            this.miSeperator3.Index = 8;
+            this.miSeperator3.Text = "-";
+            // 
+            // miExit
+            // 
+            this.miExit.Index = 11;
+            this.miExit.Text = "Exit";
+            this.miExit.Click += new System.EventHandler(this.miExit_Click);
+            // 
+            // TrayMenu
+            // 
+            this.TrayMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+            this.miSuperLauncher,
+            this.miSeperator1,
+            this.miElevate,
+            this.miRunAs,
+            this.miSeperator2,
+            this.miAddShortcut,
+            this.miSeperator4,
+            this.miExplorer,
+            this.miSeperator3,
+            this.miConfig,
+            this.menuItem1,
+            this.miExit});
+            this.TrayMenu.Popup += new System.EventHandler(this.TrayMenu_Popup);
+            // 
+            // miSeperator4
+            // 
+            this.miSeperator4.Index = 6;
+            this.miSeperator4.Text = "-";
+            // 
+            // miExplorer
+            // 
+            this.miExplorer.Index = 7;
+            this.miExplorer.Text = "Open Explorer";
+            this.miExplorer.Click += new System.EventHandler(this.miExplorer_Click);
+            // 
+            // miConfig
+            // 
+            this.miConfig.Index = 9;
+            this.miConfig.Text = "View Config...";
+            this.miConfig.Click += new System.EventHandler(this.miConfig_Click);
+            // 
+            // menuItem1
+            // 
+            this.menuItem1.Index = 10;
+            this.menuItem1.Text = "Settings";
+            this.menuItem1.Click += new System.EventHandler(this.menuItem1_Click);
+            // 
             // Launcher
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(376, 220);
             this.Controls.Add(this.TopPanel);
             this.Controls.Add(this.IconsBox);
             this.DoubleBuffered = true;
-            this.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.KeyPreview = true;
+            this.Font = new System.Drawing.Font("Segoe UI Semilight", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -310,13 +278,10 @@
             this.Deactivate += new System.EventHandler(this.Launcher_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Launcher_FormClosing);
             this.Shown += new System.EventHandler(this.Launcher_Shown);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Launcher_KeyDown);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Launcher_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Launcher_MouseMove);
             this.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Launcher_MouseUp);
             this.Resize += new System.EventHandler(this.Launcher_Resize);
-            this.TrayContext.ResumeLayout(false);
-            this.RemoveItemContext.ResumeLayout(false);
             this.TopPanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.ShieldIcon)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SuperIcon)).EndInit();
@@ -335,41 +300,21 @@
         private System.Windows.Forms.PictureBox SuperIcon;
         private System.Windows.Forms.Label UserLabel;
         private System.Windows.Forms.PictureBox ShieldIcon;
-        private System.Windows.Forms.ContextMenuStrip TrayContext;
-        private System.Windows.Forms.ToolStripMenuItem TcMiSuperLauncher;
-        private System.Windows.Forms.ToolStripSeparator TcSeparator1;
-        private System.Windows.Forms.ToolStripMenuItem TcMiElevate;
-        private System.Windows.Forms.ToolStripMenuItem TcMiRunAs;
-        private System.Windows.Forms.ToolStripSeparator TcSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem TcMiAddShortcut;
-        private System.Windows.Forms.ToolStripSeparator TcSeparator3;
-        private System.Windows.Forms.ToolStripMenuItem TcMiOpenExplorer;
-        private System.Windows.Forms.ToolStripSeparator TcSeparator4;
-        private System.Windows.Forms.ToolStripMenuItem TcMiViewConfig;
-        private System.Windows.Forms.ToolStripMenuItem TcMiSettings;
-        private System.Windows.Forms.ToolStripSeparator TcSeparator5;
-        private System.Windows.Forms.ToolStripMenuItem TcMiExit;
-        private System.Windows.Forms.ContextMenuStrip RemoveItemContext;
-        private System.Windows.Forms.ToolStripMenuItem RicMiRemove;
-        private System.Windows.Forms.ToolStripMenuItem TcMIOpenRun;
-        /*
-private System.Windows.Forms.ContextMenu RightClickMenu;
-private System.Windows.Forms.MenuItem miRemove;
-private System.Windows.Forms.MenuItem miSuperLauncher;
-private System.Windows.Forms.MenuItem miSeperator1;
-private System.Windows.Forms.MenuItem miElevate;
-private System.Windows.Forms.MenuItem miRunAs;
-private System.Windows.Forms.MenuItem miSeperator2;
-private System.Windows.Forms.MenuItem miAddShortcut;
-private System.Windows.Forms.MenuItem miSeperator3;
-private System.Windows.Forms.MenuItem miExit;
-private System.Windows.Forms.ContextMenu TrayMenu;
-private System.Windows.Forms.MenuItem miSeperator4;
-private System.Windows.Forms.MenuItem miExplorer;
-private System.Windows.Forms.MenuItem miConfig;
-private System.Windows.Forms.MenuItem miSettings;
-private System.Windows.Forms.MenuItem miSeperator5;
-*/
+        private System.Windows.Forms.ContextMenu RightClickMenu;
+        private System.Windows.Forms.MenuItem miRemove;
+        private System.Windows.Forms.MenuItem miSuperLauncher;
+        private System.Windows.Forms.MenuItem miSeperator1;
+        private System.Windows.Forms.MenuItem miElevate;
+        private System.Windows.Forms.MenuItem miRunAs;
+        private System.Windows.Forms.MenuItem miSeperator2;
+        private System.Windows.Forms.MenuItem miAddShortcut;
+        private System.Windows.Forms.MenuItem miSeperator3;
+        private System.Windows.Forms.MenuItem miExit;
+        private System.Windows.Forms.ContextMenu TrayMenu;
+        private System.Windows.Forms.MenuItem miSeperator4;
+        private System.Windows.Forms.MenuItem miExplorer;
+        private System.Windows.Forms.MenuItem miConfig;
+        private System.Windows.Forms.MenuItem menuItem1;
     }
 }
 

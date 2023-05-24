@@ -26,13 +26,14 @@ namespace SuperLauncher
             ERROR_INVALID_FLAGS = 1004,
             ERROR_BAD_ARGUMENTS = 160
         }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Design", "CA1021:AvoidOutParameters")]
         public static bool ParseUserName(string userName, out string user, out string domain)
         {
             if (string.IsNullOrEmpty(userName))
-                throw new ArgumentNullException(nameof(userName));
+                throw new ArgumentNullException("userName");
 
-            StringBuilder userBuilder = new();
-            StringBuilder domainBuilder = new();
+            StringBuilder userBuilder = new StringBuilder();
+            StringBuilder domainBuilder = new StringBuilder();
 
             CredUIReturnCodes returnCode = CredUIParseUserName(userName, userBuilder, int.MaxValue, domainBuilder, int.MaxValue);
             switch (returnCode)
@@ -48,7 +49,7 @@ namespace SuperLauncher
                     return false;
 
                 case CredUIReturnCodes.ERROR_INVALID_PARAMETER: // ulUserMaxChars or ulDomainMaxChars is zero OR userName, user, or domain is NULL.
-                    throw new ArgumentNullException(nameof(userName));
+                    throw new ArgumentNullException("userName");
 
                 default:
                     user = null;

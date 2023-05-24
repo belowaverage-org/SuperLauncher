@@ -1,168 +1,47 @@
 ﻿using System;
 using System.Drawing;
+using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Collections.Generic;
 
 namespace SuperLauncher
 {
-    public static class Win32Interop
+    static class Win32Interop
     {
-        [DllImport("Dwmapi.dll")]
-        public static extern uint DwmSetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, [In] IntPtr pvAttribute, uint cbAttribute);
-        [DllImport("Shell32.dll")]
-        public static extern uint SHBindToParent(IntPtr pidl, Guid riid, out IntPtr ppv, out IntPtr ppidlLast);
-        [DllImport("Shell32.dll")]
-        public static extern void SHGetNameFromIDList(IntPtr pidl, SIGDN sigdnName, [MarshalAs(UnmanagedType.LPWStr)] out string ppszName);
-        [DllImport("Shell32.dll")]
-        public static extern void ILFree(IntPtr pidl);
-        [DllImport("Shell32.dll")]
-        public static extern uint SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string pszName, [Optional] IntPtr pbc, out IntPtr ppidl, uint sfgaoIn, out IntPtr psfgaoOut);
-        [DllImport("User32.dll")]
-        public static extern short GetKeyState(int nVirtKey);
-        [DllImport("User32.dll")]
-        public static extern bool GetCursorPos(out POINT lpPoint);
-        [DllImport("User32.dll")]
-        public static extern bool GetMonitorInfo(IntPtr hMonitor, out MONITORINFO lpmi);
-        [DllImport("User32.dll")]
-        public static extern bool ChangeWindowMessageFilter(uint message, uint action);
-        [DllImport("User32.dll")]
-        public static extern IntPtr MonitorFromWindow(IntPtr hWnd, MonitorFromWindowFlags dwFlags);
-        [DllImport("User32.dll")]
-        public static extern bool InvalidateRect(IntPtr hWnd, IntPtr Rect, bool Erase);
-        [DllImport("User32.dll")]
-        public static extern uint RegisterWindowMessage(string lpString);
-        [DllImport("user32.dll")]
-        public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
         [DllImport("user32.dll")]
         private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
-        [DllImport("user32.dll")]
-        public static extern long SetWindowLong(IntPtr hWnd, SetWindowLongIndex nIndex, ExtendedWindowStyles dwNewLong);
         [DllImport("user32.dll", SetLastError = true)]
         private static extern bool DrawIconEx(IntPtr hdc, int xLeft, int yTop, IntPtr hIcon, int cxWidth, int cyHeight, int istepIfAniCur, IntPtr hbrFlickerFreeDraw, int diFlags);
         [DllImport("gdi32.dll")]
         private static extern IntPtr CreateSolidBrush(uint crColor);
         [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+        private static extern bool SetMenuItemInfo(IntPtr hMenu, uint uItem, bool fByPosition, [In] ref MENUITEMINFO lpmii);
         [StructLayout(LayoutKind.Sequential)]
-        public struct RECT
-        {
-            public int left;
-            public int top;
-            public int right;
-            public int bottom;
-        }
-        [StructLayout(LayoutKind.Sequential)]
-        public struct POINT
-        {
-            public int x;
-            public int y;
-        }
-        [StructLayout(LayoutKind.Sequential)]
-        public struct MONITORINFO
+        private struct MENUITEMINFO
         {
             public uint cbSize;
-            public RECT rcMonitor;
-            public RECT rcWork;
-            public MonitoInfoFlags dwFlags;
+            public uint fMask;
+            public uint fType;
+            public uint fState;
+            public uint wID;
+            public IntPtr hSubMenu;
+            public IntPtr hbmpChecked;
+            public IntPtr hbmpUnchecked;
+            public IntPtr dwItemData;
+            public string dwTypeData;
+            public uint cch;
+            public IntPtr hbmpItem;
         }
-        public enum MonitoInfoFlags
+        private static Dictionary<MenuItem, Image> MenuItemIcons = new Dictionary<MenuItem, Image>();
+        /// <summary>
+        /// Sets an icon on a button with the FlatStyle set to System.
+        /// </summary>
+        /// <param name="Button">Button Object</param>
+        /// <param name="Icon">Icon Object</param>
+        public static void SetSystemIcon(this Button Button, Icon Icon, int Width = 16, int Height = 16)
         {
-            MONITORINFOF_PRIMARY = 1
+            SendMessage(Button.Handle, 0xf7, (IntPtr)1, new Icon(Icon, Width, Height).Handle);
         }
-        public enum MonitorFromWindowFlags
-        {
-            MONITOR_DEFAULTTONULL = 0x0,
-            MONITOR_DEFAULTTOPRIMARY = 0x1,
-            MONITOR_DEFAULTTONEAREST = 0x2
-        }
-        public enum SetWindowLongIndex
-        {
-            GWL_EXSTYLE = -20,
-            GWL_HINSTANCE = -6,
-            GWL_ID = -12,
-            GWL_STYLE = -16,
-            GWL_USERDATA = -21,
-            GWL_WNDPROC = -4
-        }
-        public enum ExtendedWindowStyles
-        {
-            WS_EX_TRANSPARENT = 0x20,
-            WS_EX_LAYERED = 0x80000,
-            WS_EX_TOOLWINDOW = 0x80
-        }
-        public enum AccentState
-        {
-            ACCENT_DISABLED = 0,
-            ACCENT_ENABLE_GRADIENT = 1,
-            ACCENT_ENABLE_TRANSPARENTGRADIENT = 2,
-            ACCENT_ENABLE_BLURBEHIND = 3,
-            ACCENT_ENABLE_ACRYLICBLURBEHIND = 4,
-            ACCENT_INVALID_STATE = 5
-        }
-        [StructLayout(LayoutKind.Sequential)]
-        public struct AccentPolicy
-        {
-            public AccentState AccentState;
-            public uint AccentFlags;
-            public uint GradientColor;
-            public uint AnimationId;
-        }
-
-        [StructLayout(LayoutKind.Sequential)]
-        public struct WindowCompositionAttributeData
-        {
-            public WindowCompositionAttribute Attribute;
-            public IntPtr Data;
-            public int SizeOfData;
-        }
-        public enum DWMWINDOWATTRIBUTE
-        {
-            DWMWA_NCRENDERING_ENABLED,
-            DWMWA_NCRENDERING_POLICY,
-            DWMWA_TRANSITIONS_FORCEDISABLED,
-            DWMWA_ALLOW_NCPAINT,
-            DWMWA_CAPTION_BUTTON_BOUNDS,
-            DWMWA_NONCLIENT_RTL_LAYOUT,
-            DWMWA_FORCE_ICONIC_REPRESENTATION,
-            DWMWA_FLIP3D_POLICY,
-            DWMWA_EXTENDED_FRAME_BOUNDS,
-            DWMWA_HAS_ICONIC_BITMAP,
-            DWMWA_DISALLOW_PEEK,
-            DWMWA_EXCLUDED_FROM_PEEK,
-            DWMWA_CLOAK,
-            DWMWA_CLOAKED,
-            DWMWA_FREEZE_REPRESENTATION,
-            DWMWA_PASSIVE_UPDATE_MODE,
-            DWMWA_USE_HOSTBACKDROPBRUSH,
-            DWMWA_USE_IMMERSIVE_DARK_MODE = 20,
-            DWMWA_WINDOW_CORNER_PREFERENCE = 33,
-            DWMWA_BORDER_COLOR,
-            DWMWA_CAPTION_COLOR,
-            DWMWA_TEXT_COLOR,
-            DWMWA_VISIBLE_FRAME_BORDER_THICKNESS,
-            DWMWA_SYSTEMBACKDROP_TYPE,
-            DWMWA_LAST
-        }
-        public enum WindowCompositionAttribute
-        {
-            // ...
-            WCA_ACCENT_POLICY = 19
-            // ...
-        }
-        public enum SIGDN : uint
-        {
-            SIGDN_NORMALDISPLAY = 0,
-            SIGDN_PARENTRELATIVEPARSING = 0x80018001,
-            SIGDN_DESKTOPABSOLUTEPARSING = 0x80028000,
-            SIGDN_PARENTRELATIVEEDITING = 0x80031001,
-            SIGDN_DESKTOPABSOLUTEEDITING = 0x8004c000,
-            SIGDN_FILESYSPATH = 0x80058000,
-            SIGDN_URL = 0x80068000,
-            SIGDN_PARENTRELATIVEFORADDRESSBAR = 0x8007c001,
-            SIGDN_PARENTRELATIVE = 0x80080001,
-            SIGDN_PARENTRELATIVEFORUI = 0x80094001
-        }
-        //private static Dictionary<MenuItem, Image> MenuItemIcons = new Dictionary<MenuItem, Image>();
-        /*
         public static void SetMenuItemBitmap(this MenuItem MenuItem, Image Image)
         {
             if (MenuItemIcons.ContainsKey(MenuItem))
@@ -190,11 +69,10 @@ namespace SuperLauncher
                 SetMenuItemInfo(mi.Parent.Handle, (uint)mi.Index, true, ref mii);
             }
         }
-        */
         public static Bitmap ToBitmapAlpha(this Icon Icon, int Width, int Height, Color Background)
         {
-            Icon rsIcon = new(Icon, Width, Height);
-            Bitmap bmIcon = new(Width, Height);
+            Icon rsIcon = new Icon(Icon, Width, Height);
+            Bitmap bmIcon = new Bitmap(Width, Height);
             Graphics g = Graphics.FromImage(bmIcon);
             IntPtr hdc = g.GetHdc();
             DrawIconEx(hdc, 0, 0, rsIcon.Handle, Width, Height, 0, CreateSolidBrush((uint)ColorTranslator.ToWin32(Background)), 0x3);
@@ -205,27 +83,5 @@ namespace SuperLauncher
         {
             return ToBitmapAlpha(Icon, Width, Height, Color.White);
         }
-        /*
-        public static void EnableBlur(IntPtr Handle, uint BlurOpacity = 100, uint BlurBackgroundColor = 0x990000)
-        {
-            var accent = new AccentPolicy
-            {
-                //accent.AccentFlags = 2;
-                AccentState = AccentState.ACCENT_ENABLE_BLURBEHIND,
-                GradientColor = (BlurOpacity << 24) | (BlurBackgroundColor & 0xFFFFFF)
-            };
-            var accentStructSize = Marshal.SizeOf(accent);
-            var accentPtr = Marshal.AllocHGlobal(accentStructSize);
-            Marshal.StructureToPtr(accent, accentPtr, false);
-            var data = new WindowCompositionAttributeData
-            {
-                Attribute = WindowCompositionAttribute.WCA_ACCENT_POLICY,
-                SizeOfData = accentStructSize,
-                Data = accentPtr
-            };
-            SetWindowCompositionAttribute(Handle, ref data);
-            Marshal.FreeHGlobal(accentPtr);
-        }
-        */
     }
 }

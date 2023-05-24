@@ -117,30 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="TrayIcon.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>147, 17</value>
-  </metadata>
-  <metadata name="OpenFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>351, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="ShieldIcon.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wwAADsMBx2+oZAAAAYxJREFUOE+NkztPwlAUx8/gamIYWFwYHB108FWQErSQqFEnxSgPg6hEZPExGzcT
-        JgcTY3wQXTAmLC4GFRPB5wAfwO/A4N7jPe2pPG4x/pOTNr3n97u97b1gl2Aw6AsEAkVxRSq61zStj4fb
-        RzS7RPM5QQOz6+iMZbF84sOdxLglojEXt9fDs1WoyTsVwu7oMULqA2HjHfUnjyg33h2qGJnTDBH1EsO4
-        MTP2LB6gY+UaYVOADEOSBG7Ui4pZjyNYvfDg5b5qiBg3BZD+lGBIvjXB+sOwWfdDNgIbGNZY0ALrhUFZ
-        4IjnJBhWX23h6pkiC5zRrARDQghaYKrykVsS5DPbY9IHIxDiLwjLZYSYqGgJIVLC3pldEuQZNwQxMn7l
-        RqU1t8KdCzfG7MQwbkY8qCTDmrTmRhjCz6hMRgiuMFYPbVUxUMts+X9hWm8jzK9ea7utLcleyo/ftywQ
-        cMdSAfun03/DViwJbdvqqYKO0BV6J+b/B1tRVbWLzweBxmmkZzz8/wiY/k7z124KwA+y5oJwSsNQrAAA
-        AABJRU5ErkJggg==
-</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="banner" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\banner.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <metadata name="RightClickMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>483, 19</value>
-  </metadata>
-  <metadata name="TrayMenu.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>613, 19</value>
-  </metadata>
+  <data name="explorer" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\explorer.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\SuperLauncherAssets\logo.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_16" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\SuperLauncherAssets\16.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="logo_256" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\..\SuperLauncherAssets\256.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="shield" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\shield.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="shortcut" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\shortcut.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Text;
 using System.Security.Cryptography;
+using System.Configuration;
+using SuperLauncher.Properties;
 
 namespace SuperLauncher
 {
@@ -14,66 +16,82 @@ namespace SuperLauncher
     {
         public string UserName { get; set; }
         public string Domain { get; set; }
-        public bool AutoElevate { get; set; } = Settings.Default.AutoElevate;
+        public bool AutoElevate { get; set; } = Settings.Default.autoElevate;
+
         public ConfigHelper()
         {
-            if (!string.IsNullOrEmpty(Settings.Default.AutoRunAsUser))
-            {
-                UserName = DecryptData(Settings.Default.AutoRunAsUser);
-            }
-            else
+            if (! String.IsNullOrEmpty(Settings.Default.autoRunAsUser))
+                UserName = DecryptData(Settings.Default.autoRunAsUser);
+                else
             {
                 UserName = null;
             }
-            if (!string.IsNullOrEmpty(Settings.Default.AutoRunAsDomain))
+            if (! String.IsNullOrEmpty(Settings.Default.autoRunAsDomain))
             {
-                Domain = DecryptData(Settings.Default.AutoRunAsDomain);
+                Domain = DecryptData(Settings.Default.autoRunAsDomain);
             }
             else
             {
                 Domain = null;
             }
-
+            
         }
+
+        public ConfigHelper(string userName, string domain, bool autoElevate)
+        {
+            UserName = userName;
+            Domain = domain;
+            AutoElevate = autoElevate;
+        }
+
         public void UpdateSetting(dynamic configData, ConfigField configField)
         {
-            switch (configField)
-            {
+            switch (configField){
                 case ConfigField.UserName:
-                    Settings.Default.AutoRunAsUser = EncryptData(configData);
+                    Settings.Default.autoRunAsUser = EncryptData(configData);
                     UserName = configData;
                     break;
                 case ConfigField.Domain:
-                    Settings.Default.AutoRunAsDomain = EncryptData(configData);
+                    Settings.Default.autoRunAsDomain = EncryptData(configData);
                     Domain = configData;
                     break;
                 case ConfigField.AutoElevate:
-                    Settings.Default.AutoElevate = Convert.ToBoolean(configData);
+                    Settings.Default.autoElevate = Convert.ToBoolean(configData);
                     AutoElevate = Convert.ToBoolean(configData);
                     break;
                 default:
-                    throw new ArgumentException("Invalid paramater specified", nameof(configField));
+                    throw new ArgumentException("Invalid paramater specified","configField");
             }
+
             Settings.Default.Save();
         }
+
         public bool HasRunAsCredential()
         {
-            if (!string.IsNullOrEmpty(UserName) && !string.IsNullOrEmpty(Domain))
+            if (!String.IsNullOrEmpty(UserName) && !String.IsNullOrEmpty(Domain))
             {
                 return true;
             }
+
             return false;
+        }
+        public static string GetConfigPath()
+        {
+            return ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.PerUserRoamingAndLocal).FilePath;
         }
         private static string EncryptData(string clearData)
         {
             byte[] encData = ProtectedData.Protect(Encoding.ASCII.GetBytes(clearData), null, DataProtectionScope.CurrentUser);
             string b64Data = Convert.ToBase64String(encData);
+
             return b64Data;
         }
+
         private static string DecryptData(string encData)
         {
             byte[] b64Data = ProtectedData.Unprotect(Convert.FromBase64String(encData), null, DataProtectionScope.CurrentUser);
             string clearData = Encoding.ASCII.GetString(b64Data);
+
             return clearData;
         }
     }

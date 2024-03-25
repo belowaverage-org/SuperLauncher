@@ -7,41 +7,41 @@ namespace SuperLauncher
     public static class Win32Interop
     {
         [DllImport("Dwmapi.dll")]
-        public static extern uint DwmSetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, [In] IntPtr pvAttribute, uint cbAttribute);
+        public static extern uint DwmSetWindowAttribute(nint hwnd, DWMWINDOWATTRIBUTE dwAttribute, [In] nint pvAttribute, uint cbAttribute);
         [DllImport("Shell32.dll")]
-        public static extern uint SHBindToParent(IntPtr pidl, Guid riid, out IntPtr ppv, out IntPtr ppidlLast);
+        public static extern uint SHBindToParent(nint pidl, Guid riid, out nint ppv, out nint ppidlLast);
         [DllImport("Shell32.dll")]
-        public static extern void SHGetNameFromIDList(IntPtr pidl, SIGDN sigdnName, [MarshalAs(UnmanagedType.LPWStr)] out string ppszName);
+        public static extern void SHGetNameFromIDList(nint pidl, SIGDN sigdnName, [MarshalAs(UnmanagedType.LPWStr)] out string ppszName);
         [DllImport("Shell32.dll")]
-        public static extern void ILFree(IntPtr pidl);
+        public static extern void ILFree(nint pidl);
         [DllImport("Shell32.dll")]
-        public static extern uint SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string pszName, [Optional] IntPtr pbc, out IntPtr ppidl, uint sfgaoIn, out IntPtr psfgaoOut);
+        public static extern uint SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string pszName, [Optional] nint pbc, out nint ppidl, uint sfgaoIn, out nint psfgaoOut);
         [DllImport("User32.dll")]
         public static extern short GetKeyState(int nVirtKey);
         [DllImport("User32.dll")]
         public static extern bool GetCursorPos(out POINT lpPoint);
         [DllImport("User32.dll")]
-        public static extern bool GetMonitorInfo(IntPtr hMonitor, out MONITORINFO lpmi);
+        public static extern bool GetMonitorInfo(nint hMonitor, out MONITORINFO lpmi);
         [DllImport("User32.dll")]
         public static extern bool ChangeWindowMessageFilter(uint message, uint action);
         [DllImport("User32.dll")]
-        public static extern IntPtr MonitorFromWindow(IntPtr hWnd, MonitorFromWindowFlags dwFlags);
+        public static extern nint MonitorFromWindow(nint hWnd, MonitorFromWindowFlags dwFlags);
         [DllImport("User32.dll")]
-        public static extern bool InvalidateRect(IntPtr hWnd, IntPtr Rect, bool Erase);
+        public static extern bool InvalidateRect(nint hWnd, nint Rect, bool Erase);
         [DllImport("User32.dll")]
         public static extern uint RegisterWindowMessage(string lpString);
         [DllImport("user32.dll")]
-        public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+        public static extern bool RegisterHotKey(nint hWnd, int id, uint fsModifiers, uint vk);
         [DllImport("user32.dll")]
-        private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        private static extern int SendMessage(nint hWnd, int wMsg, nint wParam, nint lParam);
         [DllImport("user32.dll")]
-        public static extern long SetWindowLong(IntPtr hWnd, SetWindowLongIndex nIndex, ExtendedWindowStyles dwNewLong);
+        public static extern long SetWindowLong(nint hWnd, SetWindowLongIndex nIndex, ExtendedWindowStyles dwNewLong);
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool DrawIconEx(IntPtr hdc, int xLeft, int yTop, IntPtr hIcon, int cxWidth, int cyHeight, int istepIfAniCur, IntPtr hbrFlickerFreeDraw, int diFlags);
+        private static extern bool DrawIconEx(nint hdc, int xLeft, int yTop, nint hIcon, int cxWidth, int cyHeight, int istepIfAniCur, nint hbrFlickerFreeDraw, int diFlags);
         [DllImport("gdi32.dll")]
-        private static extern IntPtr CreateSolidBrush(uint crColor);
+        private static extern nint CreateSolidBrush(uint crColor);
         [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+        internal static extern int SetWindowCompositionAttribute(nint hwnd, ref WindowCompositionAttributeData data);
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
@@ -111,7 +111,7 @@ namespace SuperLauncher
         public struct WindowCompositionAttributeData
         {
             public WindowCompositionAttribute Attribute;
-            public IntPtr Data;
+            public nint Data;
             public int SizeOfData;
         }
         public enum DWMWINDOWATTRIBUTE
@@ -196,7 +196,7 @@ namespace SuperLauncher
             Icon rsIcon = new(Icon, Width, Height);
             Bitmap bmIcon = new(Width, Height);
             Graphics g = Graphics.FromImage(bmIcon);
-            IntPtr hdc = g.GetHdc();
+            nint hdc = g.GetHdc();
             DrawIconEx(hdc, 0, 0, rsIcon.Handle, Width, Height, 0, CreateSolidBrush((uint)ColorTranslator.ToWin32(Background)), 0x3);
             g.ReleaseHdc(hdc);
             return bmIcon;
@@ -206,7 +206,7 @@ namespace SuperLauncher
             return ToBitmapAlpha(Icon, Width, Height, Color.White);
         }
         /*
-        public static void EnableBlur(IntPtr Handle, uint BlurOpacity = 100, uint BlurBackgroundColor = 0x990000)
+        public static void EnableBlur(nint Handle, uint BlurOpacity = 100, uint BlurBackgroundColor = 0x990000)
         {
             var accent = new AccentPolicy
             {

@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
-using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
@@ -164,19 +162,7 @@ namespace SuperLauncher
         public void StartProgram()
         {
             ((ModernLauncher)Window.GetWindow(this)).CloseWindow();
-            Task.Run(() =>
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = FilePath,
-                        UseShellExecute = true,
-                        WorkingDirectory = Environment.GetEnvironmentVariable("USERPROFILE")
-                    });
-                }
-                catch { }
-            });
+            Shared.StartProcess(FilePath);
         }
         private void UserControl_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {

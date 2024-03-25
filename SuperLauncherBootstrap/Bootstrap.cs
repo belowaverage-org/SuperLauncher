@@ -17,16 +17,16 @@ namespace SuperLauncherBootstrap
         private static readonly string TargetMessage = "ShowSuperLauncher";
         private static readonly string SelfPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)!;
         [DllImport("User32.dll")]
-        private static extern uint SendNotifyMessage(IntPtr hWnd, uint Msg, uint wParam, uint lParam);
+        private static extern uint SendNotifyMessage(nint hWnd, uint Msg, uint wParam, uint lParam);
         [DllImport("User32.dll")]
         private static extern uint RegisterWindowMessage(string lpString);
         [DllImport("User32.dll")]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        private static extern nint FindWindow(string lpClassName, string lpWindowName);
         [STAThread]
         public static void Main()
         {
-            IntPtr existingWindow = FindWindow(null, TargetWindowName);
-            if (existingWindow != IntPtr.Zero)
+            nint existingWindow = FindWindow(null, TargetWindowName);
+            if (existingWindow != nint.Zero)
             {
                 SendNotifyMessage(existingWindow, RegisterWindowMessage(TargetMessage), 0x0, 0x0);
                 return;

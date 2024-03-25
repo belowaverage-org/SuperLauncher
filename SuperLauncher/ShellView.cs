@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
@@ -14,11 +15,12 @@ namespace SuperLauncher
         private readonly ModernLauncherExplorerButtons MButtons = new();
         private ComInterop.IExplorerBrowser Browser;
         private uint AdviseCookie;
-        private IntPtr ParentFolder;
+        private nint ParentFolder;
         private uint NavLogCount = 0;
         private uint NavLogPosition = 0;
         private bool BackPressed = false;
         private bool ForwardPressed = false;
+        private string CurrentFolder = "";
         public ShellView(string InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
         {
             this.InitialPath = InitialPath;
@@ -56,7 +58,7 @@ namespace SuperLauncher
                 fFlags = ComInterop.FOLDERFLAGS.FWF_NONE,
                 ViewMode = ComInterop.FOLDERVIEWMODE.FVM_AUTO
             });
-            uint hresult = Win32Interop.SHParseDisplayName(InitialPath, IntPtr.Zero, out IntPtr ppidl, 0, out _);
+            uint hresult = Win32Interop.SHParseDisplayName(InitialPath, nint.Zero, out nint ppidl, 0, out _);
             if (hresult == 0)
             {
                 Browser.BrowseToIDList(ppidl, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
@@ -64,7 +66,7 @@ namespace SuperLauncher
             }
             else
             {
-                Win32Interop.SHParseDisplayName("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", IntPtr.Zero, out ppidl, 0, out _);
+                Win32Interop.SHParseDisplayName("::{20D04FE0-3AEA-1069-A2D8-08002B30309D}", nint.Zero, out ppidl, 0, out _);
                 Browser.BrowseToIDList(ppidl, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
                 Win32Interop.ILFree(ppidl);
             }
@@ -77,17 +79,17 @@ namespace SuperLauncher
             {
                 ShellView = shellView;
             }
-            public uint OnNavigationPending([In] IntPtr pidlFolder)
+            public uint OnNavigationPending([In] nint pidlFolder)
             {
                 return 0;
             }
-            public uint OnViewCreated([In] IntPtr psv)
+            public uint OnViewCreated([In] nint psv)
             {
                 return 0;
             }
-            public uint OnNavigationComplete([In] IntPtr pidlFolder)
+            public uint OnNavigationComplete([In] nint pidlFolder)
             {
-                ShellView.Browser.GetCurrentView(Guid.Parse("000214E3-0000-0000-C000-000000000046"), out IntPtr ppv);
+                ShellView.Browser.GetCurrentView(Guid.Parse("000214E3-0000-0000-C000-000000000046"), out nint ppv);
                 ShellView.ComShellView = (ComInterop.IShellView)Marshal.GetTypedObjectForIUnknown(ppv, typeof(ComInterop.IShellView));
                 ShellView.Browser.GetCurrentView(Guid.Parse("cde725b0-ccc9-4519-917e-325d72fab4ce"), out ppv);
                 ShellView.ComFolderView = (ComInterop.IFolderView)Marshal.GetTypedObjectForIUnknown(ppv, typeof(ComInterop.IFolderView));
@@ -97,7 +99,7 @@ namespace SuperLauncher
                 ShellView.MButtons.Up.IsEnabled = !(ppv == ShellView.ParentFolder);
                 ShellView.ParentFolder = ppv;
                 ShellView.Text = displayName;
-                ShellView.txtNav.Text = absoluteName;
+                ShellView.txtNav.Text = ShellView.CurrentFolder = absoluteName;
                 if (ShellView.BackPressed)
                 {
                     ShellView.NavLogPosition--;
@@ -124,7 +126,7 @@ namespace SuperLauncher
                 ShellView.MButtons.Forward.IsEnabled = (ShellView.NavLogPosition < ShellView.NavLogCount);
                 return 0;
             }
-            public uint OnNavigationFailed([In] IntPtr pidlFolder)
+            public uint OnNavigationFailed([In] nint pidlFolder)
             {
                 return 0;
             }
@@ -132,12 +134,12 @@ namespace SuperLauncher
         private void BtnBack_Click(object sender, EventArgs e)
         {
             BackPressed = true;
-            Browser.BrowseToIDList(IntPtr.Zero, ComInterop.BROWSETOFLAGS.SBSP_NAVIGATEBACK);
+            Browser.BrowseToIDList(nint.Zero, ComInterop.BROWSETOFLAGS.SBSP_NAVIGATEBACK);
         }
         private void BtnForward_Click(object sender, EventArgs e)
         {
             ForwardPressed = true;
-            Browser.BrowseToIDList(IntPtr.Zero, ComInterop.BROWSETOFLAGS.SBSP_NAVIGATEFORWARD);
+            Browser.BrowseToIDList(nint.Zero, ComInterop.BROWSETOFLAGS.SBSP_NAVIGATEFORWARD);
         }
         private void BtnNavUp_Click(object sender, EventArgs e)
         {
@@ -148,7 +150,7 @@ namespace SuperLauncher
             if (e.KeyCode == Keys.Enter)
             {
                 e.Handled = true;
-                uint hresult = Win32Interop.SHParseDisplayName(txtNav.Text, IntPtr.Zero, out IntPtr ppidl, 0, out _);
+                uint hresult = Win32Interop.SHParseDisplayName(txtNav.Text, nint.Zero, out nint ppidl, 0, out _);
                 if (hresult == 0)
                 {
                     Browser.BrowseToIDList(ppidl, ComInterop.BROWSETOFLAGS.SBSP_ABSOLUTE);
@@ -163,7 +165,7 @@ namespace SuperLauncher
         private void ShellView_Resize(object sender, EventArgs e)
         {
             if (Browser == null) return;
-            Browser.SetRect(IntPtr.Zero, new Win32Interop.RECT()
+            Browser.SetRect(nint.Zero, new Win32Interop.RECT()
             {
                 top = 36,
                 left = 0,
@@ -178,7 +180,12 @@ namespace SuperLauncher
         }
         private void MIOpenWith_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-
+            string processPath = (string)e.ClickedItem.Tag;
+            ComFolderView.GetFocusedItem(out int piItem);
+            ComFolderView.Item(piItem, out nint ppidl);
+            Win32Interop.SHGetNameFromIDList(ppidl, Win32Interop.SIGDN.SIGDN_NORMALDISPLAY, out string filePath);
+            if (Directory.Exists(CurrentFolder)) filePath = Path.Combine(CurrentFolder, filePath); 
+            Shared.StartProcess(processPath, filePath);
         }
         private void MIOpenWith_DropDownOpening(object sender, EventArgs e)
         {
@@ -188,7 +195,10 @@ namespace SuperLauncher
                 foreach (string filePath in Settings.Default.FileList)
                 {
                     if (!File.Exists(filePath)) continue;
-                    ToolStripItem item = MIOpenWith.DropDownItems.Add(Shared.ExtRemover(filePath));
+                    ToolStripItem item = MIOpenWith.DropDownItems.Add(
+                        Shared.ExtRemover(filePath),
+                        Icon.ExtractAssociatedIcon(filePath).ToBitmap()
+                    );
                     item.Tag = filePath;
                 }
             }

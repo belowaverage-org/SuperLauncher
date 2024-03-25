@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
+﻿using SuperLauncherCommon;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
-using SuperLauncherCommon;
 
 namespace SuperLauncherBootstrap
 {
@@ -33,7 +33,8 @@ namespace SuperLauncherBootstrap
             }
             Splash.AllowClose = false;
             Application app = new();
-            Task bsThread = Task.Run(() => {
+            Task bsThread = Task.Run(() =>
+            {
                 DateTime start = DateTime.Now;
                 BootstrapStart();
                 DateTime after = DateTime.Now;
@@ -81,7 +82,7 @@ namespace SuperLauncherBootstrap
         public static void Copy(string SourceDir, string TargetDir)
         {
             if (!Directory.Exists(TargetDir)) Directory.CreateDirectory(TargetDir);
-            foreach(DirectoryInfo childDir in new DirectoryInfo(SourceDir).GetDirectories())
+            foreach (DirectoryInfo childDir in new DirectoryInfo(SourceDir).GetDirectories())
             {
                 Copy(Path.Combine(SourceDir, childDir.Name), Path.Combine(TargetDir, childDir.Name));
             }

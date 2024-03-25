@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.IO;
-using System.Drawing;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SuperLauncher
 {
@@ -195,7 +195,7 @@ namespace SuperLauncher
                 e.Cancel = true;
                 FadeOut();
             }
-            else if(saving)
+            else if (saving)
             {
                 e.Cancel = true;
                 Settings.Default.Save();
@@ -334,7 +334,8 @@ namespace SuperLauncher
         }
         private void TcMiElevate_Click(object sender, EventArgs e)
         {
-            Task.Run(() => {
+            Task.Run(() =>
+            {
                 ProcessStartInfo elevatedProcStartInfo = new()
                 {
                     FileName = System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"),
@@ -349,7 +350,8 @@ namespace SuperLauncher
                 {
                     elevatedProcess.Start();
                     fakeClose = false;
-                    Invoke(new Action(() => {
+                    Invoke(new Action(() =>
+                    {
                         Close();
                     }));
                 }

@@ -17,8 +17,8 @@ namespace SuperLauncher
         public string Icon
         {
             get { return (string)IconLabel.Content; }
-            set 
-            { 
+            set
+            {
                 IconLabel.Content = value;
                 SLIconLabel.Content = value;
             }
@@ -26,7 +26,7 @@ namespace SuperLauncher
         public bool UserSLIcons
         {
             get { return useSLIcons; }
-            set 
+            set
             {
                 useSLIcons = value;
                 if (useSLIcons)

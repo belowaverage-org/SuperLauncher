@@ -31,7 +31,7 @@ namespace SuperLauncher
             catch (Exception) { }
         }
         private void BtnOpenLocation_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {            
+        {
             new ShellHost(Icon.FilePath.Replace(Icon.FileName, "")).Show();
         }
         private void BtnUnpin_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -42,7 +42,7 @@ namespace SuperLauncher
         }
         private void Page_Loaded(object sender, System.Windows.RoutedEventArgs e)
         {
-            if (RunAsHelper.IsElevated()) 
+            if (RunAsHelper.IsElevated())
             {
                 BtnRunAsAdmin.IsEnabled = false;
                 BtnRunAsAdmin.Opacity = 0.5;

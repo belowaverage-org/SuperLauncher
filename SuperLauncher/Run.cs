@@ -1,9 +1,9 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
-using System.IO;
-using Microsoft.Win32;
 using System.Drawing;
+using System.IO;
+using System.Windows.Forms;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 
 namespace SuperLauncher
@@ -29,7 +29,7 @@ namespace SuperLauncher
         }
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if(Directory.Exists(cbInput.Text))
+            if (Directory.Exists(cbInput.Text))
             {
                 ShellHost sh = new(cbInput.Text);
                 sh.Show();
@@ -45,10 +45,10 @@ namespace SuperLauncher
             };
             if (fileParts.Length != 0)
             {
-                if (!File.Exists(cbInput.Text)) 
+                if (!File.Exists(cbInput.Text))
                 {
                     string args = "";
-                    for(int i = 1; i < fileParts.Length; i++)
+                    for (int i = 1; i < fileParts.Length; i++)
                     {
                         args += fileParts[i];
                         if (i < fileParts.Length - 1) args += " ";
@@ -135,7 +135,7 @@ namespace SuperLauncher
             {
                 char letter = MRUKeys[valIndex];
                 int listIndex = Array.IndexOf(MRUList, letter);
-                while(listIndex-- != 0)
+                while (listIndex-- != 0)
                 {
                     MRUList[listIndex + 1] = MRUList[listIndex];
                 }

@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
-using System.Runtime.InteropServices;
-using System.Windows.Input;
-using System.Windows.Controls;
 
 namespace SuperLauncher
 {
@@ -190,7 +190,8 @@ namespace SuperLauncher
             if (
                 Settings.Default.Width == (int)Width &&
                 Settings.Default.Height == (int)Height
-            ) {
+            )
+            {
                 return;
             }
             Settings.Default.Width = (int)Width;
@@ -283,4 +284,4 @@ namespace SuperLauncher
             ((ModernLauncher)Program.ModernApplication.MainWindow).OpenWindow();
         }
     }
-} 
+}

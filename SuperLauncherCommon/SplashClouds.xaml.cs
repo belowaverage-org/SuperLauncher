@@ -12,7 +12,7 @@ namespace SuperLauncherCommon
         public SplashClouds()
         {
             InitializeComponent();
-            foreach(Image cloud in CloudCanvas.Children)
+            foreach (Image cloud in CloudCanvas.Children)
             {
                 cloud.StartCloudAnimation();
             }

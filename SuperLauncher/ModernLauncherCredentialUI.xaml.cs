@@ -1,6 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Input;
-using System;
 
 namespace SuperLauncher
 {
@@ -24,12 +24,13 @@ namespace SuperLauncher
             TBUserName.Focus();
             CBRememberMe.IsChecked = Settings.Default.RememberMe;
             CBElevate.IsChecked = Settings.Default.AutoElevate;
-            if(CredentialManager.CredReadA(
-                "Super Launcher", 
-                CredentialManager.CredType.CRED_TYPE_GENERIC, 
-                CredentialManager.CredReadFlags.NONE, 
+            if (CredentialManager.CredReadA(
+                "Super Launcher",
+                CredentialManager.CredType.CRED_TYPE_GENERIC,
+                CredentialManager.CredReadFlags.NONE,
                 out CredentialManager.CREDENTIAL cred
-            )) {
+            ))
+            {
                 TBUserName.Text = cred.UserName;
                 TBPassword.Password = cred.Password;
             }

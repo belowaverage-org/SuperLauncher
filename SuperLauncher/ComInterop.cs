@@ -49,6 +49,24 @@ namespace SuperLauncher
             public uint SelectItem([In] IntPtr pidlItem, [In] uint uFlags);
             public uint GetItemObject([In] uint uItem, [In] Guid riid, [Out] out IntPtr ppv);
         }
+        [ComImport, InterfaceType(ComInterfaceType.InterfaceIsIUnknown), Guid("cde725b0-ccc9-4519-917e-325d72fab4ce")]
+        public interface IFolderView
+        {
+            public uint GetCurrentViewMode([Out] out IntPtr pViewMode);
+            public uint SetCurrentViewMode([In] FOLDERVIEWMODE ViewMode);
+            public uint GetFolder([In] Guid riid, [Out] out IntPtr ppv);
+            public uint Item([In] int iItemIndex, [Out] out IntPtr ppidl);
+            public uint ItemCount([In] SVGIO uFlags, [Out] out IntPtr pcItems);
+            public uint Items([In] SVGIO uFlags, [In] Guid riid, [Out] out IntPtr ppv);
+            public uint GetSelectionMarkedItem([Out] out IntPtr piItem);
+            public uint GetFocusedItem([Out] out IntPtr piItem);
+            public uint GetItemPosition([In] IntPtr pidl, [Out] IntPtr ppt);
+            public uint GetSpacing([Out][In] IntPtr ppt);
+            public uint GetDefaultSpacing([Out] out IntPtr ppt);
+            public uint GetAutoArrange();
+            public uint SelectItem([In] int iItem, [In] SVSIF dwFlags);
+            public uint SelectAndPositionItems([In] uint cidl, [In] IntPtr apidl, [In] IntPtr apt, [In] SVSIF dwFlags);
+        }
         [ComImport, Guid("361bbdc7-e6ee-4e13-be58-58e2240c810f"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         public interface IExplorerBrowserEvents
         {
@@ -141,6 +159,31 @@ namespace SuperLauncher
             EBF_NONE = 0,
             EBF_SELECTFROMDATAOBJECT = 0x100,
             EBF_NODROPTARGET = 0x200
+        }
+        public enum SVGIO : uint
+        {
+            SVGIO_BACKGROUND = 0,
+            SVGIO_SELECTION = 0x1,
+            SVGIO_ALLVIEW = 0x2,
+            SVGIO_CHECKED = 0x3,
+            SVGIO_TYPE_MASK = 0xf,
+            SVGIO_FLAG_VIEWORDER = 0x80000000
+        }
+        public enum SVSIF : uint
+        {
+            SVSI_DESELECT = 0,
+            SVSI_SELECT = 0x1,
+            SVSI_EDIT = 0x3,
+            SVSI_DESELECTOTHERS = 0x4,
+            SVSI_ENSUREVISIBLE = 0x8,
+            SVSI_FOCUSED = 0x10,
+            SVSI_TRANSLATEPT = 0x20,
+            SVSI_SELECTIONMARK = 0x40,
+            SVSI_POSITIONITEM = 0x80,
+            SVSI_CHECK = 0x100,
+            SVSI_CHECK2 = 0x200,
+            SVSI_KEYBOARDSELECT = 0x401,
+            SVSI_NOTAKEFOCUS = 0x40000000
         }
     }
 }

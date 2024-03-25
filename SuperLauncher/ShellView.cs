@@ -1,13 +1,15 @@
 ﻿using System;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using System.Windows.Forms.Integration;
-using System.Runtime.InteropServices;
 
 namespace SuperLauncher
 {
     public partial class ShellView : Form
     {
         public ComInterop.IShellView ComShellView;
+        public ComInterop.IFolderView ComFolderView;
         private readonly string InitialPath;
         private readonly ModernLauncherExplorerButtons MButtons = new();
         private ComInterop.IExplorerBrowser Browser;
@@ -20,7 +22,7 @@ namespace SuperLauncher
         public ShellView(string InitialPath = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}")
         {
             this.InitialPath = InitialPath;
-            Init();   
+            Init();
         }
         public void Init()
         {
@@ -87,6 +89,8 @@ namespace SuperLauncher
             {
                 ShellView.Browser.GetCurrentView(Guid.Parse("000214E3-0000-0000-C000-000000000046"), out IntPtr ppv);
                 ShellView.ComShellView = (ComInterop.IShellView)Marshal.GetTypedObjectForIUnknown(ppv, typeof(ComInterop.IShellView));
+                ShellView.Browser.GetCurrentView(Guid.Parse("cde725b0-ccc9-4519-917e-325d72fab4ce"), out ppv);
+                ShellView.ComFolderView = (ComInterop.IFolderView)Marshal.GetTypedObjectForIUnknown(ppv, typeof(ComInterop.IFolderView));
                 Win32Interop.SHGetNameFromIDList(pidlFolder, Win32Interop.SIGDN.SIGDN_NORMALDISPLAY, out string displayName);
                 Win32Interop.SHGetNameFromIDList(pidlFolder, Win32Interop.SIGDN.SIGDN_DESKTOPABSOLUTEEDITING, out string absoluteName);
                 Win32Interop.SHBindToParent(pidlFolder, Guid.Parse("000214E6-0000-0000-C000-000000000046"), out ppv, out _);
@@ -159,7 +163,7 @@ namespace SuperLauncher
         private void ShellView_Resize(object sender, EventArgs e)
         {
             if (Browser == null) return;
-            Browser.SetRect(IntPtr.Zero, new Win32Interop.RECT() 
+            Browser.SetRect(IntPtr.Zero, new Win32Interop.RECT()
             {
                 top = 36,
                 left = 0,
@@ -171,6 +175,29 @@ namespace SuperLauncher
         {
             Browser.Unadvise(AdviseCookie);
             Browser.Destroy();
+        }
+        private void MIOpenWith_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+        private void MIOpenWith_DropDownOpening(object sender, EventArgs e)
+        {
+            try
+            {
+                MIOpenWith.DropDownItems.Clear();
+                foreach (string filePath in Settings.Default.FileList)
+                {
+                    if (!File.Exists(filePath)) continue;
+                    ToolStripItem item = MIOpenWith.DropDownItems.Add(Shared.ExtRemover(filePath));
+                    item.Tag = filePath;
+                }
+            }
+            catch
+            {
+                string filePath = @"C:\Windows\System32\cmd.exe";
+                ToolStripItem item = MIOpenWith.DropDownItems.Add(Shared.ExtRemover(filePath));
+                item.Tag = filePath;
+            }
         }
     }
 }

@@ -61,6 +61,8 @@
             MIOpenWith.Name = "MIOpenWith";
             MIOpenWith.Size = new System.Drawing.Size(74, 20);
             MIOpenWith.Text = "Open with";
+            MIOpenWith.DropDownOpening += MIOpenWith_DropDownOpening;
+            MIOpenWith.DropDownItemClicked += MIOpenWith_DropDownItemClicked;
             // 
             // ShellView
             // 

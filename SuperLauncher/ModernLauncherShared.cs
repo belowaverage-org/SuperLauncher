@@ -76,5 +76,11 @@ namespace SuperLauncher
             Win32Interop.DwmSetWindowAttribute(handle, Win32Interop.DWMWINDOWATTRIBUTE.DWMWA_CAPTION_COLOR, dwmTbVal, 4);
             Marshal.FreeHGlobal(dwmTbVal);
         }
+        public static string ExtRemover(string FilePath)
+        {
+            FilePath = FilePath.Substring(FilePath.LastIndexOf('\\') + 1);
+            FilePath = FilePath.Remove(FilePath.LastIndexOf('.'));
+            return FilePath;
+        }
     }
 }

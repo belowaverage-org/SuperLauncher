@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Security.Claims;
 using System.Security.Principal;
 using System.Windows;
 
@@ -47,14 +46,16 @@ namespace SuperLauncher
                 PasswordInClearText = Password,
                 Domain = Domain
             };
-            try { Process.Start(psi); } catch (Exception e) {
+            try { Process.Start(psi); }
+            catch (Exception e)
+            {
                 MessageBox.Show(
                     e.Message,
                     "Super Launcher failed to switch users.",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error
                 );
-                return; 
+                return;
             }
             Exit();
         }

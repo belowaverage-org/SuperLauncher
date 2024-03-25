@@ -27,7 +27,7 @@ namespace SuperLauncher
         private void ShellHost_Load(object sender, EventArgs e)
         {
             MsMiNew_Click(null, null);
-            foreach(Control ctrl in Controls)
+            foreach (Control ctrl in Controls)
             {
                 if (ctrl.GetType() == typeof(MdiClient))
                 {

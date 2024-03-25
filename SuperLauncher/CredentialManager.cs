@@ -14,7 +14,7 @@ namespace SuperLauncher
         public static extern bool CredDeleteA(string TargetName, CredType Type, CredDeleteFlags Flags);
         public static bool CredReadA(string TargetName, CredType Type, CredReadFlags Flags, out CREDENTIAL Credential)
         {
-            bool success =  CredReadA(TargetName, Type, Flags, out IntPtr credPtr);
+            bool success = CredReadA(TargetName, Type, Flags, out IntPtr credPtr);
             Credential = new();
             try { Marshal.PtrToStructure(credPtr, Credential); } catch { }
             return success;
@@ -34,8 +34,9 @@ namespace SuperLauncher
             public uint Attributes;
             public string TargetAlias;
             public string UserName;
-            public string Password { 
-                get 
+            public string Password
+            {
+                get
                 {
                     byte[] bytes = new byte[CredentialBlobSize];
                     for (int i = 0; i < CredentialBlobSize; i++)

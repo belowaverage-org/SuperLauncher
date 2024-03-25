@@ -43,7 +43,7 @@
                     <Grid Background="{DynamicResource AcrylicNoise}">
                         <Label HorizontalAlignment="Left" Foreground="{DynamicResource TextColorBrush}" Margin="4,3,0,2" Width="26" Content="0" FontSize="16" FontFamily="{DynamicResource SLIcons}" RenderTransformOrigin="0.471,0.46"  />
                         <Label Content="Super Launcher" Foreground="{DynamicResource TextColorBrush}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="29,0,0,0" Width="94" />
-                        <Label x:Name="ElevateUser" Content="domain\user" Foreground="{DynamicResource TextColorBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0" />
+                        <Label x:Name="ElevateUser" Content="domain\user" Foreground="{DynamicResource TextColorBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0" Focusable="True" MouseLeftButtonUp="ElevateUser_MouseLeftButtonUp" WindowChrome.IsHitTestVisibleInChrome="True"/>
                         <Label x:Name="ElevateIcon" Content="" Foreground="{DynamicResource TextColorBrush}" FontFamily="{DynamicResource Icons}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" Margin="0,0,5,0" />
                     </Grid>
                 </Border>
@@ -59,8 +59,8 @@
                         <TextBox x:Name="Filter" Tag="" VerticalAlignment="Center" Height="28" Margin="15,0,187,0" TextChanged="Filter_TextChanged" KeyDown="Filter_KeyDown" />
                         <Button x:Name="BtnAdd" Content="" Margin="0,15,144,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="BtnAdd_Click"/>
                         <Button x:Name="BtnExplorer" Content="" Margin="0,15,101,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="BtnExplorer_Click"/>
-                        <Button x:Name="BtnRun" Content="" Margin="0,15,58,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="BtnRun_Click"/>
-                        <Button x:Name="BtnMore" Content="" Margin="0,15,15,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="BtnMore_Click"/>
+                        <Button x:Name="BtnRun" Content="" Margin="0,15,58,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="BtnRun_Click" ToolTip="Run"/>
+                        <Button x:Name="BtnMore" Content="" Margin="0,15,15,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="28" FontFamily="{DynamicResource Icons}" Height="28" FontSize="16" Click="BtnMore_Click" ToolTip="More"/>
                     </Grid>
                 </Border>
             </Grid>

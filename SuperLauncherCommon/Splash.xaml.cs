@@ -91,7 +91,11 @@ namespace SuperLauncherCommon
         private void Website_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             e.Handled = true;
-            Process.Start("OpenWith.exe", Site);
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = Site,
+                UseShellExecute = true
+            });
         }
         private void Window_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

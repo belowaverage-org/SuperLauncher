@@ -17,7 +17,6 @@ namespace SuperLauncher
         public bool rFilterFocus = false;
         public ModernLauncherBadge Badge;
         public bool IsMouseDown = false;
-        public string FileName;
         public Timer BadgeTimer = new()
         {
             Interval = 1000,
@@ -155,7 +154,7 @@ namespace SuperLauncher
             {
                 if (!IsMouseOver) return;
                 if (Badge != null) Badge.Close();
-                Badge = new(FileName);
+                Badge = new(rFilePath);
                 Badge.Show();
             });
         }

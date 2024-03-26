@@ -1,5 +1,6 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -84,16 +85,14 @@ namespace SuperLauncher
             FilePath = FilePath.Remove(FilePath.LastIndexOf('.'));
             return FilePath;
         }
-        public static void StartProcess(string FilePath, string Arguments = "")
+        public static void StartProcess(string FilePath, string[] Arguments = null)
         {
             Task.Run(() =>
             {
                 try
                 {
-                    Process.Start(new ProcessStartInfo()
+                    Process.Start(new ProcessStartInfo(FilePath, Arguments ?? [])
                     {
-                        FileName = FilePath,
-                        Arguments = Arguments,
                         UseShellExecute = true,
                         WorkingDirectory = Environment.GetEnvironmentVariable("USERPROFILE")
                     });

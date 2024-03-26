@@ -181,11 +181,25 @@ namespace SuperLauncher
         private void MIOpenWith_DropDownItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
             string processPath = (string)e.ClickedItem.Tag;
-            ComFolderView.GetFocusedItem(out int piItem);
-            ComFolderView.Item(piItem, out nint ppidl);
-            Win32Interop.SHGetNameFromIDList(ppidl, Win32Interop.SIGDN.SIGDN_NORMALDISPLAY, out string filePath);
-            if (Directory.Exists(CurrentFolder)) filePath = Path.Combine(CurrentFolder, filePath); 
-            Shared.StartProcess(processPath, filePath);
+            try
+            {
+                ComFolderView.GetFocusedItem(out int piItem);
+                ComFolderView.Item(piItem, out nint ppidl);
+                Win32Interop.SHGetNameFromIDList(ppidl, Win32Interop.SIGDN.SIGDN_NORMALDISPLAY, out string filePath);
+                if (Directory.Exists(CurrentFolder)) filePath = Path.Combine(CurrentFolder, filePath);
+                if (filePath == null)
+                {
+                    Shared.StartProcess(processPath);
+                }
+                else
+                {
+                    Shared.StartProcess(processPath, [filePath]);
+                }
+            }
+            catch
+            {
+                Shared.StartProcess(processPath);
+            }
         }
         private void MIOpenWith_DropDownOpening(object sender, EventArgs e)
         {

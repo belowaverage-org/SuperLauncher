@@ -32,7 +32,7 @@ namespace SuperLauncher
         }
         private void BtnOpenLocation_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            new ShellHost(Icon.FilePath.Replace(Icon.FileName, "")).Show();
+            new ShellHost(Icon.FilePath.Remove(Icon.FilePath.LastIndexOf('\\'))).Show();
         }
         private void BtnUnpin_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

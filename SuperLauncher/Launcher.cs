@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Windows.Forms;
-using System.IO;
-using System.Drawing;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace SuperLauncher
 {
@@ -21,9 +21,9 @@ namespace SuperLauncher
         private readonly int HandleWidth = 5;
         private readonly int BottomRightMargin = 5;
         [DllImport("user32.dll", SetLastError = true)]
-        static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+        static extern bool SetWindowPos(nint hWnd, nint hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
         [DllImport("dwmapi.dll")]
-        private static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref MARGINS margins);
+        private static extern int DwmExtendFrameIntoClientArea(nint hwnd, ref MARGINS margins);
         [StructLayout(LayoutKind.Sequential)]
         private struct MARGINS
         {
@@ -86,9 +86,9 @@ namespace SuperLauncher
             }
             if (m.Msg == 0x1) //WM_CREATE
             {
-                SetWindowPos(Handle, IntPtr.Zero, Left, Top, Width, Height, 0x20); //SWP_FRAMECHANGED
+                SetWindowPos(Handle, nint.Zero, Left, Top, Width, Height, 0x20); //SWP_FRAMECHANGED
             }
-            if (m.Msg == 0x83 && m.WParam == (IntPtr)1) //WM_NCCALCSIZE
+            if (m.Msg == 0x83 && m.WParam == (nint)1) //WM_NCCALCSIZE
             {
                 return;
             }
@@ -195,7 +195,7 @@ namespace SuperLauncher
                 e.Cancel = true;
                 FadeOut();
             }
-            else if(saving)
+            else if (saving)
             {
                 e.Cancel = true;
                 Settings.Default.Save();
@@ -334,7 +334,8 @@ namespace SuperLauncher
         }
         private void TcMiElevate_Click(object sender, EventArgs e)
         {
-            Task.Run(() => {
+            Task.Run(() =>
+            {
                 ProcessStartInfo elevatedProcStartInfo = new()
                 {
                     FileName = System.Reflection.Assembly.GetExecutingAssembly().Location.Replace(".dll", ".exe"),
@@ -349,7 +350,8 @@ namespace SuperLauncher
                 {
                     elevatedProcess.Start();
                     fakeClose = false;
-                    Invoke(new Action(() => {
+                    Invoke(new Action(() =>
+                    {
                         Close();
                     }));
                 }

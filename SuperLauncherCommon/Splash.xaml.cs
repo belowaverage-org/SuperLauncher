@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reflection;
-using System.Windows;
-using System.Windows.Media.Animation;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 
 namespace SuperLauncherCommon
 {
@@ -15,7 +15,8 @@ namespace SuperLauncherCommon
     {
         public string vMessageText = "";
         public bool AllowClose = true;
-        public string MessageText { 
+        public string MessageText
+        {
             get
             {
                 return vMessageText;
@@ -23,7 +24,8 @@ namespace SuperLauncherCommon
             set
             {
                 vMessageText = value;
-                Application.Current.Dispatcher.Invoke(() => {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
                     Message.Content = vMessageText;
                 });
             }
@@ -89,7 +91,11 @@ namespace SuperLauncherCommon
         private void Website_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             e.Handled = true;
-            Process.Start("OpenWith.exe", Site);
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = Site,
+                UseShellExecute = true
+            });
         }
         private void Window_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

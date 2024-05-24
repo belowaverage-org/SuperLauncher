@@ -3,6 +3,7 @@ using Microsoft.Win32;
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Interop;
@@ -65,15 +66,40 @@ namespace SuperLauncher
         public static void EnableAcrylic(Window Window)
         {
             Window.Background = Brushes.Transparent;
-            IntPtr handle = new WindowInteropHelper(Window).Handle;
-            IntPtr dwmDmVal = Marshal.AllocHGlobal(32);
+            nint handle = new WindowInteropHelper(Window).Handle;
+            nint dwmDmVal = Marshal.AllocHGlobal(4);
             Marshal.WriteInt32(dwmDmVal, 1);
-            Win32Interop.DwmSetWindowAttribute(handle, Win32Interop.DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, dwmDmVal, 32);
+            Win32Interop.DwmSetWindowAttribute(handle, Win32Interop.DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, dwmDmVal, 4);
             Marshal.FreeHGlobal(dwmDmVal);
-            IntPtr dwmBdVal = Marshal.AllocHGlobal(32);
+            nint dwmBdVal = Marshal.AllocHGlobal(4);
             Marshal.WriteInt32(dwmBdVal, 3);
-            Win32Interop.DwmSetWindowAttribute(handle, Win32Interop.DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE, dwmBdVal, 32);
+            Win32Interop.DwmSetWindowAttribute(handle, Win32Interop.DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE, dwmBdVal, 4);
             Marshal.FreeHGlobal(dwmBdVal);
+            nint dwmTbVal = Marshal.AllocHGlobal(4);
+            Marshal.WriteInt32(dwmTbVal, unchecked((int)0xFFFFFFFE));
+            Win32Interop.DwmSetWindowAttribute(handle, Win32Interop.DWMWINDOWATTRIBUTE.DWMWA_CAPTION_COLOR, dwmTbVal, 4);
+            Marshal.FreeHGlobal(dwmTbVal);
+        }
+        public static string ExtRemover(string FilePath)
+        {
+            FilePath = FilePath.Substring(FilePath.LastIndexOf('\\') + 1);
+            FilePath = FilePath.Remove(FilePath.LastIndexOf('.'));
+            return FilePath;
+        }
+        public static void StartProcess(string FilePath, string[] Arguments = null)
+        {
+            Task.Run(() =>
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo(FilePath, Arguments ?? [])
+                    {
+                        UseShellExecute = true,
+                        WorkingDirectory = Environment.GetEnvironmentVariable("USERPROFILE")
+                    });
+                }
+                catch { }
+            });
         }
 
         /// <summary>

@@ -1,17 +1,13 @@
 ﻿using System;
+using System.Drawing;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.IO;
-using System.Drawing;
-using System.Windows.Interop;
 using System.Windows.Media.Imaging;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.Windows.Input;
-using System.Timers;
-using System.Runtime.InteropServices;
 
 namespace SuperLauncher
 {
@@ -21,7 +17,6 @@ namespace SuperLauncher
         public bool rFilterFocus = false;
         public ModernLauncherBadge Badge;
         public bool IsMouseDown = false;
-        public string FileName;
         public Timer BadgeTimer = new()
         {
             Interval = 1000,
@@ -38,10 +33,8 @@ namespace SuperLauncher
             set
             {
                 rFilePath = value;
-                FileInfo fi = new(rFilePath);
                 Icon icon = Icon.ExtractAssociatedIcon(rFilePath);
-                FileName = fi.Name;
-                NameText.Text = ExtRemover(FileName);
+                NameText.Text = Shared.ExtRemover(rFilePath);
                 LIcon.Source = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
         }
@@ -150,17 +143,6 @@ namespace SuperLauncher
                 PWindow.CloseWindow();
             }
         }
-        private static string ExtRemover(string FileName)
-        {
-            string[] parts = FileName.Split('.');
-            if (parts.Length > 1)
-            {
-                string[] newParts = new string[parts.Length - 1];
-                for (int i = 0; i < newParts.Length; i++) newParts[i] = parts[i];
-                return string.Join('.', newParts);
-            }
-            return FileName;
-        }
         public void StartBadgeTimer()
         {
             BadgeTimer.Stop();
@@ -168,29 +150,18 @@ namespace SuperLauncher
         }
         private void BadgeTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
-            Dispatcher.Invoke(() => {
+            Dispatcher.Invoke(() =>
+            {
                 if (!IsMouseOver) return;
                 if (Badge != null) Badge.Close();
-                Badge = new(FileName);
+                Badge = new(rFilePath);
                 Badge.Show();
             });
         }
         public void StartProgram()
         {
             ((ModernLauncher)Window.GetWindow(this)).CloseWindow();
-            Task.Run(() =>
-            {
-                try
-                {
-                    Process.Start(new ProcessStartInfo()
-                    {
-                        FileName = FilePath,
-                        UseShellExecute = true,
-                        WorkingDirectory = Environment.GetEnvironmentVariable("USERPROFILE")
-                    });
-                }
-                catch { }
-            });
+            Shared.StartProcess(FilePath);
         }
         private void UserControl_GotKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
         {

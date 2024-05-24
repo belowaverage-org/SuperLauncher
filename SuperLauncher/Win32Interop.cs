@@ -7,41 +7,41 @@ namespace SuperLauncher
     public static class Win32Interop
     {
         [DllImport("Dwmapi.dll")]
-        public static extern uint DwmSetWindowAttribute(IntPtr hwnd, DWMWINDOWATTRIBUTE dwAttribute, [In] IntPtr pvAttribute, uint cbAttribute);
+        public static extern uint DwmSetWindowAttribute(nint hwnd, DWMWINDOWATTRIBUTE dwAttribute, [In] nint pvAttribute, uint cbAttribute);
         [DllImport("Shell32.dll")]
-        public static extern uint SHBindToParent(IntPtr pidl, Guid riid, out IntPtr ppv, out IntPtr ppidlLast);
+        public static extern uint SHBindToParent(nint pidl, Guid riid, out nint ppv, out nint ppidlLast);
         [DllImport("Shell32.dll")]
-        public static extern void SHGetNameFromIDList(IntPtr pidl, SIGDN sigdnName, [MarshalAs(UnmanagedType.LPWStr)] out string ppszName);
+        public static extern void SHGetNameFromIDList(nint pidl, SIGDN sigdnName, [MarshalAs(UnmanagedType.LPWStr)] out string ppszName);
         [DllImport("Shell32.dll")]
-        public static extern void ILFree(IntPtr pidl);
+        public static extern void ILFree(nint pidl);
         [DllImport("Shell32.dll")]
-        public static extern uint SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string pszName, [Optional] IntPtr pbc, out IntPtr ppidl, uint sfgaoIn, out IntPtr psfgaoOut);
+        public static extern uint SHParseDisplayName([MarshalAs(UnmanagedType.LPWStr)] string pszName, [Optional] nint pbc, out nint ppidl, uint sfgaoIn, out nint psfgaoOut);
         [DllImport("User32.dll")]
         public static extern short GetKeyState(int nVirtKey);
         [DllImport("User32.dll")]
         public static extern bool GetCursorPos(out POINT lpPoint);
         [DllImport("User32.dll")]
-        public static extern bool GetMonitorInfo(IntPtr hMonitor, out MONITORINFO lpmi);
+        public static extern bool GetMonitorInfo(nint hMonitor, out MONITORINFO lpmi);
         [DllImport("User32.dll")]
         public static extern bool ChangeWindowMessageFilter(uint message, uint action);
         [DllImport("User32.dll")]
-        public static extern IntPtr MonitorFromWindow(IntPtr hWnd, MonitorFromWindowFlags dwFlags);
+        public static extern nint MonitorFromWindow(nint hWnd, MonitorFromWindowFlags dwFlags);
         [DllImport("User32.dll")]
-        public static extern bool InvalidateRect(IntPtr hWnd, IntPtr Rect, bool Erase);
+        public static extern bool InvalidateRect(nint hWnd, nint Rect, bool Erase);
         [DllImport("User32.dll")]
         public static extern uint RegisterWindowMessage(string lpString);
         [DllImport("user32.dll")]
-        public static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
+        public static extern bool RegisterHotKey(nint hWnd, int id, uint fsModifiers, uint vk);
         [DllImport("user32.dll")]
-        private static extern int SendMessage(IntPtr hWnd, int wMsg, IntPtr wParam, IntPtr lParam);
+        private static extern int SendMessage(nint hWnd, int wMsg, nint wParam, nint lParam);
         [DllImport("user32.dll")]
-        public static extern long SetWindowLong(IntPtr hWnd, SetWindowLongIndex nIndex, ExtendedWindowStyles dwNewLong);
+        public static extern long SetWindowLong(nint hWnd, SetWindowLongIndex nIndex, ExtendedWindowStyles dwNewLong);
         [DllImport("user32.dll", SetLastError = true)]
-        private static extern bool DrawIconEx(IntPtr hdc, int xLeft, int yTop, IntPtr hIcon, int cxWidth, int cyHeight, int istepIfAniCur, IntPtr hbrFlickerFreeDraw, int diFlags);
+        private static extern bool DrawIconEx(nint hdc, int xLeft, int yTop, nint hIcon, int cxWidth, int cyHeight, int istepIfAniCur, nint hbrFlickerFreeDraw, int diFlags);
         [DllImport("gdi32.dll")]
-        private static extern IntPtr CreateSolidBrush(uint crColor);
+        private static extern nint CreateSolidBrush(uint crColor);
         [DllImport("user32.dll")]
-        internal static extern int SetWindowCompositionAttribute(IntPtr hwnd, ref WindowCompositionAttributeData data);
+        internal static extern int SetWindowCompositionAttribute(nint hwnd, ref WindowCompositionAttributeData data);
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT
         {
@@ -111,37 +111,37 @@ namespace SuperLauncher
         public struct WindowCompositionAttributeData
         {
             public WindowCompositionAttribute Attribute;
-            public IntPtr Data;
+            public nint Data;
             public int SizeOfData;
         }
         public enum DWMWINDOWATTRIBUTE
         {
-            DWMWA_NCRENDERING_ENABLED,
-            DWMWA_NCRENDERING_POLICY,
-            DWMWA_TRANSITIONS_FORCEDISABLED,
-            DWMWA_ALLOW_NCPAINT,
-            DWMWA_CAPTION_BUTTON_BOUNDS,
-            DWMWA_NONCLIENT_RTL_LAYOUT,
-            DWMWA_FORCE_ICONIC_REPRESENTATION,
-            DWMWA_FLIP3D_POLICY,
-            DWMWA_EXTENDED_FRAME_BOUNDS,
-            DWMWA_HAS_ICONIC_BITMAP,
-            DWMWA_DISALLOW_PEEK,
-            DWMWA_EXCLUDED_FROM_PEEK,
-            DWMWA_CLOAK,
-            DWMWA_CLOAKED,
-            DWMWA_FREEZE_REPRESENTATION,
-            DWMWA_PASSIVE_UPDATE_MODE,
-            DWMWA_USE_HOSTBACKDROPBRUSH,
-            DWMWA_USE_IMMERSIVE_DARK_MODE = 20,
-            DWMWA_WINDOW_CORNER_PREFERENCE = 33,
-            DWMWA_BORDER_COLOR,
-            DWMWA_CAPTION_COLOR,
-            DWMWA_TEXT_COLOR,
-            DWMWA_VISIBLE_FRAME_BORDER_THICKNESS,
-            DWMWA_SYSTEMBACKDROP_TYPE,
+            DWMWA_NCRENDERING_ENABLED = 1,              // [get] Is non-client rendering enabled/disabled
+            DWMWA_NCRENDERING_POLICY,                   // [set] DWMNCRENDERINGPOLICY - Non-client rendering policy
+            DWMWA_TRANSITIONS_FORCEDISABLED,            // [set] Potentially enable/forcibly disable transitions
+            DWMWA_ALLOW_NCPAINT,                        // [set] Allow contents rendered in the non-client area to be visible on the DWM-drawn frame.
+            DWMWA_CAPTION_BUTTON_BOUNDS,                // [get] Bounds of the caption button area in window-relative space.
+            DWMWA_NONCLIENT_RTL_LAYOUT,                 // [set] Is non-client content RTL mirrored
+            DWMWA_FORCE_ICONIC_REPRESENTATION,          // [set] Force this window to display iconic thumbnails.
+            DWMWA_FLIP3D_POLICY,                        // [set] Designates how Flip3D will treat the window.
+            DWMWA_EXTENDED_FRAME_BOUNDS,                // [get] Gets the extended frame bounds rectangle in screen space
+            DWMWA_HAS_ICONIC_BITMAP,                    // [set] Indicates an available bitmap when there is no better thumbnail representation.
+            DWMWA_DISALLOW_PEEK,                        // [set] Don't invoke Peek on the window.
+            DWMWA_EXCLUDED_FROM_PEEK,                   // [set] LivePreview exclusion information
+            DWMWA_CLOAK,                                // [set] Cloak or uncloak the window
+            DWMWA_CLOAKED,                              // [get] Gets the cloaked state of the window
+            DWMWA_FREEZE_REPRESENTATION,                // [set] BOOL, Force this window to freeze the thumbnail without live update
+            DWMWA_PASSIVE_UPDATE_MODE,                  // [set] BOOL, Updates the window only when desktop composition runs for other reasons
+            DWMWA_USE_HOSTBACKDROPBRUSH,                // [set] BOOL, Allows the use of host backdrop brushes for the window.
+            DWMWA_USE_IMMERSIVE_DARK_MODE = 20,         // [set] BOOL, Allows a window to either use the accent color, or dark, according to the user Color Mode preferences.
+            DWMWA_WINDOW_CORNER_PREFERENCE = 33,        // [set] WINDOW_CORNER_PREFERENCE, Controls the policy that rounds top-level window corners
+            DWMWA_BORDER_COLOR,                         // [set] COLORREF, The color of the thin border around a top-level window
+            DWMWA_CAPTION_COLOR,                        // [set] COLORREF, The color of the caption
+            DWMWA_TEXT_COLOR,                           // [set] COLORREF, The color of the caption text
+            DWMWA_VISIBLE_FRAME_BORDER_THICKNESS,       // [get] UINT, width of the visible border around a thick frame window
+            DWMWA_SYSTEMBACKDROP_TYPE,                  // [get, set] SYSTEMBACKDROP_TYPE, Controls the system-drawn backdrop material of a window, including behind the non-client area.
             DWMWA_LAST
-        }
+        };
         public enum WindowCompositionAttribute
         {
             // ...
@@ -196,7 +196,7 @@ namespace SuperLauncher
             Icon rsIcon = new(Icon, Width, Height);
             Bitmap bmIcon = new(Width, Height);
             Graphics g = Graphics.FromImage(bmIcon);
-            IntPtr hdc = g.GetHdc();
+            nint hdc = g.GetHdc();
             DrawIconEx(hdc, 0, 0, rsIcon.Handle, Width, Height, 0, CreateSolidBrush((uint)ColorTranslator.ToWin32(Background)), 0x3);
             g.ReleaseHdc(hdc);
             return bmIcon;
@@ -206,7 +206,7 @@ namespace SuperLauncher
             return ToBitmapAlpha(Icon, Width, Height, Color.White);
         }
         /*
-        public static void EnableBlur(IntPtr Handle, uint BlurOpacity = 100, uint BlurBackgroundColor = 0x990000)
+        public static void EnableBlur(nint Handle, uint BlurOpacity = 100, uint BlurBackgroundColor = 0x990000)
         {
             var accent = new AccentPolicy
             {

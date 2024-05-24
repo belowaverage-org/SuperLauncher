@@ -1,10 +1,10 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
-using System.Runtime.InteropServices;
-using System.Windows.Input;
-using System.Windows.Controls;
 using System.Diagnostics;
 
 namespace SuperLauncher
@@ -62,7 +62,7 @@ namespace SuperLauncher
             Width = Settings.Default.Width;
             Height = Settings.Default.Height;
         }
-        private IntPtr HwndSourceHook(IntPtr hwnd, int msg, IntPtr wParam, IntPtr lParam, ref bool handled)
+        private nint HwndSourceHook(nint hwnd, int msg, nint wParam, nint lParam, ref bool handled)
         {
             if (msg == 0x0312 && wParam.ToInt32() == 0) //WM_HOTKEY //ALT + S
             {
@@ -80,7 +80,7 @@ namespace SuperLauncher
             {
                 OpenWindow();
             }
-            return IntPtr.Zero;
+            return nint.Zero;
         }
         private void InitializeNotifyIcon()
         {
@@ -115,7 +115,7 @@ namespace SuperLauncher
         {
             Win32Interop.MONITORINFO mi = new();
             mi.cbSize = (uint)Marshal.SizeOf(mi);
-            IntPtr hMonitor = Win32Interop.MonitorFromWindow(WIH.Handle, Win32Interop.MonitorFromWindowFlags.MONITOR_DEFAULTTONEAREST);
+            nint hMonitor = Win32Interop.MonitorFromWindow(WIH.Handle, Win32Interop.MonitorFromWindowFlags.MONITOR_DEFAULTTONEAREST);
             Win32Interop.GetMonitorInfo(hMonitor, out mi);
             OpenTopAnimation.From = CloseTopAnimation.From = Top;
             CloseTopAnimation.To = DPI.ScalePixelsDown(mi.rcMonitor.bottom);
@@ -200,7 +200,8 @@ namespace SuperLauncher
             if (
                 Settings.Default.Width == (int)Width &&
                 Settings.Default.Height == (int)Height
-            ) {
+            )
+            {
                 return;
             }
             Settings.Default.Width = (int)Width;
@@ -224,7 +225,7 @@ namespace SuperLauncher
         }
         private void OpenTopAnimation_Completed(object sender, EventArgs e)
         {
-            Win32Interop.InvalidateRect(WIH.Handle, IntPtr.Zero, false);
+            Win32Interop.InvalidateRect(WIH.Handle, nint.Zero, false);
         }
         private void ModernApplication_Exit(object sender, ExitEventArgs e)
         {
@@ -299,4 +300,4 @@ namespace SuperLauncher
             modernLauncherPasswordChangeUI.ShowDialog();
         }
     }
-} 
+}

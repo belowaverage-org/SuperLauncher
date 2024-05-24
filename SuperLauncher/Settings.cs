@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using System.Collections.Specialized;
 using System.IO;
 using System.Xml;
 
-namespace SuperLauncher {
-    class Settings {
+namespace SuperLauncher
+{
+    class Settings
+    {
         public static SettingsDefault Default = new();
     }
     class SettingsDefault
@@ -129,7 +130,7 @@ namespace SuperLauncher {
             {
                 AppListStringCollection sc = new();
                 XmlNodeList apps = XDoc.SelectNodes("/SuperLauncher/AppList/App");
-                foreach(XmlNode app in apps)
+                foreach (XmlNode app in apps)
                 {
                     ((StringCollection)sc).Add(app.InnerText);
                 }
@@ -139,7 +140,7 @@ namespace SuperLauncher {
         }
         public SettingsDefault()
         {
-            if(File.Exists(configPath))
+            if (File.Exists(configPath))
             {
                 XDoc.Load(configPath);
             }
@@ -195,5 +196,5 @@ namespace SuperLauncher {
             Apps.RemoveAll();
             base.Clear();
         }
-    } 
+    }
 }

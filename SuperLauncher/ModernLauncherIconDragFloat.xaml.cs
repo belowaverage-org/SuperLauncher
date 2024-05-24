@@ -1,7 +1,7 @@
-﻿using System.Windows;
-using System.Windows.Media;
+﻿using System.Timers;
+using System.Windows;
 using System.Windows.Interop;
-using System.Timers;
+using System.Windows.Media;
 
 namespace SuperLauncher
 {
@@ -21,7 +21,7 @@ namespace SuperLauncher
         private void SetPos()
         {
             Win32Interop.GetCursorPos(out Win32Interop.POINT point);
-            Left =  ModernLauncher.DPI.ScalePixelsDown(point.x) - (Width / 2);
+            Left = ModernLauncher.DPI.ScalePixelsDown(point.x) - (Width / 2);
             Top = ModernLauncher.DPI.ScalePixelsDown(point.y) - (Height / 2);
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)

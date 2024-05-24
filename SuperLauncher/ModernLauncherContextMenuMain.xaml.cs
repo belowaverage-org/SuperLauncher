@@ -44,7 +44,7 @@ namespace SuperLauncher
         }
         private void BtnViewConfig_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("OpenWith.exe", "\"" + Settings.Default.configPath + "\"");
+            Process.Start("notepad.exe", "\"" + Settings.Default.configPath + "\"");
         }
         private void BtnElevate_MouseUp(object sender, MouseButtonEventArgs e)
         {
@@ -60,7 +60,11 @@ namespace SuperLauncher
         }
         private void BtnHelp_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("OpenWith.exe", "https://github.com/belowaverage-org/SuperLauncher/wiki");
+            Process.Start(new ProcessStartInfo()
+            {
+                FileName = "https://github.com/belowaverage-org/SuperLauncher/wiki",
+                UseShellExecute = true
+            });
         }
         private void Page_Unloaded(object sender, RoutedEventArgs e)
         {

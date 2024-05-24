@@ -1,9 +1,9 @@
-﻿using System.Diagnostics;
+﻿using SuperLauncherCommon;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows;
-using SuperLauncherCommon;
 
 namespace SuperLauncherBootstrap
 {
@@ -17,23 +17,24 @@ namespace SuperLauncherBootstrap
         private static readonly string TargetMessage = "ShowSuperLauncher";
         private static readonly string SelfPath = Path.GetDirectoryName(Assembly.GetCallingAssembly().Location)!;
         [DllImport("User32.dll")]
-        private static extern uint SendNotifyMessage(IntPtr hWnd, uint Msg, uint wParam, uint lParam);
+        private static extern uint SendNotifyMessage(nint hWnd, uint Msg, uint wParam, uint lParam);
         [DllImport("User32.dll")]
         private static extern uint RegisterWindowMessage(string lpString);
         [DllImport("User32.dll")]
-        private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        private static extern nint FindWindow(string lpClassName, string lpWindowName);
         [STAThread]
         public static void Main()
         {
-            IntPtr existingWindow = FindWindow(null, TargetWindowName);
-            if (existingWindow != IntPtr.Zero)
+            nint existingWindow = FindWindow(null, TargetWindowName);
+            if (existingWindow != nint.Zero)
             {
                 SendNotifyMessage(existingWindow, RegisterWindowMessage(TargetMessage), 0x0, 0x0);
                 return;
             }
             Splash.AllowClose = false;
             Application app = new();
-            Task bsThread = Task.Run(() => {
+            Task bsThread = Task.Run(() =>
+            {
                 DateTime start = DateTime.Now;
                 BootstrapStart();
                 DateTime after = DateTime.Now;
@@ -81,7 +82,7 @@ namespace SuperLauncherBootstrap
         public static void Copy(string SourceDir, string TargetDir)
         {
             if (!Directory.Exists(TargetDir)) Directory.CreateDirectory(TargetDir);
-            foreach(DirectoryInfo childDir in new DirectoryInfo(SourceDir).GetDirectories())
+            foreach (DirectoryInfo childDir in new DirectoryInfo(SourceDir).GetDirectories())
             {
                 Copy(Path.Combine(SourceDir, childDir.Name), Path.Combine(TargetDir, childDir.Name));
             }

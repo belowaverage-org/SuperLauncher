@@ -1,6 +1,6 @@
 <Project>
 	<PropertyGroup>
-		<TargetFramework>net7.0-windows</TargetFramework>
+		<TargetFramework>net8.0-windows</TargetFramework>
 		<ApplicationIcon>..\SuperLauncherAssets\logo.ico</ApplicationIcon>
 		<Product>Super Launcher</Product>
 		<AssemblyVersion>2.1.0.0</AssemblyVersion>
@@ -10,7 +10,7 @@
 		<RepositoryType>GIT</RepositoryType>
 		<PackageProjectUrl>https://github.com/belowaverage-org/SuperLauncher</PackageProjectUrl>
 		<PackageLicenseFile>..\LICENSE</PackageLicenseFile>
-		<Copyright>below average © 2023</Copyright>
+		<Copyright>below average © 2024</Copyright>
 		<Company>Dylan Bickerstaff; Adam Cunningham</Company>
 		<Version>2.1.0.0</Version>
 		<Description>🚀 Super Launcher is an admin launcher that persists in the system tray that can launch programs quickly; optionally, with administrator rights, as another user, or both.</Description>

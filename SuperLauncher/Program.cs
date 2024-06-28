@@ -1,5 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Timers;
 
@@ -38,14 +37,6 @@ namespace SuperLauncher
             {
                 RunAsHelper.StartupProcedure();
                 ModernApplication = new();
-
-                // Clear any old notifications
-                ToastNotificationManagerCompat.History.Clear();
-                // Start the timer to handle monitoring password expiration
-                accountMonitorTimer.Elapsed += AccountInfo.AccountMonitorTask;
-                accountMonitorTimer.AutoReset = true;
-                accountMonitorTimer.Enabled = true;
-
                 ModernApplication.Run(new ModernLauncher());
             }
         }

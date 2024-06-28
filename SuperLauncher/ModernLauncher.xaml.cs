@@ -130,12 +130,6 @@ namespace SuperLauncher
                 OpenTopAnimation.To = (DPI.ScalePixelsDown(mi.rcWork.bottom) - Height - 10);
             }
         }
-        private void SetExpirationToolTip()
-        {
-            ToolTip elevateUserTT = new ToolTip();
-            elevateUserTT.Content = $"Password expires {AccountInfo.ExpirationDate}";
-            ElevateUser.ToolTip = elevateUserTT;
-        }
         private void SetElevateLabels()
         {
             ElevateUser.Content = RunAsHelper.GetCurrentDomainWithUserName();
@@ -162,8 +156,6 @@ namespace SuperLauncher
             HWND.AddHook(HwndSourceHook);
             _ = Win32Interop.SetWindowLong(WIH.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_TOOLWINDOW);
             SetElevateLabels();
-            // Trigger the monitor task once right away
-            AccountInfo.AccountMonitorTask(null, null);
         }
         public void OpenWindow(bool Center = false)
         {
@@ -177,7 +169,6 @@ namespace SuperLauncher
             RenderBoost.BeginAnimation(OpacityProperty, RenderBoostAnimation);
             Filter.Text = "";
             Filter.Focus();
-            SetExpirationToolTip();
             Activate();
         }
         public void CloseWindow()
@@ -292,12 +283,6 @@ namespace SuperLauncher
             Settings.Default.Save();
             ((ModernLauncher)Program.ModernApplication.MainWindow).MLI.PopulateIcons();
             ((ModernLauncher)Program.ModernApplication.MainWindow).OpenWindow();
-        }
-
-        private void ElevateUser_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
-        {
-            ModernLauncherPasswordChangeUI modernLauncherPasswordChangeUI = new ModernLauncherPasswordChangeUI();
-            modernLauncherPasswordChangeUI.ShowDialog();
         }
     }
 }

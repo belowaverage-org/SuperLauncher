@@ -43,7 +43,7 @@
                     <Grid Background="{DynamicResource AcrylicNoise}">
                         <Label HorizontalAlignment="Left" Foreground="{DynamicResource TextColorBrush}" Margin="4,3,0,2" Width="26" Content="0" FontSize="16" FontFamily="{DynamicResource SLIcons}" RenderTransformOrigin="0.471,0.46"  />
                         <Label Content="Super Launcher" Foreground="{DynamicResource TextColorBrush}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="29,0,0,0" Width="94" />
-                        <Label x:Name="ElevateUser" Content="domain\user" Foreground="{DynamicResource TextColorBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0" Focusable="True" MouseLeftButtonUp="ElevateUser_MouseLeftButtonUp" WindowChrome.IsHitTestVisibleInChrome="True"/>
+                        <Label x:Name="ElevateUser" Content="domain\user" Foreground="{DynamicResource TextColorBrush}" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,30,0" Focusable="True" WindowChrome.IsHitTestVisibleInChrome="True"/>
                         <Label x:Name="ElevateIcon" Content="" Foreground="{DynamicResource TextColorBrush}" FontFamily="{DynamicResource Icons}" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="16" Margin="0,0,5,0" />
                     </Grid>
                 </Border>

@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31825.309
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperLauncher", "SuperLauncher\SuperLauncher.csproj", "{5C1438AF-08DB-4336-959D-C5F8E65AE434}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SuperLauncherInstaller", "SuperLauncherInstaller\SuperLauncherInstaller.vdproj", "{DAF0A98A-4DD0-4B8A-9FDF-1BB2D8367A3D}"
-EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "SuperLauncherMSIX", "SuperLauncherMSIX\SuperLauncherMSIX.wapproj", "{4776D603-A5FD-4C37-9DB6-67DD8A280403}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SuperLauncherBootstrap", "SuperLauncherBootstrap\SuperLauncherBootstrap.csproj", "{B1D9C991-ABCA-4963-843E-2874A2937581}"
@@ -28,9 +26,6 @@ Global
 		{5C1438AF-08DB-4336-959D-C5F8E65AE434}.Debug|x64.Build.0 = Debug|x64
 		{5C1438AF-08DB-4336-959D-C5F8E65AE434}.Release|x64.ActiveCfg = Release|x64
 		{5C1438AF-08DB-4336-959D-C5F8E65AE434}.Release|x64.Build.0 = Release|x64
-		{DAF0A98A-4DD0-4B8A-9FDF-1BB2D8367A3D}.Debug|x64.ActiveCfg = Debug
-		{DAF0A98A-4DD0-4B8A-9FDF-1BB2D8367A3D}.Debug|x64.Build.0 = Debug
-		{DAF0A98A-4DD0-4B8A-9FDF-1BB2D8367A3D}.Release|x64.ActiveCfg = Release
 		{4776D603-A5FD-4C37-9DB6-67DD8A280403}.Debug|x64.ActiveCfg = Debug|x64
 		{4776D603-A5FD-4C37-9DB6-67DD8A280403}.Debug|x64.Deploy.0 = Debug|x64
 		{4776D603-A5FD-4C37-9DB6-67DD8A280403}.Release|x64.ActiveCfg = Release|x64

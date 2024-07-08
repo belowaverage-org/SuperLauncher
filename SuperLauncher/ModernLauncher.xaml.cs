@@ -5,7 +5,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using System.Windows.Media.Animation;
-using System.Diagnostics;
 
 namespace SuperLauncher
 {
@@ -150,6 +149,7 @@ namespace SuperLauncher
             OpenTopAnimation.Completed += OpenTopAnimation_Completed;
             CloseTopAnimation.Completed += CloseTopAnimation_Completed;
             InitializeNotifyIcon();
+            CredentialExpirationService.Initialize();
             Win32Interop.RegisterHotKey(WIH.Handle, 0, 0x1 | 0x4000, 0x53); //Register Hot Key ALT + S
             Win32Interop.RegisterHotKey(WIH.Handle, 1, 0x1 | 0x4000, 0x45); //Register Hot Key ALT + E
             Win32Interop.RegisterHotKey(WIH.Handle, 2, 0x1 | 0x4000, 0x52); //Register Hot Key ALT + R

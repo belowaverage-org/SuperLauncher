@@ -9,6 +9,7 @@ namespace SuperLauncher
         {
             Icon = new()
             {
+                Text = "Super Launcher",
                 Icon = Resources.logo,
                 Visible = true
             };

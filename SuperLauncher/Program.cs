@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Timers;
-
 
 namespace SuperLauncher
 {
@@ -9,7 +7,6 @@ namespace SuperLauncher
     {
         public static bool ModernApplicationShuttingDown = false;
         public static System.Windows.Application ModernApplication;
-        public static Timer accountMonitorTimer = new Timer(TimeSpan.FromMinutes(30));
         public static string[] Arguments;
         /// <summary>
         /// The main entry point for the application.
@@ -43,10 +40,7 @@ namespace SuperLauncher
         public static void ModernApplicationShutdown()
         {
             ModernApplicationShuttingDown = true;
-            accountMonitorTimer.Stop();
-            accountMonitorTimer.Dispose();
             ModernApplication.Shutdown();
         }
-
     }
 }

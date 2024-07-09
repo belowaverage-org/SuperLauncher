@@ -9,7 +9,36 @@ namespace SuperLauncher
     public static class CredentialExpirationService
     {
         private static Timer Timer = new();
-        public static DateTime ExpirationDate = DateTime.MaxValue;
+        public static DateTime PasswordLastSet = DateTime.MaxValue;
+        public static TimeSpan MaxPasswordAge = TimeSpan.MaxValue;
+        public static string PasswordExpirationMessage
+        {
+            get
+            {
+                return 
+                "Password expires in " +
+                ExpirationTimeSpan.Days +
+                " day(s), " +
+                ExpirationTimeSpan.Hours +
+                " hour(s) and " +
+                ExpirationTimeSpan.Seconds +
+                " second(s).";
+            }
+        }
+        public static DateTime PasswordExpirationDate
+        {
+            get
+            {
+                return PasswordLastSet.Add(MaxPasswordAge);
+            }
+        }
+        public static TimeSpan ExpirationTimeSpan
+        {
+            get
+            {
+                return PasswordExpirationDate.Subtract(DateTime.Now);
+            }
+        }
         public static void Initialize()
         {
             Timer.Elapsed += CheckExpiration;
@@ -36,9 +65,11 @@ namespace SuperLauncher
                     ds.Filter = "(objectSid=" + WindowsIdentity.GetCurrent().User.Value + ")";
                     SearchResult user = ds.FindOne();
                     bool pwdNeverExpires = (((int)user.Properties["userAccountControl"][0]) & 0x00010000) == 0x00010000; //https://learn.microsoft.com/en-us/windows/win32/api/iads/ne-iads-ads_user_flag_enum
-                    DateTime ExpirationDate = DateTime.FromFileTime((long)user.Properties["pwdLastSet"][0]);
-                    TimeSpan maxPwdAge = TimeSpan.FromMicroseconds((long)root.Properties["maxPwdAge"][0] / 10 * -1);
-                    
+                    PasswordLastSet = DateTime.FromFileTime((long)user.Properties["pwdLastSet"][0]);
+                    MaxPasswordAge = TimeSpan.FromMicroseconds((long)root.Properties["maxPwdAge"][0] / 10 * -1);
+                    ModernLauncherNotifyIcon.Icon.BalloonTipTitle = RunAsHelper.GetCurrentDomainWithUserName();
+                    ModernLauncherNotifyIcon.Icon.BalloonTipText = PasswordExpirationMessage;
+                    ModernLauncherNotifyIcon.Icon.ShowBalloonTip(0);
                 }
                 catch
                 {

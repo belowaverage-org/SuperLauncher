@@ -124,7 +124,7 @@ namespace SuperLauncher
                 ModernLauncherContextMenuIcon menuItems = new(this);
                 menu.Frame.Content = menuItems;
                 Win32Interop.GetCursorPos(out Win32Interop.POINT point);
-                menu.Left = ModernLauncher.DPI.ScalePixelsDown(point.x);
+                menu.Left = ModernLauncher.DPI.ScalePixelsDown(point.x) - 200;
                 menu.Top = ModernLauncher.DPI.ScalePixelsDown(point.y) - 100;
                 menuItems.MouseUp += Menu_MouseUp;
                 menu.Show();

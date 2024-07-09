@@ -4,16 +4,8 @@
 		<OutputType>WinExe</OutputType>
 		<UseWindowsForms>true</UseWindowsForms>
 		<UseWPF>true</UseWPF>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
 	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<NoWarn>1701;1702;WFAC010</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<NoWarn>1701;1702;WFAC010</NoWarn>
-	</PropertyGroup>
-	<ItemGroup>
-		<AdditionalFiles Remove="app.manifest" />
-	</ItemGroup>
 	<ItemGroup>
 		<None Remove="48.png" />
 		<None Remove="Resources\banner.png" />

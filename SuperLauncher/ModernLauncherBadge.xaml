@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SuperLauncher"
         mc:Ignorable="d"
-        Title="ModernLauncherBadge" Height="48" Width="125" ResizeMode="NoResize" ShowInTaskbar="False" SizeToContent="WidthAndHeight" Topmost="True" AllowsTransparency="True" WindowStyle="None" Background="Transparent" ShowActivated="False">
+        Title="ModernLauncherBadge" SizeChanged="Window_SizeChanged" Height="48" Width="125" ResizeMode="NoResize" ShowInTaskbar="False" SizeToContent="WidthAndHeight" Topmost="True" AllowsTransparency="True" WindowStyle="None" Background="Transparent" ShowActivated="False">
     <Grid>
         <Grid Margin="10,10,10,10">
             <Rectangle RadiusX="14" RadiusY="14" Fill="#FF121212" />

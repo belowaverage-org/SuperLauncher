@@ -137,7 +137,6 @@ namespace SuperLauncher
             {
                 ElevateIcon.Content = "";
             }
-
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -287,7 +286,7 @@ namespace SuperLauncher
         }
         private void ElevateUser_MouseEnter(object sender, MouseEventArgs e)
         {
-            ExpirationBadge = new("Test");
+            ExpirationBadge = new(CredentialExpirationService.PasswordExpirationMessage);
             ExpirationBadge.Show();
         }
         private void ElevateUser_MouseLeave(object sender, MouseEventArgs e)

@@ -28,6 +28,7 @@ namespace SuperLauncher
         "   <Width>390</Width>" +
         "   <Height>230</Height>" +
         "   <CredentialExpirationWarningDays>7</CredentialExpirationWarningDays>" +
+        "   <CredentialExpirationWarningIntervalMinutes>60</CredentialExpirationWarningIntervalMinutes>" +
         "</SuperLauncher>";
         public bool AutoElevate
         {
@@ -115,6 +116,17 @@ namespace SuperLauncher
             set
             {
                 Write("CredentialExpirationWarningDays", value);
+            }
+        }
+        public int CredentialExpirationWarningIntervalMinutes
+        {
+            get
+            {
+                return ReadInt("CredentialExpirationWarningIntervalMinutes");
+            }
+            set
+            {
+                Write("CredentialExpirationWarningIntervalMinutes", value);
             }
         }
         public string Read(string NodeName)

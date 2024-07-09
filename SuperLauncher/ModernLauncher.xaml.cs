@@ -24,6 +24,7 @@ namespace SuperLauncher
         private WindowInteropHelper WIH;
         private uint ShowSuperLauncherMessage = Win32Interop.RegisterWindowMessage("ShowSuperLauncher");
         private HwndSource HWND;
+        private ModernLauncherBadge ExpirationBadge = null;
         private readonly DoubleAnimation RenderBoostAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.5),
@@ -283,6 +284,15 @@ namespace SuperLauncher
             Settings.Default.Save();
             ((ModernLauncher)Program.ModernApplication.MainWindow).MLI.PopulateIcons();
             ((ModernLauncher)Program.ModernApplication.MainWindow).OpenWindow();
+        }
+        private void ElevateUser_MouseEnter(object sender, MouseEventArgs e)
+        {
+            ExpirationBadge = new("Test");
+            ExpirationBadge.Show();
+        }
+        private void ElevateUser_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (ExpirationBadge != null) ExpirationBadge.Close();
         }
     }
 }

@@ -13,6 +13,22 @@ namespace SuperLauncher
         private readonly string configDir = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", RunAsHelper.GetOriginalInvokerDomain(), RunAsHelper.GetOriginalInvokerUserName());
         public string configPath = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", RunAsHelper.GetOriginalInvokerDomain(), RunAsHelper.GetOriginalInvokerUserName(), "SuperLauncherConfig.xml");
         public XmlDocument XDoc = new();
+        public XmlDocument XDocDefault = new();
+        private string DefaultXML = 
+        "<!-- Super Launcher Config File -->" +
+        "<SuperLauncher>" +
+        "   <AutoElevate>false</AutoElevate>" +
+        "   <AutoRunAsDomain></AutoRunAsDomain>" +
+        "   <AutoRunAsUser></AutoRunAsUser>" +
+        "   <RememberMe>false</RememberMe>" +
+        "   <UseLegacyUI>false</UseLegacyUI>" +
+        "   <AppList>" +
+        "       <App>C:\\Windows\\System32\\cmd.exe</App>" +
+        "   </AppList>" +
+        "   <Width>390</Width>" +
+        "   <Height>230</Height>" +
+        "   <CredentialExpirationWarningDays>7</CredentialExpirationWarningDays>" +
+        "</SuperLauncher>";
         public bool AutoElevate
         {
             get
@@ -90,10 +106,28 @@ namespace SuperLauncher
                 Write("Width", value);
             }
         }
+        public int CredentialExpirationWarningDays
+        {
+            get
+            {
+                return ReadInt("CredentialExpirationWarningDays");
+            }
+            set
+            {
+                Write("CredentialExpirationWarningDays", value);
+            }
+        }
         public string Read(string NodeName)
         {
             XmlNode node = XDoc.SelectSingleNode("/SuperLauncher/" + NodeName);
-            if (node == null) return null;
+            if (node == null)
+            {
+                node = XDocDefault.SelectSingleNode("/SuperLauncher/" + NodeName);
+                XmlNode newNode = XDoc.CreateElement(NodeName);
+                newNode.InnerXml = node.InnerXml;
+                XDoc.SelectSingleNode("/SuperLauncher").AppendChild(newNode);
+                if (node == null) return null;
+            }
             return node.InnerText;
         }
         public bool ReadBool(string NodeName)
@@ -140,26 +174,14 @@ namespace SuperLauncher
         }
         public SettingsDefault()
         {
+            XDocDefault.InnerXml = DefaultXML;
             if (File.Exists(configPath))
             {
                 XDoc.Load(configPath);
             }
             else
             {
-                XDoc.InnerXml =
-                "<!-- Super Launcher Config File -->" +
-                "<SuperLauncher>" +
-                "   <AutoElevate>false</AutoElevate>" +
-                "   <AutoRunAsDomain></AutoRunAsDomain>" +
-                "   <AutoRunAsUser></AutoRunAsUser>" +
-                "   <RememberMe>false</RememberMe>" +
-                "   <UseLegacyUI>false</UseLegacyUI>" +
-                "   <AppList>" +
-                "       <App>C:\\Windows\\System32\\cmd.exe</App>" +
-                "   </AppList>" +
-                "   <Width>390</Width>" +
-                "   <Height>230</Height>" +
-                "</SuperLauncher>";
+                XDoc.InnerXml = XDocDefault.InnerXml;
             }
         }
         public void Save()

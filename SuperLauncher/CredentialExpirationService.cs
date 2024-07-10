@@ -11,7 +11,7 @@ namespace SuperLauncher
         private static Timer CheckTimer = new();
         private static Timer NotifyTimer = new();
         public static DateTime PasswordLastSet = DateTime.MaxValue;
-        public static TimeSpan MaxPasswordAge = TimeSpan.Zero;
+        public static TimeSpan MaxPasswordAge = TimeSpan.MaxValue;
         private static ExpStat Status = ExpStat.Unknown;
         public static string PasswordExpirationMessage
         {
@@ -34,6 +34,7 @@ namespace SuperLauncher
         {
             get
             {
+                if (MaxPasswordAge == TimeSpan.MaxValue) return DateTime.MaxValue;
                 return PasswordLastSet.Add(MaxPasswordAge);
             }
         }
@@ -80,7 +81,7 @@ namespace SuperLauncher
                 ds.Filter = "";
                 SearchResult root = ds.FindOne();
                 MaxPasswordAge = TimeSpan.FromMicroseconds((long)root.Properties["maxPwdAge"][0] / 10 * -1);
-                if (MaxPasswordAge == TimeSpan.Zero) { Status = ExpStat.NeverExpires; return; }
+                if (MaxPasswordAge == TimeSpan.MaxValue || MaxPasswordAge == TimeSpan.Zero) { Status = ExpStat.NeverExpires; return; }
                 ds.SearchScope = SearchScope.Subtree;
                 ds.PropertiesToLoad.Clear();
                 ds.PropertiesToLoad.Add("userAccountControl");

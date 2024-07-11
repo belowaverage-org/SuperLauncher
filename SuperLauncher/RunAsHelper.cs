@@ -111,6 +111,10 @@ namespace SuperLauncher
         {
             return new WindowsIdentity(GetOriginalInvokerUPN()).User;
         }
+        public static SecurityIdentifier GetCurrentSID()
+        {
+            return WindowsIdentity.GetCurrent().User;
+        }
         public static void Exit()
         {
             if (Program.ModernApplication != null)

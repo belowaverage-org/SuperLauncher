@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SuperLauncher
 {

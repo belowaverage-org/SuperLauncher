@@ -6,20 +6,21 @@ using System.Timers;
 
 namespace SuperLauncher
 {
-    public static class CredentialExpirationService
+    public class CredentialExpirationService
     {
-        private static Timer CheckTimer = new();
-        private static Timer NotifyTimer = new();
-        public static DateTime PasswordLastSet = DateTime.MaxValue;
-        public static TimeSpan MaxPasswordAge = TimeSpan.MaxValue;
-        private static ExpStat Status = ExpStat.Unknown;
-        public static string PasswordExpirationMessage
+        private readonly Timer CheckTimer = new();
+        private readonly Timer NotifyTimer = new();
+        private DateTime PasswordLastSet = DateTime.MaxValue;
+        private TimeSpan MaxPasswordAge = TimeSpan.MaxValue;
+        private ExpStat Status = ExpStat.Unknown;
+        private readonly SecurityIdentifier SID;
+        public string PasswordExpirationMessage
         {
             get
             {
                 if (Status == ExpStat.NeverExpires) return "Password never expires.";
                 if (Status == ExpStat.DCNotResponding) return "Could not determine password expiration date, Active Directory is offline.";
-                if (Status == ExpStat.Expires) return 
+                if (Status == ExpStat.Expires) return
                 "Password expires in " +
                 ExpirationTimeSpan.Days +
                 " day(s), " +
@@ -30,7 +31,7 @@ namespace SuperLauncher
                 return "An un-known error occured when determining your password expiration date.";
             }
         }
-        public static DateTime PasswordExpirationDate
+        public DateTime PasswordExpirationDate
         {
             get
             {
@@ -38,16 +39,18 @@ namespace SuperLauncher
                 return PasswordLastSet.Add(MaxPasswordAge);
             }
         }
-        public static TimeSpan ExpirationTimeSpan
+        public TimeSpan ExpirationTimeSpan
         {
             get
             {
                 return PasswordExpirationDate.Subtract(DateTime.Now);
             }
         }
-        public static void Initialize()
+        public CredentialExpirationService(SecurityIdentifier SID)
         {
-            Task.Run(() =>  {
+            this.SID = SID;
+            Task.Run(() =>
+            {
                 CheckTimer.Elapsed += CheckTimer_Elapsed;
                 CheckTimer.Enabled = true;
                 CheckTimer.Interval = TimeSpan.FromMinutes(5).TotalMilliseconds;
@@ -61,7 +64,7 @@ namespace SuperLauncher
                 NotifyTimer_Elapsed(null, null);
             });
         }
-        private static void NotifyTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void NotifyTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             if (PasswordExpirationDate.CompareTo(DateTime.Now.AddDays(Settings.Default.CredentialExpirationWarningDays)) <= 0)
             {
@@ -70,12 +73,14 @@ namespace SuperLauncher
                 ModernLauncherNotifyIcon.Icon.ShowBalloonTip(0);
             }
         }
-        private static void CheckTimer_Elapsed(object sender, ElapsedEventArgs e)
+        private void CheckTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
             try
             {
-                DirectorySearcher ds = new();
-                ds.SearchScope = SearchScope.Base;
+                DirectorySearcher ds = new()
+                {
+                    SearchScope = SearchScope.Base
+                };
                 ds.PropertiesToLoad.Clear();
                 ds.PropertiesToLoad.Add("maxPwdAge");
                 ds.Filter = "";
@@ -86,7 +91,7 @@ namespace SuperLauncher
                 ds.PropertiesToLoad.Clear();
                 ds.PropertiesToLoad.Add("userAccountControl");
                 ds.PropertiesToLoad.Add("pwdLastSet");
-                ds.Filter = "(objectSid=" + WindowsIdentity.GetCurrent().User.Value + ")";
+                ds.Filter = "(objectSid=" + SID + ")";
                 SearchResult user = ds.FindOne();
                 PasswordLastSet = DateTime.FromFileTime((long)user.Properties["pwdLastSet"][0]);
                 bool pwdNeverExpires = (((int)user.Properties["userAccountControl"][0]) & 0x00010000) == 0x00010000; //https://learn.microsoft.com/en-us/windows/win32/api/iads/ne-iads-ads_user_flag_enum
@@ -105,10 +110,10 @@ namespace SuperLauncher
         }
         private enum ExpStat
         {
-            Expires          = 0,
-            NeverExpires     = 1,
-            DCNotResponding  = 2,
-            Unknown          = -1
+            Expires = 0,
+            NeverExpires = 1,
+            DCNotResponding = 2,
+            Unknown = -1
         }
     }
 }

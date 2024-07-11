@@ -14,7 +14,7 @@ namespace SuperLauncher
         public string configPath = Path.Combine(@"C:\Users\Public\Documents\Below Average\Super Launcher\", RunAsHelper.GetOriginalInvokerDomain(), RunAsHelper.GetOriginalInvokerUserName(), "SuperLauncherConfig.xml");
         public XmlDocument XDoc = new();
         public XmlDocument XDocDefault = new();
-        private string DefaultXML = 
+        private string DefaultXML =
         "<!-- Super Launcher Config File -->" +
         "<SuperLauncher>" +
         "   <AutoElevate>false</AutoElevate>" +

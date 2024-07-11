@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,9 +23,10 @@ namespace SuperLauncher
         private bool IsClosing = false;
         private static DpiScale rDPI;
         private WindowInteropHelper WIH;
-        private uint ShowSuperLauncherMessage = Win32Interop.RegisterWindowMessage("ShowSuperLauncher");
+        private readonly uint ShowSuperLauncherMessage = Win32Interop.RegisterWindowMessage("ShowSuperLauncher");
         private HwndSource HWND;
         private ModernLauncherBadge ExpirationBadge = null;
+        private readonly Dictionary<string, CredentialExpirationService> CredentialExpirationServices = [];
         private readonly DoubleAnimation RenderBoostAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.5),
@@ -93,8 +95,10 @@ namespace SuperLauncher
             if (e.Button == System.Windows.Forms.MouseButtons.Right)
             {
                 Win32Interop.GetCursorPos(out Win32Interop.POINT point);
-                ModernLauncherContextMenu menu = new();
-                menu.Topmost = true;
+                ModernLauncherContextMenu menu = new()
+                {
+                    Topmost = true
+                };
                 menu.Frame.Content = new ModernLauncherContextMenuMain();
                 menu.Top = DPI.ScalePixelsDown(point.y) - 240;
                 menu.Left = DPI.ScalePixelsDown(point.x) - 80;
@@ -149,13 +153,23 @@ namespace SuperLauncher
             OpenTopAnimation.Completed += OpenTopAnimation_Completed;
             CloseTopAnimation.Completed += CloseTopAnimation_Completed;
             InitializeNotifyIcon();
-            CredentialExpirationService.Initialize();
             Win32Interop.RegisterHotKey(WIH.Handle, 0, 0x1 | 0x4000, 0x53); //Register Hot Key ALT + S
             Win32Interop.RegisterHotKey(WIH.Handle, 1, 0x1 | 0x4000, 0x45); //Register Hot Key ALT + E
             Win32Interop.RegisterHotKey(WIH.Handle, 2, 0x1 | 0x4000, 0x52); //Register Hot Key ALT + R
             HWND.AddHook(HwndSourceHook);
             _ = Win32Interop.SetWindowLong(WIH.Handle, Win32Interop.SetWindowLongIndex.GWL_EXSTYLE, Win32Interop.ExtendedWindowStyles.WS_EX_TOOLWINDOW);
             SetElevateLabels();
+            if (RunAsHelper.GetOriginalInvokerDomainWithUserName() != RunAsHelper.GetCurrentDomainWithUserName())
+            {
+                CredentialExpirationServices.Add(
+                    RunAsHelper.GetOriginalInvokerDomainWithUserName(),
+                    new(RunAsHelper.GetOriginalInvokerSID())
+                );
+            }
+            CredentialExpirationServices.Add(
+                RunAsHelper.GetCurrentDomainWithUserName(),
+                new(RunAsHelper.GetCurrentSID())
+            );
         }
         public void OpenWindow(bool Center = false)
         {
@@ -286,12 +300,21 @@ namespace SuperLauncher
         }
         private void ElevateUser_MouseEnter(object sender, MouseEventArgs e)
         {
-            ExpirationBadge = new(CredentialExpirationService.PasswordExpirationMessage);
+            List<string> lines = [];
+            foreach (KeyValuePair<string, CredentialExpirationService> kvp in CredentialExpirationServices)
+            {
+                string message = string.Empty;
+                message += kvp.Key;
+                message += ": ";
+                message += kvp.Value.PasswordExpirationMessage;
+                lines.Add(message);
+            }
+            ExpirationBadge = new(string.Join('\n', lines));
             ExpirationBadge.Show();
         }
         private void ElevateUser_MouseLeave(object sender, MouseEventArgs e)
         {
-            if (ExpirationBadge != null) ExpirationBadge.Close();
+            ExpirationBadge?.Close();
         }
     }
 }

@@ -185,8 +185,8 @@ namespace SuperLauncher
             {
                 ComFolderView.GetFocusedItem(out int piItem);
                 ComFolderView.Item(piItem, out nint ppidl);
-                Win32Interop.SHGetNameFromIDList(ppidl, Win32Interop.SIGDN.SIGDN_NORMALDISPLAY, out string filePath);
-                if (Directory.Exists(CurrentFolder)) filePath = Path.Combine(CurrentFolder, filePath);
+                Win32Interop.SHGetNameFromIDList(ppidl, Win32Interop.SIGDN.SIGDN_FILESYSPATH, out string filePath);
+                if (Directory.Exists(CurrentFolder)) filePath = Path.Combine(CurrentFolder, Path.GetFileName(filePath));
                 if (filePath == null)
                 {
                     Shared.StartProcess(processPath);

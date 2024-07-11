@@ -24,6 +24,7 @@ namespace SuperLauncher
             TBUserName.Focus();
             CBRememberMe.IsChecked = Settings.Default.RememberMe;
             CBElevate.IsChecked = Settings.Default.AutoElevate;
+            CBAutoStart.IsChecked = AutoStartHelper.Status == AutoStartHelper.AutoStartStatus.Enabled;
             if (CredentialManager.CredReadA(
                 "Super Launcher",
                 CredentialManager.CredType.CRED_TYPE_GENERIC,
@@ -49,6 +50,7 @@ namespace SuperLauncher
         {
             Settings.Default.RememberMe = CBRememberMe.IsChecked.Value;
             Settings.Default.AutoElevate = CBElevate.IsChecked.Value;
+            AutoStartHelper.Status = CBAutoStart.IsChecked.Value ? AutoStartHelper.AutoStartStatus.Enabled : AutoStartHelper.AutoStartStatus.Disabled;
             if (TBUserName.Text != "" && !TBUserName.Text.Contains('\\')) TBUserName.Text = Environment.UserDomainName + "\\" + TBUserName.Text;
             if (!ShouldDisableUserInput() && Settings.Default.RememberMe)
             {

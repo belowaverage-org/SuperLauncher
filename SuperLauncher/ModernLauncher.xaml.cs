@@ -26,7 +26,7 @@ namespace SuperLauncher
         private readonly uint ShowSuperLauncherMessage = Win32Interop.RegisterWindowMessage("ShowSuperLauncher");
         private HwndSource HWND;
         private ModernLauncherBadge ExpirationBadge = null;
-        private readonly Dictionary<string, CredentialExpirationService> CredentialExpirationServices = [];
+        private readonly List<CredentialExpirationService> CredentialExpirationServices = [];
         private readonly DoubleAnimation RenderBoostAnimation = new()
         {
             Duration = TimeSpan.FromSeconds(0.5),
@@ -162,13 +162,17 @@ namespace SuperLauncher
             if (RunAsHelper.GetOriginalInvokerDomainWithUserName() != RunAsHelper.GetCurrentDomainWithUserName())
             {
                 CredentialExpirationServices.Add(
-                    RunAsHelper.GetOriginalInvokerDomainWithUserName(),
-                    new(RunAsHelper.GetOriginalInvokerSID())
+                    new(
+                        RunAsHelper.GetOriginalInvokerDomainWithUserName(),
+                        RunAsHelper.GetOriginalInvokerSID()
+                    )
                 );
             }
             CredentialExpirationServices.Add(
-                RunAsHelper.GetCurrentDomainWithUserName(),
-                new(RunAsHelper.GetCurrentSID())
+                new(
+                    RunAsHelper.GetCurrentDomainWithUserName(),
+                    RunAsHelper.GetCurrentSID()
+                )
             );
         }
         public void OpenWindow(bool Center = false)
@@ -301,12 +305,12 @@ namespace SuperLauncher
         private void ElevateUser_MouseEnter(object sender, MouseEventArgs e)
         {
             List<string> lines = [];
-            foreach (KeyValuePair<string, CredentialExpirationService> kvp in CredentialExpirationServices)
+            foreach (CredentialExpirationService service in CredentialExpirationServices)
             {
                 string message = string.Empty;
-                message += kvp.Key;
+                message += service.AccountName;
                 message += ": ";
-                message += kvp.Value.PasswordExpirationMessage;
+                message += service.PasswordExpirationMessage;
                 lines.Add(message);
             }
             ExpirationBadge = new(string.Join('\n', lines));

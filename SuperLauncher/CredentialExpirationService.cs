@@ -8,6 +8,7 @@ namespace SuperLauncher
 {
     public class CredentialExpirationService
     {
+        public readonly string AccountName;
         private readonly Timer CheckTimer = new();
         private readonly Timer NotifyTimer = new();
         private DateTime PasswordLastSet = DateTime.MaxValue;
@@ -46,8 +47,9 @@ namespace SuperLauncher
                 return PasswordExpirationDate.Subtract(DateTime.Now);
             }
         }
-        public CredentialExpirationService(SecurityIdentifier SID)
+        public CredentialExpirationService(string AccountName, SecurityIdentifier SID)
         {
+            this.AccountName = AccountName;
             this.SID = SID;
             Task.Run(() =>
             {
@@ -68,7 +70,7 @@ namespace SuperLauncher
         {
             if (PasswordExpirationDate.CompareTo(DateTime.Now.AddDays(Settings.Default.CredentialExpirationWarningDays)) <= 0)
             {
-                ModernLauncherNotifyIcon.Icon.BalloonTipTitle = RunAsHelper.GetCurrentDomainWithUserName();
+                ModernLauncherNotifyIcon.Icon.BalloonTipTitle = AccountName;
                 ModernLauncherNotifyIcon.Icon.BalloonTipText = PasswordExpirationMessage;
                 ModernLauncherNotifyIcon.Icon.ShowBalloonTip(0);
             }

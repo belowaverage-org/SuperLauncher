@@ -44,7 +44,7 @@ namespace SuperLauncher
         }
         private void BtnViewConfig_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("notepad.exe", "\"" + Settings.Default.configPath + "\"");
+            Shared.StartProcess("C:\\Windows\\notepad.exe", [Settings.Default.configPath]);
         }
         private void BtnElevate_MouseUp(object sender, MouseButtonEventArgs e)
         {

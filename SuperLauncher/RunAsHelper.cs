@@ -8,13 +8,14 @@ namespace SuperLauncher
     public static class RunAsHelper
     {
         public const string InvokerArg = "/OriginalInvoker:";
+        public const string InvokerSIDArg = "/OriginalInvokerSID:";
         public static string SelfPath = Process.GetCurrentProcess().MainModule.FileName;
         public static void Restart()
         {
             ProcessStartInfo psi = new()
             {
                 FileName = SelfPath,
-                Arguments = InvokerArg + GetOriginalInvokerDomainWithUserName(),
+                Arguments = InvokerArg + GetOriginalInvokerDomainWithUserName() + ' ' + InvokerSIDArg + GetOriginalInvokerSID().ToString(),
                 UseShellExecute = true
             };
             try { Process.Start(psi); } catch { return; }
@@ -25,7 +26,7 @@ namespace SuperLauncher
             ProcessStartInfo psi = new()
             {
                 FileName = SelfPath,
-                Arguments = InvokerArg + GetOriginalInvokerDomainWithUserName(),
+                Arguments = InvokerArg + GetOriginalInvokerDomainWithUserName() + ' ' + InvokerSIDArg + GetOriginalInvokerSID().ToString(),
                 UseShellExecute = true,
                 Verb = "RunAs"
             };
@@ -40,7 +41,7 @@ namespace SuperLauncher
             ProcessStartInfo psi = new()
             {
                 FileName = SelfPath,
-                Arguments = InvokerArg + GetOriginalInvokerDomainWithUserName(),
+                Arguments = InvokerArg + GetOriginalInvokerDomainWithUserName() + ' ' + InvokerSIDArg + GetOriginalInvokerSID().ToString(),
                 UseShellExecute = false,
                 UserName = UserName,
                 PasswordInClearText = Password,
@@ -109,7 +110,16 @@ namespace SuperLauncher
         }
         public static SecurityIdentifier GetOriginalInvokerSID()
         {
-            return new WindowsIdentity(GetOriginalInvokerUPN()).User;
+            try
+            {
+                string invokerArg = Shared.GetArugement("OriginalInvokerSID");
+                if (invokerArg != null) return new SecurityIdentifier(invokerArg);
+                return GetCurrentSID();
+            }
+            catch
+            {
+                return null;
+            }
         }
         public static SecurityIdentifier GetCurrentSID()
         {

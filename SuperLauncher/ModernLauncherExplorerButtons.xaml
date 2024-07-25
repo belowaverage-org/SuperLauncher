@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:SuperLauncher"
+      Focusable="False"
       mc:Ignorable="d" >
     <UserControl.Resources>
         <ResourceDictionary>
@@ -12,10 +13,10 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
-    <Grid>
-        <Button x:Name="Back" Style="{DynamicResource ExplorerButton}" Margin="0,0,0,0" FontFamily="{DynamicResource Icons}" Width="27" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
-        <Button x:Name="Forward" Style="{DynamicResource ExplorerButton}" Margin="29,0,0,0" FontFamily="{DynamicResource Icons}" Width="28" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
-        <Button x:Name="Up" Style="{DynamicResource ExplorerButton}" Margin="61,0,0,0" FontFamily="{DynamicResource Icons}" Width="28" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
-        <Button x:Name="Refresh" Style="{DynamicResource ExplorerButton}" Margin="93,0,0,0" FontFamily="{DynamicResource Icons}" Width="28" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
+    <Grid Focusable="False">
+        <Button x:Name="Back" Focusable="False" Style="{DynamicResource ExplorerButton}" Margin="0,0,0,0" FontFamily="{DynamicResource Icons}" Width="27" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
+        <Button x:Name="Forward" Focusable="False" Style="{DynamicResource ExplorerButton}" Margin="29,0,0,0" FontFamily="{DynamicResource Icons}" Width="28" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
+        <Button x:Name="Up" Focusable="False" Style="{DynamicResource ExplorerButton}" Margin="61,0,0,0" FontFamily="{DynamicResource Icons}" Width="28" Height="28" HorizontalAlignment="Left" VerticalAlignment="Top"></Button>
+        <Button x:Name="Refresh" Focusable="False" Style="{DynamicResource ExplorerButton}" Margin="93,0,0,0" FontFamily="{DynamicResource Icons}" Width="28" Height="28" HorizontalAlignment="Left" VerticalAlignment="Center"></Button>
     </Grid>
 </UserControl>

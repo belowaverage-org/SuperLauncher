@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Xml;
 
 namespace SuperLauncher
 {
@@ -76,6 +77,8 @@ namespace SuperLauncher
             foreach (ModernLauncherIcon mli in IconPanel.Children)
             {
                 Settings.Default.FileList.Add(mli.FilePath);
+                XmlNode node = Settings.Default.XDoc.SelectSingleNode("/SuperLauncher/AppList/App[. = \"" + mli.FilePath + "\"]");
+                node.Attributes.
             }
             Settings.Default.Save();
         }

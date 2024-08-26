@@ -48,5 +48,9 @@ namespace SuperLauncher
                 BtnRunAsAdmin.Opacity = 0.5;
             }
         }
+        private void BtnRename_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+
+        }
     }
 }

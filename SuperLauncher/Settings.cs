@@ -23,7 +23,7 @@ namespace SuperLauncher
         "   <RememberMe>false</RememberMe>" +
         "   <UseLegacyUI>false</UseLegacyUI>" +
         "   <AppList>" +
-        "       <App>C:\\Windows\\System32\\cmd.exe</App>" +
+        "       <App Name=\"Command Prompt\">C:\\Windows\\System32\\cmd.exe</App>" +
         "   </AppList>" +
         "   <Width>390</Width>" +
         "   <Height>230</Height>" +

@@ -17,6 +17,7 @@
         <local:ModernLauncherContextMenuButton x:Name="BtnRunAsAdmin" Text="Run as administrator" Icon="" MouseUp="BtnRunAsAdmin_MouseUp" />
         <local:ModernLauncherContextMenuButton x:Name="BtnOpenLocation" Text="Open file location" Icon="" MouseUp="BtnOpenLocation_MouseUp" />
         <Rectangle Fill="{DynamicResource BorderColorBrush}" Height="1" Margin="2" />
+        <local:ModernLauncherContextMenuButton x:Name="BtnRename" Text="Rename" Icon="" MouseUp="BtnRename_MouseUp" />
         <local:ModernLauncherContextMenuButton x:Name="BtnUnpin" Text="Unpin from Super Launcher" Icon="" MouseUp="BtnUnpin_MouseUp" />
     </StackPanel>
 </Page>

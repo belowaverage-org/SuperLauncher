@@ -17,6 +17,7 @@ namespace SuperLauncher
         public bool rFilterFocus = false;
         public ModernLauncherBadge Badge;
         public bool IsMouseDown = false;
+        public string Title = null;
         public Timer BadgeTimer = new()
         {
             Interval = 1000,
@@ -34,7 +35,15 @@ namespace SuperLauncher
             {
                 rFilePath = value;
                 Icon icon = Icon.ExtractAssociatedIcon(rFilePath);
-                NameText.Text = Shared.ExtRemover(rFilePath);
+                if (Name == null)
+                { 
+                    NameText.Text = Shared.ExtRemover(rFilePath); 
+                }
+                else
+                {
+                    NameText.Text = Title;
+                }
+
                 LIcon.Source = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
         }
@@ -57,10 +66,11 @@ namespace SuperLauncher
                 }
             }
         }
-        public ModernLauncherIcon(string FilePath)
+        public ModernLauncherIcon(string FilePath, string Title = null)
         {
             InitializeComponent();
             this.FilePath = FilePath;
+            this.Title = Title;
         }
         private readonly DoubleAnimation To1 = new()
         {

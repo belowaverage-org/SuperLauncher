@@ -35,7 +35,7 @@ namespace SuperLauncher
             {
                 rFilePath = value;
                 Icon icon = Icon.ExtractAssociatedIcon(rFilePath);
-                if (Name == null)
+                if (Title == null)
                 { 
                     NameText.Text = Shared.ExtRemover(rFilePath); 
                 }
@@ -43,7 +43,6 @@ namespace SuperLauncher
                 {
                     NameText.Text = Title;
                 }
-
                 LIcon.Source = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
         }
@@ -69,8 +68,8 @@ namespace SuperLauncher
         public ModernLauncherIcon(string FilePath, string Title = null)
         {
             InitializeComponent();
-            this.FilePath = FilePath;
             this.Title = Title;
+            this.FilePath = FilePath;
         }
         private readonly DoubleAnimation To1 = new()
         {

@@ -58,17 +58,19 @@ namespace SuperLauncher
         {
             try
             {
+                XmlNodeList apps = Settings.Default.XDoc.SelectNodes("/SuperLauncher/AppList/App");
                 IconPanel.Children.Clear();
-                foreach (string filePath in Settings.Default.FileList)
+                foreach (XmlNode app in apps)
                 {
-                    if (!File.Exists(filePath)) continue;
-                    ModernLauncherIcon mli = new(filePath);
+                    if (!File.Exists(app.InnerText)) continue;
+                    
+                    ModernLauncherIcon mli = new(app.InnerText);
                     IconPanel.Children.Add(mli);
                 }
             }
             catch
             {
-                IconPanel.Children.Add(new ModernLauncherIcon(@"C:\Windows\System32\cmd.exe"));
+                IconPanel.Children.Add(new ModernLauncherIcon(@"C:\Windows\System32\cmd.exe", "Command Prompt"));
             }
         }
         private void CommitIconsToFile()
@@ -77,8 +79,8 @@ namespace SuperLauncher
             foreach (ModernLauncherIcon mli in IconPanel.Children)
             {
                 Settings.Default.FileList.Add(mli.FilePath);
-                XmlNode node = Settings.Default.XDoc.SelectSingleNode("/SuperLauncher/AppList/App[. = \"" + mli.FilePath + "\"]");
-                node.Attributes.
+                //XmlNode node = Settings.Default.XDoc.SelectSingleNode("/SuperLauncher/AppList/App[. = \"" + mli.FilePath + "\"]");
+                //node.Attributes.
             }
             Settings.Default.Save();
         }

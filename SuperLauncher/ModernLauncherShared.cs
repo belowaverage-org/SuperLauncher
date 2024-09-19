@@ -13,10 +13,12 @@ namespace SuperLauncher
     {
         public static double ScalePixelsUp(this DpiScale DPI, double Pixels)
         {
+            if (DPI.DpiScaleX == 0) return Pixels;
             return Pixels * DPI.DpiScaleX;
         }
         public static double ScalePixelsDown(this DpiScale DPI, double Pixels)
         {
+            if (DPI.DpiScaleX == 0) return Pixels;
             return Pixels / DPI.DpiScaleX;
         }
         public static string GetArugement(string ArgumentName)

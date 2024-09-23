@@ -17,7 +17,26 @@ namespace SuperLauncher
         public bool rFilterFocus = false;
         public ModernLauncherBadge Badge;
         public bool IsMouseDown = false;
-        public string Title = null;
+        private string rTitle = "";
+        public string Title
+        {
+            get
+            {
+                return rTitle;
+            }
+            set
+            {
+                if (string.IsNullOrEmpty(value))
+                {
+                    rTitle = Shared.ExtRemover(rFilePath);
+                }
+                else
+                {
+                    rTitle = value;
+                }
+                NameText.Text = rTitle;
+            }
+        }
         public Timer BadgeTimer = new()
         {
             Interval = 1000,
@@ -35,14 +54,6 @@ namespace SuperLauncher
             {
                 rFilePath = value;
                 Icon icon = Icon.ExtractAssociatedIcon(rFilePath);
-                if (Title == null)
-                { 
-                    NameText.Text = Shared.ExtRemover(rFilePath); 
-                }
-                else
-                {
-                    NameText.Text = Title;
-                }
                 LIcon.Source = Imaging.CreateBitmapSourceFromHIcon(icon.Handle, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions());
             }
         }
@@ -68,8 +79,8 @@ namespace SuperLauncher
         public ModernLauncherIcon(string FilePath, string Title = null)
         {
             InitializeComponent();
-            this.Title = Title;
             this.FilePath = FilePath;
+            this.Title = Title;
         }
         private readonly DoubleAnimation To1 = new()
         {
@@ -143,7 +154,7 @@ namespace SuperLauncher
         private void Menu_MouseUp(object sender, MouseButtonEventArgs e)
         {
             ModernLauncherContextMenuIcon menu = (ModernLauncherContextMenuIcon)sender;
-            if (e.Source == menu.BtnUnpin)
+            if (e.Source == menu.BtnUnpin || e.Source == menu.BtnRename)
             {
                 PWindow.Focus();
             }

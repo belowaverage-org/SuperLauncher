@@ -1,0 +1,42 @@
+﻿<Window x:Class="SuperLauncher.ModernLauncherRenameUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SuperLauncher"
+        mc:Ignorable="d"
+        Title="Super Launcher - Rename Shortcut"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        FontFamily="{DynamicResource Font}"
+        Loaded="Window_Loaded" 
+        Height="260"
+        Width="345"
+        Topmost="True" >
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/WinUI.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <WindowChrome.WindowChrome>
+        <WindowChrome 
+            CaptionHeight="0"
+            GlassFrameThickness="-1"
+            ResizeBorderThickness="0"
+            UseAeroCaptionButtons="true"
+        />
+    </WindowChrome.WindowChrome>
+    <Grid Background="{DynamicResource PanelColorBrush}">
+        <Grid x:Name="Grid" Background="{DynamicResource AcrylicNoise}">
+            <Label Content="Rename shortcut" Foreground="{DynamicResource TextColorBrush}" FontSize="20" FontWeight="Normal" FontStyle="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="17,46,0,0" />
+            <Label Content="Super Launcher" Foreground="{DynamicResource TextColorBrush}" FontWeight="Normal" FontStyle="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="32,6,0,0" />
+            <Label Content="Please enter a new shortcut name" Foreground="{DynamicResource TextColorBrush}" FontWeight="Normal" FontStyle="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="18,93,0,0" />
+            <Label Content="" Foreground="{DynamicResource TextColorBrush}" FontFamily="{DynamicResource Icons}" FontWeight="Normal" FontStyle="Normal" FontSize="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6,6,0,0" />
+            <TextBox x:Name="TBName" KeyDown="TBName_KeyDown" Tag="" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,138,0,0" Width="298" Height="34" />
+            <Button x:Name="BtnOK" Content="Apply" HorizontalAlignment="Left" Margin="23,200,0,0" VerticalAlignment="Top" Height="35" Width="141" Click="BtnOK_Click" />
+            <Button x:Name="BtnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="180,200,0,0" VerticalAlignment="Top" Height="35" Width="141" Click="BtnCancel_Click" />
+        </Grid>
+    </Grid>
+</Window>

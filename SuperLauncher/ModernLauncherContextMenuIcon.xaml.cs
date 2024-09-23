@@ -50,7 +50,7 @@ namespace SuperLauncher
         }
         private void BtnRename_MouseUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-
+            new ModernLauncherRenameUI(Icon).ShowDialog();
         }
     }
 }

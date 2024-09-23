@@ -7,7 +7,8 @@ namespace SuperLauncher
     {
         private const string SuperLauncherPath = "C:\\Users\\Public\\below average\\Super Launcher\\SuperLauncherBootstrap.exe";
         private const string RelativeRunKeyPath = "\\Software\\Microsoft\\Windows\\CurrentVersion\\Run";
-        public static AutoStartStatus Status {
+        public static AutoStartStatus Status
+        {
             get => GetStatus();
             set
             {
@@ -35,7 +36,7 @@ namespace SuperLauncher
                 key.Close();
             }
         }
-        private static void Disable() 
+        private static void Disable()
         {
             if (Status == AutoStartStatus.Disabled) return;
             RegistryKey key = Registry.Users.OpenSubKey(RunKeyPath, true);
